@@ -2,6 +2,7 @@
   "require": {
     "craftcms/cms": "^3.0.0",
     "craftcms/redactor": "^2.4",
+    "craftcms/webhooks": "2.2.0",
     "lukeyouell/craft-sidebarthemes": "1.0.5",
     "vlucas/phpdotenv": "^3.4.0"
   },
