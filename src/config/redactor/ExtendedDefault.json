@@ -1,0 +1,5 @@
+{
+    "buttons": ["html", "format", "bold", "italic", "deleted", "lists", "image", "file", "link"],
+    "toolbarFixed": true
+  }
+     
