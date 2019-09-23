@@ -1,5 +1,23 @@
 {
-    "buttons": ["html", "format", "bold", "italic", "deleted", "lists", "image", "file", "link"],
-    "toolbarFixed": true
+  "buttons": [
+    "html",
+    "format",
+    "bold",
+    "italic",
+    "deleted",
+    "lists",
+    "image",
+    "file",
+    "link"
+  ],
+  "toolbarFixed": true,
+  "formattingAdd": {
+    "inline-code-add": {
+      "title": "Inline Code",
+      "api": "module.inline.format",
+      "args": {
+        "tag": "code"
+      }
+    }
   }
-     
+}
