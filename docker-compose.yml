@@ -25,15 +25,6 @@ services:
       - 80:80
     volumes:
       - ./src/web:/var/www/html/web
-
-  # postgresql
-  database:
-    container_name: "postgresql"
-    image: postgres:10.10
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    ports:
-      - 54320:5432
       
 volumes:
   db-data:
