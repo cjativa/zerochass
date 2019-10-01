@@ -25,16 +25,22 @@ return [
 
         // Whether to save the project config out to config/project.yaml
         // (see https://docs.craftcms.com/v3/project-config.html)
-        'useProjectConfigFile' => false,
+        'useProjectConfigFile' => true,
 
         // Whether the system should run in Headless Mode, which optimizes the system and Control Panel for headless CMS implementations 
-        'headlessMode' => true
+        'headlessMode' => true,
+
+        // Prevent administrative changes from taking place
+        'allowAdminChanges' => false,
     ],
 
     // Dev environment settings
     'dev' => [
         // Dev Mode (see https://craftcms.com/guides/what-dev-mode-does)
         'devMode' => true,
+
+        // Allows administrative changes on development
+        'allowAdminChanges' => true
     ],
 
     // Staging environment settings
