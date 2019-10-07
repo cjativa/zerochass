@@ -15,6 +15,7 @@ services:
       - ./src/modules:/var/www/html/modules
       - ./src/web:/var/www/html/web
       - ./src/composer.json:/var/www/html/composer.json
+      - ./src/.env:/var/www/html/.env
 
   # nginx server
   nginx:
@@ -25,6 +26,5 @@ services:
       - 80:80
     volumes:
       - ./src/web:/var/www/html/web
-      
-volumes:
-  db-data:
+    depends_on: 
+      - php
