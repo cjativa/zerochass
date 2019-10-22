@@ -19,5 +19,5 @@
  */
 
 return [
-    'api' => 'graphql/api',
+    'gqlApi' => 'graphql/api',
 ];
