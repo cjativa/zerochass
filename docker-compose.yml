@@ -9,8 +9,8 @@ services:
     build:
       context: .
       dockerfile: ./.docker-config/php/Dockerfile
-    ports: 
-      - "9000:9000"
+    expose:
+      - 9000
     volumes:
       - ./src/config:/var/www/html/config
       - ./src/templates:/var/www/html/templates
@@ -30,9 +30,8 @@ services:
     volumes:
       - ./.docker-config/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./src/web:/var/www/html/web
-      - ./node/dist:/var/www/html/node/dist
     depends_on: 
-      # - php
+      - php
       - node
 
   # zerochass application
@@ -42,21 +41,11 @@ services:
       user: "node"
       working_dir: /home/node/app
       environment:
-          - PORT=4000
-          - GRAPH_EP=https://api-useast.graphcms.com/v1/cjwcy1xgc1kjq019nsnr28gkx/master
-          - GRAPH_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJ0b2tlbklkIjoiYTRhZjY3NzQtN2Y3Mi00NjY1LTk5ZGQtYzc3NzMxZGQ0MGZmIn0.cO86jQQqog6036kimsi6BBdNNv1BUT--ruTjQPSlV08
-          - CRAFT_CMS_URL=172.20.0.3
-          - AWS_REGION=us-east-1
-          - COGNITO_USER_POOL_ID=us-east-1_HDIBkqTfu
-          - COGNITO_WEB_CLIENT_ID=10l54l9prq1od0aaa2qd77vlia
-          - DB_HOST="null"
-          - DB_USER=cjativa
-          - DB_PASSWORD=cjativa
-          - DB_NAME=postgres
+          
       volumes:
-        - ./.docker-config/node/dist:/home/node/app
+        - ../zerochass/:/home/node/app
       ports:
           - "4000:4000"
-      # depends_on: 
-        # - php
-      command: "node index.js"
+      depends_on: 
+        - php
+      command: "node dist/index.js"
