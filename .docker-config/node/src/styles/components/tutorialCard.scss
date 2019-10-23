@@ -1,0 +1,82 @@
+.tutorial-card {
+  grid-column: 2;
+  height: 400px;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  h1,
+  p {
+    margin: 30px;
+    line-height: 25px;
+  }
+
+  a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .black,
+  .pink,
+  .teal {
+    color: #ffffff;
+  }
+
+  .black {
+    background-color: #212121;
+  }
+
+  .pink {
+    background-color: #ff3f6f;
+  }
+
+  .teal {
+    background-color: #23daca;
+  }
+
+  .white {
+    background-color: #f6f7f8;
+    color: #444444;
+  }
+
+  .black:hover,
+  .pink:hover,
+  .white:hover,
+  .teal:hover {
+    filter: brightness(1.1);
+  }
+
+  @media (min-width: 30rem) {
+    height: 280px;
+
+    h1 {
+      font-size: 28px;
+    }
+  
+    p {
+      font-size: 16px;
+    }
+
+    p {
+      width: 60%;
+    }
+
+    a {
+      border-radius: 30px;
+    }
+  }
+
+  @media (min-width: 60rem) {
+    width: 100%;
+
+    p {
+      width: 60%;
+    }
+  }
+}

@@ -1,0 +1,2 @@
+export const FETCH_TUTORIALS = 'FETCH_TUTORIALS';
+export const FETCH_TUTORIAL = 'FETCH_TUTORIAL';

@@ -1,0 +1,98 @@
+
+
+h1,
+h2,
+h3,
+p,
+ul,
+button,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #141414;
+  color: #ffffff;
+  font-family: "Nunito" ;
+
+  position: relative;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.black {
+  background-color: #212121;
+  color: #ffffff;
+}
+
+.pink {
+  background-color: #ff3f6f;
+  color: #ffffff;
+}
+
+.white {
+  background-color: #f6f7f8;
+  color: #444444;
+}
+
+.teal {
+  background-color: #23daca;
+  color: #ffffff;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 30rem) {
+}
+
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Top-level items
+@import "./components/navigationBar.scss";
+@import "./components/siteBanner.scss";
+@import "./components/contentList.scss";
+@import "./components/tutorialCard.scss";
+@import "./components/informationBanner.scss";
+@import "./components/technologiesBanner.scss";
+@import "./components/footer.scss";
+@import "./components//userMenu.scss";
+
+// Authentication styles
+@import "./components/authentication/baseAuthenticationPage.scss";
+@import "./components/authentication/login.scss";
+@import "./components/authentication/signUp.scss";
+
+// Tutorial Component Styles
+@import "./components/tutorialPage.scss";
+@import "./components/tutorialComponents/header.scss";
+@import "./components/tutorialComponents/section.scss";
+@import "./components/tutorialComponents/progressCheck.scss";
+@import "./components/tutorialComponents/contentBar.scss";
+
+// Dialog Component Styles
+@import "./components/dialogComponents/baseDialog.scss";
+@import "./components/dialogComponents/loginDialog.scss";
+@import "./components/dialogComponents/signUpDialog.scss";
+
+
+@import "./components/about.scss";
+
+// User Component Styles
+@import "./components/user/userPage.scss";
+@import "./components/user/profile.scss";
+@import "./components/user/connect.scss";
+
+// Media Queries start at 
+
+// 640px - media (min-width: 40rem)
+// 960px - media (min-width: 60rem)

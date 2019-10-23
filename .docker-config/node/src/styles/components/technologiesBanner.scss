@@ -1,0 +1,43 @@
+.technologies-banner {
+  background-color: #3f0056;
+
+  .tech-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .tech-image {
+    height: 150px;
+    width: 150px;
+  }
+  .tech-item {
+    padding: 30px 30px;
+  }
+
+  p,
+  h3,
+  br {
+    margin: 0px;
+  }
+
+  @media (min-width: 30rem) {
+    display: flex;
+    height: 400px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .tech-list {
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .tech-item {
+      padding: 0px;
+      width: 300px;
+    }
+  }
+}

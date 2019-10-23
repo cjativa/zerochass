@@ -1,0 +1,71 @@
+{
+  "name": "zerochass",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "amazon-cognito-identity-js": "^3.0.13",
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.3.1",
+    "graphql-tag": "^2.10.1",
+    "inline-style-prefixer": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.1",
+    "knex": "^0.19.0",
+    "marked": "^0.6.2",
+    "neo-async": "^2.6.1",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.11.0",
+    "path": "^0.12.7",
+    "pg": "^7.11.0",
+    "prismjs": "^1.16.0",
+    "react": "^16.8.1",
+    "react-device-detect": "^1.6.2",
+    "react-dom": "^16.8.1",
+    "react-modal": "^3.8.1",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^3.1.1",
+    "redux": "^4.0.1",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.6.3"
+  },
+  "scripts": {
+    "start": "PORT=3000 react-scripts start",
+    "watch": "tsc -w -p server/",
+    "server": "nodemon dist/index.js",
+    "build": "react-scripts build && tsc -p server/",
+    "postbuild": "cp -r build dist/ && cp package.json '.npmrc' dist/ && cd dist/; zip -r ../dist.zip * .[^.]*",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm:watch\" \"npm:server\" \"npm:start\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.1",
+    "@types/jest": "24.0.0",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/marked": "^0.6.5",
+    "@types/node": "10.12.24",
+    "@types/prismjs": "^1.16.0",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.1",
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.18.10"
+  },
+  "proxy": "http://localhost:4000/"
+}

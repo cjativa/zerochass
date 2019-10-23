@@ -1,0 +1,219 @@
+.navigation-bar {
+  height: 70px;
+  width: 100%;
+  background-color: #141414;
+  border-bottom: 1px solid #444444;
+
+  font-family: "Nunito";
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .main {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100% auto;
+  }
+
+  .overlay {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.685);
+  }
+
+  .main > a {
+    align-items: center;
+  }
+
+  .logo {
+    grid-column: 1 / 3;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .logo > span {
+    justify-self: center;
+  }
+
+  ul {
+    display: none;
+    grid-row: 2;
+    grid-column: 1 / 4;
+
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .dialog-ctrl {
+    display: none;
+  }
+
+  .show {
+    display: grid;
+  }
+
+  ul > li > a,
+  ul > li > button {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+
+    font-size: 18px;
+    background-color: #141414;
+    color: #ffffff;
+  }
+
+  input {
+    padding: 10px;
+    border: none;
+  }
+
+  .menu-btn {
+    display: flex;
+    justify-self: end;
+    font-size: 41px;
+  }
+
+  ul > :nth-child(5) > a {
+    color: #ff3f6f;
+  }
+
+  .search-input {
+    background-color: #313131;
+    color: #828282;
+    height: 90px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-text {
+    font-size: 18px;
+  }
+
+  /** 640px wide screen*/
+  @media (min-width: 40rem) {
+    display: grid;
+    grid-template-columns: 1vw auto 1vw;
+
+    .main {
+      grid-column: 2;
+
+      grid-template-columns: min-content 1fr;
+      grid-template-rows: 1fr;
+      grid-gap: 20px;
+    }
+
+    /* Hide menu button on this screen width and higher */
+    .menu-btn {
+      display: none;
+    }
+
+    .logo {
+      grid-column: 1;
+
+      width: fit-content;
+      display: flex;
+      flex-direction: row;
+    }
+
+    ul {
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      z-index: 0;
+
+      display: grid;
+      grid-template-columns: repeat(2, minmax(80px, 1fr)) minmax(20px, 5fr) repeat(2, minmax(80px, 1fr));
+      grid-template-rows: none;
+      grid-gap: 10px;
+
+      font-size: 16px;
+    }
+
+    .link-ctrl {
+      display: none;
+    }
+
+    .dialog-ctrl {
+      display: block;
+    }
+
+    /* Link styles */
+
+    button {
+      font-family: "Nunito";
+    }
+
+    /* Transparent border by default */
+    ul > li > a,
+    ul > li > button {
+      border-bottom: 3px solid transparent;
+    }
+
+    /* Color border on hover */
+    ul > li > a:hover,
+    ul > li > a:active,
+    ul > li > button:hover,
+    ul > li > button:active {
+      border-bottom: 3px solid #d6d1d1;
+      color: #d6d1d1;
+    }
+
+    ul > :nth-child(7) > button {
+      color: #ff3f6f;
+    }
+
+    /* Different hover color for sign up button */
+    ul > :nth-child(7) > button:active,
+    ul > :nth-child(7) > button:hover {
+      border-bottom: 3px solid #ff3f6f;
+      color: #ff3f6f;
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      display: flex;
+      height: 60%;
+      border-radius: 8px;
+    }
+  }
+
+  /** 960px wide screen*/
+  @media (min-width: 60rem) {
+    grid-template-columns: 10vw auto 10vw;
+
+    ul {
+      grid-gap: 20px;
+    }
+
+    .search {
+      width: 95%;
+    }
+  }
+}
