@@ -37,15 +37,18 @@ services:
   # zerochass application
   node:
       container_name: "node"
-      image: "node:10"
+      build:
+        context: .
+        dockerfile: ./.docker-config/node/Dockerfile
       user: "node"
       working_dir: /home/node/app
-      environment:
-          
+      env_file:
+        - .env
       volumes:
         - ../zerochass/:/home/node/app
       ports:
           - "4000:4000"
+          - "3000:3000"
       depends_on: 
         - php
-      command: "node dist/index.js"
+      command: "npm run dev"
