@@ -1,3 +1,3 @@
 FROM node:10
 
-RUN npm install -g nodemon
+RUN npm_config_user=root npm install -g nodemon concurrently typescript react-scripts node-sass
