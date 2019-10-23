@@ -10,7 +10,7 @@ export const SiteBanner = () => {
                         <p className="subheader">practical and goal-oriented resources</p>
                     </div>
                     <div className="button-container">
-                        <Link className="browse-btn" to="/tutorials">BROWSE TUTORIALS</Link>
+                        <Link className="browse-btn" to="/">BROWSE TUTORIALS</Link>
                         {/* <Link className="join-btn" to="/sign-up">JOIN ZEROCHASS</Link> */}
                     </div>
                 </div>
