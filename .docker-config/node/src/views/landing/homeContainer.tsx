@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import { SiteBannerContainer } from 'containers/siteBanner';
+import { SiteBanner } from 'views/landing/siteBanner';
 import { ContentList } from './contentList';
-import { TechnologiesBannerContainer } from 'containers/technologiesBanner';
+import { TechnologiesBanner } from 'views/landing/technologiesBanner';
 
 
 export const HomeContainer = () => {
     return (
         <>
-            <SiteBannerContainer />
+            <SiteBanner />
             <ContentList />
             {/* <TechnologiesBannerContainer /> */}
         </>

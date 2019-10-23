@@ -1,11 +1,7 @@
 import * as React from 'react';
-
 import { Link } from 'react-router-dom';
 
-class SiteBanner extends React.Component {
-
-    render() {
-
+export const SiteBanner = () => {
         return (
             <div className="site-banner">
                 <div className="content">
@@ -20,7 +16,4 @@ class SiteBanner extends React.Component {
                 </div>
             </div>
         )
-    }
 }
-
-export { SiteBanner };

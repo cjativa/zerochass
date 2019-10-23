@@ -6,9 +6,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ConnectedNavigationBarContainer } from 'containers/navigationBarContainer';
 import { HomeContainer } from 'views/landing/homeContainer';
 import { TutorialContainer } from 'containers/tutorialContainer';
-import { InformationBannerContainer } from 'containers/informationBanner';
-import { FooterContainer } from 'containers/footer';
-import { AboutContainer } from 'containers/aboutContainer';
+import { InformationBanner } from 'views/shared/informationBanner';
+import { Footer } from 'views/shared/footer';
+import { About } from 'views/about';
 import { UserPageContainer } from 'containers/user/userPageContainer';
 
 class Application extends React.Component {
@@ -33,7 +33,7 @@ class Application extends React.Component {
                       <Route exact path="/" component={HomeContainer} />
                       <Route path="/tutorial/:slug" component={TutorialContainer} />
                       {/* <Route path="/user" component={UserPageContainer} /> */}
-                      <Route path="/about" component={AboutContainer} />
+                      <Route path="/about" component={About} />
                     </Switch>
 
                   </>
@@ -41,8 +41,8 @@ class Application extends React.Component {
               }} />
             </Switch>
 
-            <InformationBannerContainer />
-            <FooterContainer />
+            <InformationBanner />
+            <Footer />
           </>
         </BrowserRouter>
       </div>
