@@ -1,7 +1,7 @@
 .tutorial-page {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: #1e1d1d;
+  background-color: #f4f4f4;
 
   h2,
   p {
@@ -38,6 +38,8 @@
 
     .tutorial-content {
       grid-column: 2;
+      border-left: 1px solid lightgray;
+      border-right: 1px solid lightgray;
     }
 
     .content-grid {
