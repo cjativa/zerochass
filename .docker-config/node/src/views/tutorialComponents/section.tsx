@@ -16,7 +16,7 @@ interface Props {
     content: Tutorial['tutorialContent'][0];
     id: string;
     index: number
-    onProgressClick: (index: number) => void
+    progressCheck: JSX.Element
 }
 
 export class Section extends React.Component<Props> {
@@ -31,8 +31,7 @@ export class Section extends React.Component<Props> {
 
     render() {
 
-        const { content, id, onProgressClick, index } = this.props;
-        const sectionCompleted = null;
+        const { content, id, progressCheck } = this.props;
 
         return (
             <section className="section line-numbers">
@@ -42,7 +41,7 @@ export class Section extends React.Component<Props> {
                         <p dangerouslySetInnerHTML={{ __html: marked(content.sectionContent) }}></p>
                         <div className="section-progress">
                             <hr className="section-rule" />
-                            <ProgressCheck sectionCompleted={sectionCompleted} onProgressClick={onProgressClick} clickIndex={index} />
+                            {progressCheck}
                         </div>
                     </div>
                 </div>

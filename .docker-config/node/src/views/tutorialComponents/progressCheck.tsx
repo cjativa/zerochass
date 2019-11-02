@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 interface Props {
-    sectionCompleted: boolean,
+    sectionComplete: boolean,
     onProgressClick: any,
-    clickIndex: number
+    index: number
 }
 
 export const ProgressCheck = (props: Props) => {
 
     let progressClass = '';
 
-    switch (props.sectionCompleted) {
+    switch (props.sectionComplete) {
         case null:
             progressClass = 'not-started';
             break;
@@ -25,10 +25,10 @@ export const ProgressCheck = (props: Props) => {
             break;
     }
 
-    const { onProgressClick, clickIndex } = props;
+    const { onProgressClick, index } = props;
 
     return (
-        <span id="progress-span" className="fa-stack fa-2x" onClick={() => { onProgressClick(clickIndex) }}>
+        <span id="progress-span" className="fa-stack fa-2x" onClick={() => { onProgressClick(index) }}>
             <i className={`fas fa-circle fa-stack-2x ${progressClass}-bg`}></i>
             <i className={`fas fa-check fa-stack-1x fa-inverse ${progressClass}-fg`} style={{ fontSize: '38px' }}></i>
         </span>

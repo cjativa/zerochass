@@ -5,13 +5,14 @@ import { Tutorial } from "interfaces/tutorial";
 import { Header } from 'views/tutorialComponents/header';
 import { Section } from 'views/tutorialComponents/section';
 import { ContentBar } from 'views/tutorialComponents/contentBar';
+import { ProgressCheck } from "./progressCheck";
 
 interface Props {
 	tutorial: Tutorial;
 }
 
 interface State {
-	sectionInformation: { title: string, id: string }[],
+	sectionInformation: { title: string, id: string, sectionComplete: boolean }[],
 }
 
 class TutorialPage extends React.Component<Props, State> {
@@ -35,13 +36,13 @@ class TutorialPage extends React.Component<Props, State> {
 	parseContentSections = () => {
 
 		const { tutorialContent } = this.props.tutorial;
-		const sectionInformation = [];
+		const sectionInformation: State["sectionInformation"] = [];
 
 		tutorialContent.forEach((section) => {
 
 			const { sectionTitle: title } = section;
 			const id = this.slugify(title);
-			const meta = { title, id };
+			const meta = { title, id, sectionComplete: null };
 
 			this.sectionRefs.push(React.createRef());
 			sectionInformation.push(meta);
@@ -51,10 +52,20 @@ class TutorialPage extends React.Component<Props, State> {
 	}
 
 	onProgressClick = (index: number) => {
-		index = index + 1;
-		if (index !== this.state.sectionInformation.length) {
-			this.sectionRefs[index].current.scrollIntoView({ behavior: "smooth" });
+		const nextIndex = index + 1;
+		if (nextIndex !== this.state.sectionInformation.length) {
+			this.sectionRefs[nextIndex].current.scrollIntoView({ behavior: "smooth" });
 		}
+
+		const sectionInformation = [...this.state.sectionInformation];
+		sectionInformation[index].sectionComplete = !sectionInformation[index].sectionComplete;
+
+		this.setState((previousState) => {
+			return {
+				...previousState,
+				sectionInformation
+			}
+		});
 	}
 
 	slugify = (text) => {
@@ -84,11 +95,22 @@ class TutorialPage extends React.Component<Props, State> {
 
 						{/* Display the content sections */}
 						<div className="sections">
-							{tutorialContent.map((content, index) => {
+							{sectionInformation.length > 0 && tutorialContent.map((content, index) => {
+
+								const sectionComplete = sectionInformation[index].sectionComplete;
+
+								// Slugify the title
 								const id = this.slugify(content.sectionTitle);
+
+								// Build the Progress Check component
+								const progressCheck = (
+									<ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
+								)
+
+								// Return the composed Section component
 								return (
 									<div key={index} ref={this.sectionRefs[index]}>
-										<Section content={content} key={index} index={index} id={id} onProgressClick={onProgressClick} />
+										<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
 									</div>
 								);
 							})}
