@@ -11,10 +11,10 @@ export const ProgressCheck = (props: Props) => {
     let progressClass = '';
 
     switch (props.sectionComplete) {
-        case null:
+        case false:
             progressClass = 'not-started';
             break;
-        case false:
+        case null:
             progressClass = 'in-progress';
             break;
         case true:

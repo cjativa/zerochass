@@ -42,7 +42,7 @@ class TutorialPage extends React.Component<Props, State> {
 
 			const { sectionTitle: title } = section;
 			const id = this.slugify(title);
-			const meta = { title, id, sectionComplete: null };
+			const meta = { title, id, sectionComplete: false };
 
 			this.sectionRefs.push(React.createRef());
 			sectionInformation.push(meta);
