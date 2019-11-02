@@ -51,9 +51,9 @@ class TutorialPage extends React.Component<Props, State> {
 	}
 
 	onProgressClick = (index: number) => {
-		index = index+1;
+		index = index + 1;
 		if (index !== this.state.sectionInformation.length) {
-			this.sectionRefs[index].current.scrollIntoView();
+			this.sectionRefs[index].current.scrollIntoView({ behavior: "smooth" });
 		}
 	}
 
