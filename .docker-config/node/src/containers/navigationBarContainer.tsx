@@ -16,9 +16,6 @@ type Props = MappedProps & ConnectedProps;
 class NavigationBarContainer extends React.Component<Props> {
 
     render() {
-
-        console.log('Rendering');
-
         const { signedIn, name } = this.props;
 
         return (
