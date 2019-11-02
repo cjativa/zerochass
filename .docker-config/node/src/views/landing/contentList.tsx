@@ -67,7 +67,6 @@ export const ContentList = () => {
     const { tutorials } = tutorialState;
     const sorted = generateFourColor(tutorials);
 
-
     return (
 
         <div className="content-list">

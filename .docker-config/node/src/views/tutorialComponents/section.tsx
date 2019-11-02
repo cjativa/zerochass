@@ -14,6 +14,9 @@ import 'prismjs/components/prism-tsx.min.js';
 
 interface Props {
     content: Tutorial['tutorialContent'][0];
+    id: string;
+    index: number
+    onProgressClick: (index: number) => void
 }
 
 export class Section extends React.Component<Props> {
@@ -22,29 +25,24 @@ export class Section extends React.Component<Props> {
         super(props);
     }
 
-    onProgressClick = () => {
-        console.log(`Progress was clicked so marking this`);
-    }
-
     componentDidMount() {
         prismjs.highlightAll();
     }
 
     render() {
 
-        const { content } = this.props;
-        const { onProgressClick } = this;
+        const { content, id, onProgressClick, index } = this.props;
         const sectionCompleted = null;
 
         return (
             <section className="section line-numbers">
                 <div className="section-grid">
                     <div className="data">
-                        <h2 id={content.sectionTitle}>{content.sectionTitle}</h2>
+                        <h2 id={id}>{content.sectionTitle}</h2>
                         <p dangerouslySetInnerHTML={{ __html: marked(content.sectionContent) }}></p>
                         <div className="section-progress">
                             <hr className="section-rule" />
-                            {/* <ProgressCheck sectionCompleted={sectionCompleted} onProgressClick={onProgressClick} /> */}
+                            <ProgressCheck sectionCompleted={sectionCompleted} onProgressClick={onProgressClick} clickIndex={index} />
                         </div>
                     </div>
                 </div>

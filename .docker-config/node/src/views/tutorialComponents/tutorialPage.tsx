@@ -11,10 +11,12 @@ interface Props {
 }
 
 interface State {
-	sectionInformation: any,
+	sectionInformation: { title: string, id: string }[],
 }
 
 class TutorialPage extends React.Component<Props, State> {
+
+	sectionRefs: any[];
 
 	constructor(props) {
 		super(props);
@@ -22,6 +24,8 @@ class TutorialPage extends React.Component<Props, State> {
 		this.state = {
 			sectionInformation: [],
 		}
+
+		this.sectionRefs = [];
 	}
 
 	componentDidMount = () => {
@@ -36,16 +40,36 @@ class TutorialPage extends React.Component<Props, State> {
 		tutorialContent.forEach((section) => {
 
 			const { sectionTitle: title } = section;
-;
-			const meta = { title, id: title };
+			const id = this.slugify(title);
+			const meta = { title, id };
+
+			this.sectionRefs.push(React.createRef());
 			sectionInformation.push(meta);
 		});
+
 		this.setState({ sectionInformation });
+	}
+
+	onProgressClick = (index: number) => {
+		index = index+1;
+		if (index !== this.state.sectionInformation.length) {
+			this.sectionRefs[index].current.scrollIntoView();
+		}
+	}
+
+	slugify = (text) => {
+		return text.toString().toLowerCase()
+			.replace(/\s+/g, '-')           // Replace spaces with -
+			.replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+			.replace(/\-\-+/g, '-')         // Replace multiple - with single -
+			.replace(/^-+/, '')             // Trim - from start of text
+			.replace(/-+$/, '');            // Trim - from end of text
 	}
 
 	render() {
 
 		const { title, tags, featuredImage, color, tutorialContent } = this.props.tutorial;
+		const { onProgressClick } = this;
 		const { sectionInformation } = this.state;
 
 		return (
@@ -61,7 +85,12 @@ class TutorialPage extends React.Component<Props, State> {
 						{/* Display the content sections */}
 						<div className="sections">
 							{tutorialContent.map((content, index) => {
-								return (<Section content={content} key={index} />);
+								const id = this.slugify(content.sectionTitle);
+								return (
+									<div key={index} ref={this.sectionRefs[index]}>
+										<Section content={content} key={index} index={index} id={id} onProgressClick={onProgressClick} />
+									</div>
+								);
 							})}
 						</div>
 

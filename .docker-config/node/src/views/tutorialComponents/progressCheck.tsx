@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 interface Props {
     sectionCompleted: boolean,
-    onProgressClick: any
+    onProgressClick: any,
+    clickIndex: number
 }
 
 export const ProgressCheck = (props: Props) => {
@@ -24,10 +25,10 @@ export const ProgressCheck = (props: Props) => {
             break;
     }
 
-    const { onProgressClick } = props;
+    const { onProgressClick, clickIndex } = props;
 
     return (
-        <span id="progress-span" className="fa-stack fa-2x" onClick={onProgressClick}>
+        <span id="progress-span" className="fa-stack fa-2x" onClick={() => { onProgressClick(clickIndex) }}>
             <i className={`fas fa-circle fa-stack-2x ${progressClass}-bg`}></i>
             <i className={`fas fa-check fa-stack-1x fa-inverse ${progressClass}-fg`} style={{ fontSize: '38px' }}></i>
         </span>
