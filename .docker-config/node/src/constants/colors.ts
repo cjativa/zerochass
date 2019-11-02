@@ -1,7 +1,8 @@
-export const colors = {
-    Black: 1,
-    Pink: 2,
-    White: 3,
-    Teal: 4
-
+export const colorWeights = {
+    black: 1,
+    pink: 2,
+    white: 3,
+    teal: 4
 }
+
+export const colors = ['black', 'pink', 'white', 'teal'];
