@@ -1,6 +1,5 @@
 #progress-span {
-
-    cursor: pointer;
+  cursor: pointer;
 
   .not-started {
     &-fg {
@@ -9,6 +8,19 @@
 
     &-bg {
       color: #ebebeb;
+    }
+  }
+
+  &:hover,
+  &:active {
+    .not-started {
+      &-fg {
+        color: #f7f6f6;
+      }
+
+      &-bg {
+        color: #e93578;
+      }
     }
   }
 
