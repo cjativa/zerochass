@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": "2",
+    "containerDefinitions": [
+        {
+            "name": "nginx",
+            "image": "116893520615.dkr.ecr.us-east-1.amazonaws.com/zerochass/cms:production-nginx",
+            "environment": [
+                {
+                    "name": "container",
+                    "value": "nginx"
+                }
+            ],
+            "essential": true,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "php"
+              ]
+        },
+        {
+            "name": "php",
+            "image": "116893520615.dkr.ecr.us-east-1.amazonaws.com/zerochass/cms:production-php",
+            "essential": true,
+            "memory": 256,
+            "portMappings": [
+                {
+                    "hostPort": 9000,
+                    "containerPort": 9000
+                }
+            ]
+        }
+    ]
+}
