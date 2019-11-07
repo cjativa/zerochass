@@ -19,7 +19,8 @@ build-node:
 ecr-login:
 	aws ecr get-login --no-include-email --region $(AWS_ECR_REGION) | sh -
 
-push: ecr-login
+push: ecr-login build-nginx build-php build-node	
+
 	docker tag $(REPO):$(TAG)-php $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
 	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
 
@@ -28,6 +29,10 @@ push: ecr-login
 
 	docker tag $(REPO):$(TAG)-node $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
 	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
-	# docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
+	
+	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
+	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-nginx
+	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
 
-zip: zip ebdeploy.zip Dockerrun.aws.json 
+zippy: 
+	zip ebdeploy.zip Dockerrun.aws.json 

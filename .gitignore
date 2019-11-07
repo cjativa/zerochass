@@ -1,3 +1,7 @@
 .docker-config/node/dist
 *.env
 ebdeploy.zip
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

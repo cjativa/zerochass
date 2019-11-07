@@ -12,6 +12,6 @@ RUN npm run build
 # Second stage, produces image for production
 FROM node:10 AS production
 WORKDIR /home/node/app
-COPY --from=development ./home/node/app ./dist
+COPY --from=development ./home/node/app/dist ./dist
 COPY package* ./
 RUN npm install --production

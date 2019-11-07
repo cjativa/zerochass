@@ -37,6 +37,7 @@
     "start": "PORT=3000 react-scripts start",
     "watch": "tsc -w -p server/",
     "server": "nodemon dist/index.js",
+    "serverProd": "node dist/index.js",
     "clean": "rm -rf ./dist/* ",
     "build": "react-scripts build && tsc -p server/",
     "postbuild": "cp -r build dist/",
