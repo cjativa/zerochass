@@ -24,7 +24,27 @@
                     "containerPort": 4000
                 }
             ],
-            "command": ["npm", "run", "serverProd"]
+            "command": [
+                "npm",
+                "run",
+                "serverProd"
+            ]
+        },
+        {
+            "name": "nginx",
+            "image": "116893520615.dkr.ecr.us-east-1.amazonaws.com/zerochass/cms:production-nginx",
+            "essential": true,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "php",
+                "node"
+            ]
         }
     ]
 }
