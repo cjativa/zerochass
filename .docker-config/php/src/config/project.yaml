@@ -1,4 +1,4 @@
-dateModified: 1572666474
+dateModified: 1573179086
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -348,14 +348,14 @@ siteGroups:
     name: zerochass-cms
 sites:
   da6f86f5-8664-412d-b75b-80f2861cec81:
+    siteGroup: 7d52864c-e6ac-4ce5-823c-5ede5de2e7cc
     name: 'Zerochass - Content Management System'
     handle: default
     language: en-US
     hasUrls: true
-    baseUrl: 'http://zerochass-cms'
+    baseUrl: $DEFAULT_SITE_URL
     sortOrder: 1
     primary: true
-    siteGroup: 7d52864c-e6ac-4ce5-823c-5ede5de2e7cc
 system:
   edition: pro
   name: 'Zerochass CMS'
