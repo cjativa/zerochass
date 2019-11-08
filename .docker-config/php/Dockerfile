@@ -41,3 +41,5 @@ RUN composer install -d /var/www/html/ && \
     chown -R www-data:www-data /var/www/html/storage && \
     chown -R www-data:www-data /var/www/html/composer.json && \
     chown -R www-data:www-data /var/www/html/composer.lock
+
+VOLUME [ "/var/www/html/web" ]

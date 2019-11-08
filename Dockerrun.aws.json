@@ -41,10 +41,16 @@
                     "containerPort": 80
                 }
             ],
-            "links": [
-                "php",
-                "node"
+            "volumesFrom": [
+                {
+                    "sourceContainer": "php"
+                }
             ]
         }
+    ],
+    "links": [
+        "php",
+        "node",
+        "nginx"
     ]
 }
