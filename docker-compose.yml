@@ -2,7 +2,6 @@
 version: "3.4"
 
 services:
-
   # craft cms server
   php:
     container_name: "php"
@@ -12,12 +11,12 @@ services:
     expose:
       - 9000
     volumes:
-      - ./src/config:/var/www/html/config
-      - ./src/templates:/var/www/html/templates
-      - ./src/modules:/var/www/html/modules
-      - ./src/web:/var/www/html/web
-      - ./src/composer.json:/var/www/html/composer.json
-      - ./src/.env:/var/www/html/.env
+      - ./.docker-config/php/src/config:/var/www/html/config
+      - ./.docker-config/php/src/templates:/var/www/html/templates
+      - ./.docker-config/php/src/modules:/var/www/html/modules
+      - ./.docker-config/php/src/web:/var/www/html/web
+      - ./.docker-config/php/src/composer.json:/var/www/html/composer.json
+      - ./.docker-config/php/src/.env:/var/www/html/.env
 
   # nginx server
   nginx:
@@ -30,29 +29,29 @@ services:
     volumes:
       - ./.docker-config/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./.docker-config/php/src/web:/var/www/html/web
-    depends_on: 
+    depends_on:
       - php
       - node
 
   # zerochass application
   node:
-      container_name: "node"
-      build:
-        context: ./.docker-config/node/
-        dockerfile: Dockerfile
-        target: development
-      volumes: 
-        - ./:/home/node/app
-        - /home/node/app/node_modules
-      environment: 
-        - NODE_ENV=development
-        - CHOKIDAR_USEPOLLING=true
-      env_file:
-        - .env
-      ports:
-          - "4000:4000"
-          - "3000:3000"
-          - "35729:35729"
-      depends_on: 
-        - php
-      command: "npm run dev"
+    container_name: "node"
+    build:
+      context: ./.docker-config/node/
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./.docker-config/node:/home/node/app
+      - /home/node/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - ./.docker-config/node/.env
+    ports:
+      - "4000:4000"
+      - "3000:3000"
+      - "35729:35729"
+    depends_on:
+      - php
+    command: "npm run dev"
