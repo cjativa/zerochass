@@ -5,8 +5,8 @@ import marked from 'marked';
 
 import prismjs from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/components/prism-bash.min.js';
 import 'prismjs/components/prism-jsx.min.js';
@@ -38,7 +38,7 @@ export class Section extends React.Component<Props> {
                 <div className="section-grid">
                     <div className="data">
                         <h2 id={id}>{content.sectionTitle}</h2>
-                        <p dangerouslySetInnerHTML={{ __html: marked(content.sectionContent) }}></p>
+                        <div dangerouslySetInnerHTML={{ __html: marked(content.sectionContent) }} />
                         <div className="section-progress">
                             <hr className="section-rule" />
                             {progressCheck}
