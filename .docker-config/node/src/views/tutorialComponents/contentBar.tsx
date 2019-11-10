@@ -6,25 +6,21 @@ interface Props {
     sectionInformation: any
 }
 
-export class ContentBar extends React.Component<Props> {
+export const ContentBar = (props: Props) => {
+    const { sectionInformation } = props;
 
-    render() {
+    return (
 
-        const { sectionInformation } = this.props;
-
-        return (
-           
-            <div className="tutorial-content-bar">
-                <div className="content-box">
-                    <span>Tutorial Content</span>
-                    <ul>
-                        {sectionInformation.map((section, index) => {
-                            return (<li key={index}><a href={`#${section.id}`}>{section.title}</a></li>)
-                        })}
-                    </ul>
-                </div>
-
+        <div className="tutorial-content-bar">
+            <div className="content-box">
+                <span>Tutorial Content</span>
+                <ul>
+                    {sectionInformation.map((section, index) => {
+                        return (<li key={index}><a href={`#${section.id}`}>{section.title}</a></li>)
+                    })}
+                </ul>
             </div>
-        )
-    }
+
+        </div>
+    )
 }
