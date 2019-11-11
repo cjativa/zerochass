@@ -108,6 +108,17 @@ const tutorialSingleQuery = (slug: string) => {
       },
     ... on tutorialSeries_tutorial_Entry {
         color,
+        parent {
+          typeHandle,
+          id,
+          title,
+          children {
+            id,
+            title,
+            lft,
+            rgt,
+          }
+        },
         description {
             ...on description_description_BlockType {
               firstLine,

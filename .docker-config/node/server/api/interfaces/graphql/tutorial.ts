@@ -48,4 +48,15 @@ export interface TutorialSingle {
         dateCreated: string,
         sortOrder: number
     }[],
+    parent?: {
+        typeHandle: string,
+        id: string,
+        title: string,
+        child: {
+            id: string,
+            title: string,
+            lft: number,
+            rgt: number
+        }[]
+    }
 }
