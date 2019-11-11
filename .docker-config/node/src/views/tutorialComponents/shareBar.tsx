@@ -13,7 +13,6 @@ export const ShareBar = (props: Props) => {
     const taText = `I just enrolled in a tutorial at Zerochass! \n\nSo excited to start learning ${tutorialTitle}`;
 
     const onChange = (event) => {
-
         if (!typed) {
             setTyped(true);
         }
@@ -24,9 +23,14 @@ export const ShareBar = (props: Props) => {
     }
 
     const onFocus = (event) => {
-
         if (!typed || value.length == 0) {
             setValue(taText);
+        }
+    }
+
+    const onBlur = (event) => {
+        if (value === taText) {
+            setValue('');
         }
     }
 
@@ -35,7 +39,7 @@ export const ShareBar = (props: Props) => {
             <div className="share-box">
                 <span className="box-title">Share</span>
                 <span className="box-subtitle">Motivate your friends!</span>
-                <textarea rows={6} cols={30} placeholder={taText} onFocus={onFocus} value={value} onChange={onChange}>
+                <textarea rows={6} cols={30} placeholder={taText} onFocus={onFocus} onBlur={onBlur} value={value} onChange={onChange}>
                 </textarea>
             </div>
         </div>
