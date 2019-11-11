@@ -20,7 +20,6 @@ export const ContentBar = (props: Props) => {
                     })}
                 </ul>
             </div>
-
         </div>
     )
 }

@@ -5,6 +5,7 @@ import { Tutorial } from "interfaces/tutorial";
 import { Header } from 'views/tutorialComponents/header';
 import { Section } from 'views/tutorialComponents/section';
 import { ContentBar } from 'views/tutorialComponents/contentBar';
+import { ShareBar } from 'views/tutorialComponents/shareBar';
 import { ProgressCheck } from "./progressCheck";
 
 interface Props {
@@ -116,12 +117,14 @@ class TutorialPage extends React.Component<Props, State> {
 							})}
 						</div>
 
-						{/* Display the content bar */}
-						<div className="content-bar-column">
+						<div className="side-bar-column">
+
+							{/* Display the content bar */}
 							<ContentBar sectionInformation={sectionInformation} />
+
+							{/** Display the share bar */}
+							<ShareBar tutorialTitle={title} />
 						</div>
-
-
 					</div>
 				</div>
 			</div>
