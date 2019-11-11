@@ -118,7 +118,6 @@ class TutorialPage extends React.Component<Props, State> {
 						</div>
 
 						<div className="side-bar-column">
-
 							{/* Display the content bar */}
 							<ContentBar sectionInformation={sectionInformation} />
 
