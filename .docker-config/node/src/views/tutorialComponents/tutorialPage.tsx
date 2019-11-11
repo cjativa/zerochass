@@ -32,6 +32,10 @@ class TutorialPage extends React.Component<Props, State> {
 
 	componentDidMount = () => {
 		this.parseContentSections();
+		
+		if (this.props.tutorial.hasOwnProperty('parent')) {
+			this.setupTutorialSeries();
+		}
 	}
 
 	parseContentSections = () => {
@@ -52,6 +56,10 @@ class TutorialPage extends React.Component<Props, State> {
 		this.setState({ sectionInformation });
 	}
 
+	setupTutorialSeries = () => {
+
+	}
+ 
 	onProgressClick = (index: number) => {
 		const nextIndex = index + 1;
 		if (nextIndex !== this.state.sectionInformation.length) {
