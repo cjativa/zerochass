@@ -35,6 +35,7 @@ services:
 
   # zerochass application
   node:
+    user: root
     container_name: "node"
     build:
       context: ./.docker-config/node/

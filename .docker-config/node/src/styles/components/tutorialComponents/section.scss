@@ -20,13 +20,17 @@
     color: #23daca;
   }
 
-  .data > p > a:hover, a:active {
+  .data > p > a:hover,
+  a:active {
     color: black;
   }
 
   p {
     line-height: 1.7;
     margin: 18px 0;
+    a {
+      color: #1da1f2;
+    }
   }
 
   img {
@@ -46,10 +50,10 @@
     width: 100%;
   }
 
-  ul, ul > li {
+  ul,
+  ul > li {
     list-style-type: circle;
     margin: 0px 10px;
-
   }
 
   ul > li > p {
@@ -67,7 +71,9 @@
     display: grid;
     align-items: center;
 
-    button, button:focus, div {
+    button,
+    button:focus,
+    div {
       border: none;
       background: none;
       outline-style: none;
@@ -81,7 +87,8 @@
       font-size: 68px;
     }
 
-    .section-rule, #progress-span {
+    .section-rule,
+    #progress-span {
       grid-column: 1;
       grid-row: 1;
     }
@@ -95,10 +102,6 @@
     p {
       line-height: 1.5;
       margin: 18px 0;
-
-      a {
-        color: #1da1f2;
-      }
     }
     .section-grid {
       grid-template-columns: 3vw 1fr 3vw;
