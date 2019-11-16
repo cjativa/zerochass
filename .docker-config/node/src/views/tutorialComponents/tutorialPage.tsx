@@ -7,6 +7,7 @@ import { Section } from 'views/tutorialComponents/section';
 import { ContentBar } from 'views/tutorialComponents/contentBar';
 import { ShareBar } from 'views/tutorialComponents/shareBar';
 import { ProgressCheck } from "./progressCheck";
+import { RelatedNavigator } from "./relatedNavigator";
 
 interface Props {
 	tutorial: Tutorial;
@@ -19,6 +20,8 @@ interface State {
 class TutorialPage extends React.Component<Props, State> {
 
 	sectionRefs: any[];
+	previousEntry: any;
+	nextEntry: any;
 
 	constructor(props) {
 		super(props);
@@ -32,7 +35,7 @@ class TutorialPage extends React.Component<Props, State> {
 
 	componentDidMount = () => {
 		this.parseContentSections();
-		
+
 		if (this.props.tutorial.hasOwnProperty('parent')) {
 			this.setupTutorialSeries();
 		}
@@ -57,9 +60,34 @@ class TutorialPage extends React.Component<Props, State> {
 	}
 
 	setupTutorialSeries = () => {
+		const entries = this.props.tutorial.parent.children;
 
+		// Locate this entry in the entries list
+		const thisEntryIndex = entries.findIndex((entry) => {
+			return this.props.tutorial.id === entry.id;
+		});
+
+		// Check if a previous entry would exist
+		if (entries[thisEntryIndex - 1]) {
+
+			// Get the title and slug
+			const { title } = entries[thisEntryIndex - 1];
+			const slug = this.slugify(title);
+
+			this.previousEntry = { title, slug };
+		}
+
+		// Check if a next entry would exist
+		if (entries[thisEntryIndex + 1]) {
+
+			// Get the title and slug
+			const { title } = entries[thisEntryIndex + 1];
+			const slug = this.slugify(title);
+
+			this.nextEntry = { title, slug };
+		}
 	}
- 
+
 	onProgressClick = (index: number) => {
 		const nextIndex = index + 1;
 		if (nextIndex !== this.state.sectionInformation.length) {
@@ -89,7 +117,7 @@ class TutorialPage extends React.Component<Props, State> {
 	render() {
 
 		const { title, tags, featuredImage, color, tutorialContent } = this.props.tutorial;
-		const { onProgressClick } = this;
+		const { onProgressClick, previousEntry, nextEntry } = this;
 		const { sectionInformation } = this.state;
 
 		return (
@@ -125,6 +153,12 @@ class TutorialPage extends React.Component<Props, State> {
 							})}
 						</div>
 
+						{/** Display the related entries */}
+						<div className="related-entries">
+							<RelatedNavigator nextEntry={nextEntry} previousEntry={previousEntry} />
+						</div>
+
+						{/** Display the side bar */}
 						<div className="side-bar-column">
 							{/* Display the content bar */}
 							<ContentBar sectionInformation={sectionInformation} />
