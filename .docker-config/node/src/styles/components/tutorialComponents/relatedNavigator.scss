@@ -1,8 +1,8 @@
 .related-navigator {
-
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
+    min-height: 100px;
 
     .entry-label, .entry-link {
         font-weight: bold;
@@ -26,18 +26,24 @@
 
     .entry {
         display: grid;
-        width: 200px;
 
         align-items: center;
-        grid-column-gap: 20px;
+        grid-column-gap: 15px;
     }
 
     .previous {
+        justify-self: start;
         grid-template-columns: min-content auto;
     }
 
     .next {
         text-align: right;
+        justify-self: end;
         grid-template-columns: auto min-content;
+    }
+
+    @media (min-width: 30rem) {
+        box-sizing: border-box;
+        padding: 0px 40px;
     }
 }
