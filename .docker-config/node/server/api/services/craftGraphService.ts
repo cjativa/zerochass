@@ -81,6 +81,7 @@ const tutorialSingleQuery = (slug: string) => {
   query {
     entries(type: "tutorial", slug: "${slug}") {
       title,
+      id
        ... on tutorials_tutorial_Entry {
         color,
         description {

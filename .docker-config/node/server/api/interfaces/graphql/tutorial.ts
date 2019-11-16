@@ -11,6 +11,7 @@ export interface Tutorial {
 
 export interface TutorialsForContentBanner {
     title: string,
+    id: string,
     slug: string,
     color: string,
     description: {
@@ -52,7 +53,7 @@ export interface TutorialSingle {
         typeHandle: string,
         id: string,
         title: string,
-        child: {
+        children: {
             id: string,
             title: string,
             lft: number,

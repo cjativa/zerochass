@@ -1,6 +1,7 @@
 
 export interface Tutorial {
     title: string,
+    id: string,
     slug: string,
     color: string,
     description: {
@@ -26,7 +27,7 @@ export interface Tutorial {
         typeHandle: string,
         id: string,
         title: string,
-        child: {
+        children: {
             id: string,
             title: string,
             lft: number,
