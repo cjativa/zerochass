@@ -1,3 +1,43 @@
 .related-navigator {
-    
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+
+    .entry-label, .entry-link {
+        font-weight: bold;
+        display: block;
+    }
+
+    .entry-label {
+        color: #ed6387;
+        font-size: 18px;
+    }
+
+    .entry-link {
+        color: #232323;
+        font-size: 22px;
+    }
+
+    i {
+        font-size: 50px;
+        color: #69d4ca;
+    }
+
+    .entry {
+        display: grid;
+        width: 200px;
+
+        align-items: center;
+        grid-column-gap: 20px;
+    }
+
+    .previous {
+        grid-template-columns: min-content auto;
+    }
+
+    .next {
+        text-align: right;
+        grid-template-columns: auto min-content;
+    }
 }

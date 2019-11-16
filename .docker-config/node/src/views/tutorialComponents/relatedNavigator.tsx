@@ -6,40 +6,46 @@ interface RelatedTutorial {
 }
 
 interface Props {
-    nextTutorial?: RelatedTutorial,
-    previousTutorial?: RelatedTutorial
+    nextEntry?: RelatedTutorial,
+    previousEntry?: RelatedTutorial
 }
 
 export const RelatedNavigator = (props: Props) => {
 
     const NextTutorial = () => {
 
-        const { nextTutorial: tutorial } = props;
+        const { nextEntry: tutorial } = props;
 
         return (
-            <div className="next-entry">
-                <span>Next</span>
-                <a href={`${tutorial.link}`}>{tutorial.title}</a>
+            <div className="entry next">
+                <div className="link-box">
+                    <span className="entry-label">Next</span>
+                    <a className="entry-link" href={`${tutorial.link}`}>{tutorial.title}</a>
+                </div>
+                <i className="fas fa-arrow-circle-right" />
             </div>
         )
     }
 
     const PreviousTutorial = () => {
 
-        const { previousTutorial: tutorial } = props;
+        const { previousEntry: tutorial } = props;
 
         return (
-            <div className="previous-entry">
-                <span>Previous</span>
-                <a href={`${tutorial.link}`}>{tutorial.title}</a>
+            <div className="entry previous">
+                <i className="fas fa-arrow-circle-left" />
+                <div className="link-box">
+                    <span className="entry-label">Previous</span>
+                    <a className="entry-link" href={`${tutorial.link}`}>{tutorial.title}</a>
+                </div>
             </div>
         )
     }
 
     return (
         <div className="related-navigator">
-            {props.nextTutorial && <NextTutorial />}
-            {props.previousTutorial && <PreviousTutorial />}>
+            {(props.previousEntry) ? <PreviousTutorial /> : <div />}
+            {(props.nextEntry) ? <NextTutorial /> : <div />}
         </div>
     )
 }
