@@ -72,9 +72,9 @@ class TutorialPage extends React.Component<Props, State> {
 
 			// Get the title and slug
 			const { title } = entries[thisEntryIndex - 1];
-			const slug = this.slugify(title);
+			const link = this.slugify(title);
 
-			this.previousEntry = { title, slug };
+			this.previousEntry = { title, link };
 		}
 
 		// Check if a next entry would exist
@@ -82,9 +82,9 @@ class TutorialPage extends React.Component<Props, State> {
 
 			// Get the title and slug
 			const { title } = entries[thisEntryIndex + 1];
-			const slug = this.slugify(title);
+			const link = this.slugify(title);
 
-			this.nextEntry = { title, slug };
+			this.nextEntry = { title, link };
 		}
 	}
 
