@@ -4,6 +4,7 @@ TAG?=production
 AWS_ACCOUNT_ID?=116893520615
 AWS_ECR_REGION?=us-east-1
 AWS_ECR_DOMAIN?=$(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_ECR_REGION).amazonaws.com
+# IMAGE is an environment variable
 
 sc: build-nginx build-php build-node
 
@@ -19,20 +20,12 @@ build-node:
 ecr-login:
 	aws ecr get-login --no-include-email --region $(AWS_ECR_REGION) | sh -
 
-push: ecr-login build-nginx build-php build-node	
+push: ecr-login build-$(IMAGE)
 
-	docker tag $(REPO):$(TAG)-php $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
-	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
-
-	docker tag $(REPO):$(TAG)-nginx $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-nginx
-	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-nginx
-
-	docker tag $(REPO):$(TAG)-node $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
-	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
+	docker tag $(REPO):$(TAG)-php $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
+	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
 	
-	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-php
-	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-nginx
-	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-node
+	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
 
 zippy: 
 	zip ebdeploy.zip Dockerrun.aws.json 
