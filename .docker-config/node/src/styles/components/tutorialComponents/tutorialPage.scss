@@ -13,7 +13,7 @@
     background-color: #ffffff;
 
     display: grid;
-    grid-template-rows: 15vw 1fr 15vw auto 15vw;
+    grid-template-rows: 15vw 1fr 15vw auto auto 15vw;
   }
 
   .side-bar-column {
@@ -29,13 +29,21 @@
     grid-row: 4;
   }
 
+  .related-entries {
+    grid-row: 5;
+  }
+
   @media (min-width: 40rem) {
     .content-grid {
-      grid-template-rows: 3vh 1fr auto 3vh;
+      grid-template-rows: 3vh 1fr auto auto 3vh;
     }
 
     .sections {
       grid-row: 3;
+    }
+
+    .related-entries {
+      grid-row: 4;
     }
   }
 
@@ -50,11 +58,15 @@
 
     .content-grid {
       grid-template-columns: 3fr 1fr;
-      grid-template-rows: 3vw 1fr 3vw;
+      grid-template-rows: 3vw 1fr auto 3vw;
     }
 
     .sections {
       grid-row: 2;
+    }
+
+    .related-entries {
+      grid-row: 3;
     }
   }
 }
