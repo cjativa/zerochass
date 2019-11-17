@@ -4,8 +4,6 @@
     "craftcms/aws-s3": "1.2.5",
     "craftcms/cms": "3.3.15",
     "craftcms/redactor": "^2.4",
-    "craftcms/webhooks": "2.2.0",
-    "experience/smartdown": "3.0.1",
     "lukeyouell/craft-sidebarthemes": "1.0.5",
     "vlucas/phpdotenv": "^3.4.0"
   },

@@ -1,4 +1,4 @@
-dateModified: 1573192862
+dateModified: 1574023537
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -237,10 +237,6 @@ plugins:
     settings:
       theme: dracula
   craft-easymde:
-    edition: standard
-    enabled: true
-    schemaVersion: 1.0.0
-  smartdown:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
