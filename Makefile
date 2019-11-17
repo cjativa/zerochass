@@ -22,7 +22,7 @@ ecr-login:
 
 push: ecr-login build-$(IMAGE)
 
-	docker tag $(REPO):$(TAG)-php $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
+	docker tag $(REPO):$(TAG)-$(IMAGE) $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
 	docker push $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
 	
 	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
