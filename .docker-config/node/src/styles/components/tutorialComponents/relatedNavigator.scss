@@ -1,8 +1,11 @@
 .related-navigator {
+    min-height: 100px;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
-    min-height: 100px;
+    grid-column-gap: 5px;
+    
 
     .entry-label, .entry-link {
         font-weight: bold;
@@ -29,6 +32,14 @@
 
         align-items: center;
         grid-column-gap: 15px;
+
+        padding: 15px;
+        border: 1px solid transparent;
+
+        &:hover {
+            border-radius: 15px;
+            border: 1px solid #cecece;
+        }
     }
 
     .previous {
