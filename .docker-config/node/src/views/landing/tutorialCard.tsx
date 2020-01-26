@@ -10,15 +10,20 @@ class TutorialCard extends React.Component<Props> {
 
 	render() {
 		const { tutorial } = this.props;
-		const { color } = tutorial;
+		const { color, description, featuredImage } = tutorial;
 
 		return (
-			<div className={`tutorial-card`}>
-				{<a href={`/tutorial/${tutorial.slug}`} className={`${color.toLowerCase()}`}>
-					<h1>{tutorial.title}</h1>
-					<p className="description">{tutorial.description[0].firstLine}</p>
-					<p className="description">{tutorial.description[0].secondLine}</p>
-				</a>}
+			<div className={`tutorial-card tutorial-card--${color.toLowerCase()}`}>
+				<a className={`tutorial-card__link`} href={`/tutorial/${tutorial.slug}`}>
+					<div>
+						<h1 className="tutorial-card__header">{tutorial.title}</h1>
+						<p className="tutorial-card__description">{description[0].firstLine}</p>
+						<p className="tutorial-card__description">{description[0].secondLine}</p>
+					</div>
+					{featuredImage.length > 0 && <div className="card-image">
+						<img className="tutorial-card__image" src={featuredImage[0].url} />
+					</div>}
+				</a>
 			</div>
 		);
 	}
