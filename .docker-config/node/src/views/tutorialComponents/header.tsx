@@ -23,13 +23,13 @@ export class Header extends React.Component<Props> {
 
         return (
             <header className={`tutorial-header ${color.toLowerCase()}`} style={style}>
-                <div className="image"></div>
-                <ul className="tags-list">
+                <div className="tutorial-header__image">{featuredImage.length > 0 && <img src={featuredImage[0].url} />}</div>
+                <ul className="tutorial-header__tags">
                     {tags && tags.map((tag, index) => {
                         return (<li key={index}>{`${tag.title} |`}</li>)
                     })}
                 </ul>
-                <h1 className="title">{title}</h1>
+                <h1 className="tutorial-header__title">{title}</h1>
             </header>
         )
     }
