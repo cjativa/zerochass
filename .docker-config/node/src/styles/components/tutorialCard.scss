@@ -28,22 +28,25 @@
     grid-template-rows: 1fr auto;
     height: 100%;
     width: 100%;
+    align-items: center;
     padding: 25px 35px;
     box-sizing: border-box;
   }
 
-  &__header {
-    font-size: 24px;
-  }
+  .card-inner {
 
-  &__description {
-    font-size: 15px;
-  }
+    &__header {
+      font-size: 24px;
+    }
 
-  &__header,
-  &__description {
-    margin-top: 30px;
-    line-height: 25px;
+    &__description {
+      font-size: 15px;
+    }
+
+    &__description {
+      margin-top: 30px;
+      line-height: 25px;
+    }
   }
 
   .card-image {
@@ -61,12 +64,14 @@
     border-radius: 30px;
     height: 280px;
 
-    &__header {
-      font-size: 28px;
-    }
+    .card-inner {
+      &__header {
+        font-size: 28px;
+      }
 
-    &__description {
-      font-size: 16px;
+      &__description {
+        font-size: 16px;
+      }
     }
 
     &__link {
@@ -80,8 +85,10 @@
   }
 
   @media (min-width: 60rem) {
-    &__description {
-      width: 60%;
+    .card-inner {
+      &__description {
+        width: 60%;
+      }
     }
   }
 }
