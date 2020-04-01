@@ -53,26 +53,29 @@
   }
 
   @media (min-width: 60rem) {
-    grid-template-columns: 20vw 1fr 20vw;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .tutorial-content {
-      grid-column: 2;
       border-left: 1px solid lightgray;
       border-right: 1px solid lightgray;
     }
 
     .content-grid {
-      grid-template-columns: 3fr 1fr;
+      grid-template-columns: repeat(2, min-content);
       grid-template-rows: 3vw auto auto 3vw;
-    }
 
-    .side-bar-column {
-      grid-column: 2;
-      grid-row: 2;
+      column-gap: 35px;
+      padding: 0px 35px;
     }
 
     .sections {
       grid-row: 2;
+    }
+
+    .side-bar-column {
     }
 
     .related-entries {

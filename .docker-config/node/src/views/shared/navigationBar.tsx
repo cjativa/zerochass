@@ -84,7 +84,6 @@ class NavigationBar extends React.Component<Props, State> {
 
         return (
             <nav className="navigation-bar">
-
                 <div className="main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
                     {/* Logo container */}

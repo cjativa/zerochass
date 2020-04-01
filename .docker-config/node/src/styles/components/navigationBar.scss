@@ -48,6 +48,7 @@
     z-index: 2;
 
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
   }
 
   .dialog-ctrl {
@@ -72,6 +73,7 @@
     font-size: 18px;
     background-color: #141414;
     color: #ffffff;
+    box-sizing: border-box;
   }
 
   input {

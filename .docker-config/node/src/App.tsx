@@ -1,14 +1,18 @@
 import * as React from 'react';
 
-import { LoginContainer } from 'containers/authentication/loginContainer';
-import { SignUpContainer } from 'containers/authentication/signUpContainer';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ConnectedNavigationBarContainer } from 'containers/navigationBarContainer';
 import { HomeContainer } from 'views/landing/homeContainer';
+import { TutorialList } from 'views/tutorialsList/tutorialList';
 import { TutorialContainer } from 'containers/tutorialContainer';
 import { InformationBanner } from 'views/shared/informationBanner';
 import { Footer } from 'views/shared/footer';
 import { About } from 'views/about';
+
+// Eventual authentication components
+import { LoginContainer } from 'containers/authentication/loginContainer';
+import { SignUpContainer } from 'containers/authentication/signUpContainer';
 import { UserPageContainer } from 'containers/user/userPageContainer';
 
 class Application extends React.Component {
@@ -31,16 +35,16 @@ class Application extends React.Component {
                     <ConnectedNavigationBarContainer />
                     <Switch>
                       <Route exact path="/" component={HomeContainer} />
-                      <Route path="/tutorial/:slug" component={TutorialContainer} />
+                      <Route path='/tutorial/:slug' component={TutorialContainer} />
+                      <Route path='/tutorials/' component={TutorialList} />
+                      <Route path='/about' component={About} />
                       {/* <Route path="/user" component={UserPageContainer} /> */}
-                      <Route path="/about" component={About} />
                     </Switch>
 
                   </>
                 );
               }} />
             </Switch>
-
             <InformationBanner />
             <Footer />
           </>
