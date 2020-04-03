@@ -40,7 +40,6 @@ class Application extends React.Component {
                       <Route path='/about' component={About} />
                       {/* <Route path="/user" component={UserPageContainer} /> */}
                     </Switch>
-
                   </>
                 );
               }} />

@@ -46,6 +46,15 @@
   }
 
   @media (min-width: 768px) {
+
+    .sections {
+      display: grid;
+      justify-content: center;
+    }
+
+    .section-item {
+      width: 670px;
+    }
   }
 
   @media (min-width: 1024px) {

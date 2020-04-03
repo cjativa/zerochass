@@ -154,7 +154,7 @@ class TutorialPage extends React.Component<Props, State> {
 
 							// Return the composed Section component
 							return (
-								<div key={index} ref={this.sectionRefs[index]}>
+								<div className="section-item" key={index} ref={this.sectionRefs[index]}>
 									<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
 								</div>
 							);
