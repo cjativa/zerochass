@@ -123,50 +123,49 @@ class TutorialPage extends React.Component<Props, State> {
 		return (
 			<div className="tutorial-page">
 
-				<div className="tutorial-content">
-
-					{/* Display tutorial header */}
+				{/* Header section containing the tutorial image and title */}
+				<div className="tutorial-page__header">
 					<Header title={title} tags={tags} featuredImage={featuredImage} color={color} />
+				</div>
 
-					<div className="content-grid">
+				{/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
+				<div className="tutorial-page__body">
 
-						{/* Display the content sections */}
-						<div className="sections">
-							{sectionInformation.length > 0 && tutorialContent.map((content, index) => {
+					{/** Display the side bar */}
+					<div className="side-bar-column">
+						{/* Display the content bar */}
+						<ContentBar sectionInformation={sectionInformation} />
 
-								const sectionComplete = sectionInformation[index].sectionComplete;
-
-								// Slugify the title
-								const id = this.slugify(content.sectionTitle);
-
-								// Build the Progress Check component
-								const progressCheck = (
-									<ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
-								)
-
-								// Return the composed Section component
-								return (
-									<div key={index} ref={this.sectionRefs[index]}>
-										<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
-									</div>
-								);
-							})}
-						</div>
-
-						{/** Display the related entries */}
-						<div className="related-entries">
-							<RelatedNavigator nextEntry={nextEntry} previousEntry={previousEntry} />
-						</div>
-
-						{/** Display the side bar */}
-						<div className="side-bar-column">
-							{/* Display the content bar */}
-							<ContentBar sectionInformation={sectionInformation} />
-
-							{/** Display the share bar */}
-							<ShareBar tutorialTitle={title} />
-						</div>
+						{/** Display the share bar */}
+						<ShareBar tutorialTitle={title} />
 					</div>
+
+					{/* Display the content sections */}
+					<div className="sections">
+						{sectionInformation.length > 0 && tutorialContent.map((content, index) => {
+
+							const sectionComplete = sectionInformation[index].sectionComplete;
+
+							// Slugify the title
+							const id = this.slugify(content.sectionTitle);
+
+							// Build the Progress Check component
+							const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
+
+							// Return the composed Section component
+							return (
+								<div key={index} ref={this.sectionRefs[index]}>
+									<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
+								</div>
+							);
+						})}
+					</div>
+
+					{/** Display the related entries */}
+					<div className="related-entries">
+						<RelatedNavigator nextEntry={nextEntry} previousEntry={previousEntry} />
+					</div>
+
 				</div>
 			</div>
 		);

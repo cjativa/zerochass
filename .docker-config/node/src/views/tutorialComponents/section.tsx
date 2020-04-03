@@ -32,19 +32,21 @@ export class Section extends React.Component<Props> {
     render() {
 
         const { content, id, progressCheck } = this.props;
+        const { sectionTitle, sectionContent } = content;
 
         return (
             <section className="section line-numbers">
-                <div className="section-grid">
-                    <div className="data">
-                        <h2 id={id}>{content.sectionTitle}</h2>
-                        <div dangerouslySetInnerHTML={{ __html: marked(content.sectionContent) }} />
-                        <div className="section-progress">
-                            <hr className="section-rule" />
-                            {progressCheck}
-                        </div>
-                    </div>
+
+                {/** Section title and content */}
+                <h2 id={id}>{sectionTitle}</h2>
+                <div className="section__text" dangerouslySetInnerHTML={{ __html: marked(sectionContent) }} />
+
+                {/** Section progress check icon */}
+                <div className="section__progress">
+                    <hr className="progress-rule" />
+                    {progressCheck}
                 </div>
+                
             </section >
         )
     }

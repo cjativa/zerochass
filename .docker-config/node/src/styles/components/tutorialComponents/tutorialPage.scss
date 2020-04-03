@@ -1,80 +1,78 @@
 .tutorial-page {
   display: grid;
+  grid-template-areas:
+    "header"
+    "body";
   grid-template-columns: 1fr;
-  background-color: $tutorial_page_background;
+  grid-template-rows: max-content min-content;
 
-  .content-grid {
+  &__header {
+    grid-area: header;
+  }
+
+  &__body {
+    grid-area: body;
     background-color: $tutorial_content_grid_background;
+    padding: 30px 15px;
 
     display: grid;
-    grid-template-rows: 15vw 1fr 15vw auto auto 15vw;
+    grid-template-areas:
+      "sidebarColumn"
+      "sections"
+      "relatedEntries";
+    grid-template-rows: repeat(3, min-content);
+    row-gap: 25px;
   }
 
   .side-bar-column {
-    grid-row: 2;
+    grid-area: sidebarColumn;
 
     display: grid;
     grid-template-rows: repeat(2, max-content);
-    grid-row-gap: 40px;
+    row-gap: 30px;
+
     justify-content: center;
   }
 
   .sections {
-    grid-row: 4;
+    grid-area: sections;
   }
 
   .related-entries {
-    grid-row: 5;
+    grid-area: relatedEntries;
   }
 
-  @media (min-width: 40rem) {
-
-
-    .content-grid {
-      grid-template-rows: 3vh 1fr 1fr 1fr 3vh;
-    }
-
-    .side-bar-column {
-      grid-row: 2;
-    }
-
-    .sections {
-      grid-row: 3;
-    }
-
-    .related-entries {
-      grid-row: 4;
-    }
+  @media (min-width: 640px) {
   }
 
-  @media (min-width: 60rem) {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @media (min-width: 768px) {
+  }
 
-    .tutorial-content {
+  @media (min-width: 1024px) {
+  }
+
+  @media (min-width: 1280px) {
+    background-color: $tutorial_page_background;
+
+    grid-template-areas:
+      ". header . "
+      ". body . ";
+    grid-template-columns: 23vw 1fr 23vw;
+
+    &__header,
+    &__body {
       border-left: 1px solid lightgray;
       border-right: 1px solid lightgray;
     }
 
-    .content-grid {
-      grid-template-columns: repeat(2, min-content);
-      grid-template-rows: 3vw auto auto 3vw;
-
-      column-gap: 35px;
-      padding: 0px 35px;
-    }
-
-    .sections {
-      grid-row: 2;
-    }
-
-    .side-bar-column {
-    }
-
-    .related-entries {
-      grid-row: 3;
+    &__body {
+      padding: 40px 35px;
+      grid-template-areas:
+        "sections sidebarColumn"
+        "sections sidebarColumn"
+        "relatedEntries sidebarColumn";
+      grid-template-columns: 1fr min-content;
+      column-gap: 70px;
     }
   }
 }
