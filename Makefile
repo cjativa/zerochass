@@ -28,4 +28,5 @@ push: ecr-login build-$(IMAGE)
 	docker image rm $(AWS_ECR_DOMAIN)/$(REPO):$(TAG)-$(IMAGE)
 
 zippy: 
+	rm ebdeploy.zip
 	zip ebdeploy.zip Dockerrun.aws.json 
