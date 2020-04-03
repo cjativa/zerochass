@@ -46,14 +46,13 @@
   }
 
   @media (min-width: 768px) {
-
     .sections {
       display: grid;
       justify-content: center;
     }
 
     .section-item {
-      width: 670px;
+      width: 550px;
     }
   }
 
@@ -62,11 +61,10 @@
 
   @media (min-width: 1280px) {
     background-color: $tutorial_page_background;
-
     grid-template-areas:
-      ". header . "
-      ". body . ";
-    grid-template-columns: 23vw 1fr 23vw;
+      ". header ."
+      ". body .";
+    grid-template-columns: 1fr 1fr 1fr;
 
     &__header,
     &__body {
