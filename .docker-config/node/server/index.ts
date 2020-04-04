@@ -18,7 +18,7 @@ server.use('/api/', router);
 
 const buildPath = path.join(__dirname, '/build', 'index.html');
 
-server.get('/*', function (req, res) {
+server.get('*', function (req, res) {
 	res.sendFile(buildPath);
 });
 
