@@ -1,4 +1,4 @@
-dateModified: 1586022992
+dateModified: 1586023114
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -400,7 +400,7 @@ volumes:
     hasUrls: true
     url: 'https://s3.us-east-1.amazonaws.com/zerochass-assets/'
     settings:
-      subfolder: images
+      subfolder: featured-images
       keyId: $ACCESS_KEY_ID
       secret: $SECRET_ACCESS_KEY
       bucketSelectionMode: choose
