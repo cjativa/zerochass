@@ -1,4 +1,4 @@
-dateModified: 1574023537
+dateModified: 1586022992
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -396,9 +396,20 @@ volumes:
   d4d267f6-405e-4f41-822d-610bd43b4fdf:
     name: 'Featured Images'
     handle: featuredimages
-    type: craft\volumes\Local
+    type: craft\awss3\Volume
     hasUrls: true
-    url: '@web/featured-images'
+    url: 'https://s3.us-east-1.amazonaws.com/zerochass-assets/'
     settings:
-      path: '@webroot/featured-images'
+      subfolder: images
+      keyId: $ACCESS_KEY_ID
+      secret: $SECRET_ACCESS_KEY
+      bucketSelectionMode: choose
+      bucket: zerochass-assets
+      region: us-east-1
+      expires: ''
+      makeUploadsPublic: '1'
+      storageClass: ''
+      cfDistributionId: ''
+      cfPrefix: ''
+      autoFocalPoint: ''
     sortOrder: 1
