@@ -1,4 +1,4 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 h1,
 h2,
@@ -11,10 +11,14 @@ body {
   padding: 0;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   background-color: #141414;
   color: #ffffff;
-  font-family: "Nunito" ;
+  font-family: "Nunito";
 
   position: relative;
 }
@@ -86,7 +90,6 @@ button:hover {
 @import "./components/dialogComponents/loginDialog.scss";
 @import "./components/dialogComponents/signUpDialog.scss";
 
-
 @import "./components/about.scss";
 
 // User Component Styles
@@ -94,7 +97,7 @@ button:hover {
 @import "./components/user/profile.scss";
 @import "./components/user/connect.scss";
 
-// Media Queries start at 
+// Media Queries start at
 
 // 640px - media (min-width: 40rem)
 // 960px - media (min-width: 60rem)

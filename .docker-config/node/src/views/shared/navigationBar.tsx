@@ -70,7 +70,7 @@ class NavigationBar extends React.Component<Props, State> {
         const { signedIn, name } = this.props;
         const { open, dialogType, mobileMenuExpanded } = this.state;
         const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this;
-
+        const show = (mobileMenuExpanded) ? 'show' : '';
         let dialog;
 
         const style = {
@@ -84,66 +84,33 @@ class NavigationBar extends React.Component<Props, State> {
 
         return (
             <nav className="navigation-bar">
-                <div className="main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
+                <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
                     {/* Logo container */}
-                    <Link className="logo" to="/"><img src={logo} style={style} /><span className="brand-name">Zerochass</span></Link>
+                    <Link className="main__logo" to="/">
+                        <img src={logo} style={style} />
+                        <span className="main__brand">Zerochass</span>
+                    </Link>
 
                     {/*  Navigation links */}
-                    <ul className={(mobileMenuExpanded ? 'show' : '')}>
-                        <li className="link">
-                            <Link to="/tutorials">Tutorials</Link>
+                    <ul className={`main__links ${show}`}>
+                        <li>
+                            <Link className="main__link" to="/tutorials">Tutorials</Link>
                         </li>
-                        <li className="link">
-                            <Link to="/projects">Projects</Link>
+                        <li>
+                            <Link className="main__link" to="/projects">Projects</Link>
                         </li>
-                        <li className="search">
-                            <input id="search-input" className="search-input" placeholder="Search Zerochass" />
-                        </li>
-
-                        {/* Links to navigate to login and sign up on mobile, if not already logged in */}
-                        {/* !signedIn &&
-                            <>
-                                <li className="link link-ctrl">
-                                    <Link to="/login">Login</Link>
-                                </li>
-                                <li className="link link-ctrl">
-                                    <Link to="/sign-up">Sign up</Link>
-                                </li>
-                            </> */
-                        }
-
-                        {/* Buttons to trigger login and sign up dialogs on desktop, if not already logged in */}
-                        {/* !signedIn &&
-                            <>
-                                <li className="dialog-ctrl">
-                                    <button onClick={() => { openDialog('login') }}>Login</button>
-                                </li>
-                                <li className="dialog-ctrl">
-                                    <button onClick={() => { openDialog('sign-up') }}>Sign up</button>
-                                </li>
-                            </> */
-                        }
-
-                        {/* Buttons to show upon user being signed in */}
-                        {/* signedIn &&
-                            <>
-                                <li className="user-ctrl">
-                                    <UserMenu />
-                                </li>
-                                <li>
-                                    <button onClick={logOut}>Log Out</button>
-                                </li>
-                            </> */
-                        }
                     </ul>
 
+
                     {/* Menu button container*/}
-                    <a id="menu-btn" className="menu-btn" href="javascript:void(0);" onClick={toggleMenu}><i className="fas fa-bars"></i></a>
+                    <a id="menu-btn" className="main__menu-btn" href="javascript:void(0);" onClick={toggleMenu}>
+                        <i className="fas fa-bars"></i>
+                    </a>
                 </div>
 
                 {/* Overlay to show when menu is expanded */}
-                {mobileMenuExpanded && <div className="overlay" onClick={toggleMenu} />}
+                {mobileMenuExpanded && <div className="main__overlay" onClick={toggleMenu} />}
 
                 <BaseDialog open={open} closeDialog={closeDialog} Dialog={dialog} />
             </nav>

@@ -1,217 +1,131 @@
 .navigation-bar {
-  height: 70px;
   background-color: #141414;
   border-bottom: 1px solid #444444;
   box-sizing: border-box;
 
   font-family: "Nunito";
 
-  .main {
-    height: 100%;
-    width: 100%;
-
+  &__main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100% auto;
-  }
+    grid-template-rows: 1fr min-content;
+    padding: 15px 15px;
+    position: relative;
 
-  .overlay {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.685);
-  }
-
-  .main > a {
-    align-items: center;
-  }
-
-  .logo {
-    grid-column: 1 / 3;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .logo > span {
-    justify-self: center;
-  }
-
-  ul {
-    display: none;
-    grid-row: 2;
-    grid-column: 1 / 4;
-
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-
-  }
-
-  .dialog-ctrl {
-    display: none;
-  }
-
-  .show {
-    display: grid;
-  }
-
-  ul > li > a,
-  ul > li > button {
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: none;
-
-    font-size: 18px;
-    background-color: #141414;
-    color: #ffffff;
-    box-sizing: border-box;
-  }
-
-  input {
-    padding: 10px;
-    border: none;
-  }
-
-  .menu-btn {
-    display: flex;
-    justify-self: end;
-    font-size: 41px;
-  }
-
-  ul > :nth-child(5) > a {
-    color: #ff3f6f;
-  }
-
-  .search-input {
-    background-color: #313131;
-    color: #828282;
-    height: 90px;
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .search-text {
-    font-size: 18px;
-  }
-
-  /** 640px wide screen*/
-  @media (min-width: 40rem) {
-    display: grid;
-    grid-template-columns: 1vw auto 1vw;
-
-    .main {
-      grid-column: 2;
-
-      grid-template-columns: min-content 1fr;
-      grid-template-rows: 1fr;
-      grid-gap: 20px;
-    }
-
-    /* Hide menu button on this screen width and higher */
-    .menu-btn {
-      display: none;
-    }
-
-    .logo {
-      grid-column: 1;
-
-      width: fit-content;
-      display: flex;
-      flex-direction: row;
-    }
-
-    ul {
-      grid-column: 2;
-      grid-row: 1;
-      width: 100%;
-      z-index: 0;
-
-      display: grid;
-      grid-template-columns: repeat(2, minmax(80px, 1fr)) minmax(20px, 5fr) repeat(2, minmax(80px, 1fr));
-      grid-template-rows: none;
-      grid-gap: 10px;
-
-      font-size: 16px;
-    }
-
-    .link-ctrl {
-      display: none;
-    }
-
-    .dialog-ctrl {
-      display: block;
-    }
-
-    /* Link styles */
-
-    button {
-      font-family: "Nunito";
-    }
-
-    /* Transparent border by default */
-    ul > li > a,
-    ul > li > button {
-      border-bottom: 3px solid transparent;
-    }
-
-    /* Color border on hover */
-    ul > li > a:hover,
-    ul > li > a:active,
-    ul > li > button:hover,
-    ul > li > button:active {
-      border-bottom: 3px solid #d6d1d1;
-      color: #d6d1d1;
-    }
-
-    ul > :nth-child(7) > button {
-      color: #ff3f6f;
-    }
-
-    /* Different hover color for sign up button */
-    ul > :nth-child(7) > button:active,
-    ul > :nth-child(7) > button:hover {
-      border-bottom: 3px solid #ff3f6f;
-      color: #ff3f6f;
-    }
-
-    .overlay {
-      display: none;
-    }
-
-    .search {
-      display: flex;
+    a {
       align-items: center;
     }
+  }
 
-    .search-input {
+  .main {
+    &__logo {
+      grid-column: 1 / 3;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__brand {
+      justify-self: center;
+    }
+
+    &__links {
+      position: absolute;
+      display: none;
+      grid-row: 2;
+      z-index: 24;
+    }
+
+    &__link {
+      height: 70px;
       display: flex;
-      height: 60%;
-      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px solid #242323;
+
+      font-size: 18px;
+      //background-color: #141414;
+      color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    &__links.show {
+      margin-top: 20px;
+      display: grid;
+      width: 100%;
+    }
+
+    &__overlay {
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.685);
+    }
+
+    &__menu-btn {
+      display: flex;
+      justify-self: end;
+      font-size: 41px;
     }
   }
 
-  /** 960px wide screen*/
-  @media (min-width: 60rem) {
-    grid-template-columns: 10vw auto 10vw;
+  @media (min-width: 640px) {
+  }
 
-    ul {
-      grid-gap: 20px;
+  @media (min-width: 768px) {
+    &__main {
+      grid-template-columns: min-content 1fr;
+      grid-template-rows: 1fr;
+
+      padding-top: 10px;
+      padding-bottom: 0px;
     }
 
-    .search {
-      width: 95%;
+    .main {
+      &__logo {
+        grid-column: 1;
+      }
+
+      &__links {
+        position: unset;
+        grid-row: 1;
+        grid-column: 2;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: end;
+      }
+
+      &__link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        padding: 0px 20px;
+      }
+
+      &__menu-btn {
+        display: none;
+      }
+
+      &__link:hover,
+      &__link:active {
+        border-bottom: 3px solid #d6d1d1;
+        padding: 0px 20px;
+        color: #d6d1d1;
+      }
     }
+  }
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 13vw 1fr 13vw;
+
+    &__main {
+      grid-column: 2;
+    }
+  }
+
+  @media (min-width: 1280px) {
   }
 }
