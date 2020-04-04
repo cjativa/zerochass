@@ -4,7 +4,7 @@
     "header"
     "body";
   grid-template-columns: 1fr;
-  grid-template-rows: max-content min-content;
+  grid-template-rows: min-content min-content;
 
   &__header {
     grid-area: header;
