@@ -5,7 +5,7 @@
   color: #272727;
 
   &__text {
-    overflow-x: scroll;
+    overflow-x: auto;
 
     & > p > a {
       color: #23daca;
@@ -71,7 +71,6 @@
   }
 
   @media (min-width: 768px) {
-    
   }
 
   @media (min-width: 1024px) {
@@ -94,4 +93,9 @@
     list-style-type: none;
     margin: 10px;
   }
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  white-space: pre !important;
 }
