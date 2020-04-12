@@ -30,18 +30,18 @@ export const About = () => {
 
 
     return (
-        <div className="about">
+        <div className="about single-page">
             {aboutContent &&
-                <>
+                <div className="body">
                     {aboutContent.entryContent.map((block, index) => {
                         return (
-                            <div key={index} className="content">
-                                <h1>{block.sectionTitle}</h1>
-                                <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
+                            <div key={index} className="section-content">
+                                <h1 className="title">{block.sectionTitle}</h1>
+                                <p dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
                             </div>
                         )
                     })}
-                </>
+                </div>
             }
         </div>
     )

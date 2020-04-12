@@ -30,18 +30,18 @@ export const Contact = () => {
 
 
     return (
-        <div className="contact">
+        <div className="contact single-page">
             {contactContent &&
-                <>
+                <div className="body">
                     {contactContent.entryContent.map((block, index) => {
                         return (
-                            <div key={index} className="content">
-                                <h1>{block.sectionTitle}</h1>
-                                <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
+                            <div key={index} className="section-content">
+                                <h1 className="title">{block.sectionTitle}</h1>
+                                <p dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
                             </div>
                         )
                     })}
-                </>
+                </div>
             }
         </div>
     )
