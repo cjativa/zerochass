@@ -18,7 +18,8 @@
     "neo-async": "^2.6.1",
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "react-metatags-hook": "^1.1.2"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",
@@ -64,7 +65,7 @@
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.1.1",    
+    "react-scripts": "^3.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
