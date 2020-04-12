@@ -120,6 +120,8 @@ class TutorialPage extends React.Component<Props, State> {
 		const { onProgressClick, previousEntry, nextEntry } = this;
 		const { sectionInformation } = this.state;
 
+		if (title) document.title = `${title} | Zerochass`;
+
 		return (
 			<div className="tutorial-page">
 

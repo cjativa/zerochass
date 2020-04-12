@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getContentForSingle } from '../../services/singleService';
 import marked from 'marked'
+import { useSiteTitle } from 'actions/useSiteTitle';
 
 export const About = () => {
 
@@ -28,6 +29,7 @@ export const About = () => {
 
     }, []);
 
+    useSiteTitle(`About`);
 
     return (
         <div className="about single-page">
@@ -37,7 +39,7 @@ export const About = () => {
                         return (
                             <div key={index} className="section-content">
                                 <h1 className="title">{block.sectionTitle}</h1>
-                                <p dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
+                                <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
                             </div>
                         )
                     })}

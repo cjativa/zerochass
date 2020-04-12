@@ -23,6 +23,10 @@
       line-height: $normalParagraphLineHeight;
       margin: $normalParagraphMargin;
     }
+
+    p > a {
+      color: #23daca;
+    }
   }
 
   @media (min-width: 640px) {

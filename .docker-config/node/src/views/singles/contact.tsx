@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { getContentForSingle } from '../../services/singleService';
 import marked from 'marked'
+
+import { getContentForSingle } from '../../services/singleService';
+import { useSiteTitle } from '../../actions/useSiteTitle';
 
 export const Contact = () => {
 
-    const [contactContent, setContactContent] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [entryContent, setEntryContent] = useState(null);
+
 
     useEffect(() => {
-
         const fetchContent = async () => {
             // Fetch the content
             const content = await getContentForSingle('contact');
@@ -21,23 +24,25 @@ export const Contact = () => {
             });
 
             // Set to state
-            setContactContent(content);
+            setTitle(content.title);
+            setEntryContent(content.entryContent);
         };
 
         fetchContent();
 
     }, []);
 
+    useSiteTitle(`Contact us`);
 
     return (
         <div className="contact single-page">
-            {contactContent &&
+            {entryContent &&
                 <div className="body">
-                    {contactContent.entryContent.map((block, index) => {
+                    {entryContent.map((block, index) => {
                         return (
                             <div key={index} className="section-content">
                                 <h1 className="title">{block.sectionTitle}</h1>
-                                <p dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
+                                <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
                             </div>
                         )
                     })}

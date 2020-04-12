@@ -16,44 +16,43 @@ import { Contact } from 'views/singles/contact';
 import { LoginContainer } from 'containers/authentication/loginContainer';
 import { SignUpContainer } from 'containers/authentication/signUpContainer';
 import { UserPageContainer } from 'containers/user/userPageContainer';
+import { useSiteTitle } from 'actions/useSiteTitle';
 
-class Application extends React.Component {
+const Application = () => {
+  
+  return (
+    <div className="App" id="App">
+      <BrowserRouter>
+        <>
+          <Switch>
 
-  render() {
-    return (
-      <div className="App" id="App">
-        <BrowserRouter>
-          <>
-            <Switch>
+            {/* Routes that don't display the navigation bar, information banner, and footer */}
+            {/* <Route path="/login" component={LoginContainer} /> */}
+            {/* <Route path="/sign-up" component={SignUpContainer} /> */}
 
-              {/* Routes that don't display the navigation bar, information banner, and footer */}
-              {/* <Route path="/login" component={LoginContainer} /> */}
-              {/* <Route path="/sign-up" component={SignUpContainer} /> */}
-
-              {/* Routes that do display the normal navigation bar, information banner, and footer */}
-              <Route path={'/'} children={() => {
-                return (
-                  <>
-                    <ConnectedNavigationBarContainer />
-                    <Switch>
-                      <Route exact path="/" component={HomeContainer} />
-                      <Route path='/tutorial/:slug' component={TutorialContainer} />
-                      <Route path='/tutorials/' component={TutorialList} />
-                      <Route path='/about' component={About} />
-                      <Route path='/contact' component={Contact} />
-                      {/* <Route path="/user" component={UserPageContainer} /> */}
-                    </Switch>
-                  </>
-                );
-              }} />
-            </Switch>
-            <InformationBanner />
-            <Footer />
-          </>
-        </BrowserRouter>
-      </div>
-    );
-  }
+            {/* Routes that do display the normal navigation bar, information banner, and footer */}
+            <Route path={'/'} children={() => {
+              return (
+                <>
+                  <ConnectedNavigationBarContainer />
+                  <Switch>
+                    <Route exact path="/" component={HomeContainer} />
+                    <Route path='/tutorial/:slug' component={TutorialContainer} />
+                    <Route path='/tutorials/' component={TutorialList} />
+                    <Route path='/about' component={About} />
+                    <Route path='/contact' component={Contact} />
+                    {/* <Route path="/user" component={UserPageContainer} /> */}
+                  </Switch>
+                </>
+              );
+            }} />
+          </Switch>
+          <InformationBanner />
+          <Footer />
+        </>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export { Application };
