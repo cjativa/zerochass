@@ -32,18 +32,18 @@ export const TutorialList = () => {
 
 const TutorialListCard = ({ tutorial }: { tutorial: Tutorial }) => {
 
-    const { featuredImage, title, color, description } = tutorial;
+    const { featuredImage, title, color, description, slug } = tutorial;
     const shorterDescription = description[0].secondLine;
 
     return (
-        <div className="tl-card">
+        <Link className="tl-card" to={`/tutorial/${slug}`}>
             <div className={`tl-card__top ${color}`}>
                 <div className="tl-card__layer" />
                 <h1 className="tl-card__title">{title}</h1>
             </div>
-            <div className="tl-card__bottom">
+            <div className={`tl-card__bottom`}>
                 {shorterDescription}
             </div>
-        </div>
+        </Link>
     )
 };
