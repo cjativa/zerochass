@@ -97,7 +97,5 @@ button:hover {
 @import "./components/user/profile.scss";
 @import "./components/user/connect.scss";
 
-// Media Queries start at
-
-// 640px - media (min-width: 40rem)
-// 960px - media (min-width: 60rem)
+// Singles style
+@import "./components/singles/singlePage.scss";
