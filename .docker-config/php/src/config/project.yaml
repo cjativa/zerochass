@@ -1,4 +1,4 @@
-dateModified: 1586023114
+dateModified: 1586653168
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -8,6 +8,8 @@ fieldGroups:
     name: Tutorial
   5f2bf53e-378e-40f3-8218-84446def68f2:
     name: Common
+  75f45684-ef29-46a3-8414-9cb2535d53f4:
+    name: Single
 fields:
   19d995e0-3c8a-421d-ac6b-21282f856bd0:
     name: Description
@@ -24,6 +26,21 @@ fields:
       propagationMethod: all
     fieldGroup: 0224eaf2-9e27-4337-9291-d5a98dcf9a73
     contentColumnType: string
+  25d8043e-28f3-4a43-8dde-e74010e0702b:
+    name: Content
+    handle: entryContent
+    instructions: ''
+    searchable: true
+    translationMethod: site
+    translationKeyFormat: null
+    type: craft\fields\Matrix
+    settings:
+      minBlocks: ''
+      maxBlocks: ''
+      contentTable: '{{%matrixcontent_entrycontent}}'
+      propagationMethod: all
+    contentColumnType: string
+    fieldGroup: 5f2bf53e-378e-40f3-8218-84446def68f2
   6775615a-d7f1-4579-b680-b9393c97eb2b:
     name: Tags
     handle: tags
@@ -172,6 +189,61 @@ matrixBlockTypes:
               d636b9fa-6b0b-466f-9b5d-a51fdbb8ae9c:
                 required: true
                 sortOrder: 1
+  8b2f91a9-6e42-4d68-8a5e-a0957d74f011:
+    field: 25d8043e-28f3-4a43-8dde-e74010e0702b
+    name: 'Section Block'
+    handle: sectionBlock
+    sortOrder: 1
+    fields:
+      ac646572-f3e4-4569-a63b-bc6307c6f451:
+        name: 'Section Title'
+        handle: sectionTitle
+        instructions: 'Enter the title of the section here'
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\PlainText
+        settings:
+          placeholder: ''
+          code: ''
+          multiline: ''
+          initialRows: '4'
+          charLimit: ''
+          columnType: text
+        contentColumnType: text
+        fieldGroup: null
+      f61c441d-ca62-4348-a17a-3a6aafb437c4:
+        name: 'Section Content'
+        handle: sectionContent
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: Acoustep\CraftEasyMDE\Fields\CraftEasyMDEField
+        settings:
+          mode: plain
+          modeOverride: null
+          placeholder: ''
+          code: ''
+          multiline: ''
+          initialRows: '4'
+          charLimit: ''
+          columnType: text
+        contentColumnType: text
+        fieldGroup: null
+    fieldLayouts:
+      a16ee62b-e23f-42bc-926c-91e779c680ea:
+        tabs:
+          -
+            name: Content
+            sortOrder: 1
+            fields:
+              ac646572-f3e4-4569-a63b-bc6307c6f451:
+                required: true
+                sortOrder: 1
+              f61c441d-ca62-4348-a17a-3a6aafb437c4:
+                required: true
+                sortOrder: 2
   fe5e6d72-daa3-405a-9582-c15fa6815d77:
     name: Description
     handle: description
@@ -301,6 +373,66 @@ sections:
         titleLabel: Title
         titleFormat: ''
         sortOrder: 1
+  0e76b5ab-ecbd-4134-bce8-81a61c92fa90:
+    name: About
+    handle: about
+    type: single
+    enableVersioning: true
+    propagationMethod: all
+    siteSettings:
+      da6f86f5-8664-412d-b75b-80f2861cec81:
+        enabledByDefault: true
+        hasUrls: false
+        uriFormat: null
+        template: null
+    entryTypes:
+      eabd8b19-7c80-4d14-a2e3-0b5d6464ed25:
+        name: About
+        handle: about
+        hasTitleField: true
+        titleLabel: Title
+        titleFormat: '{section.name|raw}'
+        sortOrder: 1
+        fieldLayouts:
+          ee4fde5e-4c0a-423b-b3d4-b4c45cebae3b:
+            tabs:
+              -
+                name: Entry
+                sortOrder: 1
+                fields:
+                  25d8043e-28f3-4a43-8dde-e74010e0702b:
+                    required: false
+                    sortOrder: 1
+  6f81d83f-7a73-4680-af36-8d521e1a430c:
+    name: Contact
+    handle: contact
+    type: single
+    enableVersioning: true
+    propagationMethod: all
+    siteSettings:
+      da6f86f5-8664-412d-b75b-80f2861cec81:
+        enabledByDefault: true
+        hasUrls: false
+        uriFormat: null
+        template: null
+    entryTypes:
+      d20b1a97-821a-4b32-ac5b-dd4775e51a47:
+        name: Contact
+        handle: contact
+        hasTitleField: true
+        titleLabel: Title
+        titleFormat: '{section.name|raw}'
+        sortOrder: 1
+        fieldLayouts:
+          147a5c58-bc2b-4fa9-a2db-bd07382ffed5:
+            tabs:
+              -
+                name: Entry
+                sortOrder: 1
+                fields:
+                  25d8043e-28f3-4a43-8dde-e74010e0702b:
+                    required: false
+                    sortOrder: 1
   c126b885-5263-47d1-9c0d-463b4ed22bcb:
     name: Tutorials
     handle: tutorials
