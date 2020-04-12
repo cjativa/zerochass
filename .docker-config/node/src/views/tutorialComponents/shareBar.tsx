@@ -10,7 +10,7 @@ export const ShareBar = (props: Props) => {
     const [typed, setTyped] = useState(false);
 
     const { tutorialTitle } = props;
-    const taText = `I just enrolled in a tutorial at Zerochass! \n\nSo excited to start learning ${tutorialTitle}`;
+    const taText = `I just started a tutorial at Zerochass.io! \n\nSo excited to begin learning about "${tutorialTitle}"`;
 
     const onChange = (event) => {
         if (!typed) {
