@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 
 import { Tutorial } from "interfaces/tutorial";
 
@@ -14,57 +14,65 @@ interface Props {
 }
 
 interface State {
-	sectionInformation: { title: string, id: string, sectionComplete: boolean }[],
+	sectionInformation: {
+		title: string, id: string,
+		sectionComplete: boolean
+	}[],
 }
 
-class TutorialPage extends React.Component<Props, State> {
+export const TutorialPage = (props: Props) => {
 
-	sectionRefs: any[];
-	previousEntry: any;
-	nextEntry: any;
+	let previousEntry: any;
+	let nextEntry: any;
 
-	constructor(props) {
-		super(props);
+	const [sectionRefs, setSectionRefs] = useState([]);
+	const [sectionInformation, setSectionInformation] = useState([]);
 
-		this.state = {
-			sectionInformation: [],
+	/** Effects to occur on mount */
+	useEffect(() => {
+		parseContentSections();
+
+		if (props.tutorial.hasOwnProperty('parent')) {
+			setupTutorialSeries();
 		}
+	}, []);
 
-		this.sectionRefs = [];
-	}
+	/** Effects to occur when section information changes */
+	useEffect(() => {
+		console.log(`Section information changed`);
 
-	componentDidMount = () => {
-		this.parseContentSections();
+		// Add refs
+		const refs = sectionInformation.map((s, i) => sectionRefs[i] || createRef());
 
-		if (this.props.tutorial.hasOwnProperty('parent')) {
-			this.setupTutorialSeries();
-		}
-	}
+		// Set the refs
+		setSectionRefs(refs);
 
-	parseContentSections = () => {
+	}, [sectionInformation]);
 
-		const { tutorialContent } = this.props.tutorial;
+	const parseContentSections = () => {
+
+		const { tutorialContent } = props.tutorial;
 		const sectionInformation: State["sectionInformation"] = [];
 
 		tutorialContent.forEach((section) => {
 
 			const { sectionTitle: title } = section;
-			const id = this.slugify(title);
+			const id = slugify(title);
 			const meta = { title, id, sectionComplete: false };
 
-			this.sectionRefs.push(React.createRef());
 			sectionInformation.push(meta);
 		});
 
-		this.setState({ sectionInformation });
+
+		setSectionInformation(sectionInformation);
 	}
 
-	setupTutorialSeries = () => {
-		const entries = this.props.tutorial.parent.children;
+	const setupTutorialSeries = () => {
+		const entries = props.tutorial.parent.children;
 
 		// Locate this entry in the entries list
 		const thisEntryIndex = entries.findIndex((entry) => {
-			return this.props.tutorial.id === entry.id;
+			return props.tutorial.id === entry.id;
 		});
 
 		// Check if a previous entry would exist
@@ -72,9 +80,9 @@ class TutorialPage extends React.Component<Props, State> {
 
 			// Get the title and slug
 			const { title } = entries[thisEntryIndex - 1];
-			const link = this.slugify(title);
+			const link = slugify(title);
 
-			this.previousEntry = { title, link };
+			previousEntry = { title, link };
 		}
 
 		// Check if a next entry would exist
@@ -82,30 +90,26 @@ class TutorialPage extends React.Component<Props, State> {
 
 			// Get the title and slug
 			const { title } = entries[thisEntryIndex + 1];
-			const link = this.slugify(title);
+			const link = slugify(title);
 
-			this.nextEntry = { title, link };
+			nextEntry = { title, link };
 		}
 	}
 
-	onProgressClick = (index: number) => {
+	const onProgressClick = (index: number) => {
 		const nextIndex = index + 1;
-		if (nextIndex !== this.state.sectionInformation.length) {
-			this.sectionRefs[nextIndex].current.scrollIntoView({ behavior: "smooth" });
+		console.log(sectionRefs);
+		if (nextIndex !== sectionInformation.length) {
+			sectionRefs[nextIndex].current.scrollIntoView({ behavior: "smooth" });
 		}
 
-		const sectionInformation = [...this.state.sectionInformation];
-		sectionInformation[index].sectionComplete = !sectionInformation[index].sectionComplete;
+		const sections = [...sectionInformation];
+		sections[index].sectionComplete = !sections[index].sectionComplete;
 
-		this.setState((previousState) => {
-			return {
-				...previousState,
-				sectionInformation
-			}
-		});
+		setSectionInformation(sections);
 	}
 
-	slugify = (text) => {
+	const slugify = (text) => {
 		return text.toString().toLowerCase()
 			.replace(/\s+/g, '-')           // Replace spaces with -
 			.replace(/[^\w\-]+/g, '')       // Remove all non-word chars
@@ -114,64 +118,59 @@ class TutorialPage extends React.Component<Props, State> {
 			.replace(/-+$/, '');            // Trim - from end of text
 	}
 
-	render() {
+	const { title, tags, featuredImage, color, tutorialContent } = props.tutorial;
 
-		const { title, tags, featuredImage, color, tutorialContent } = this.props.tutorial;
-		const { onProgressClick, previousEntry, nextEntry } = this;
-		const { sectionInformation } = this.state;
+	if (title) document.title = `${title} | Zerochass`;
 
-		if (title) document.title = `${title} | Zerochass`;
+	console.log(sectionRefs);
 
-		return (
-			<div className="tutorial-page">
+	return (
+		<div className="tutorial-page">
 
-				{/* Header section containing the tutorial image and title */}
-				<div className="tutorial-page__header">
-					<Header title={title} tags={tags} featuredImage={featuredImage} color={color} />
-				</div>
-
-				{/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
-				<div className="tutorial-page__body">
-
-					{/** Display the side bar */}
-					<div className="side-bar-column">
-						{/* Display the content bar */}
-						<ContentBar sectionInformation={sectionInformation} />
-
-						{/** Display the share bar */}
-						<ShareBar tutorialTitle={title} />
-					</div>
-
-					{/* Display the content sections */}
-					<div className="sections">
-						{sectionInformation.length > 0 && tutorialContent.map((content, index) => {
-
-							const sectionComplete = sectionInformation[index].sectionComplete;
-
-							// Slugify the title
-							const id = this.slugify(content.sectionTitle);
-
-							// Build the Progress Check component
-							const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
-
-							// Return the composed Section component
-							return (
-								<div className="section-item" key={index} ref={this.sectionRefs[index]}>
-									<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
-								</div>
-							);
-						})}
-					</div>
-
-					{/** Display the related entries */}
-					<div className="related-entries">
-						<RelatedNavigator nextEntry={nextEntry} previousEntry={previousEntry} />
-					</div>
-
-				</div>
+			{/* Header section containing the tutorial image and title */}
+			<div className="tutorial-page__header">
+				<Header title={title} tags={tags} featuredImage={featuredImage} color={color} />
 			</div>
-		);
-	}
-}
 
-export { TutorialPage };
+			{/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
+			<div className="tutorial-page__body">
+
+				{/** Display the side bar */}
+				<div className="side-bar-column">
+					{/* Display the content bar */}
+					<ContentBar sectionInformation={sectionInformation} />
+
+					{/** Display the share bar */}
+					<ShareBar tutorialTitle={title} />
+				</div>
+
+				{/* Display the content sections */}
+				<div className="sections">
+					{sectionInformation.length > 0 && tutorialContent.map((content, index) => {
+
+						const sectionComplete = sectionInformation[index].sectionComplete;
+
+						// Slugify the title
+						const id = slugify(content.sectionTitle);
+
+						// Build the Progress Check component
+						const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
+
+						// Return the composed Section component
+						return (
+							<div className="section-item" key={index} ref={sectionRefs[index]}>
+								<Section content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
+							</div>
+						);
+					})}
+				</div>
+
+				{/** Display the related entries */}
+				<div className="related-entries">
+					<RelatedNavigator nextEntry={nextEntry} previousEntry={previousEntry} />
+				</div>
+
+			</div>
+		</div>
+	);
+};
