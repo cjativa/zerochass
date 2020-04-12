@@ -51,13 +51,13 @@ export const Contact = () => {
         metas: [
             { name: 'keywords', content: keywords },
             { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `${process.env.REACT_APP_SITE_URL}/${slug}` }
+            { name: 'url', content: `${process.env.REACT_APP_SITE_URL}/${slug}` },
+
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:site', content: '@zerochass' },
+            { name: 'twitter:title', content: pageTitle, },
+            { name: 'twitter:description', content: summary },
         ],
-        twitter: {
-            card: summary,
-            creator: '@zerochass',
-            title: pageTitle,
-        }
     });
 
     return (

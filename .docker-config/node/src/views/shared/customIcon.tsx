@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export const CustomIcon = () => {
+export const CustomIcon = ({ icon }) => {
     return (
         <span id="progress-span" className="fa-stack fa-2x" onClick={() => { console.log(`You clicked the icon`) }}>
             <i className={`fas fa-circle fa-stack-2x bg`}></i>

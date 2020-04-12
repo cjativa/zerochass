@@ -62,15 +62,14 @@ export const TutorialPage = (props: Props) => {
 		metas: [
 			{ name: 'keywords', content: keywords },
 			{ name: 'robots', content: 'index, follow' },
-			{ name: 'url', content: `${process.env.REACT_APP_SITE_URL}/tutorial/${slug}` }
-		],
-		twitter: {
-			card: "summary",
-			site: '@zerochass',
-			title: pageTitle,
-			description: summary,
-			image: featuredImage[0].url
-		}
+			{ name: 'url', content: `${process.env.REACT_APP_SITE_URL}/tutorial/${slug}` },
+
+			{ name: 'twitter:card', content: 'summary' },
+			{ name: 'twitter:site', content: '@zerochass' },
+			{ name: 'twitter:title', content: pageTitle, },
+			{ name: 'twitter:description', content: summary },
+			{ name: 'twitter:image', content: featuredImage[0].url }
+		]
 	});
 
 
