@@ -1,24 +1,16 @@
 
-import { CraftGraphService } from "../services/craftGraphService";
+import * as TutorialService from "../services/tutorialService";
 
-export class TutorialsController {
 
-    cs: CraftGraphService;
+export const getTutorials = async (request, response) => {
+    let tutorials = await TutorialService.getTutorials();
 
-    constructor() {
-        this.cs = new CraftGraphService();
-    }
+    response.status(200).json(tutorials);
+}
 
-    getTutorials = async (request, response) => {
-        let tutorials = await this.cs.getTutorials();
+export const getTutorial = async (request, response) => {
+    let { slug } = request.params;
+    let tutorial = await TutorialService.getTutorial(slug);
 
-        response.status(200).json(tutorials);
-    }
-
-    getTutorial = async (request, response) => {
-        let { slug } = request.params;
-        let tutorial = await this.cs.getTutorial(slug);
-
-        response.status(200).json(tutorial);
-    }
+    response.status(200).json(tutorial);
 }
