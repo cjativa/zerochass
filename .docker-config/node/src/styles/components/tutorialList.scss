@@ -1,0 +1,79 @@
+.tutorial-list {
+  display: grid;
+  grid-template-areas: "body";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  min-height: 500px;
+
+  .body {
+    grid-area: body;
+    background-color: $tutorial_content_grid_background;
+    padding: 30px 15px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: $normalFontColor;
+    justify-items: center;
+  }
+
+  .section-content {
+    .title {
+      margin: 20px 0px;
+    }
+
+    p {
+      line-height: $normalParagraphLineHeight;
+      margin: $normalParagraphMargin;
+    }
+  }
+
+  @media (min-width: 640px) {
+  }
+
+  @media (min-width: 768px) {
+    min-height: 700px;
+
+    .section-content {
+      width: 550px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+  }
+
+  @media (min-width: 1280px) {
+    background-color: $tutorial_page_background;
+    grid-template-areas: ". body .";
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .body {
+      border-left: 1px solid lightgray;
+      border-right: 1px solid lightgray;
+    }
+  }
+}
+
+.tl-card {
+  height: 200px;
+  width: 150px;
+
+  border: 1px solid lightgray;
+  border-radius: 10px;
+
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-template-areas:
+    "cardTop"
+    "cardLower";
+
+  &__top {
+    padding: 10px 5px;
+    text-align: center;
+  }
+
+  &__bottom {
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
