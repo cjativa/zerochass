@@ -8,7 +8,7 @@
   .body {
     grid-area: body;
     background-color: $tutorial_content_grid_background;
-    padding: 30px 15px;
+    padding: 30px 5px;
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -55,10 +55,11 @@
 
 .tl-card {
   height: 200px;
-  width: 150px;
+  width: 90%;
 
   border: 1px solid lightgray;
   border-radius: 10px;
+  overflow: hidden;
 
   display: grid;
   grid-template-rows: 60% 40%;
@@ -66,14 +67,43 @@
     "cardTop"
     "cardLower";
 
+  pointer-events: all;
+
   &__top {
     padding: 10px 5px;
     text-align: center;
+    position: relative;
+    pointer-events: none;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  &__layer {
+    background: rgba(0, 0, 0, 0.082);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    pointer-events: none;
+  }
+
+  &:hover &__layer {
+      visibility: hidden;
   }
 
   &__bottom {
     padding: 10px 5px;
     text-align: center;
     font-size: 12px;
+  }
+
+  &__title {
+    font-size: 16px;
+    position: absolute;
+    z-index: 3;
   }
 }

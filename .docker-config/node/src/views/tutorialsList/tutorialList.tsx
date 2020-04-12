@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Tutorial, } from 'interfaces/tutorial';
-import { TutorialPage } from 'views/tutorialComponents/tutorialPage';
 import { TutorialService } from 'services/tutorialService';
 
 export const TutorialList = () => {
@@ -38,7 +38,8 @@ const TutorialListCard = ({ tutorial }: { tutorial: Tutorial }) => {
     return (
         <div className="tl-card">
             <div className={`tl-card__top ${color}`}>
-                {title}
+                <div className="tl-card__layer" />
+                <h1 className="tl-card__title">{title}</h1>
             </div>
             <div className="tl-card__bottom">
                 {shorterDescription}
