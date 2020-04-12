@@ -8,7 +8,9 @@ import { TutorialList } from 'views/tutorialsList/tutorialList';
 import { TutorialContainer } from 'containers/tutorialContainer';
 import { InformationBanner } from 'views/shared/informationBanner';
 import { Footer } from 'views/shared/footer';
-import { About } from 'views/about';
+import { About } from 'views/singles/about';
+import { Contact } from 'views/singles/contact';
+
 
 // Eventual authentication components
 import { LoginContainer } from 'containers/authentication/loginContainer';
@@ -38,6 +40,7 @@ class Application extends React.Component {
                       <Route path='/tutorial/:slug' component={TutorialContainer} />
                       <Route path='/tutorials/' component={TutorialList} />
                       <Route path='/about' component={About} />
+                      <Route path='/contact' component={Contact} />
                       {/* <Route path="/user" component={UserPageContainer} /> */}
                     </Switch>
                   </>
