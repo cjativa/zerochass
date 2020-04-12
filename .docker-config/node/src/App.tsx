@@ -18,31 +18,27 @@ import { SignUpContainer } from 'containers/authentication/signUpContainer';
 import { UserPageContainer } from 'containers/user/userPageContainer';
 import { useSiteTitle } from 'actions/useSiteTitle';
 
-const Application = () => {
-  
+export const Application = () => {
+
   return (
     <div className="App" id="App">
       <BrowserRouter>
         <>
           <Switch>
-
-            {/* Routes that don't display the navigation bar, information banner, and footer */}
-            {/* <Route path="/login" component={LoginContainer} /> */}
-            {/* <Route path="/sign-up" component={SignUpContainer} /> */}
-
-            {/* Routes that do display the normal navigation bar, information banner, and footer */}
             <Route path={'/'} children={() => {
               return (
                 <>
                   <ConnectedNavigationBarContainer />
-                  <Switch>
-                    <Route exact path="/" component={HomeContainer} />
-                    <Route path='/tutorial/:slug' component={TutorialContainer} />
-                    <Route path='/tutorials/' component={TutorialList} />
-                    <Route path='/about' component={About} />
-                    <Route path='/contact' component={Contact} />
-                    {/* <Route path="/user" component={UserPageContainer} /> */}
-                  </Switch>
+                  <div className="app__body">
+                    <Switch>
+                      <Route exact path="/" component={HomeContainer} />
+                      <Route path='/tutorial/:slug' component={TutorialContainer} />
+                      <Route path='/tutorials/' component={TutorialList} />
+                      <Route path='/about' component={About} />
+                      <Route path='/contact' component={Contact} />
+                      {/* <Route path="/user" component={UserPageContainer} /> */}
+                    </Switch>
+                  </div>
                 </>
               );
             }} />
@@ -51,8 +47,13 @@ const Application = () => {
           <Footer />
         </>
       </BrowserRouter>
-    </div>
+    </div >
   );
-}
+};
 
-export { Application };
+
+{/* Routes that don't display the navigation bar, information banner, and footer */ }
+{/* <Route path="/login" component={LoginContainer} /> */ }
+{/* <Route path="/sign-up" component={SignUpContainer} /> */ }
+
+{/* Routes that do display the normal navigation bar, information banner, and footer */ }
