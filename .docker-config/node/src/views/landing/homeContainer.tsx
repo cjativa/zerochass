@@ -8,7 +8,6 @@ import { useSiteTitle } from 'actions/useSiteTitle';
 
 export const HomeContainer = () => {
 
-    console.log(`Home`);
     useSiteTitle('Home');
 
 

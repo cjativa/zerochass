@@ -12,6 +12,7 @@ const generateSinglesQuery = (type: string) => {
     query {
         entries(type: "${type}") {
             title,
+            slug,
           ... on ${type}_${type}_Entry {
             entryContent {
               ... on entryContent_sectionBlock_BlockType {

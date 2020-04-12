@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import marked from 'marked'
+import marked from 'marked';
+import useMetaTags from 'react-metatags-hook';
+
 
 import { getContentForSingle } from '../../services/singleService';
 import { useSiteTitle } from '../../actions/useSiteTitle';
@@ -7,11 +9,13 @@ import { useSiteTitle } from '../../actions/useSiteTitle';
 export const Contact = () => {
 
     const [title, setTitle] = useState(null);
-    const [entryContent, setEntryContent] = useState(null);
+    const [entryContent, setEntryContent] = useState([]);
+    const [slug, setSlug] = useState(null);
 
 
     useEffect(() => {
         const fetchContent = async () => {
+
             // Fetch the content
             const content = await getContentForSingle('contact');
 
@@ -26,13 +30,35 @@ export const Contact = () => {
             // Set to state
             setTitle(content.title);
             setEntryContent(content.entryContent);
+            setSlug(content.slug);
         };
 
         fetchContent();
 
     }, []);
 
-    useSiteTitle(`Contact us`);
+    const pageTitle = `${title} | Zerochass`;
+    const keywords = `contact, help, questions, contact us`;
+    const summary = entryContent.map((e, i) => {
+        if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
+    }).join(' ').trim();
+
+    useMetaTags({
+        title: pageTitle,
+        description: summary,
+        charset: 'utf8',
+        lang: 'en',
+        metas: [
+            { name: 'keywords', content: keywords },
+            { name: 'robots', content: 'index, follow' },
+            { name: 'url', content: `${process.env.REACT_APP_SITE_URL}/${slug}` }
+        ],
+        twitter: {
+            card: summary,
+            creator: '@zerochass',
+            title: pageTitle,
+        }
+    });
 
     return (
         <div className="contact single-page">
