@@ -65,9 +65,11 @@ export const TutorialPage = (props: Props) => {
 			{ name: 'url', content: `${process.env.REACT_APP_SITE_URL}/tutorial/${slug}` }
 		],
 		twitter: {
-			card: summary,
-			creator: '@zerochass',
+			card: "summary",
+			site: '@zerochass',
 			title: pageTitle,
+			description: summary,
+			image: featuredImage[0].url
 		}
 	});
 

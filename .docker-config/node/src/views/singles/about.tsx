@@ -35,7 +35,7 @@ export const About = () => {
     }, []);
 
     const pageTitle = `${title} | Zerochass`;
-    const keywords = `contact, help, questions, contact us`;
+    const keywords = `about, company, information`;
     const summary = entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
