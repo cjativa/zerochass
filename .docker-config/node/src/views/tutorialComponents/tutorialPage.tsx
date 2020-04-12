@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, createRef } from "react";
+import useMetaTags from 'react-metatags-hook';
 
+import { slugify } from '../../actions/slugify';
 import { Tutorial } from "interfaces/tutorial";
-
 import { Header } from 'views/tutorialComponents/header';
 import { Section } from 'views/tutorialComponents/section';
 import { ContentBar } from 'views/tutorialComponents/contentBar';
@@ -22,8 +23,9 @@ interface State {
 
 export const TutorialPage = (props: Props) => {
 
-	let previousEntry: any;
-	let nextEntry: any;
+	let previousEntry, nextEntry;
+	const { title, tags, featuredImage, color, tutorialContent, description, slug } = props.tutorial;
+
 
 	const [sectionRefs, setSectionRefs] = useState([]);
 	const [sectionInformation, setSectionInformation] = useState([]);
@@ -39,7 +41,6 @@ export const TutorialPage = (props: Props) => {
 
 	/** Effects to occur when section information changes */
 	useEffect(() => {
-		console.log(`Section information changed`);
 
 		// Add refs
 		const refs = sectionInformation.map((s, i) => sectionRefs[i] || createRef());
@@ -48,6 +49,28 @@ export const TutorialPage = (props: Props) => {
 		setSectionRefs(refs);
 
 	}, [sectionInformation]);
+
+	const pageTitle = `${title} | Zerochass`;
+	const keywords = tags.map((tag) => tag.title).join();
+	const summary = description.map((d) => `${d.firstLine} ${d.secondLine}`).join();
+
+	useMetaTags({
+		title: pageTitle,
+		description: summary,
+		charset: 'utf8',
+		lang: 'en',
+		metas: [
+			{ name: 'keywords', content: keywords },
+			{ name: 'robots', content: 'index, follow' },
+			{ name: 'url', content: `${process.env.REACT_APP_SITE_URL}/tutorial/${slug}` }
+		],
+		twitter: {
+			card: summary,
+			creator: '@zerochass',
+			title: pageTitle,
+		}
+	});
+
 
 	const parseContentSections = () => {
 
@@ -62,7 +85,6 @@ export const TutorialPage = (props: Props) => {
 
 			sectionInformation.push(meta);
 		});
-
 
 		setSectionInformation(sectionInformation);
 	}
@@ -98,7 +120,7 @@ export const TutorialPage = (props: Props) => {
 
 	const onProgressClick = (index: number) => {
 		const nextIndex = index + 1;
-		console.log(sectionRefs);
+
 		if (nextIndex !== sectionInformation.length) {
 			sectionRefs[nextIndex].current.scrollIntoView({ behavior: "smooth" });
 		}
@@ -108,21 +130,6 @@ export const TutorialPage = (props: Props) => {
 
 		setSectionInformation(sections);
 	}
-
-	const slugify = (text) => {
-		return text.toString().toLowerCase()
-			.replace(/\s+/g, '-')           // Replace spaces with -
-			.replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-			.replace(/\-\-+/g, '-')         // Replace multiple - with single -
-			.replace(/^-+/, '')             // Trim - from start of text
-			.replace(/-+$/, '');            // Trim - from end of text
-	}
-
-	const { title, tags, featuredImage, color, tutorialContent } = props.tutorial;
-
-	if (title) document.title = `${title} | Zerochass`;
-
-	console.log(sectionRefs);
 
 	return (
 		<div className="tutorial-page">
