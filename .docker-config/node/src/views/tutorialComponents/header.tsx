@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tutorial } from 'interfaces/tutorial';
+import { Tutorial } from '../../interfaces/tutorial';
 
 interface Props {
     title: string,

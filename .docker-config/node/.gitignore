@@ -25,5 +25,7 @@ yarn-error.log*
 
 /dist
 dist.zip
+compiled
+compiled.zip
 
 /server/private/jwks.json

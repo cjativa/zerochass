@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef, createRef } from "react";
 import useMetaTags from 'react-metatags-hook';
 
 import { slugify } from '../../actions/slugify';
-import { Tutorial } from "interfaces/tutorial";
-import { Header } from 'views/tutorialComponents/header';
-import { Section } from 'views/tutorialComponents/section';
-import { ContentBar } from 'views/tutorialComponents/contentBar';
-import { ShareBar } from 'views/tutorialComponents/shareBar';
+import { Tutorial } from "../../interfaces/tutorial";
+import { Header } from '../../views/tutorialComponents/header';
+import { Section } from '../../views/tutorialComponents/section';
+import { ContentBar } from '../../views/tutorialComponents/contentBar';
+import { ShareBar } from '../../views/tutorialComponents/shareBar';
 import { ProgressCheck } from "./progressCheck";
 import { RelatedNavigator } from "./relatedNavigator";
 

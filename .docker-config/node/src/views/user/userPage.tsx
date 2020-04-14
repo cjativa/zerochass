@@ -5,8 +5,8 @@ import { Profile } from './profile';
 import { Account } from './account';
 import { Connect } from './connect';
 
-import logo from '../../assets/logo/logo.svg';
-import { AccountInformation, ProfileInformation } from '../../interfaces/userPayloads';
+/* import logo from '../../assets/logo/logo.svg';
+ */import { AccountInformation, ProfileInformation } from '../../interfaces/userPayloads';
 
 interface Props {
     route: string,
@@ -34,7 +34,7 @@ export class UserPage extends React.Component<Props> {
                     <nav>
                         <ul>
                             <li className="nav-link">
-                                <img src={logo} />
+                              {/*   <img src={logo} /> */}
                             </li>
                             <li>
                                 <Link className={`nav-link ${(route === '/user/profile') ? 'active' : ''}`} to="/user/profile">Profile</Link>

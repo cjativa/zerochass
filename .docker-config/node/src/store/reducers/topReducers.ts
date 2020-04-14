@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import { TutorialState, TutorialStateInterface } from 'store/reducers/tutorialsReducer';
-import { UserState, UserStateInterface } from 'store/reducers/authenticationReducer';
-import { Action } from 'interfaces/action';
+import { TutorialState, TutorialStateInterface } from '../../store/reducers/tutorialsReducer';
+import { UserState, UserStateInterface } from '../../store/reducers/authenticationReducer';
+import { Action } from '../../interfaces/action';
 
 export const appReducer = combineReducers({
     TutorialState,

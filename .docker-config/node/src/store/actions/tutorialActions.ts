@@ -1,7 +1,7 @@
-import { Action } from 'interfaces/action';
-import * as at from 'store/actionTypes/tutorialActionTypes';
+import { Action } from '../../interfaces/action';
+import * as at from '../../store/actionTypes/tutorialActionTypes';
 
-import { Tutorial } from 'interfaces/tutorial';
+import { Tutorial } from '../../interfaces/tutorial';
 
 export class FetchTutorialsData implements Action {
 

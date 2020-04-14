@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Tutorial, } from 'interfaces/tutorial';
-import { TutorialService } from 'services/tutorialService';
+import { Tutorial, } from '../../interfaces/tutorial';
+import { TutorialService } from '../../services/tutorialService';
 
 export const TutorialList = () => {
 

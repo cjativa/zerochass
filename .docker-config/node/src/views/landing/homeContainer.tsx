@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import useMetaTags from 'react-metatags-hook';
 
-import { SiteBanner } from 'views/landing/siteBanner';
+import { SiteBanner } from '../../views/landing/siteBanner';
 import { ContentList } from './contentList';
-import { TechnologiesBanner } from 'views/landing/technologiesBanner';
-import { useSiteTitle } from 'actions/useSiteTitle';
+import { TechnologiesBanner } from '../../views/landing/technologiesBanner';
+import { useSiteTitle } from '../../actions/useSiteTitle';
 
 
 export const HomeContainer = () => {

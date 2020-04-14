@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 
-import { ConnectedProps } from "interfaces/connectedProps";
-import { ZerochassStoreInterface } from 'store/reducers/topReducers';
+import { ConnectedProps } from "../interfaces/connectedProps";
+import { ZerochassStoreInterface } from '../store/reducers/topReducers';
 
-import { NavigationBar } from 'views/shared/navigationBar';
+import { NavigationBar } from '../views/shared/navigationBar';
 
 interface MappedProps {
     signedIn: boolean,
@@ -13,13 +13,13 @@ interface MappedProps {
 
 type Props = MappedProps & ConnectedProps;
 
-class NavigationBarContainer extends React.Component<Props> {
+class NavigationBarContainer extends React.Component {
 
     render() {
-        const { signedIn, name } = this.props;
+        //  const { signedIn, name } = this.props;
 
         return (
-            <NavigationBar signedIn={signedIn} name={name} />
+            <NavigationBar /* signedIn={signedIn} name={name} */ />
         )
     }
 }
@@ -32,4 +32,4 @@ const mapStateToProps = (state: ZerochassStoreInterface) => {
     return { name, signedIn };
 }
 
-export const ConnectedNavigationBarContainer = connect(mapStateToProps)(NavigationBarContainer);
+export const ConnectedNavigationBarContainer = (NavigationBarContainer);

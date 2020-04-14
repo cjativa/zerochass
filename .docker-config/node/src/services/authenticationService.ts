@@ -1,5 +1,5 @@
-import { LoginPayload, SignUpPayload } from 'classes/authentication/authClasses';
-import { AuthenticationResponse } from 'interfaces/authentication/authInterfaces';
+import { LoginPayload, SignUpPayload } from '../classes/authentication/authClasses';
+import { AuthenticationResponse } from '../interfaces/authentication/authInterfaces';
 
 
 const AUTH_ROUTE = '/api/authentication';

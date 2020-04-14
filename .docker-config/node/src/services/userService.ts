@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { AxiosConfig } from 'classes/axiosConfigs';
-import { ProfileInformation, AccountInformation } from 'interfaces/userPayloads';
+import { AxiosConfig } from '../classes/axiosConfigs';
+import { ProfileInformation, AccountInformation } from '../interfaces/userPayloads';
 
-import { Store } from 'store/store';
+import { Store } from '../store/store';
 
 export class UserService {
 

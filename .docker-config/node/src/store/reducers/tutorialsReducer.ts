@@ -1,7 +1,7 @@
-import * as at from 'store/actionTypes/tutorialActionTypes';
+import * as at from '../../store/actionTypes/tutorialActionTypes';
 
-import { Action } from 'interfaces/action';
-import { Tutorial } from 'interfaces/tutorial';
+import { Action } from '../../interfaces/action';
+import { Tutorial } from '../../interfaces/tutorial';
 
 export interface TutorialStateInterface {
     tutorials: any,

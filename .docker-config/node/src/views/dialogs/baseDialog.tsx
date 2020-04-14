@@ -8,7 +8,7 @@ interface Props {
     Dialog: any
 }
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#app');
 
 class BaseDialog extends React.Component<Props, any> {
 

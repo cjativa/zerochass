@@ -1,4 +1,4 @@
-import { Tutorial } from 'interfaces/tutorial';
+import { Tutorial } from '../interfaces/tutorial';
 import axios from 'axios';
 
 export class TutorialService {

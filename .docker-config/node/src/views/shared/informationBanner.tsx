@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from 'assets/logo/logo.svg';
+// import logo from '../../../../logo/logo.svg';
 
 export const InformationBanner = () => {
 	return (
@@ -9,7 +9,7 @@ export const InformationBanner = () => {
 			<div className="inner-content">
 				<div className="left-content">
 					<div className="brand-logo">
-						<img src={logo} />
+						{/* <img src={logo} /> */}
 					</div>
 					<div className="brand-support">
 						<h3 className="brand-text">zerochass</h3>

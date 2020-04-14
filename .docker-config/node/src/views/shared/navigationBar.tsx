@@ -6,7 +6,7 @@ import { LoginDialog } from '../dialogs/loginDialog';
 import { SignUpDialog } from '../dialogs/signUpDialog';
 import { BaseDialog } from '../dialogs/baseDialog';
 
-import logo from '../../assets/logo/logo.svg';
+/* import logo from '../../assets/logo/logo.svg'; */
 import { UserMenu } from './userMenu';
 
 import { logOut } from '../../store/actions/authenticationActions';
@@ -18,8 +18,8 @@ interface State {
 }
 
 interface Props {
-    signedIn: boolean,
-    name: string,
+    //signedIn: boolean,
+    //name: string,
 }
 
 class NavigationBar extends React.Component<Props, State> {
@@ -60,14 +60,14 @@ class NavigationBar extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        if (this.props.signedIn) {
+        /* if (this.props.signedIn) {
             this.closeDialog();
-        }
+        } */
     }
 
     render() {
 
-        const { signedIn, name } = this.props;
+        /* const { signedIn, name } = this.props; */
         const { open, dialogType, mobileMenuExpanded } = this.state;
         const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this;
         const show = (mobileMenuExpanded) ? 'show' : '';
@@ -88,7 +88,7 @@ class NavigationBar extends React.Component<Props, State> {
 
                     {/* Logo container */}
                     <Link className="main__logo" to="/">
-                        <img src={logo} style={style} />
+                        {/* <img src={logo} style={style} /> */}
                         <span className="main__brand">Zerochass</span>
                     </Link>
 

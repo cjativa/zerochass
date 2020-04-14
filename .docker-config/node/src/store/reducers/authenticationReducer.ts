@@ -1,5 +1,5 @@
-import { Action } from "interfaces/action";
-import * as at from 'store/actionTypes/authenticationActionTypes';
+import { Action } from "../../interfaces/action";
+import * as at from '../../store/actionTypes/authenticationActionTypes';
 
 export interface UserStateInterface {
     

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import { TutorialService } from "services/tutorialService";
-import { Tutorial } from 'interfaces/tutorial';
-import { TutorialCard } from 'views/landing/tutorialCard';
-import { colorWeights, colors } from 'constants/colors';
+import { TutorialService } from "../../services/tutorialService";
+import { Tutorial } from '../../interfaces/tutorial';
+import { TutorialCard } from '../../views/landing/tutorialCard';
+import { colorWeights, colors } from '../../constants/colors';
 
 export const ContentList = () => {
 

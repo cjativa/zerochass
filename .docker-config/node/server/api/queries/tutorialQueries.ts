@@ -1,4 +1,4 @@
-const singlesEntryQuery = (slug: string) => {
+export const singlesEntryQuery = (slug: string) => {
     return `
     query {
       entries(type: "tutorial", slug: "${slug}") {

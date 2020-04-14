@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SectionMeta } from 'interfaces/tutorialPage/sectionMeta';
+import { SectionMeta } from '../../interfaces/tutorialPage/sectionMeta';
 
 
 interface Props {

@@ -1,4 +1,4 @@
-import * as knexLib from 'knex';
+import knexLib from 'knex';
 import { Config } from '../config';
 
 export const knex = knexLib({

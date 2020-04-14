@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Tutorial } from 'interfaces/tutorial';
-import { TutorialPage } from 'views/tutorialComponents/tutorialPage';
-import { TutorialService } from 'services/tutorialService';
+import { Tutorial } from '../interfaces/tutorial';
+import { TutorialPage } from '../views/tutorialComponents/tutorialPage';
+import { TutorialService } from '../services/tutorialService';
 
 export const TutorialContainer = (props) => {
 
