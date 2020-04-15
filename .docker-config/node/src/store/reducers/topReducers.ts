@@ -9,7 +9,7 @@ export const appReducer = combineReducers({
     UserState
 });
 
-export const rootReducer = (state: ZerochassStoreInterface, action: Action) => {
+export const rootReducer = (state: any, action: Action) => {
 
     if (action.type === 'USER_LOGOUT') {
         state.UserState = undefined;

@@ -4,39 +4,38 @@ import useMetaTags from 'react-metatags-hook';
 
 import { getContentForSingle } from '../../services/singleService';
 
-export const About = () => {
+declare const __isBrowser__: string;
+declare const window: any;
 
-    const [title, setTitle] = useState(null);
-    const [entryContent, setEntryContent] = useState([]);
-    const [slug, setSlug] = useState(null);
+export const About = (props) => {
+
+    // Set the content
+    const setContent = async () => {
+        const contact = await getContentForSingle('about');
+        const { title, entryContent, slug } = contact;
+        setTitle(title);
+        setEntryContent(entryContent);
+        setSlug(slug);
+    };
+
+    let about;
+
+    if (__isBrowser__) about = window.__INITIAL_DATA__.about || {};
+    else about = props.staticContext.about;
+
+    const [title, setTitle] = useState(about.title);
+    const [slug, setSlug] = useState(about.slug);
+    const [entryContent, setEntryContent] = useState(about.entryContent);
 
     useEffect(() => {
-
-        const fetchContent = async () => {
-            // Fetch the content
-            const content = await getContentForSingle('about');
-
-            // Apply markdown to each entry content block
-            content.entryContent = content.entryContent.map((content) => {
-                return {
-                    ...content,
-                    sectionContent: marked(content.sectionContent)
-                }
-            });
-
-            // Set to state
-            setTitle(content.title);
-            setEntryContent(content.entryContent);
-            setSlug(content.slug);
-        };
-
-        fetchContent();
-
+        if (!title) {
+            setContent();
+        }
     }, []);
 
     const pageTitle = `${title} | Zerochass`;
     const keywords = `about, company, information`;
-    const summary = entryContent.map((e, i) => {
+    const summary = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
 
@@ -48,27 +47,30 @@ export const About = () => {
         metas: [
             { name: 'keywords', content: keywords },
             { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `${process.env.REACT_APP_SITE_URL}/${slug}` },
+            { name: 'url', content: `${process.env.REACT_APP_SITE_URL}/${about.slug}` },
 
             { name: 'twitter:card', content: 'summary' },
-			{ name: 'twitter:site', content: '@zerochass' },
-			{ name: 'twitter:title', content: pageTitle, },
-			{ name: 'twitter:description', content: summary },
+            { name: 'twitter:site', content: '@zerochass' },
+            { name: 'twitter:title', content: pageTitle, },
+            { name: 'twitter:description', content: summary },
         ]
     });
 
     return (
         <div className="about single-page">
-            <div className="body">
-                {entryContent.map((block, index) => {
-                    return (
-                        <div key={index} className="section-content">
-                            <h1 className="title">{block.sectionTitle}</h1>
-                            <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
-                        </div>
-                    )
-                })}
-            </div>
+            {entryContent &&
+                <div className="body">
+                    {entryContent.map((block, index) => {
+                        const sectionContent = marked(block.sectionContent);
+                        return (
+                            <div key={index} className="section-content">
+                                <h1 className="title">{block.sectionTitle}</h1>
+                                <div dangerouslySetInnerHTML={{ __html: sectionContent }} />
+                            </div>
+                        )
+                    })}
+                </div>
+            }
         </div>
     )
-}
+};

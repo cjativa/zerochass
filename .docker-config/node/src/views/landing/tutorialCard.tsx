@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { Link } from 'react-router-dom';
 import { Tutorial } from "../../interfaces/tutorial";
 
 interface Props {
@@ -14,7 +14,7 @@ class TutorialCard extends React.Component<Props> {
 
 		return (
 			<div className={`tutorial-card tutorial-card--${color.toLowerCase()}`}>
-				<a className={`tutorial-card__link`} href={`/tutorial/${tutorial.slug}`}>
+				<Link className={`tutorial-card__link`} to={`/tutorial/${tutorial.slug}`}>
 					<div className="card-inner">
 						<h1 className="card-inner__header">{tutorial.title}</h1>
 						<p className="card-inner__description">{description[0].firstLine}</p>
@@ -23,7 +23,7 @@ class TutorialCard extends React.Component<Props> {
 					{featuredImage.length > 0 && <div className="card-image">
 						<img className="tutorial-card__image" src={featuredImage[0].url} />
 					</div>}
-				</a>
+				</Link>
 			</div>
 		);
 	}

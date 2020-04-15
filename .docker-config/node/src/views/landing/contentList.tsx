@@ -5,16 +5,10 @@ import { Tutorial } from '../../interfaces/tutorial';
 import { TutorialCard } from '../../views/landing/tutorialCard';
 import { colorWeights, colors } from '../../constants/colors';
 
-export const ContentList = () => {
+declare const __isBrowser__: string;
+declare const window: any;
 
-    const ts = new TutorialService();
-    const [tutorialState, setTutorialState] = useState<{ tutorials: Tutorial[] }>(null);
-
-    /** Retrieves the tutorials and sets it into the state */
-    const retrieveTutorials = async () => {
-        const tutorials = await ts.getTutorials();
-        setTutorialState({ tutorials });
-    }
+export const ContentList = (props: any) => {
 
     const byColor = (a: Tutorial, b: Tutorial): number => {
 
@@ -31,7 +25,7 @@ export const ContentList = () => {
         // Extract 4 tutorials in this order as much as possible
         while (checkForFourColors(tutorials)) {
             colors.forEach((color) => {
-                const index = tutorials.findIndex((tutorial) => { return tutorial.color === color ; });
+                const index = tutorials.findIndex((tutorial) => { return tutorial.color === color; });
                 sortedTutorials.push(tutorials[index]);
                 tutorials.splice(index, 1);
             });
@@ -55,17 +49,8 @@ export const ContentList = () => {
         return black && pink && teal && white;
     }
 
-
-    useEffect(() => {
-        retrieveTutorials();
-    }, [])
-
-    if (tutorialState === null) {
-        return <></>
-    }
-
-    const { tutorials } = tutorialState;
-    const sorted = generateFourColor(tutorials);
+    const { tutorials } = props;
+    const sorted = tutorials && generateFourColor(tutorials);
 
     return (
 

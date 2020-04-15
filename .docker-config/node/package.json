@@ -25,16 +25,16 @@
   "scripts": {
     "start": "PORT=3000 react-scripts start",
     "watchs": "tsc -w -p server/",
-    "server": "nodemon dist/server/index.js",
+    "server": "nodemon dist/app.js",
     "serverProd": "node dist/server/index.js",
-    "clean": "rm -rf ./compiled/* ",
+    "clean": "rm -rf ./dist/* ",
     "buildz": "npm run clean && webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
     "postbuild": "cp -r build dist/",
     "buildZip": "cp -r build dist/ && cp package.json '.npmrc' dist/ && cd dist/; zip -r ../dist.zip * .[^.]*",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm:watch\" \"npm:server\" \"npm:start\""
+    "dev": "concurrently \"npm:watch\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -70,7 +70,7 @@
     "react-dom": "^16.13.1",
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "^3.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^6.0.0",

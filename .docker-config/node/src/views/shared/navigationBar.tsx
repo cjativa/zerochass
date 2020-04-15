@@ -104,7 +104,7 @@ class NavigationBar extends React.Component<Props, State> {
 
 
                     {/* Menu button container*/}
-                    <a id="menu-btn" className="main__menu-btn" href="javascript:void(0);" onClick={toggleMenu}>
+                    <a id="menu-btn" className="main__menu-btn"/*  href="javascript:void(0);" */ onClick={toggleMenu}>
                         <i className="fas fa-bars"></i>
                     </a>
                 </div>

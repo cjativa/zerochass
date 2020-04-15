@@ -5,12 +5,13 @@ const serverConfig = {
     mode: 'development',
 
     entry: {
-        app: './server/app.ts'
+        app: './server/app.tsx'
     },
 
     node: {
         __filename: false,
-        __dirname: false
+        __dirname: false,
+        fs: 'empty'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -38,29 +39,14 @@ const serverConfig = {
                 test: /\.js$/,
                 loader: "source-map-loader"
             },
-            { test: /\.(scss|css)$/, loader: "ignore-loader" }
-            /* {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    // Creates `style` nodes from JS strings
-                    'style-loader',
-                    // Translates CSS into CommonJS
-                    'css-loader',
-                    // Compiles Sass to CSS
-                    'sass-loader',
-                ],
-            },
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            }, */
+            { test: /\.(scss|css)$/, loader: "ignore-loader" },
         ]
     },
 
     target: 'node',
     output: {
-        path: path.resolve(__dirname, 'compiled'),
-        filename: "[name].js"
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'app.js'
     },
 
     externals: {
@@ -79,22 +65,27 @@ const serverConfig = {
         'mssql/package.json': 'mssql/package.json'
     },
     plugins: [
-        new webpack.IgnorePlugin(/^pg-native$/)
+        new webpack.IgnorePlugin(/^pg-native$/),
+        new webpack.DefinePlugin({
+            __isBrowser__: "false"
+        })
     ]
 };
 
 const clientConfig = {
 
     mode: 'production',
+    node: {
+        fs: 'empty'
+    },
 
     entry: {
-        client: './src/client.tsx',
-        bundle: './src/bundle.tsx',
+        client: './src/index.tsx',
     },
 
     output: {
-        path: path.resolve(__dirname, 'compiled/assets'),
-        filename: "[name].js"
+        path: path.resolve(__dirname, 'dist/assets'),
+        filename: 'bundle.js'
     },
 
 
@@ -106,6 +97,11 @@ const clientConfig = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"],
     },
+
+    plugins: [
+        new webpack.DefinePlugin({
+            __isBrowser__: "true"
+        })],
 
 
     module: {

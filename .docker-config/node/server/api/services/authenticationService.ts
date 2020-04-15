@@ -95,7 +95,7 @@ export class AuthenticationService {
         }
     }
 
-    async verifyAccount(code: string, username: string, clientId: string, email: string) {
+    async verifyAccount(code: any, username: any, clientId: any, email: any) {
 
         try {
             const userData = { Username: username, Pool: userPool };

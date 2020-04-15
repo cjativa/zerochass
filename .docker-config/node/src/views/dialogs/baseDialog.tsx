@@ -8,7 +8,7 @@ interface Props {
     Dialog: any
 }
 
-Modal.setAppElement('#app');
+/* Modal.setAppElement('app'); */
 
 class BaseDialog extends React.Component<Props, any> {
 
@@ -18,11 +18,13 @@ class BaseDialog extends React.Component<Props, any> {
 
 
         return (
-            <Modal isOpen={open} onRequestClose={closeDialog} className="base-dialog" overlayClassName="modal-overlay">
-                {Dialog}
-            </Modal>
+            <></>
         )
     }
 }
 
 export { BaseDialog };
+
+{/* <Modal isOpen={open} onRequestClose={closeDialog} className="base-dialog" overlayClassName="modal-overlay">
+                {Dialog}
+            </Modal> */}

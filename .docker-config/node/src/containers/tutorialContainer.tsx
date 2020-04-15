@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Tutorial } from '../interfaces/tutorial';
 import { TutorialPage } from '../views/tutorialComponents/tutorialPage';
 import { TutorialService } from '../services/tutorialService';
+import { useLocation } from 'react-router-dom';
+
 
 export const TutorialContainer = (props) => {
 

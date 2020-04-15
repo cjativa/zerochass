@@ -6,40 +6,39 @@ import useMetaTags from 'react-metatags-hook';
 import { getContentForSingle } from '../../services/singleService';
 import { useSiteTitle } from '../../actions/useSiteTitle';
 
-export const Contact = () => {
+declare const __isBrowser__: string;
+declare const window: any;
 
-    const [title, setTitle] = useState(null);
-    const [entryContent, setEntryContent] = useState([]);
-    const [slug, setSlug] = useState(null);
+export const Contact = (props) => {
+
+    // Fetch the content
+    const setContent = async () => {
+        const contact = await getContentForSingle('contact');
+        const { title, entryContent, slug } = contact;
+        setTitle(title);
+        setEntryContent(entryContent);
+        setSlug(slug);
+    };
+
+    let contact = null;
+
+    if (__isBrowser__) contact = window.__INITIAL_DATA__.contact || {};
+    else contact = props.staticContext.contact;
+
+    const [title, setTitle] = useState(contact.title);
+    const [slug, setSlug] = useState(contact.slug);
+    const [entryContent, setEntryContent] = useState(contact.entryContent);
 
 
     useEffect(() => {
-        const fetchContent = async () => {
-
-            // Fetch the content
-            const content = await getContentForSingle('contact');
-
-            // Apply markdown to each entry content block
-            content.entryContent = content.entryContent.map((content) => {
-                return {
-                    ...content,
-                    sectionContent: marked(content.sectionContent)
-                }
-            });
-
-            // Set to state
-            setTitle(content.title);
-            setEntryContent(content.entryContent);
-            setSlug(content.slug);
-        };
-
-        fetchContent();
-
+        if (!title) {
+            setContent();
+        }
     }, []);
 
     const pageTitle = `${title} | Zerochass`;
     const keywords = `contact, help, questions, contact us`;
-    const summary = entryContent.map((e, i) => {
+    const summary = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
 
@@ -65,10 +64,11 @@ export const Contact = () => {
             {entryContent &&
                 <div className="body">
                     {entryContent.map((block, index) => {
+                        const sectionContent = marked(block.sectionContent);
                         return (
                             <div key={index} className="section-content">
                                 <h1 className="title">{block.sectionTitle}</h1>
-                                <div dangerouslySetInnerHTML={{ __html: block.sectionContent }} />
+                                <div dangerouslySetInnerHTML={{ __html: sectionContent }} />
                             </div>
                         )
                     })}
@@ -76,4 +76,4 @@ export const Contact = () => {
             }
         </div>
     )
-}
+};

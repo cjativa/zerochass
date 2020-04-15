@@ -4,25 +4,40 @@ import { Link } from 'react-router-dom';
 import { Tutorial, } from '../../interfaces/tutorial';
 import { TutorialService } from '../../services/tutorialService';
 
-export const TutorialList = () => {
+declare const __isBrowser__: string;
+declare const window: any;
 
-    const ts = new TutorialService();
-    const [tutorials, setTutorials] = useState<Tutorial[]>([]);
+interface props {
+    tutorials: Tutorial[]
+}
 
-    /** For on mount */
+export const TutorialList = (props) => {
+
+    // Fetch the content
+    const setContent = async () => {
+        const ts = new TutorialService();
+        const tutorials = await ts.getTutorials();
+        setTutorials(tutorials);
+    };
+
+    let data;
+
+    if (__isBrowser__) {
+        data = window.__INITIAL_DATA__.tutorials;
+    }
+    else data = props.staticContext.tutorials;
+
+    const [tutorials, setTutorials] = useState<Tutorial[]>(data);
+
+
     useEffect(() => {
-        const retrieveTutorials = async () => {
-            const tutorials = await ts.getTutorials();
-            setTutorials(tutorials);
-        };
-
-        retrieveTutorials();
-    }, []);
+        if (!tutorials) setContent();
+    }, [])
 
     return (
         <div className="tutorial-list">
             <div className="body">
-                {tutorials.map((tutorial, index) => {
+                {tutorials && tutorials.map((tutorial, index) => {
                     return <TutorialListCard key={index} tutorial={tutorial} />
                 })}
             </div>
