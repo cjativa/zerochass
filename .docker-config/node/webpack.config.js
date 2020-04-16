@@ -45,6 +45,7 @@ const serverConfig = {
 
     target: 'node',
     output: {
+        publicPath: path.resolve('assets', '/'),
         path: path.resolve(__dirname, 'dist'),
         filename: 'app.js'
     },
@@ -84,6 +85,7 @@ const clientConfig = {
     },
 
     output: {
+        publicPath: path.resolve('assets', '/'),
         path: path.resolve(__dirname, 'dist/assets'),
         filename: 'bundle.js'
     },

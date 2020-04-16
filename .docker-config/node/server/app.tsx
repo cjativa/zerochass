@@ -12,14 +12,16 @@ import { matchPath, StaticRouter } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { Application } from '../src/app';
 
+import { dom } from "@fortawesome/fontawesome-svg-core";
+
+
 const server = express();
 const port = Config.port;
 
 server.use(express.json());
-
-server.use('/assets/bundle.js', express.static(path.join(__dirname, '/assets/bundle.js')));
+server.use(express.static(path.join(__dirname, '/assets')));
 server.use('/assets', express.static(path.join(__dirname, '/assets')));
-server.use('/favicon.ico', (req, res) => res.json(''))
+server.use('/favicon.ico', express.static(path.join(__dirname, '../public/favicon.ico')));
 server.use('/api/user/', isUserAuthenticated, userRouter);
 server.use('/api/', router);
 
@@ -51,6 +53,7 @@ server.get('*', async (req, res, next) => {
             <title>SSR with RR</title>
             <script src="/assets/bundle.js" defer></script>
             <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
+            <style type="text/css">${dom.css()}</style>
           </head>
           <body>
             <div id="app">

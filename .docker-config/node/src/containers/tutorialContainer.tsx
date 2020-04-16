@@ -22,20 +22,22 @@ export const TutorialContainer = (props) => {
 	let data: Tutorial;
 
 	if (__isBrowser__) {
-		data = window.__INITIAL_DATA__.tutorial || {};
+		data = window.__INITIAL_DATA__.tutorial;
 	}
 	else data = props.staticContext.tutorial;
+
 
 	const [tutorial, setTutorial] = useState(data);
 
 	useEffect(() => {
-		if (!tutorial.title) setContent();
+		if (!tutorial) setContent();
 
 	}, []);
 
-	if (!tutorial.title) return '';
 
-	return (<TutorialPage tutorial={tutorial} />
-	)
+	if (!tutorial) return null
+
+
+
+	return (<TutorialPage tutorial={tutorial} />)
 }
-{/*  */ }

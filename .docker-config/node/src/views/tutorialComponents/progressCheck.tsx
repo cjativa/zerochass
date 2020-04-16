@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 interface Props {
     sectionComplete: boolean,
     onProgressClick: any,

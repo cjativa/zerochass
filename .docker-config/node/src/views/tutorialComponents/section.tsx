@@ -7,11 +7,13 @@ import prismjs from 'prismjs';
 
 // import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 // import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
-/* import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/components/prism-bash.min.js';
 import 'prismjs/components/prism-jsx.min.js';
-import 'prismjs/components/prism-tsx.min.js'; */
+import 'prismjs/components/prism-tsx.min.js';
+
+
 
 interface Props {
     content: Tutorial['tutorialContent'][0];

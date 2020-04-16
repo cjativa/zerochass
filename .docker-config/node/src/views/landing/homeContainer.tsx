@@ -55,7 +55,7 @@ export const HomeContainer = (props: any) => {
     const [tutorials, setTutorials] = useState(data);
 
     useEffect(() => {
-        if (tutorials.length == 0) setContent();
+        if (tutorials && tutorials.length == 0) setContent();
 
     }, []);
 

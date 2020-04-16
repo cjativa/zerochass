@@ -55,7 +55,7 @@ export const ContentList = (props: any) => {
     return (
 
         <div className="content-list">
-            {sorted.map((tutorial, index) => {
+            {sorted && sorted.map((tutorial, index) => {
                 return (<TutorialCard tutorial={tutorial} key={index} />)
             })}
         </div>

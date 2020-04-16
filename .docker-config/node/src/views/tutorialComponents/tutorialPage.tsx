@@ -27,6 +27,14 @@ interface State {
 export const TutorialPage = (props: any) => {
 
 	let previousEntry, nextEntry;
+
+	try {
+		console.log(props.tutorial.title);
+
+	}
+
+	catch (error) { console.log('caught title error');}
+
 	const { title, tags, featuredImage, color, tutorialContent, description, slug } = props.tutorial;
 
 

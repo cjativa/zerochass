@@ -18,6 +18,8 @@ import { UserPageContainer } from './containers/user/userPageContainer';
 import { useSiteTitle } from './actions/useSiteTitle';
 import { routes } from '../shared/routes';
 import './styles/styles.scss';
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 
 
