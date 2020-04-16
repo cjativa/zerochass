@@ -22,7 +22,9 @@
     "noImplicitAny": false,
   },
   "include": [
-    "server"
+    "server",
+    "declaration.d.ts",
+    
   ],
   "isolatedModules": false
 }

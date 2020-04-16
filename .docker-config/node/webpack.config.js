@@ -40,6 +40,11 @@ const serverConfig = {
                 loader: "source-map-loader"
             },
             { test: /\.(scss|css)$/, loader: "ignore-loader" },
+
+            {
+                test: /\.(svg|eot|woff|woff2|ttf)$/,
+                use: ['file-loader']
+            }
         ]
     },
 

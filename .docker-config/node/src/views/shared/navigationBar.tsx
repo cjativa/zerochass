@@ -6,7 +6,7 @@ import { LoginDialog } from '../dialogs/loginDialog';
 import { SignUpDialog } from '../dialogs/signUpDialog';
 import { BaseDialog } from '../dialogs/baseDialog';
 
-/* import logo from '../../assets/logo/logo.svg'; */
+import logo from '../../assets/logo/logo.svg' ;
 import { UserMenu } from './userMenu';
 
 import { logOut } from '../../store/actions/authenticationActions';
@@ -88,7 +88,7 @@ class NavigationBar extends React.Component<Props, State> {
 
                     {/* Logo container */}
                     <Link className="main__logo" to="/">
-                        {/* <img src={logo} style={style} /> */}
+                        <img src={logo} style={style} />
                         <span className="main__brand">Zerochass</span>
                     </Link>
 
