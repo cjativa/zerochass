@@ -20,7 +20,8 @@
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
     "pg": "^7.11.0",
-    "react-metatags-hook": "^1.1.2"
+    "react-metatags-hook": "^1.1.2",
+    "serialize-javascript": "^3.0.0"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",

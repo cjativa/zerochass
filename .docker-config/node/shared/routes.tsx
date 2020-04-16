@@ -19,7 +19,7 @@ export const routes: Routes[] = [
         component: HomeContainer,
         fetchInitialData: async () => {
             const tutorials = await TutorialService.getTutorials();
-            return { data: { tutorials } };
+            return { tutorials };
         }
     },
     {

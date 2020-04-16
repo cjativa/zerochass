@@ -45,10 +45,12 @@ export const HomeContainer = (props: any) => {
 
     let data: Tutorial[];
 
-    if (__isBrowser__ && window.__INITIAL_DATA__ && window.__INITIAL_DATA__.data) {
-        data = window.__INITIAL_DATA__.data.tutorials || [];
+    if (__isBrowser__) {
+        data = window.__INITIAL_DATA__.tutorials;
     }
-    else data = props.staticContext.data.tutorials;
+    else {
+        data = props.staticContext.tutorials;
+    }
 
     const [tutorials, setTutorials] = useState(data);
 
@@ -60,7 +62,7 @@ export const HomeContainer = (props: any) => {
     return (
         <>
             <SiteBanner />
-             <ContentList tutorials={tutorials} />
+            <ContentList tutorials={tutorials} />
 
             {/* <TechnologiesBannerContainer /> */}
         </>

@@ -31,7 +31,7 @@ export const TutorialList = (props) => {
 
 
     useEffect(() => {
-        if (!tutorials) setContent();
+        if (tutorials.length == 0) setContent();
     }, [])
 
     return (

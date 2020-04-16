@@ -9,6 +9,9 @@ import { ContentBar } from '../../views/tutorialComponents/contentBar';
 import { ShareBar } from '../../views/tutorialComponents/shareBar';
 import { ProgressCheck } from "./progressCheck";
 import { RelatedNavigator } from "./relatedNavigator";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 interface Props {
 	tutorial: Tutorial;
@@ -30,7 +33,7 @@ export const TutorialPage = (props: any) => {
 	const [sectionRefs, setSectionRefs] = useState([]);
 	const [sectionInformation, setSectionInformation] = useState([]);
 
-	
+
 
 	/** Effects to occur on mount */
 	useEffect(() => {
@@ -64,7 +67,7 @@ export const TutorialPage = (props: any) => {
 		metas: [
 			{ name: 'keywords', content: keywords },
 			{ name: 'robots', content: 'index, follow' },
-			{ name: 'url', content: `${process.env.REACT_APP_SITE_URL}/tutorial/${slug}` },
+			{ name: 'url', content: `http://zerochass.io/tutorial/${slug}` },
 
 			{ name: 'twitter:card', content: 'summary' },
 			{ name: 'twitter:site', content: '@zerochass' },
