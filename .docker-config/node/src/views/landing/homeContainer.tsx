@@ -45,8 +45,7 @@ export const HomeContainer = (props: any) => {
 
     let data: Tutorial[];
 
-    if (__isBrowser__) {
-        console.log(window.__INITIAL_DATA__);
+    if (__isBrowser__ && window.__INITIAL_DATA__ && window.__INITIAL_DATA__.data) {
         data = window.__INITIAL_DATA__.data.tutorials || [];
     }
     else data = props.staticContext.data.tutorials;

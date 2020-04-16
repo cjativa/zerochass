@@ -5,31 +5,37 @@ import { TutorialPage } from '../views/tutorialComponents/tutorialPage';
 import { TutorialService } from '../services/tutorialService';
 import { useLocation } from 'react-router-dom';
 
+declare const __isBrowser__: string;
+declare const window: any;
 
 export const TutorialContainer = (props) => {
 
-	const ts = new TutorialService();
-	const [tutorialState, setTutorialState] = useState<{ tutorial: Tutorial }>(null);
-
-	/** Retrieves the tutorial and sets it into the state */
-	const retrieveTutorial = async () => {
+	// Fetch the content
+	const setContent = async () => {
 		const slug = props.match.params.slug;
-
+		const ts = new TutorialService();
 		const tutorial = await ts.getTutorial(slug);
-		setTutorialState({ tutorial });
+		setTutorial(tutorial);
+	};
+
+
+	let data: Tutorial;
+
+	if (__isBrowser__) {
+		data = window.__INITIAL_DATA__.tutorial || {};
 	}
+	else data = props.staticContext.tutorial;
+
+	const [tutorial, setTutorial] = useState(data);
 
 	useEffect(() => {
-		retrieveTutorial();
-	}, [])
+		if (!tutorial.title) setContent();
 
-	if (tutorialState == null) {
-		return <></>
-	}
+	}, []);
 
-	const { tutorial } = tutorialState;
+	if (!tutorial.title) return '';
 
-	return (
-		<TutorialPage tutorial={tutorial} />
+	return (<TutorialPage tutorial={tutorial} />
 	)
 }
+{/*  */ }

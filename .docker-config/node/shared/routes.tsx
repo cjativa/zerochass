@@ -22,7 +22,6 @@ export const routes: Routes[] = [
             return { data: { tutorials } };
         }
     },
-
     {
         path: '/tutorials',
         exact: true,
@@ -33,9 +32,14 @@ export const routes: Routes[] = [
         }
     },
     {
-        path: '/tutorial/starting-a-typescript-project',
+        path: '/tutorial/:slug',
         exact: false,
-        component: TutorialContainer
+        component: TutorialContainer,
+        fetchInitialData: async (path = '') => {
+            const slug = path.split('/').pop();
+            const tutorial = await TutorialService.getTutorial(slug);
+            return { tutorial };
+        }
     },
     {
         path: '/about',

@@ -21,7 +21,7 @@ interface State {
 	}[],
 }
 
-export const TutorialPage = (props: Props) => {
+export const TutorialPage = (props: any) => {
 
 	let previousEntry, nextEntry;
 	const { title, tags, featuredImage, color, tutorialContent, description, slug } = props.tutorial;
@@ -29,6 +29,8 @@ export const TutorialPage = (props: Props) => {
 
 	const [sectionRefs, setSectionRefs] = useState([]);
 	const [sectionInformation, setSectionInformation] = useState([]);
+
+	
 
 	/** Effects to occur on mount */
 	useEffect(() => {
