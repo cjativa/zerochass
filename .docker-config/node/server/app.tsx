@@ -13,6 +13,8 @@ import { renderToString } from "react-dom/server"
 import { Application } from '../src/app';
 
 import { dom } from "@fortawesome/fontawesome-svg-core";
+import { generateStaticHtml } from 'react-metatags-hook'
+
 
 
 const server = express();
@@ -44,13 +46,14 @@ server.get('*', async (req, res, next) => {
     </StaticRouter>
   );
 
+  const metaHTML = generateStaticHtml();
 
   res.send(
     `
         <!DOCTYPE html>
         <html>
           <head>
-            <title>SSR with RR</title>
+            ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
             <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
             <style type="text/css">${dom.css()}</style>

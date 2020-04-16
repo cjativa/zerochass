@@ -8,7 +8,6 @@ COPY --chown=root:root ./ /home/node/app
 
 RUN npm_config_user=root npm install -g nodemon concurrently typescript react-scripts node-sass 
 RUN npm install  
-RUN npm run build
 
 # Second stage, produces image for production
 FROM node:10 AS production

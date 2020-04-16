@@ -28,15 +28,14 @@
     "start": "PORT=3000 react-scripts start",
     "watchs": "tsc -w -p server/",
     "server": "nodemon dist/app.js",
-    "serverProd": "node dist/server/index.js",
+    "serverProd": "node dist/app.js",
     "clean": "rm -rf ./dist/* ",
-    "buildz": "npm run clean && webpack --config webpack.config.js",
+    "build": "npm run clean && webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
-    "postbuild": "cp -r build dist/",
-    "buildZip": "cp -r build dist/ && cp package.json '.npmrc' dist/ && cd dist/; zip -r ../dist.zip * .[^.]*",
+    "buildZip": " cp package.json '.npmrc' dist/ && cd dist/; zip -r ../dist.zip * .[^.]*",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm:watch\""
+    "dev": "concurrently \"npm:watch\" \"npm:server\""
   },
   "eslintConfig": {
     "extends": "react-app"
