@@ -26,52 +26,24 @@ export const Application = () => {
   return (
     <>
       <ConnectedNavigationBarContainer />
-      <Switch>
-        {routes.map(({ path, exact, component: C, ...rest }) => (
-          <Route
-            key={path}
-            path={path}
-            exact={exact}
-            render={(props) => (
-              <C {...props} {...rest} />
-            )}
-          />
+      <div className="app__body">
 
-        ))}
-      </Switch>
-      <InformationBanner />
-      <Footer />
-    </>
-  );
-};
-
-/*
-  <div className="app__body">
-    <Switch>
-      <Route exact path="/" component={HomeContainer} />
-      <Route path='/tutorial/:slug' component={TutorialContainer} />
-      <Route path='/tutorials/' component={TutorialList} />
-      <Route path='/about' component={About} />
-      <Route path='/contact' component={Contact} />
-    </Switch>
-</div> */
-
-{/* <InformationBanner />
-      <Footer /> */}
-
-{/**
-      
-      <Switch>
-        {routes.map(({ path, exact, component: Component, ...rest }) => {
-          return (
+        <Switch>
+          {routes.map(({ path, exact, component: C, ...rest }) => (
             <Route
               key={path}
               path={path}
               exact={exact}
               render={(props) => (
-                <Component {...props} {...rest} />
+                <C {...props} {...rest} />
               )}
-            />)
-        }
-        )}
-      </Switch> */}
+            />
+
+          ))}
+        </Switch>
+        <InformationBanner />
+        <Footer />
+      </div>
+    </>
+  );
+};
