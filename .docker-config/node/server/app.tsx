@@ -56,6 +56,7 @@ server.get('*', async (req, res, next) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
+            <link href="/assets/app.css" rel="stylesheet">
             <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
             <style type="text/css">${dom.css()}</style>
           </head>

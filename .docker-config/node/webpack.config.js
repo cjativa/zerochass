@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 
 const serverConfig = {
     mode: 'development',
@@ -39,7 +41,15 @@ const serverConfig = {
                 test: /\.js$/,
                 loader: "source-map-loader"
             },
-            { test: /\.(scss|css)$/, loader: "ignore-loader" },
+            {
+                test: /\.(sa|sc|c)ss$/, use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader, options: { publicPath: path.resolve('assets', '/') }
+                    },
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
 
             {
                 test: /\.(svg|eot|woff|woff2|ttf)$/,
@@ -74,7 +84,8 @@ const serverConfig = {
         new webpack.IgnorePlugin(/^pg-native$/),
         new webpack.DefinePlugin({
             __isBrowser__: "false"
-        })
+        }),
+        new MiniCssExtractPlugin()
     ]
 };
 
