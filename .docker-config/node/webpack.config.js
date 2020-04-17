@@ -44,7 +44,7 @@ const serverConfig = {
             {
                 test: /\.(sa|sc|c)ss$/, use: [
                     {
-                        loader: MiniCssExtractPlugin.loader, options: { publicPath: path.resolve('assets', '/'), path: path.resolve(__dirname, 'dist/assets'), }
+                        loader: MiniCssExtractPlugin.loader
                     },
                     'css-loader',
                     'sass-loader',
@@ -86,7 +86,8 @@ const serverConfig = {
             __isBrowser__: "false"
         }),
         new MiniCssExtractPlugin({
-
+            filename: "assets/[name].css",
+            publicPath: path.resolve('assets', '/'),
         })
     ]
 };
