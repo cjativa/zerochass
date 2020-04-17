@@ -22,6 +22,7 @@ const port = Config.port;
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, '/assets')));
+server.use('/app.css', express.static(path.join(__dirname, '/app.css')));
 server.use('/assets', express.static(path.join(__dirname, '/assets')));
 server.use('/favicon.ico', express.static(path.join(__dirname, '../public/favicon.ico')));
 server.use('/api/user/', isUserAuthenticated, userRouter);
@@ -56,7 +57,7 @@ server.get('*', async (req, res, next) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
-            <link href="/assets/app.css" rel="stylesheet">
+            <link href="/app.css" rel="stylesheet">
             <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
             <style type="text/css">${dom.css()}</style>
           </head>
