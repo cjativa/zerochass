@@ -53,6 +53,7 @@ server.get('*', async (req, res, next) => {
         <!DOCTYPE html>
         <html>
           <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
             <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
