@@ -54,7 +54,16 @@ server.get('*', async (req, res, next) => {
         <!DOCTYPE html>
         <html>
           <head>
+          <!-- Global site tag (gtag.js) - Google Analytics -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163465719-1"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-163465719-1');
+            </script>
+
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
