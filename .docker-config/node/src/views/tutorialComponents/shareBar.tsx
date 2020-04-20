@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
+import { ShareButtons } from '../shared/shareButtons';
+
 interface Props {
-    tutorialTitle: string
+    tutorialTitle: string,
+    slug: string
 }
 
 export const ShareBar = (props: Props) => {
@@ -9,8 +12,8 @@ export const ShareBar = (props: Props) => {
     const [value, setValue] = useState('');
     const [typed, setTyped] = useState(false);
 
-    const { tutorialTitle } = props;
-    const taText = `I just started a tutorial at Zerochass.io! \n\nSo excited to begin learning about "${tutorialTitle}"`;
+    const { tutorialTitle, slug } = props;
+    const taText = `I just started a tutorial at zerochass.io! \n\nSo excited to begin learning about "${tutorialTitle}"`;
 
     const onChange = (event) => {
         if (!typed) {
@@ -39,9 +42,21 @@ export const ShareBar = (props: Props) => {
             <div className="share-box">
                 <span className="box-title">Share</span>
                 <span className="box-subtitle">Motivate your friends!</span>
-                <textarea rows={6} cols={30} placeholder={taText} onFocus={onFocus} onBlur={onBlur} value={value} onChange={onChange}>
+                <textarea className="box-text-area"
+                    rows={6}
+                    cols={30}
+                    placeholder={taText}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    value={value}
+                    onChange={onChange}>
                 </textarea>
+
+                {/** Share buttons for sharing the tutorial */}
+                <ShareButtons link={`tutorial/${slug}`} title={tutorialTitle} text={taText} />
             </div>
+
+
         </div>
     )
 }

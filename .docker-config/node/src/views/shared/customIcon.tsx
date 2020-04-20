@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-export const CustomIcon = ({ icon }) => {
+export const CustomIcon = ({ icon, color, onClick }) => {
+
     return (
-        <span id="progress-span" className="fa-stack fa-2x" onClick={() => { console.log(`You clicked the icon`) }}>
-            <i className={`fas fa-circle fa-stack-2x bg`}></i>
-            <i className={`fas fa-check fa-stack-1x fa-inverse fg`} style={{ fontSize: '38px' }}></i>
+        <span className="fa-stack fa-2x circle" onClick={() => { onClick() }}>
+            <i className={`fas fa-circle fa-stack-2x bg`} style={{ color }}></i>
+            <i className={`${icon} fa-stack-1x fa-inverse fg`}></i>
         </span>
     );
 }

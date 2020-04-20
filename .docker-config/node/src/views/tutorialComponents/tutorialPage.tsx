@@ -162,7 +162,7 @@ export const TutorialPage = (props: any) => {
 					<ContentBar sectionInformation={sectionInformation} />
 
 					{/** Display the share bar */}
-					<ShareBar tutorialTitle={title} />
+					<ShareBar tutorialTitle={title} slug={slug} />
 				</div>
 
 				{/* Display the content sections */}

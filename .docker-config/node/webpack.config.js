@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 
 const serverConfig = {
@@ -122,7 +123,9 @@ const clientConfig = {
     plugins: [
         new webpack.DefinePlugin({
             __isBrowser__: "true"
-        })],
+        }),
+        new Dotenv(),
+    ],
 
 
     module: {
