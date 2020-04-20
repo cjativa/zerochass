@@ -34,7 +34,7 @@ export const HomeContainer = (props: any) => {
         metas: [
             { name: 'keywords', content: keywords },
             { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `${process.env.REACT_APP_CANONICAL_ROOT}/` },
+            { name: 'url', content: `${process.env.CANONICAL_ROOT}/` },
 
             { name: 'twitter:card', content: 'summary' },
             { name: 'twitter:site', content: '@zerochass' },

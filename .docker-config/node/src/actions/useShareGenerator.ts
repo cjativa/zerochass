@@ -3,13 +3,16 @@ export const sharePlatforms = {
     TWITTER: 'TWITTER',
     PINTEREST: 'PINTEREST',
     EMAIL: 'EMAIL',
+    LINKEDIN: 'LINKEDIN',
     COPY_URL: 'COPY_URL'
 };
 
 /** Generates the shareable link for a page. Link should be off base url of the site
  * @param {string} link - link to be shared
+ * @param {string} title - accompanying title for the shared page
+ * @param {string} text - text to supplement share (optional)
  */
-export const createShareForPlatform = (link: string, title: string, text: string, platform: 'FACEBOOK' | 'TWITTER' | 'LINKEDIN') => {
+export const createShareForPlatform = (link: string, title: string, platform: 'FACEBOOK' | 'TWITTER' | 'LINKEDIN', text?: string) => {
 
     const shareableText = generateShareableText(link, title, text);
     const shareableLink = generateSharePlatformLink(platform, shareableText);
@@ -21,7 +24,6 @@ export const createShareForPlatform = (link: string, title: string, text: string
  * @param {string} link - link to be shared
  */
 const createUrl = (link) => {
-    console.log(`The root link`,process.env);
     return `${process.env.CANONICAL_ROOT}/${link}`;
 }
 
@@ -42,7 +44,7 @@ const generateShareableText = (link: string, title: string, text: string) => {
  * @param {string} platform - platform to share on
  * @param {object} shareObject - share object containing items needed for sharing
  */
-const generateSharePlatformLink = (platform, { url, title, companyName, hashtags }) => {
+const generateSharePlatformLink = (platform, { url, title, companyName, hashtags, text }) => {
 
     switch (platform) {
         case sharePlatforms.FACEBOOK: {
@@ -50,15 +52,19 @@ const generateSharePlatformLink = (platform, { url, title, companyName, hashtags
         }
 
         case sharePlatforms.TWITTER: {
-            const text = title.split(' ').join('+');
+            const shareText = text.split(' ').join('+')
             const via = `zerochass`;
-            return `https://twitter.com/intent/tweet?&text=${text}&via=${via}&url=${url}&hashtags=${hashtags.join()}`
+            return `https://twitter.com/intent/tweet?&text=${shareText}&via=${via}&url=${url}&hashtags=${hashtags.join()}`
         }
 
         case sharePlatforms.EMAIL: {
             const body = `${title} – ${url}`;
 
             return `mailto:?body=${body}&subject=${title}`;
+        }
+
+        case sharePlatforms.LINKEDIN: {
+            return `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
         }
 
         case sharePlatforms.COPY_URL: {

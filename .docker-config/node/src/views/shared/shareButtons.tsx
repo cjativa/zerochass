@@ -14,7 +14,7 @@ export const ShareButtons = (props: Props) => {
     const { title, link, text } = props;
 
     const share = (platform: 'FACEBOOK' | 'TWITTER' | 'LINKEDIN') => {
-        const shareLink = createShareForPlatform(link, title, text, platform);
+        const shareLink = createShareForPlatform(link, title, platform, text);
         window.open(shareLink, '_blank');
     }
 
