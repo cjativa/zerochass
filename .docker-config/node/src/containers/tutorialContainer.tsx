@@ -35,7 +35,7 @@ export const TutorialContainer = (props) => {
 	}, []);
 
 
-	if (!tutorial) return null
+	if (!tutorial) return '';
 
 
 

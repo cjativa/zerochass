@@ -32,7 +32,7 @@ const buildPath = path.join(__dirname, '/build', 'index.html');
 
 
 server.get('*', async (req, res, next) => {
-  const activeRoute = routes.find((route) => matchPath(req.url, route)) as any;
+  const activeRoute = routes.find((route) => matchPath(req.url, route)) || {} as any;
 
   const promise = activeRoute.fetchInitialData
     ? activeRoute.fetchInitialData(req.path)
@@ -41,7 +41,7 @@ server.get('*', async (req, res, next) => {
   const data = await promise;
 
   const markup = renderToString(
-    <StaticRouter location={req.url} context={{}}>
+    <StaticRouter location={req.url} context={{...data}}>
       <Application />
     </StaticRouter>
   );
