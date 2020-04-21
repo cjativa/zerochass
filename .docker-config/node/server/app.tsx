@@ -32,17 +32,16 @@ const buildPath = path.join(__dirname, '/build', 'index.html');
 
 
 server.get('*', async (req, res, next) => {
-  const objectAny = {} as { [key: string]: any };
-  const activeRoute = routes.find((route) => matchPath(req.url, route)) || objectAny;
+  const activeRoute = routes.find((route) => matchPath(req.url, route)) as any;
 
   const promise = activeRoute.fetchInitialData
     ? activeRoute.fetchInitialData(req.path)
     : Promise.resolve();
 
-  const context = await promise;
+  const data = await promise;
 
   const markup = renderToString(
-    <StaticRouter location={req.url} context={context}>
+    <StaticRouter location={req.url} context={{}}>
       <Application />
     </StaticRouter>
   );
@@ -68,7 +67,7 @@ server.get('*', async (req, res, next) => {
             ${metaHTML}
             <script src="/assets/bundle.js" defer></script>
             <link href="/assets/app.css" rel="stylesheet">
-            <script>window.__INITIAL_DATA__=${serializeJavascript(context)}</script>
+            <script>window.__INITIAL_DATA__=${serializeJavascript({...data})}</script>
             <style type="text/css">${dom.css()}</style>
           </head>
           <body>
