@@ -46,7 +46,8 @@ export const HomeContainer = (props: any) => {
     let data: Tutorial[];
 
     if (__isBrowser__) {
-        data = window.__INITIAL_DATA__.tutorials;
+        delete window.__INITIAL_DATA__.tutorials;
+        data = [];
     }
     else {
         data = props.staticContext.tutorials;
@@ -55,8 +56,7 @@ export const HomeContainer = (props: any) => {
     const [tutorials, setTutorials] = useState(data);
 
     useEffect(() => {
-        if (tutorials && tutorials.length == 0) setContent();
-
+        if (tutorials.length == 0) setContent();
     }, []);
 
     return (

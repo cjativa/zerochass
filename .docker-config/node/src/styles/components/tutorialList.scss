@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas: "body";
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
   min-height: 500px;
 
   .body {
@@ -12,8 +12,10 @@
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    color: $normalFontColor;
+    row-gap: 40px;
     justify-items: center;
+
+    color: $normalFontColor;
   }
 
   .section-content {

@@ -28,6 +28,10 @@
 
       display: grid;
       grid-template-columns: 1fr 1fr;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &__brand {

@@ -87,10 +87,10 @@ class NavigationBar extends React.Component<Props, State> {
                 <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
                     {/* Logo container */}
-                    <Link className="main__logo" to="#" onClick={() => location.assign('/')}>
+                    <a className="main__logo" onClick={() => location.assign('/')}>
                         <img src={logo} style={style} />
                         <span className="main__brand">Zerochass</span>
-                    </Link>
+                    </a>
 
                     {/*  Navigation links */}
                     <ul className={`main__links ${show}`}>

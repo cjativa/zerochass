@@ -23,8 +23,8 @@ export const TutorialList = (props) => {
     let data;
 
     if (__isBrowser__) {
-        data = window.__INITIAL_DATA__.tutorials;
         delete window.__INITIAL_DATA__.tutorials;
+        data = [];
     }
     else data = props.staticContext.tutorials;
 
@@ -33,15 +33,13 @@ export const TutorialList = (props) => {
 
 
     useEffect(() => {
-        console.log(`Mounting`);
-        setContent();
+        if (tutorials.length == 0) setContent();
     }, [])
 
     return (
         <div className="tutorial-list">
             <div className="body">
                 {tutorials && tutorials.map((tutorial, index) => {
-                    console.log(tutorial.title);
                     return <TutorialListCard key={index} tutorial={tutorial} />
                 })}
             </div>
