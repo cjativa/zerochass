@@ -28,15 +28,7 @@ export const TutorialPage = (props: any) => {
 
 	let previousEntry, nextEntry;
 
-	try {
-		console.log(props.tutorial.title);
-
-	}
-
-	catch (error) { console.log('caught title error');}
-
 	const { title, tags, featuredImage, color, tutorialContent, description, slug } = props.tutorial;
-
 
 	const [sectionRefs, setSectionRefs] = useState([]);
 	const [sectionInformation, setSectionInformation] = useState([]);
@@ -136,7 +128,10 @@ export const TutorialPage = (props: any) => {
 		const nextIndex = index + 1;
 
 		if (nextIndex !== sectionInformation.length) {
-			sectionRefs[nextIndex].current.scrollIntoView({ behavior: "smooth" });
+			const yOffset = -80;
+			const element = sectionRefs[nextIndex].current;
+			const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+			window.scrollTo({ top: y, behavior: 'smooth' });
 		}
 
 		const sections = [...sectionInformation];
