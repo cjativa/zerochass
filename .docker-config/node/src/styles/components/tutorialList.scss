@@ -34,15 +34,18 @@
 
   @media (min-width: 768px) {
     min-height: 700px;
+    .body {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   @media (min-width: 1024px) {
+    grid-template-columns: 1fr 900px 1fr;
   }
 
   @media (min-width: 1280px) {
     background-color: $tutorial_page_background;
     grid-template-areas: ". body .";
-    grid-template-columns: 1fr 700px 1fr;
 
     .body {
       border-left: 1px solid lightgray;
