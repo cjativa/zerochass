@@ -52,13 +52,17 @@ const TutorialListCard = ({ tutorial }: { tutorial: Tutorial }) => {
     const { featuredImage, title, color, description, slug } = tutorial;
     const shorterDescription = description[0].secondLine;
 
+    const imageUrl = featuredImage[0].url;
+
     return (
         <Link className="tl-card" to={`/tutorial/${slug}`}>
-            <div className={`tl-card__top ${color}`}>
+            <div className={`tl-card__top ${color}`}  >
+                <img className="tl-card__image" src={imageUrl} style={{ height: '100%', width: 'auto', position: 'absolute' }} />
                 <div className="tl-card__layer" />
-                <h1 className="tl-card__title">{title}</h1>
+
             </div>
             <div className={`tl-card__bottom`}>
+                <h1 className="tl-card__title">{title}</h1>
                 {shorterDescription}
             </div>
         </Link>
