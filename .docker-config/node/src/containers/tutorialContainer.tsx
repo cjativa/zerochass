@@ -23,6 +23,7 @@ export const TutorialContainer = (props) => {
 
 	if (__isBrowser__) {
 		data = window.__INITIAL_DATA__.tutorial;
+		delete window.__INITIAL_DATA__.tutorial;
 	}
 	else data = props.staticContext.tutorial;
 
