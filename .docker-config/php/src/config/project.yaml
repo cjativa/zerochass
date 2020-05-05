@@ -1,4 +1,4 @@
-dateModified: 1586653168
+dateModified: 1588642445
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -439,6 +439,19 @@ sections:
     type: channel
     enableVersioning: true
     propagationMethod: all
+    siteSettings:
+      da6f86f5-8664-412d-b75b-80f2861cec81:
+        enabledByDefault: true
+        hasUrls: false
+        uriFormat: null
+        template: null
+    previewTargets:
+      -
+        label: 'Tutorial Page'
+        urlFormat: '/tutorial/{slug}'
+      -
+        label: 'Tutorials List Page'
+        urlFormat: /tutorials
     entryTypes:
       e67b1cbc-bb00-4140-a617-58f980464623:
         name: Tutorial
@@ -469,12 +482,6 @@ sections:
                   eb8fbc41-675a-4905-abfd-4a6fbc8d58cb:
                     required: true
                     sortOrder: 2
-    siteSettings:
-      da6f86f5-8664-412d-b75b-80f2861cec81:
-        enabledByDefault: true
-        hasUrls: false
-        uriFormat: null
-        template: null
 siteGroups:
   7d52864c-e6ac-4ce5-823c-5ede5de2e7cc:
     name: zerochass-cms
