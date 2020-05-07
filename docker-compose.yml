@@ -50,7 +50,6 @@ services:
     env_file:
       - ./.docker-config/node/.env
     ports:
-      - "4000:4000"
       - "3000:3000"
       - "35729:35729"
     depends_on:

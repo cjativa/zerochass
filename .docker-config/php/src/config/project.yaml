@@ -1,4 +1,4 @@
-dateModified: 1588642445
+dateModified: 1588827685
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -448,10 +448,13 @@ sections:
     previewTargets:
       -
         label: 'Tutorial Page'
-        urlFormat: '/tutorial/{slug}'
+        urlFormat: '/api/previewTutorial?slug=/tutorial/{slug}'
       -
         label: 'Tutorials List Page'
-        urlFormat: /tutorials
+        urlFormat: '/api/previewTutorials?slug=/tutorials'
+      -
+        label: 'Home Page'
+        urlFormat: '/api/previewHome?slug=/'
     entryTypes:
       e67b1cbc-bb00-4140-a617-58f980464623:
         name: Tutorial

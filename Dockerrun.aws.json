@@ -20,14 +20,13 @@
             "memory": 256,
             "portMappings": [
                 {
-                    "hostPort": 4000,
-                    "containerPort": 4000
+                    "hostPort": 3000,
+                    "containerPort": 3000
                 }
             ],
             "command": [
                 "npm",
-                "run",
-                "serverProd"
+                "start"
             ]
         },
         {
