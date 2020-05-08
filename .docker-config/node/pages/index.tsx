@@ -32,7 +32,7 @@ const Index = ({ title, description, tutorials, ...props }) => {
 
 
   return (
-    <Layout pageTitle={`${title} | Tutorials`} description={description}>
+    <Layout pageTitle={`Home | Zerochass`} description={description}>
       <SiteBanner />
       <TutorialBannerList tutorials={tutorials} />
     </Layout>

@@ -130,7 +130,7 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
     }
 
     return (
-        <Layout pageTitle={`${siteTitle} | ${tutorial.title}`}>
+        <Layout pageTitle={`${tutorial.title} | Zerochass`}>
             <article className="tutorial-page">
 
                 {/* Header section containing the tutorial image and title */}

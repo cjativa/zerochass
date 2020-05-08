@@ -8,7 +8,7 @@ import { GetStaticProps } from 'next';
 const Tutorials = ({ title, description, tutorials, ...props }) => {
     return (
         <>
-            <Layout pageTitle={`${title} | Tutorials`} description={description}>
+            <Layout pageTitle={`Tutorials | Zerochass`} description={description}>
                 <div className="tutorial-list">
                     <div className="body">
                         {tutorials && tutorials.map((tutorial, index) => {

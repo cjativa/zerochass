@@ -29,7 +29,7 @@ const Contact = ({ title, slug, entryContent, description }) => {
     });
 
     return (
-        <Layout pageTitle={`${title} | About`} description={description}>
+        <Layout pageTitle={`Contact | Zerochass`} description={description}>
             <div className="about single-page">
                 {entryContent &&
                     <div className="body">
