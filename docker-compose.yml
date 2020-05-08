@@ -35,12 +35,12 @@ services:
 
   # zerochass application
   node:
-    user: root
+    # user: root
     container_name: "node"
     build:
       context: ./.docker-config/node/
       dockerfile: Dockerfile
-      target: development
+      target: production
     volumes:
       - ./.docker-config/node:/home/node/app
       - /home/node/app/node_modules
@@ -54,4 +54,5 @@ services:
       - "35729:35729"
     depends_on:
       - php
-    command: "npm run dev"
+    # command: "npm start"
+    command: "pm2 start ecosystem.config.js --no-daemon"
