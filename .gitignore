@@ -1,4 +1,5 @@
 .docker-config/node/dist
+.docker-config/nginx/letsencrypt
 *.env
 ebdeploy.zip
 # Elastic Beanstalk Files
