@@ -12,10 +12,11 @@ export default async (request, response) => {
 
     // Once building has finished, update the .rebuilt file -- pm2 will restart due to watching .rebuilt file
     const writePath = path.join(process.cwd(), '.rebuilt');
-    fs.writeFile(writePath, `Site rebuilt at ${Date.now()}`, (error) => {
+    const now = Date.now();
+    fs.writeFile(writePath, `Site rebuilt at ${now}}`, (error) => {
         if (error) console.log(error);
         console.log('File is created successfully.');
     });
 
-    response.end(`Building has finished`);
+    response.end(`Building has finished. File ${writePath} has been written at ${now}`);
 }

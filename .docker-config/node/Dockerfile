@@ -10,7 +10,8 @@ RUN npm install
 # Second stage, produces image for production
 FROM node:12 AS production
 WORKDIR /home/node/app
-COPY --from=development ./home/node/app/.next .next
-COPY package* ./
+COPY --from=development ./home/node/app/ ./
 RUN npm install -g next react react-dom sass pm2@latest 
+ENV CRAFT_CMS_URL=http://zerochass.io
 RUN npm install --production
+RUN npm run build
