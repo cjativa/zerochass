@@ -1,5 +1,13 @@
 {
     "AWSEBDockerrunVersion": "2",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/etc/letsencrypt"
+            },
+            "name": "letsencrypt"
+        }
+    ],
     "containerDefinitions": [
         {
             "name": "php",
@@ -49,6 +57,12 @@
             "links": [
                 "php",
                 "node"
+            ],
+            "mountPoints": [
+                {
+                    "containerPath": "/etc/letsencrypt",
+                    "sourceVolume": "letsencrypt"
+                }
             ],
             "volumesFrom": [
                 {
