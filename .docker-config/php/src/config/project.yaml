@@ -1,4 +1,4 @@
-dateModified: 1588827685
+dateModified: 1588955852
 email:
   fromEmail: christopher.jativa320@outlook.com
   fromName: zerochass-cms
@@ -320,6 +320,10 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  webhooks:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.2.0
 sections:
   0239d092-9ec6-49ef-a6cd-b11af57efee7:
     name: 'Tutorial Series'
