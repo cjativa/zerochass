@@ -1,5 +1,6 @@
   
-FROM nginx:1.13
+FROM staticfloat/nginx-certbot
 
-COPY ./.docker-config/nginx/default.conf /etc/nginx/conf.d/default.conf
+ENV CERTBOT_EMAIL="christopher.jativa320@outlook.com"
+COPY ./.docker-config/nginx/conf.d /etc/nginx/user.conf.d
 # ./.docker-config/php/src/web /var/www/html/web
