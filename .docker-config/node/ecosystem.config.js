@@ -3,7 +3,7 @@ module.exports = {
         name: "zerochass",
         script: "npm",
         args: "start",
-        watch: [".next/static/runtime", "siteconfig.json"],
+        watch: [".rebuilt"],
         autorestart: true,
         // Delay between restart
         watch_delay: 2000,
