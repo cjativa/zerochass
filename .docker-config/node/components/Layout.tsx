@@ -3,12 +3,44 @@ import { NavigationBar } from './NavigationBar';
 import { InformationSection } from './InformationSection';
 import { Footer } from './Footer';
 
-export const Layout = ({ children, pageTitle, ...props }) => {
+const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images/zerochass-rect.PNG';
+
+interface LayoutProps {
+    children?: any,
+    pageTitle: string,
+    description: string,
+    keywords: string,
+    slug: string,
+    image?: string,
+    large?: boolean
+};
+
+export const Layout = (props: LayoutProps) => {
+
+    const { children, pageTitle, description, keywords, slug, image, large } = props;
+
+    const fullPageTitle = `${pageTitle} | Zerochass`;
+
+
     return (
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>{pageTitle}</title>
+                <meta name="url" content={`${process.env.CANONICAL_ROOT}/${slug}`} />
+                <meta name="description" content={description} />
+                <meta name="keywords" content={keywords} />
+                <meta name="robots" content="index, follow" />
+
+                {/** Twitter metas */}
+                <meta name="twitter:card" content={(large) ? 'summary_large_image' : 'summary'} />
+                <meta name="twitter:site" content="@zerochass" />
+                <meta name="twitter:title" content={fullPageTitle} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content={(image) ? image : defaultImage} />
+
+                <title>{fullPageTitle}</title>
+
+                {/** Scripts */}
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163465719-1"></script>
                 <script>
                     {`
