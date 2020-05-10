@@ -5,10 +5,10 @@ import { CraftQL } from '../util/services/craftGQL';
 import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
 import { GetStaticProps } from 'next';
 
-const Tutorials = ({ title, description, tutorials, ...props }) => {
+const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
     return (
         <>
-            <Layout pageTitle={`Tutorials | Zerochass`} description={description}>
+            <Layout pageTitle="Tutorials" description={description} slug="tutorials" keywords={keywords}>
                 <div className="tutorial-list">
                     <div className="body">
                         {tutorials && tutorials.map((tutorial, index) => {
@@ -34,7 +34,8 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
         props: {
             title: config.default.title,
             description: `Tutorials on the latest in JavaScript, TypeScript, NodeJS, and more.`,
-            tutorials
+            tutorials,
+            keywords: config.default.keywords
         },
     }
 };

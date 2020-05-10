@@ -5,31 +5,12 @@ import { Layout } from '../components/Layout';
 import { CraftQL } from '../util/services/craftGQL';
 import { singlesQuery } from '../util/queries/singlesQuery';
 
-const About = ({ title, slug, entryContent, description }) => {
+const About = ({ title, slug, entryContent, description, keywords }) => {
 
-    const pageTitle = `${title} | Zerochass`;
-    const keywords = `about, company, information`;
-    const summary = description;
-
-    useMetaTags({
-        title: pageTitle,
-        description: summary,
-        charset: 'utf8',
-        lang: 'en',
-        metas: [
-            { name: 'keywords', content: keywords },
-            { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `${process.env.CANONICAL_ROOT}/${slug}` },
-
-            { name: 'twitter:card', content: 'summary' },
-            { name: 'twitter:site', content: '@zerochass' },
-            { name: 'twitter:title', content: pageTitle, },
-            { name: 'twitter:description', content: summary },
-        ]
-    });
+    let fullKeywords = ['company', 'contact', 'information', ...keywords].join();
 
     return (
-        <Layout pageTitle={`About | ${title}`} description={description}>
+        <Layout pageTitle={title} description={description} keywords={fullKeywords} slug={slug}>
             <div className="about single-page">
                 {entryContent &&
                     <div className="body">
@@ -55,12 +36,15 @@ export async function getStaticProps() {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
 
+    const config = await import(`../siteconfig.json`);
+
     return {
         props: {
             title: 'About',
             slug,
             entryContent,
-            description
+            description,
+            keywords: config.default.keywords
         },
     }
 };
