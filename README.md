@@ -20,9 +20,11 @@ You must have Docker installed as the development environment is containerized i
 3. The Next.js application (a NodeJS container)
 
 And you can run 
-`docker-compose build node`
-`docker-compose build php`
-`docker-compose build nginx`
+```
+docker-compose build node
+docker-compose build php
+docker-compose build nginx
+```
 
 to build the containers.
 
