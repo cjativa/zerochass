@@ -45,29 +45,6 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
 
     }, [sectionInformation]);
 
-    const pageTitle = `${title} | Zerochass`;
-    const keywords = tags.map((tag) => tag.title).join();
-    const summary = description.map((d) => `${d.firstLine} ${d.secondLine}`).join();
-
-    useMetaTags({
-        title: pageTitle,
-        description: summary,
-        charset: 'utf8',
-        lang: 'en',
-        metas: [
-            { name: 'keywords', content: keywords },
-            { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `http://zerochass.io/tutorial/${slug}` },
-
-            { name: 'twitter:card', content: 'summary' },
-            { name: 'twitter:site', content: '@zerochass' },
-            { name: 'twitter:title', content: pageTitle, },
-            { name: 'twitter:description', content: summary },
-            { name: 'twitter:image', content: featuredImage[0].url }
-        ]
-    });
-
-
     const parseContentSections = () => {
 
         const { tutorialContent } = tutorial;
@@ -128,9 +105,11 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
 
         setSectionInformation(sections);
     }
+    const keywords = tags.map((tag) => tag.title).join();
+    const descriptions = description.map((d) => `${d.firstLine} ${d.secondLine}`).join();
 
     return (
-        <Layout pageTitle={`${tutorial.title} | Zerochass`}>
+        <Layout pageTitle={tutorial.title} description={descriptions} keywords={keywords} slug={`tutorial/${slug}`} image={featuredImage[0].url} large={true}>
             <article className="tutorial-page">
 
                 {/* Header section containing the tutorial image and title */}

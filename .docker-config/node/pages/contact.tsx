@@ -5,31 +5,12 @@ import { Layout } from '../components/Layout';
 import { CraftQL } from '../util/services/craftGQL';
 import { singlesQuery } from '../util/queries/singlesQuery';
 
-const Contact = ({ title, slug, entryContent, description }) => {
+const Contact = ({ title, slug, entryContent, description, keywords }) => {
 
-    const pageTitle = `${title} | Zerochass`;
-    const keywords = `about, company, information`;
-    const summary = description;
-
-    useMetaTags({
-        title: pageTitle,
-        description: summary,
-        charset: 'utf8',
-        lang: 'en',
-        metas: [
-            { name: 'keywords', content: keywords },
-            { name: 'robots', content: 'index, follow' },
-            { name: 'url', content: `${process.env.CANONICAL_ROOT}/${slug}` },
-
-            { name: 'twitter:card', content: 'summary' },
-            { name: 'twitter:site', content: '@zerochass' },
-            { name: 'twitter:title', content: pageTitle, },
-            { name: 'twitter:description', content: summary },
-        ]
-    });
+    let fullKeywords = ['company', 'contact', 'information', ...keywords].join();
 
     return (
-        <Layout pageTitle={`Contact | Zerochass`} description={description}>
+        <Layout pageTitle={title} description={description} slug={slug} keywords={fullKeywords}>
             <div className="about single-page">
                 {entryContent &&
                     <div className="body">
@@ -51,16 +32,20 @@ const Contact = ({ title, slug, entryContent, description }) => {
 export async function getStaticProps() {
     const contact = (await CraftQL(singlesQuery('contact')))[0];
     let { slug, entryContent, description } = contact;
+
     description = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
+
+    const config = await import(`../siteconfig.json`);
 
     return {
         props: {
             title: 'Contact',
             slug,
             entryContent,
-            description
+            description,
+            keywords: config.default.keywords
         },
     }
 };

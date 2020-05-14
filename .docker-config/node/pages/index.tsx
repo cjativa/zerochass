@@ -7,32 +7,12 @@ import { SiteBanner } from '../components/SiteBanner';
 import { TutorialBannerList } from '../components/TutorialBannerList';
 import { GetStaticProps } from 'next';
 
-const Index = ({ title, description, tutorials, ...props }) => {
+const Index = ({ title, description, tutorials, keywords, ...props }) => {
 
-  const pageTitle = `Home | Zerochass`;
-  const summary = description;
-  const keywords = `zerochass, company, coding, programming, tutorials, javascript, typescript, software engineering, web development, free`;
-
-  useMetaTags({
-    title: pageTitle,
-    description: summary,
-    charset: 'utf8',
-    lang: 'en',
-    metas: [
-      { name: 'keywords', content: keywords },
-      { name: 'robots', content: 'index, follow' },
-      { name: 'url', content: `${process.env.CANONICAL_ROOT}/` },
-
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:site', content: '@zerochass' },
-      { name: 'twitter:title', content: pageTitle, },
-      { name: 'twitter:description', content: summary },
-    ]
-  });
-
+  const pageTitle = `Home`;
 
   return (
-    <Layout pageTitle={`Home | Zerochass`} description={description}>
+    <Layout pageTitle={pageTitle} description={description} keywords={keywords} slug="" >
       <SiteBanner />
       <TutorialBannerList tutorials={tutorials} />
     </Layout>
@@ -48,8 +28,9 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
   return {
     props: {
       title: config.default.title,
-      description: `Zerochass is an online learning platform, where you can learn more about software engineering and web development. Here you'll find quick and bite-size tutorials about React, TypeScript, JavaScript, NodeJS, and much more regarding software engineering and web development.`,
-      tutorials
+      description: config.default.description,
+      tutorials,
+      keywords: config.default.keywords
     },
   }
 };
