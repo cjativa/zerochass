@@ -25,7 +25,7 @@
             "name": "node",
             "image": "116893520615.dkr.ecr.us-east-1.amazonaws.com/zerochass/cms:production-node",
             "essential": true,
-            "memory": 600,
+            "memory": 470,
             "portMappings": [
                 {
                     "hostPort": 3000,
@@ -43,7 +43,7 @@
             "name": "nginx",
             "image": "116893520615.dkr.ecr.us-east-1.amazonaws.com/zerochass/cms:production-nginx",
             "essential": true,
-            "memory": 128,
+            "memory": 256,
             "portMappings": [
                 {
                     "hostPort": 80,
