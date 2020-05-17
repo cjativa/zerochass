@@ -86,10 +86,13 @@ export class NavigationBar extends React.Component<any, State> {
                             <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
                         </li>
                         <li>
-                            <div className="main__link featured">
-                                <div className="featured-container">
-                                    {tutorial && <TutorialCard tutorial={tutorial} large />}
-                                </div>
+                            <div className={`main__link featured ${show}`}>
+                                {tutorial &&
+                                    <div className="featured-container">
+                                        <TutorialCard tutorial={tutorial} large />
+                                        <p className="featured-container__text">Featured Post</p>
+                                    </div>
+                                }
                             </div>
                         </li>
                     </ul>
