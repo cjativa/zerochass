@@ -88,7 +88,7 @@ export class NavigationBar extends React.Component<any, State> {
                         <li>
                             <div className="main__link featured">
                                 <div className="featured-container">
-                                    {tutorial && <TutorialCard tutorial={tutorial} /* large */ />}
+                                    {tutorial && <TutorialCard tutorial={tutorial} large />}
                                 </div>
                             </div>
                         </li>
