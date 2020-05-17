@@ -60,28 +60,28 @@ export const TutorialBannerList = (props: any) => {
     return (
         <div className="content-list">
             {sorted && sorted.map((tutorial, index) => {
-                return (<TutorialCard tutorial={tutorial} key={index} />)
+                return (<TutorialBanner tutorial={tutorial} key={index} />)
             })}
         </div>
     );
 };
 
-const TutorialCard = (props) => {
+const TutorialBanner = (props) => {
 
     const { tutorial } = props;
     const { color, description, featuredImage } = tutorial;
 
     return (
-        <div className={`tutorial-card tutorial-card--${color.toLowerCase()}`}>
+        <div className={`tutorial-banner tutorial-banner--${color.toLowerCase()}`}>
             <Link href={`/tutorial/${tutorial.slug}`}>
-                <a className={`tutorial-card__link`}>
-                    <div className="card-inner">
-                        <h1 className="card-inner__header">{tutorial.title}</h1>
-                        <p className="card-inner__description">{description[0].firstLine}</p>
-                        <p className="card-inner__description">{description[0].secondLine}</p>
+                <a className={`tutorial-banner__link`}>
+                    <div className="banner-inner">
+                        <h1 className="banner-inner__header">{tutorial.title}</h1>
+                        <p className="banner-inner__description">{description[0].firstLine}</p>
+                        <p className="banner-inner__description">{description[0].secondLine}</p>
                     </div>
-                    {featuredImage.length > 0 && <div className="card-image">
-                        <img className="tutorial-card__image" src={featuredImage[0].url} />
+                    {featuredImage.length > 0 && <div className="banner-image">
+                        <img className="tutorial-banner__image" src={featuredImage[0].url} />
                     </div>}
                 </a>
             </Link>
