@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import logo from '../assets/logo.svg';
-import { CustomIcon } from './custom/CustomIcon';
 
+import logo from '../assets/logo.svg';
+import { TutorialCard } from './TutorialCard';
 
 interface State {
     open: boolean,
@@ -46,7 +46,7 @@ export class NavigationBar extends React.Component<any, State> {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         /* if (this.props.signedIn) {
             this.closeDialog();
         } */
@@ -61,6 +61,7 @@ export class NavigationBar extends React.Component<any, State> {
         /* const { signedIn, name } = this.props; */
         const { open, dialogType, mobileMenuExpanded } = this.state;
         const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this;
+        const { tutorial } = this.props;
         const show = (mobileMenuExpanded) ? 'show' : '';
         let dialog;
 
@@ -68,10 +69,6 @@ export class NavigationBar extends React.Component<any, State> {
             height: '52px',
             width: '52px'
         };
-
-        /* if (open) {
-            dialog = (dialogType === "login") ? <LoginDialog closeDialog={closeDialog} /> : <SignUpDialog closeDialog={closeDialog} />;
-        } */
 
         return (
             <nav className="navigation-bar">
@@ -88,23 +85,35 @@ export class NavigationBar extends React.Component<any, State> {
                         <li>
                             <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
                         </li>
-                        {/* <li>
-                            <Link href="/projects"><a className="main__link">Projects</a></Link>
-                        </li> */}
+                        <li>
+                            <div className="main__link featured">
+                                <div className="featured-container">
+                                    {tutorial && <TutorialCard tutorial={tutorial} /* large */ />}
+                                </div>
+                            </div>
+                        </li>
                     </ul>
 
 
                     {/* Menu button container*/}
-                    <a id="menu-btn" className="main__menu-btn"/*  href="javascript:void(0);" */ onClick={toggleMenu}>
+                    <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
                         <i className="fas fa-bars"></i>
                     </a>
                 </div>
 
                 {/* Overlay to show when menu is expanded */}
                 {mobileMenuExpanded && <div className="main__overlay" onClick={toggleMenu} />}
-
-                {/* <BaseDialog open={open} closeDialog={closeDialog} Dialog={dialog} /> */}
             </nav>
         )
     }
 };
+
+
+
+
+
+{/* <BaseDialog open={open} closeDialog={closeDialog} Dialog={dialog} /> */ }
+
+/* if (open) {
+    dialog = (dialogType === "login") ? <LoginDialog closeDialog={closeDialog} /> : <SignUpDialog closeDialog={closeDialog} />;
+} */

@@ -1,7 +1,11 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+
 import { NavigationBar } from './NavigationBar';
 import { InformationSection } from './InformationSection';
 import { Footer } from './Footer';
+import { CraftQL } from '../util/services/craftGQL';
+import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
 
 const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images/zerochass-rect.PNG';
 
@@ -18,8 +22,27 @@ interface LayoutProps {
 export const Layout = (props: LayoutProps) => {
 
     const { children, pageTitle, description, keywords, slug, image, large } = props;
-
     const fullPageTitle = `${pageTitle} | Zerochass`;
+    const [tutorial, setTutorial] = useState(null);
+
+    useEffect(() => {
+
+        const fetchTutorialOfDay = async () => {
+            const tutorials = await CraftQL(AllTutorialsQuery());
+
+            const randomGenerator = () => {
+                let seed = new Date().getDate() + 5;
+                const x = Math.sin(seed++);
+                return (x - Math.floor(x)) * tutorials.length;
+            };
+
+            const randomNumber = Math.floor(randomGenerator());
+            const randomTutorial = tutorials[randomNumber];
+            setTutorial(randomTutorial);
+        };
+
+        fetchTutorialOfDay();
+    }, []);
 
 
     return (
@@ -52,11 +75,11 @@ export const Layout = (props: LayoutProps) => {
                 </script>
             </Head>
             <section className="layout">
-                <NavigationBar />
+                <NavigationBar tutorial={tutorial} />
                 <div className="app__body">{children}</div>
             </section>
             <InformationSection />
             <Footer />
         </>
     )
-}
+};

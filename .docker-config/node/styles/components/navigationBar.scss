@@ -57,12 +57,25 @@
       background-color: #141414;
       color: #ffffff;
       box-sizing: border-box;
+
+      &.featured {
+        min-height: 45%;
+        padding: 5% 20%;
+        box-sizing: content-box;
+      }
+    }
+
+    .featured-container {
     }
 
     &__links.show {
       margin-top: 13px;
+
       display: grid;
+      grid-template-rows: min-content 1fr;
+
       width: 100%;
+      height: 100vh;
     }
 
     &__overlay {
@@ -108,7 +121,7 @@
       }
 
       &__link {
-        height:100%;
+        height: 100%;
         border: none;
         border-bottom: 3px solid transparent;
         padding: 0px 20px;
