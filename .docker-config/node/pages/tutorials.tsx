@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
-import { Layout } from '../components/Layout'
+import { Layout } from '../components/Layout';
+import { TutorialCard } from '../components/TutorialCard';
 import { CraftQL } from '../util/services/craftGQL';
 import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
 import { GetStaticProps } from 'next';
@@ -12,7 +11,7 @@ const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
                 <div className="tutorial-list">
                     <div className="body">
                         {tutorials && tutorials.map((tutorial, index) => {
-                            return <TutorialListCard key={index} tutorial={tutorial} />
+                            return <TutorialCard key={index} tutorial={tutorial} />
                         })}
                     </div>
                 </div>
@@ -38,28 +37,4 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
             keywords: config.default.keywords
         },
     }
-};
-
-const TutorialListCard = ({ tutorial }) => {
-
-    const { featuredImage, title, color, description, slug } = tutorial;
-    const shorterDescription = description[0].secondLine;
-
-    const imageUrl = featuredImage[0].url;
-
-    return (
-        <Link href={`/tutorial/${slug}`}>
-            <a className="tl-card" >
-                <div className={`tl-card__top ${color}`}  >
-                    <img className="tl-card__image" src={imageUrl} style={{ height: '100%', width: 'auto', position: 'absolute' }} />
-                    <div className="tl-card__layer" />
-
-                </div>
-                <div className={`tl-card__bottom`}>
-                    <h1 className="tl-card__title">{title}</h1>
-                    {shorterDescription}
-                </div>
-            </a>
-        </Link>
-    )
 };

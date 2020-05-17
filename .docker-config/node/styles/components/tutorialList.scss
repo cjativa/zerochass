@@ -13,6 +13,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 40px;
+    column-gap: 10px;
     justify-items: center;
 
     color: $normalFontColor;
@@ -54,92 +55,5 @@
       border-left: 1px solid lightgray;
       border-right: 1px solid lightgray;
     }
-  }
-}
-
-.tl-card {
-  height: 260px;
-  width: 95%;
-
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  overflow: hidden;
-
-  display: grid;
-  grid-template-rows: 60% 40%;
-  grid-template-areas:
-    "cardTop"
-    "cardLower";
-
-  pointer-events: all;
-
-  &__top {
-    text-align: center;
-    position: relative;
-    pointer-events: none;
-
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid lightgray;
-  }
-
-  &__bottom {
-    padding: 10px 5px;
-    text-align: center;
-    font-size: 12px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__title {
-    font-size: 15px;
-    word-wrap: break-word;
-  }
-
-  @media (min-width: 640px) {
-  }
-
-  @media (min-width: 768px) {
-    height: 295px;
-    width: 280px;
-
-    &__bottom {
-      padding: 10px 15px;
-    }
-
-    &__title {
-      font-size: 20px;
-    }
-
-    &__bottom {
-      font-size: 14.5px;
-    }
-
-    &__layer {
-      background: rgba(0, 0, 0, 0.068);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-
-      pointer-events: none;
-    }
-
-    &:hover &__layer {
-      visibility: hidden;
-    }
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
-    height: 310px;
-    width: 300px;
   }
 }
