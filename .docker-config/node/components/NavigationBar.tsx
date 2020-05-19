@@ -62,7 +62,7 @@ export class NavigationBar extends React.Component<any, State> {
         const { open, dialogType, mobileMenuExpanded } = this.state;
         const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this;
         const { tutorial } = this.props;
-        const show = (mobileMenuExpanded) ? 'show' : '';
+        const show = (mobileMenuExpanded) ? 'show' : 'hide';
         let dialog;
 
         const style = {
@@ -85,12 +85,12 @@ export class NavigationBar extends React.Component<any, State> {
                         <li>
                             <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
                         </li>
-                        <li>
-                            <div className={`main__link featured ${show}`}>
+                        <li className="featured">
+                            <div className={`main__link feat`}>
                                 {tutorial &&
                                     <div className="featured-container">
                                         <TutorialCard tutorial={tutorial} large />
-                                        <p className="featured-container__text">Featured Post</p>
+                                        <p className="featured-container__text">Tutorial of the day</p>
                                     </div>
                                 }
                             </div>
@@ -105,7 +105,7 @@ export class NavigationBar extends React.Component<any, State> {
                 </div>
 
                 {/* Overlay to show when menu is expanded */}
-                {mobileMenuExpanded && <div className="main__overlay" onClick={toggleMenu} />}
+                {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
             </nav>
         )
     }

@@ -1,6 +1,6 @@
 .navigation-bar {
   background-color: #141414;
-  border-bottom: 1px solid #444444;
+  border-bottom: 1px solid #242323;
   box-sizing: border-box;
   width: 100%;
   height: 80px;
@@ -14,6 +14,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr min-content;
+
     padding: 15px 15px;
     position: relative;
 
@@ -40,55 +41,50 @@
 
     &__links {
       position: absolute;
-      visibility: hidden;
-
-      grid-row: 2;
-      z-index: 24;
-
-      opacity: 0;
-
-      animation: fadeIn 3s;
-      animation-delay: 5s;
-      animation-fill-mode: forwards;
-    }
-
-    &__links.show {
-      margin-top: 13px;
-      visibility: visible;
+      overflow: hidden;
 
       display: grid;
       grid-template-rows: min-content 1fr;
 
-      width: 100%;
-      height: 100vh;
-    }
+      grid-row: 2;
+      z-index: 24;
+      margin-top: 13px;
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-  }
+      width: 100vw;
+
+      &.hide {
+        height: 0;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+      }
+
+      &.show {
+        height: 100vh;
+        opacity: 1;
+        transition: all 0.5s ease-in-out;
+      }
+    }
 
     &__link {
       height: 70px;
+
       display: flex;
       justify-content: center;
       align-items: center;
 
-      border: 1px solid #242323;
+      border-bottom: 1px solid #242323;
 
       font-size: 18px;
       background-color: #141414;
       color: #ffffff;
       box-sizing: border-box;
 
-      &.featured {
-        display: none;
-      }
+      &.feat {
+        visibility: visible;
 
-      &.featured.show {
-        display: block;
         height: unset;
         padding: 10% 20%;
+
         box-sizing: content-box;
       }
 
@@ -143,17 +139,26 @@
       }
 
       &__links {
+        margin-top: 0px;
         position: unset;
         grid-row: 1;
         grid-column: 2;
 
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        justify-items: end;
+        grid-template-rows: 1fr;
+        justify-items: center;
+
+        height: 100%;
+
+        .featured {
+          display: none;
+        }
       }
 
       &__link {
         height: 100%;
+        width: min-content;
         border: none;
         border-bottom: 3px solid transparent;
         padding: 0px 20px;
