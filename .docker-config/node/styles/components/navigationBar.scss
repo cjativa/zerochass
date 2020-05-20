@@ -149,7 +149,10 @@
         grid-template-rows: 1fr;
         justify-items: center;
 
-        height: 100%;
+        &.hide {
+          height: 100%;
+          opacity: 1;
+        }
 
         .featured {
           display: none;
