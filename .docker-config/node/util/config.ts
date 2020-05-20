@@ -12,7 +12,7 @@ export const Config = {
     cognitoUserPoolId: process.env.COGNITO_USER_POOL_ID,
     cognitoWebClientId: process.env.COGNITO_WEB_CLIENT_ID,
 
-    craftURL: process.env.CRAFT_CMS_URL,
+    craftURL: process.env.NEXT_PUBLIC_CRAFT_CMS_URL,
 
     dbHost: process.env.DB_HOST,
     dbUser: process.env.DB_USER,

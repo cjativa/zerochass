@@ -12,6 +12,6 @@ FROM node:12 AS production
 WORKDIR /home/node/app
 COPY --from=development ./home/node/app/ ./
 RUN npm install -g next react react-dom sass pm2@latest 
-ENV CRAFT_CMS_URL=http://zerochass.io
+ENV NEXT_PUBLIC_CRAFT_CMS_URL=https://zerochass.io
 RUN npm install --production
 RUN npm run build

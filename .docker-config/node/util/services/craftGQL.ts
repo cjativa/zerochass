@@ -8,7 +8,7 @@ interface RequestConfig {
 
 const method = 'POST' as any;
 const url = `gqlApi`;
-const baseURL = process.env.CRAFT_CMS_URL;
+const baseURL = process.env.NEXT_PUBLIC_CRAFT_CMS_URL;
 const headers = { "Content-Type": 'application/json' };
 
 /** Sends a GraphQL request to the Craft GraphQL endpoint */
@@ -25,6 +25,6 @@ export const CraftQL = async (query: string, params?: any): Promise<any> => {
     }
 
     catch (error) {
-        console.log(`An error occurred executing a ${method.toUpperCase()} for the query $/* {query} */`, JSON.stringify(error), '\n\n\n');
+        console.log(`An error occurred executing a ${method.toUpperCase()} to ${process.env.NEXT_PUBLIC_CRAFT_CMS_URL}`, JSON.stringify(error), '\n\n\n');
     }
 };
