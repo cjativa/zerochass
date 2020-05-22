@@ -49,7 +49,7 @@ export const Layout = (props: LayoutProps) => {
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="url" content={`${process.env.CANONICAL_ROOT}/${slug}`} />
+                <meta name="url" content={`${process.env.NEXT_PUBLIC_CANONICAL_ROOT}/${slug}`} />
                 <meta name="description" content={description} />
                 <meta name="keywords" content={keywords} />
                 <meta name="robots" content="index, follow" />

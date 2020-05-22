@@ -24,7 +24,7 @@ export const createShareForPlatform = (link: string, title: string, platform: 'F
  * @param {string} link - link to be shared
  */
 const createUrl = (link) => {
-    return `${process.env.CANONICAL_ROOT}/${link}`;
+    return `${process.env.NEXT_PUBLIC_CANONICAL_ROOT}/${link}`;
 };
 
 
