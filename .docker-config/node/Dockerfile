@@ -15,3 +15,4 @@ RUN npm install -g next react react-dom sass pm2@latest
 ENV NEXT_PUBLIC_CRAFT_CMS_URL=https://zerochass.io
 RUN npm install --production
 RUN npm run build
+RUN npm run build-sitemap
