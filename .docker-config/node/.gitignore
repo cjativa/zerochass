@@ -31,3 +31,4 @@ yarn-error.log*
 
 .env
 .rebuilt
+public/sitemap.xml
