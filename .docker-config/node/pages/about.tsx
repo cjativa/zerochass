@@ -1,4 +1,3 @@
-import useMetaTags from 'react-metatags-hook';
 import ReactMarkdown from 'react-markdown';
 
 import { Layout } from '../components/Layout';
@@ -18,7 +17,7 @@ const About = ({ title, slug, entryContent, description, keywords }) => {
                             return (
                                 <div key={index} className="section-content">
                                     <h1 className="title">{block.sectionTitle}</h1>
-                                    <ReactMarkdown source={block.sectionContent} />
+                                    <ReactMarkdown source={block.sectionContent} linkTarget="_blank" />
                                 </div>
                             )
                         })}

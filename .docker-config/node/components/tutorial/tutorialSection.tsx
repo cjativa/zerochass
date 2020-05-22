@@ -15,7 +15,7 @@ export const TutorialSection = (props) => {
         <section className="section line-numbers">
             {/** Section title and content */}
             <h2 id={id}>{sectionTitle}</h2>
-            <ReactMarkdown className="section__text" source={sectionContent} />
+            <ReactMarkdown className="section__text" source={sectionContent} linkTarget="_blank" />
 
             {/** Section progress check icon */}
             <div className="section__progress">
