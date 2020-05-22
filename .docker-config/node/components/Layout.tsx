@@ -64,6 +64,7 @@ export const Layout = (props: LayoutProps) => {
                 <title>{fullPageTitle}</title>
 
                 {/** Scripts */}
+                <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163465719-1"></script>
                 <script>
                     {`

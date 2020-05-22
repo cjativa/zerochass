@@ -13,6 +13,8 @@ export const InformationSection = () => {
                         <h3 className="brand-text">zerochass</h3>
                         <p className="top">practical and goal-oriented resources</p>
                         <p className="top small-text">learn by doing. enjoy what you do.</p>
+                        <br></br>
+                        <a href="https://twitter.com/zerochass?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @zerochass</a>
                     </div>
                 </div>
 
