@@ -82,9 +82,19 @@ export class NavigationBar extends React.Component<any, State> {
 
                     {/*  Navigation links */}
                     <ul className={`main__links ${show}`}>
-                        <li>
+
+                        {/** Tutorials link */}
+                        <li className="start">
                             <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
                         </li>
+
+                        {/** Login link */}
+                        <li className="end">
+                            <Link href="/login"><a className="main__link">Login</a></Link>
+                            <Link href="/sign-up"><a className="main__link">Sign up</a></Link>
+                        </li>
+
+                        {/** Featured tutorial for mobile */}
                         <li className="featured">
                             <div className={`main__link feat`}>
                                 {tutorial &&

@@ -1,14 +1,15 @@
 .navigation-bar {
+  font-family: $normalFontFamily;
   background-color: $mainBlack;
   border-bottom: $navigationBlackBorder;
-  box-sizing: border-box;
+
   width: 100%;
   height: 80px;
+  box-sizing: border-box;
+
   position: fixed;
   top: 0;
   z-index: 4;
-
-  font-family: "Nunito";
 
   &__main {
     display: grid;
@@ -43,6 +44,9 @@
       position: absolute;
       overflow: hidden;
 
+      background-color: $mainBlack;
+      color: $white;
+
       display: grid;
       grid-template-rows: min-content 1fr;
 
@@ -75,8 +79,6 @@
       border-bottom: $navigationBlackBorder;
 
       font-size: 18px;
-      background-color: $mainBlack;
-      color: $white;
       box-sizing: border-box;
 
       &.feat {
@@ -128,6 +130,7 @@
     &__main {
       grid-template-columns: min-content 1fr;
       grid-template-rows: 1fr;
+
       height: 100%;
       padding-top: 0px;
       padding-bottom: 0px;
@@ -141,8 +144,10 @@
       &__links {
         margin-top: 0px;
         position: unset;
+
         grid-row: 1;
         grid-column: 2;
+        width: unset;
 
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -154,6 +159,17 @@
           opacity: 1;
         }
 
+        .start,
+        .end {
+          justify-self: end;
+        }
+
+        .end {
+          display: grid;
+          grid-template-columns: repeat(2, max-content);
+          column-gap: 30px;
+        }
+
         .featured {
           display: none;
         }
@@ -161,7 +177,8 @@
 
       &__link {
         height: 100%;
-        width: min-content;
+        width: max-content;
+
         border: none;
         border-bottom: 3px solid transparent;
         padding: 0px 20px;
@@ -182,10 +199,11 @@
 
   @media (min-width: 1024px) {
     display: grid;
-    grid-template-columns: 13vw 1fr 13vw;
+    grid-template-columns: 15vw 1fr 15vw;
 
     &__main {
       grid-column: 2;
+      padding: 0px 0px;
     }
   }
 
