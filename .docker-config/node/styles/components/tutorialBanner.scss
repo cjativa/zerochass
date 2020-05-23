@@ -1,21 +1,21 @@
 .tutorial-banner {
   grid-column: 2;
-  color: #ffffff;
+  color: $white;
 
   &--black {
-    background-color: #212121;
+    background-color: $tutorialBannerBlack;
   }
 
   &--pink {
-    background-color: #ff3f6f;
+    background-color: $tutorialBannerPink;
   }
 
   &--teal {
-    background-color: #23daca;
+    background-color: $tutorialBannerTeal;
   }
 
   &--white {
-    background-color: #f6f7f8;
+    background-color: $tutorialBannerWhite;
     color: #444444;
   }
 
@@ -29,7 +29,7 @@
     height: 100%;
     width: 100%;
     align-items: center;
-    padding: 25px 35px;
+    padding: 25px 50px;
     box-sizing: border-box;
   }
 
@@ -62,8 +62,8 @@
   }
 
   @media (min-width: 30rem) {
-    border-radius: 30px;
-    height: 280px;
+    border-radius: $tutorialBannerRadius;
+    height: 260px;
 
     .banner-inner {
       &__header {
@@ -80,8 +80,8 @@
     }
 
     &__image {
-      width: 230px;
-      height: 230px;
+      width: 210px;
+      height: 210px;
       object-fit: cover;
       border-radius: 50%;
     }

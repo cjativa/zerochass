@@ -57,15 +57,13 @@ button:hover {
 }
 
 .app__body {
-  margin-top: 80px;
-}
-
-@media (min-width: 30rem) {
+  margin-top: $navigationBarHeight;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Top-level items
+@import "./components/authenticationDialog.scss";
 @import "./components/navigationBar.scss";
 @import "./components/siteBanner.scss";
 @import "./components/contentList.scss";
@@ -104,6 +102,12 @@ button:hover {
 // Singles style
 @import "./components/singles/singlePage.scss";
 
-// Shared components 
+// Shared components
 @import "./components/shared/shareButtons.scss";
 
+/** Breakpoints set at
+ @media (min-width: 640px) {}
+ @media (min-width: 768px) {}
+ @media (min-width: 1024px) {}
+ @media (min-width: 1280px) {}
+*/

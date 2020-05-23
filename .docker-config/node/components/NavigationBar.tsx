@@ -1,7 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
 import logo from '../assets/logo.svg';
+import { AuthenticationDialog } from './authenticationDialog';
 import { TutorialCard } from './TutorialCard';
 
 interface State {
@@ -10,115 +11,106 @@ interface State {
     mobileMenuExpanded: boolean
 }
 
-export class NavigationBar extends React.Component<any, State> {
+/* this.state = {
+    open: false,
+    dialogType: null,
+    mobileMenuExpanded: false,
+} */
 
-    constructor(props) {
-        super(props);
+export const NavigationBar = (props) => {
 
-        this.state = {
-            open: false,
-            dialogType: null,
-            mobileMenuExpanded: false,
-        }
-    }
+    const [mobileMenuExpanded, setMobileMenuExpanded] = useState(null);
+    const [showModal, setShowModal] = useState(null);
+    const [modalType, setModalType] = useState(null);
 
-    openDialog = (dialogType: string) => {
-        this.setState({ open: true, dialogType: dialogType });
-    }
-
-    closeDialog = () => {
-        this.setState({ open: false });
-    }
-
-    toggleMenu = (event) => {
+    const toggleMenu = (event) => {
         event.preventDefault();
 
-        this.setState({ mobileMenuExpanded: !this.state.mobileMenuExpanded });
-    }
+        const updatedMenuExpanded = !mobileMenuExpanded;
+        setMobileMenuExpanded(updatedMenuExpanded);
+    };
 
-    logOut = (event) => {
-        event.preventDefault();
-    }
+    const checkForMenu = (event) => {
+        if (event.target.id !== 'search-input') toggleMenu(event);
+    };
 
-    checkForMenu = (event) => {
-        if (event.target.id !== 'search-input') {
-            this.toggleMenu(event);
+    const toggleModal = (type?: 'LOGIN_MODAL' | 'SIGN_UP_MODAL') => {
+
+        // If we have a type, it means modal should be displayed
+        if (type) {
+            const updatedShowModal = !showModal;
+            setModalType(type);
+            setShowModal(updatedShowModal);
         }
-    }
 
-    async componentDidMount() {
-        /* if (this.props.signedIn) {
-            this.closeDialog();
-        } */
-    }
+        else setShowModal(false);
 
-    goToTwitter = () => {
-        window.open(`twitter.com/zerochass`, '_blank');
-    }
+    };
 
-    render() {
+    /* const { signedIn, name } = this.props; */
+    /* const { open, dialogType } = this.state; */
+    /* const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this; */
+    const { tutorial } = props;
+    const show = (mobileMenuExpanded) ? 'show' : 'hide';
+    let dialog;
 
-        /* const { signedIn, name } = this.props; */
-        const { open, dialogType, mobileMenuExpanded } = this.state;
-        const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this;
-        const { tutorial } = this.props;
-        const show = (mobileMenuExpanded) ? 'show' : 'hide';
-        let dialog;
+    const style = {
+        height: '52px',
+        width: '52px'
+    };
 
-        const style = {
-            height: '52px',
-            width: '52px'
-        };
+    return (
+        <nav className="navigation-bar">
+            <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
-        return (
-            <nav className="navigation-bar">
-                <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
+                {/* Logo container */}
+                <a className="main__logo" onClick={() => location.assign('/')}>
+                    <img src={logo} style={style} />
+                    <span className="main__brand">Zerochass</span>
+                </a>
 
-                    {/* Logo container */}
-                    <a className="main__logo" onClick={() => location.assign('/')}>
-                        <img src={logo} style={style} />
-                        <span className="main__brand">Zerochass</span>
-                    </a>
+                {/*  Navigation links */}
+                <ul className={`main__links ${show}`}>
 
-                    {/*  Navigation links */}
-                    <ul className={`main__links ${show}`}>
+                    {/** Tutorials link */}
+                    <li className="start">
+                        <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
+                    </li>
 
-                        {/** Tutorials link */}
-                        <li className="start">
-                            <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
-                        </li>
+                    {/** Login link */}
+                    <li className="end">
+                        <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login</button>
+                        <button className="main__link" onClick={(e) => toggleModal('SIGN_UP_MODAL')}>Sign up</button>
+                    </li>
 
-                        {/** Login link */}
-                        <li className="end">
-                            <Link href="/login"><a className="main__link">Login</a></Link>
-                            <Link href="/sign-up"><a className="main__link">Sign up</a></Link>
-                        </li>
-
-                        {/** Featured tutorial for mobile */}
-                        <li className="featured">
-                            <div className={`main__link feat`}>
-                                {tutorial &&
-                                    <div className="featured-container">
-                                        <TutorialCard tutorial={tutorial} large />
-                                        <p className="featured-container__text">Tutorial of the day</p>
-                                    </div>
-                                }
-                            </div>
-                        </li>
-                    </ul>
+                    {/** Featured tutorial for mobile */}
+                    <li className="featured">
+                        <div className={`main__link feat`}>
+                            {tutorial &&
+                                <div className="featured-container">
+                                    <TutorialCard tutorial={tutorial} large />
+                                    <p className="featured-container__text">Tutorial of the day</p>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                </ul>
 
 
-                    {/* Menu button container*/}
-                    <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
-                        <i className="fas fa-bars"></i>
-                    </a>
-                </div>
+                {/* Menu button container*/}
+                <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
+                    <i className="fas fa-bars"></i>
+                </a>
+            </div>
 
-                {/* Overlay to show when menu is expanded */}
-                {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
-            </nav>
-        )
-    }
+            {/* Overlay to show when menu is expanded */}
+            {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
+
+
+            {/** Show the authentication modal when necessary */}
+            {showModal && <AuthenticationDialog modalType={modalType} isOpen={showModal} onRequestClose={() => toggleModal()} />}
+        </nav>
+    )
 };
 
 
