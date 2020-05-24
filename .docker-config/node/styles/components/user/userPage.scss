@@ -1,7 +1,26 @@
-.user-page {
+.user-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+
   background-color: #1e1d1d;
+
+  box-sizing: border-box;
+  padding: 5vw;
+
+  &__header {
+  }
+
+  &__title {
+    font-size: 30px;
+  }
+
+  &__subtitle {
+  }
+
+  .save {
+    background-color: $mainPink;
+    color: $white;
+  }
 
   nav {
     padding: 40px 0px;
@@ -107,7 +126,7 @@
     padding-bottom: 30px;
   }
 
-  .form-field {
+  /* .form-field {
     margin: 20px 0px;
 
     label {
@@ -120,7 +139,7 @@
       height: 50px;
     }
   }
-
+ */
   input,
   textarea,
   button {
