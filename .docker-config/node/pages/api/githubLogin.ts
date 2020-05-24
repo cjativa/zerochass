@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/rest';
 import { SignUpInformation } from '../../util/interfaces/userInterfaces';
 import { UserService } from '../../util/services/userService';
+import { AuthenticationService } from '../../util/services/authenticationService';
 
 const octokit = new Octokit();
 const githubAuthUrl = 'https://github.com/login/oauth/access_token';
@@ -21,13 +22,19 @@ export default async (request, response) => {
         const authentication = (await octokit.request(`POST ${githubAuthUrl}`, { headers, data })).data;
 
         if (authentication) {
+
+            // Retrieve the user information needed to sign them up
             const userInformation = await retrieveUserInformation(authentication);
-            await UserService.signUp(userInformation, "GITHUB");
+
+            // Sign them up if need be
+            const userId = await UserService.signUp(userInformation, "GITHUB");
+
+            // Now that they're signed up, let's authenticate them by storing their access token
+            const { access_token: accessToken } = authentication;
+            AuthenticationService.signIn(accessToken, userId, request, response);
         }
     }
     catch (error) { console.log(`An error occurred authenticating with GitHub`, error); }
-
-    response.end();
 };
 
 const retrieveUserInformation = async (authentication): Promise<SignUpInformation> => {

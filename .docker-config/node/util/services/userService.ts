@@ -11,12 +11,24 @@ const getIdForProvider = (provider: AuthProvider) => {
 /** Signs a user up for Zerochass using the provided information */
 const signUp = async (information: SignUpInformation, provider: AuthProvider) => {
 
-    // Get the auth provider id and userId after insertion
-    const providerId = getIdForProvider(provider);
-    const userId = await insertUser(information, providerId);
+    let userId: number;
 
-    // Add their user account info
-    await insertUserAccountInformation(information, userId);
+    // Check if the user already exists
+    const { exists, userId: foundUserId } = await checkIfUserExists(information.uid);
+
+    // If they don't, sign them up
+    if (!exists) {
+        // Get the auth provider id and userId after insertion
+        const providerId = getIdForProvider(provider);
+        userId = await insertUser(information, providerId);
+
+        // Add their user account info
+        await insertUserAccountInformation(information, userId);
+    }
+
+    else { userId = foundUserId };
+
+    return userId;
 };
 
 /** Inserts user information to user_information table and returns the generated user id */
@@ -45,6 +57,31 @@ const insertUserAccountInformation = async (information: SignUpInformation, user
     `;
     const userAccountValues = [email, username, userId];
     await Client.executeQuery(insertUserAccountQuery, userAccountValues);
+};
+
+/** Checks if user already exists in the database */
+const checkIfUserExists = async (uid: number) => {
+
+    const userExistence = {
+        exists: null,
+        userId: null
+    };
+
+    const checkUserQuery = `
+    SELECT id from user_information
+    WHERE uid = $1
+    `;
+    const values = [uid];
+
+    const { rows } = await Client.executeQuery(checkUserQuery, values);
+    const { id: userId } = rows[0];
+
+    if (rows.length > 0) {
+        userExistence.exists = true;
+        userExistence.userId = userId;
+    }
+
+    return userExistence;
 };
 
 
