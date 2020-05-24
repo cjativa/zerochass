@@ -12,9 +12,9 @@ const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images
 interface LayoutProps {
     children?: any,
     pageTitle: string,
-    description: string,
-    keywords: string,
-    slug: string,
+    description?: string,
+    keywords?: string,
+    slug?: string,
     image?: string,
     large?: boolean
 };
