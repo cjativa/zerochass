@@ -35,7 +35,6 @@ services:
 
   # zerochass application
   node:
-    # user: root
     container_name: "node"
     build:
       context: ./.docker-config/node/
@@ -49,8 +48,11 @@ services:
       - CHOKIDAR_USEPOLLING=true
     env_file:
       - ./.docker-config/node/.env
+    expose:
+      - 5432
     ports:
       - "3000:3000"
+      - "5432:5432"
       - "35729:35729"
     depends_on:
       - php

@@ -16,19 +16,7 @@ export const AuthenticationDialog = (props: Props) => {
         overlay: {
             background: 'rgba(0, 0, 0, 0.685)',
             zIndex: '9999',
-        },
-        /* content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            transform: 'translate(-50%, -50%)',
-            position: 'absolute'
-        } */
-
-
+        }
     };
 
     return (
@@ -59,6 +47,10 @@ const ModalContent = (props: ModalContentProps) => {
     if (modalType === 'LOGIN_MODAL') loginClass = highlightClass;
     if (modalType === 'SIGN_UP_MODAL') signUpClass = highlightClass;
 
+    const onGitHubClick = () => {
+        window.location.href = `https://github.com/login/oauth/authorize?scope=read:user%20user:email&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
+    };
+
     return (
         <div className="modal-content">
             <div className="modal-content__inner">
@@ -74,7 +66,7 @@ const ModalContent = (props: ModalContentProps) => {
                 </div>
 
                 <div className="modal-content__buttons">
-                    <button className="modal-content__sign-in">Log in with GitHub</button>
+                    <button className="modal-content__sign-in" onClick={() => onGitHubClick()}>Log in with GitHub</button>
                     <button className="modal-content__sign-in">Log in with Twitter</button>
                 </div>
             </div>
