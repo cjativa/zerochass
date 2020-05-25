@@ -33,7 +33,7 @@ const Profile = () => {
                     {/** About Me field */}
                     <div className="form-field">
                         <label className="form-field__label">About Me</label>
-                        <textarea className="form-field__ta" placeholder="A quick little snippet about you -- something like coffee afficionado on my journey to save our world from behind my desktop" />
+                        <textarea className="form-field__ta" placeholder="A quick little snippet about you — something like coffee afficionado on my journey to save our world from behind my desktop" />
                     </div>
 
                     {/** Website field */}
