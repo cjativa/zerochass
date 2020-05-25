@@ -57,12 +57,17 @@ button:hover {
 }
 
 .app__body {
-  margin-top: $navigationBarHeight;
+  padding-top: $navigationBarHeight;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Top-level items
+@import "./components/layout.scss";
 @import "./components/authenticationDialog.scss";
 @import "./components/navigationBar.scss";
 @import "./components/siteBanner.scss";
@@ -97,6 +102,7 @@ button:hover {
 // User Component Styles
 @import "./components/user/userPage.scss";
 @import "./components/user/profile.scss";
+@import "./components/user/account.scss";
 @import "./components/user/connect.scss";
 
 // Singles style

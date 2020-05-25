@@ -1,5 +1,3 @@
-
-
 import { UserLayout } from '../components/userLayout';
 
 const Profile = () => {
@@ -53,7 +51,5 @@ const Profile = () => {
         </UserLayout>
     )
 };
-
-
 
 export default Profile;
