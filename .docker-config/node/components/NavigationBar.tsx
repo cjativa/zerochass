@@ -60,7 +60,9 @@ export const NavigationBar = (props) => {
     };
 
     return (
-        <nav className="navigation-bar">
+        <nav className={`navigation-bar`}>
+
+            {/** The main buttons */}
             <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
                 {/* Logo container */}
@@ -69,34 +71,6 @@ export const NavigationBar = (props) => {
                     <span className="main__brand">Zerochass</span>
                 </a>
 
-                {/*  Navigation links */}
-                <ul className={`main__links ${show}`}>
-
-                    {/** Tutorials link */}
-                    <li className="start">
-                        <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
-                    </li>
-
-                    {/** Login link */}
-                    <li className="end">
-                        <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login</button>
-                        <button className="main__link" onClick={(e) => toggleModal('SIGN_UP_MODAL')}>Sign up</button>
-                    </li>
-
-                    {/** Featured tutorial for mobile */}
-                    <li className="featured">
-                        <div className={`main__link feat`}>
-                            {tutorial &&
-                                <div className="featured-container">
-                                    <TutorialCard tutorial={tutorial} large />
-                                    <p className="featured-container__text">Tutorial of the day</p>
-                                </div>
-                            }
-                        </div>
-                    </li>
-                </ul>
-
-
                 {/* Menu button container*/}
                 <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
                     <i className="fas fa-bars"></i>
@@ -104,8 +78,33 @@ export const NavigationBar = (props) => {
             </div>
 
             {/* Overlay to show when menu is expanded */}
-            {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
+            {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={() => console.log(`Clicked`)} />}
 
+            {/*  Navigation links */}
+            <ul className={`main__links ${show}`}>
+
+                {/** Tutorials link */}
+                <li className="start">
+                    <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
+                </li>
+
+                {/** Login link */}
+                <li className="end">
+                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login</button>
+                </li>
+
+                {/** Featured tutorial for mobile */}
+                <li className="featured">
+                    <div className={`main__link feat`}>
+                        {tutorial &&
+                            <div className="featured-container">
+                                <TutorialCard tutorial={tutorial} large />
+                                <p className="featured-container__text">Tutorial of the day</p>
+                            </div>
+                        }
+                    </div>
+                </li>
+            </ul>
 
             {/** Show the authentication modal when necessary */}
             {showModal && <AuthenticationDialog modalType={modalType} isOpen={showModal} onRequestClose={() => toggleModal()} />}
