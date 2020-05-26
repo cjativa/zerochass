@@ -27,18 +27,19 @@ export const AuthenticationDialog = (props: Props) => {
             contentLabel="Example Modal"
             className="modal-content"
         >
-            <ModalContent modalType={props.modalType}></ModalContent>
+            <ModalContent modalType={props.modalType} onRequestClose={props.onRequestClose}></ModalContent>
         </Modal>
     )
 };
 
 interface ModalContentProps {
-    modalType: modalType
+    modalType: modalType,
+    onRequestClose: any
 }
 
 const ModalContent = (props: ModalContentProps) => {
 
-    const { modalType } = props;
+    const { modalType, onRequestClose } = props;
 
     let loginClass;
     let signUpClass;
@@ -53,6 +54,7 @@ const ModalContent = (props: ModalContentProps) => {
 
     return (
         <div className="modal-content">
+            <i className={`fas fa-times`} onClick={() => onRequestClose()} />
             <div className="modal-content__inner">
                 <p className="modal-content__title">
                     <span className={loginClass}>Sign In</span>

@@ -78,10 +78,10 @@ export const NavigationBar = (props) => {
             </div>
 
             {/* Overlay to show when menu is expanded */}
-            {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={() => console.log(`Clicked`)} />}
+            {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
 
             {/*  Navigation links */}
-            <ul className={`main__links ${show}`}>
+            <ul className={`main__links ${show}`} onClick={toggleMenu}>
 
                 {/** Tutorials link */}
                 <li className="start">
@@ -90,7 +90,7 @@ export const NavigationBar = (props) => {
 
                 {/** Login link */}
                 <li className="end">
-                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login</button>
+                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
                 </li>
 
                 {/** Featured tutorial for mobile */}

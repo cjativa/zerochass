@@ -23,7 +23,7 @@
 
     overflow: auto;
     outline: none;
-    padding: 20px;
+    padding: 7vw;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 
@@ -31,9 +31,15 @@
     justify-content: center;
     align-items: center;
 
+    i {
+        position: absolute;
+        right: 7vw;
+        top: 7vw;
+    }
+
     &__inner {
         height: 80%;
-        width: 80%;
+        width: 100%;
 
         display: grid;
         grid-template-rows: repeat(2, min-content) 80px 200px;
