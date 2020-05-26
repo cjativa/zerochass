@@ -2,43 +2,70 @@ import jsonwebtoken from 'jsonwebtoken';
 import { Config } from '../config';
 import nookies from 'nookies';
 
-/** Verifies if a user is authenticated */
-const verifyAuthenticated = (request, response) => {
+interface Authentication {
+    authenticated: boolean,
+    userId: string | number,
+    accessToken: string
+};
+
+/** Returns boolean on user being authenticated */
+export const isAuthenticated = (): Authentication => {
+
+    const authentication: Authentication = {
+        authenticated: null,
+        userId: null,
+        accessToken: null,
+    };
 
     // Check if there's a zerochassServerCookie on the request -- if it does exist, the jwt will be available
     const { zerochassServerCookie, zerochassClientCookie } = nookies.get();
 
-    // If there's no jwt, reject immediately
-    if (!zerochassServerCookie) response.status(401).json(`Invalid or missing authorization token`);
+    // If there's no jwt, update the authentication object
+    if (!zerochassServerCookie) { authentication['authenticated'] = false }
 
-    // Else there's a token, let's see if it's valid
+    // Else there's a jwt, let's see if it's valid
     else {
         const userPayload = jsonwebtoken.verify(zerochassServerCookie, Config.zerochassSecret) as object;
 
-        // If the token is invalid (i.e. no payload), clear the cookie and let client know
+        // If the token is invalid (i.e. no payload), clear the cookie and update authentication object
         if (!userPayload) {
+
             nookies.destroy(null, zerochassServerCookie);
             nookies.destroy(null, zerochassClientCookie);
-            response.status(401).json(`Invalid or missing authorization token`);
+
+            authentication['authenticated'] = false;
         }
 
         // Else, token is valid - let's set the userId on the request object
         else {
-            console.log('Hello');
-            const userId = userPayload['userId'];
-            const accessToken = userPayload['accessToken'];
-
-            request.userId = userId;
-            request.accessToken = accessToken;
+            authentication['userId'] = userPayload['userId'];
+            authentication['accessToken'] = userPayload['accessToken'];
+            authentication['authenticated'] = true;
         }
+    }
 
-        return request;
+    return authentication;
+};
+
+/** Middleware that secures protected routes with authentication */
+const protectWithAuthentication = (request, response) => {
+
+    const { userId, authenticated, accessToken } = isAuthenticated();
+
+    if (authenticated) {
+        request['authenticated'] = true;
+        request['userId'] = userId;
+        request['accessToken'] = accessToken;
+    }
+
+    else {
+        response.status(401).json(`Invalid or missing authorization token`);
     }
 };
 
 /** Adds userId and access token to request object for authenticated routes to look up user information */
 const authenticated = (handler) => (request, response) => {
-    verifyAuthenticated(request, response);
+    protectWithAuthentication(request, response);
 
     return handler(request, response);
 };

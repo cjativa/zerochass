@@ -31,7 +31,10 @@ export default async (request, response) => {
 
             // Now that they're signed up, let's authenticate them by storing their access token
             const { access_token: accessToken } = authentication;
-            AuthenticationService.signIn(accessToken, userId, request, response);
+            await AuthenticationService.signIn(accessToken, userId, request, response);
+
+            response.writeHead(302, { Location: '/' });
+            response.end();
         }
     }
     catch (error) { console.log(`An error occurred authenticating with GitHub`, error); }

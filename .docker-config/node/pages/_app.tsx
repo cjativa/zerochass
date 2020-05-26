@@ -1,4 +1,5 @@
-import { AppProps } from 'next/app'
+import { AppProps } from 'next/app';
+
 
 import '../styles/styles.scss';
 import 'prismjs';
@@ -16,4 +17,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />
 }
 
-export default MyApp
+
+export default MyApp;

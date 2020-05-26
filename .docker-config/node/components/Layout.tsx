@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { parseCookies } from 'nookies';
 
 import { NavigationBar } from './NavigationBar';
 import { InformationSection } from './InformationSection';
@@ -25,6 +26,7 @@ export const Layout = (props: LayoutProps) => {
     const fullPageTitle = `${pageTitle} | Zerochass`;
     const [tutorial, setTutorial] = useState(null);
 
+    /** Sets the tutorial of the day */
     useEffect(() => {
 
         const fetchTutorialOfDay = async () => {
@@ -44,6 +46,13 @@ export const Layout = (props: LayoutProps) => {
         fetchTutorialOfDay();
     }, []);
 
+    /** Determines if a user is authenticated client-side */
+    useEffect(() => {
+
+        const cookies = parseCookies();
+        console.log({ cookies });
+        
+    });
 
     return (
         <>
