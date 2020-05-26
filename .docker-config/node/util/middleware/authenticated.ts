@@ -9,7 +9,7 @@ interface Authentication {
 };
 
 /** Returns boolean on user being authenticated */
-export const isAuthenticated = (): Authentication => {
+export const isAuthenticated = (req, res): Authentication => {
 
     const authentication: Authentication = {
         authenticated: null,
@@ -18,10 +18,12 @@ export const isAuthenticated = (): Authentication => {
     };
 
     // Check if there's a zerochassServerCookie on the request -- if it does exist, the jwt will be available
-    const { zerochassServerCookie, zerochassClientCookie } = nookies.get();
+    const { zerochassServerCookie, zerochassClientCookie } = nookies.get({ req });
 
     // If there's no jwt, update the authentication object
-    if (!zerochassServerCookie) { authentication['authenticated'] = false }
+    if (!zerochassServerCookie) {
+        authentication['authenticated'] = false
+    }
 
     // Else there's a jwt, let's see if it's valid
     else {
@@ -50,7 +52,7 @@ export const isAuthenticated = (): Authentication => {
 /** Middleware that secures protected routes with authentication */
 const protectWithAuthentication = (request, response) => {
 
-    const { userId, authenticated, accessToken } = isAuthenticated();
+    const { userId, authenticated, accessToken } = isAuthenticated(request, response);
 
     if (authenticated) {
         request['authenticated'] = true;
@@ -65,6 +67,7 @@ const protectWithAuthentication = (request, response) => {
 
 /** Adds userId and access token to request object for authenticated routes to look up user information */
 const authenticated = (handler) => (request, response) => {
+    console.log(`Protecting with authentication`);
     protectWithAuthentication(request, response);
 
     return handler(request, response);
