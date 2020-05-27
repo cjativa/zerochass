@@ -1,8 +1,10 @@
 import authenticated from '../../util/middleware/authenticated';
+import { UserService } from '../../util/services/userService';
 
-const handler = (request, response) => {
+const handler = async (request, response) => {
     const { userId, accessToken } = request;
-    response.json(`Your userId i s ${userId} and access token is ${accessToken}`)
+    const profile = await UserService.getProfileInformation(userId);
+    response.json(profile);
 };
 
 export default authenticated(handler);

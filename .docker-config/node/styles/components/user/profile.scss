@@ -4,9 +4,15 @@
 
   &__heading {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    column-gap: 5vw;
+    grid-template-rows: min-content 1fr;
+    row-gap: 5vw;
     align-items: end;
+
+    img {
+      height: 82px;
+      width: 82px;
+      border-radius: 50%;
+    }
   }
 
   &__body {
@@ -15,6 +21,3 @@
     row-gap: 35px;
   }
 }
-
-
-

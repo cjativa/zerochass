@@ -87,7 +87,11 @@ export const NavigationBar = (props) => {
                 <li className="end">
                     {
                         (isAuthenticated)
-                            ? <button className="main__link" onClick={(e) => triggerLogout()}>Sign Out</button>
+                            ?
+                            <div>
+                                <Link href="/profile"><a className="main__link">Profile</a></Link>
+                                <button className="main__link" onClick={(e) => triggerLogout()}>Sign Out</button>
+                            </div>
                             : <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
                     }
 

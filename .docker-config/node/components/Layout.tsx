@@ -69,7 +69,6 @@ export const Layout = (props: LayoutProps) => {
             const { authenticated, expires, profileImageUrl } = JSON.parse(zerochassClientCookie);
             setIsAuthenticated(authenticated);
             setProfileImageUrl(profileImageUrl);
-            console.log(JSON.parse(zerochassClientCookie));
         }
 
     }, [isAuthenticated, profileImageUrl]);

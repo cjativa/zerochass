@@ -69,7 +69,8 @@ const checkIfUserExists = async (uid: number) => {
     };
 
     const checkUserQuery = `
-    SELECT id from user_information
+    SELECT id 
+    FROM user_information
     WHERE uid = $1
     `;
     const values = [uid];
@@ -85,7 +86,21 @@ const checkIfUserExists = async (uid: number) => {
     return userExistence;
 };
 
+const getProfileInformation = async (userId: number) => {
+
+    const profileQuery = `
+    SELECT * 
+    FROM user_information
+    WHERE id = $1
+    `;
+    const values = [userId];
+
+    const { rows } = await Client.executeQuery(profileQuery, values);
+    return rows[0];
+};
+
 
 export const UserService = {
-    signUp
+    signUp,
+    getProfileInformation
 };
