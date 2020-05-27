@@ -67,7 +67,6 @@ const protectWithAuthentication = (request, response) => {
 
 /** Adds userId and access token to request object for authenticated routes to look up user information */
 const authenticated = (handler) => (request, response) => {
-    console.log(`Protecting with authentication`);
     protectWithAuthentication(request, response);
 
     return handler(request, response);

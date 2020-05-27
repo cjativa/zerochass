@@ -6,9 +6,9 @@ import nookies from 'nookies';
 const { zerochassClientCookie, zerochassServerCookie } = AuthConfig;
 
 /** Signs a user in */
-const signIn = async (accessToken: string, userId: number, req, res) => {
+const signIn = async (accessToken: string, userId: number, profileImageUrl, res) => {
 
-    const jwt = generateJwt(accessToken, userId);
+    const jwt = generateJwt(accessToken, userId, profileImageUrl);
     const expires = new Date(Date.now() + AuthConfig.cookieExpiration);
 
     // Create cookies
@@ -17,17 +17,18 @@ const signIn = async (accessToken: string, userId: number, req, res) => {
 };
 
 /** Logs a user out */
-const logOut = (request, response) => {
+const logOut = (req, res) => {
     console.log(`Logging out?`);
-    nookies.destroy(null, zerochassServerCookie);
-    nookies.destroy(null, zerochassClientCookie);
+    nookies.destroy({ res }, zerochassServerCookie, { path: "/" });
+    nookies.destroy({ res }, zerochassClientCookie, { path: "/" });
+    return res;
 };
 
 /** Returns generated jwt using the provided access token */
-const generateJwt = (accessToken: string, userId: number) => {
+const generateJwt = (accessToken: string, userId: number, profileImageUrl: string) => {
 
     // Create jwt token with expiration
-    const token = jsonwebtoken.sign({ accessToken, userId }, Config.zerochassSecret, { expiresIn: AuthConfig.tokenExpiration });
+    const token = jsonwebtoken.sign({ accessToken, userId, profileImageUrl }, Config.zerochassSecret, { expiresIn: AuthConfig.tokenExpiration });
     return token;
 };
 

@@ -12,6 +12,7 @@ const getIdForProvider = (provider: AuthProvider) => {
 const signUp = async (information: SignUpInformation, provider: AuthProvider) => {
 
     let userId: number;
+    const { profileImageUrl } = information;
 
     // Check if the user already exists
     const { exists, userId: foundUserId } = await checkIfUserExists(information.uid);
@@ -28,7 +29,7 @@ const signUp = async (information: SignUpInformation, provider: AuthProvider) =>
 
     else { userId = foundUserId };
 
-    return userId;
+    return { userId, profileImageUrl };
 };
 
 /** Inserts user information to user_information table and returns the generated user id */

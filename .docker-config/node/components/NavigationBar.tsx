@@ -1,21 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Link from 'next/link';
 
+import { AuthenticationContext } from './Layout';
 import logo from '../assets/logo.svg';
 import { AuthenticationDialog } from './authenticationDialog';
 import { TutorialCard } from './TutorialCard';
 
-interface State {
-    open: boolean,
-    dialogType: string,
-    mobileMenuExpanded: boolean
-}
-
-/* this.state = {
-    open: false,
-    dialogType: null,
-    mobileMenuExpanded: false,
-} */
+const style = {
+    height: '52px',
+    width: '52px'
+};
 
 export const NavigationBar = (props) => {
 
@@ -44,20 +38,15 @@ export const NavigationBar = (props) => {
         }
 
         else setShowModal(false);
-
     };
 
-    /* const { signedIn, name } = this.props; */
-    /* const { open, dialogType } = this.state; */
-    /* const { openDialog, closeDialog, toggleMenu, checkForMenu, logOut } = this; */
+    const triggerLogout = async () => {
+        await fetch('/api/logout');
+    };
+
     const { tutorial } = props;
     const show = (mobileMenuExpanded) ? 'show' : 'hide';
-    let dialog;
-
-    const style = {
-        height: '52px',
-        width: '52px'
-    };
+    const isAuthenticated = useContext(AuthenticationContext);
 
     return (
         <nav className={`navigation-bar`}>
@@ -88,9 +77,14 @@ export const NavigationBar = (props) => {
                     <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
                 </li>
 
-                {/** Login link */}
+                {/** Login link / Profile link */}
                 <li className="end">
-                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
+                    {
+                        (isAuthenticated)
+                            ? <button className="main__link" onClick={(e) => triggerLogout()}>Sign Out</button>
+                            : <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
+                    }
+
                 </li>
 
                 {/** Featured tutorial for mobile */}

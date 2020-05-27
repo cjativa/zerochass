@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { parseCookies } from 'nookies';
 
 import { NavigationBar } from './NavigationBar';
@@ -20,11 +20,14 @@ interface LayoutProps {
     large?: boolean
 };
 
+export const AuthenticationContext = React.createContext(null);
+
 export const Layout = (props: LayoutProps) => {
 
     const { children, pageTitle, description, keywords, slug, image, large } = props;
     const fullPageTitle = `${pageTitle} | Zerochass`;
     const [tutorial, setTutorial] = useState(null);
+    const [isAuthenticated, setAuthenticated] = useState(null);
 
     /** Sets the tutorial of the day */
     useEffect(() => {
@@ -49,10 +52,16 @@ export const Layout = (props: LayoutProps) => {
     /** Determines if a user is authenticated client-side */
     useEffect(() => {
 
-        const cookies = parseCookies();
-        console.log({ cookies });
-        
-    });
+        const { zerochassClientCookie } = parseCookies();
+        let isAuthenticated = null;
+
+        if (zerochassClientCookie) {
+            const { authenticated, expires } = JSON.parse(zerochassClientCookie);
+            isAuthenticated = authenticated;
+        }
+
+        setAuthenticated(isAuthenticated);
+    }, [isAuthenticated]);
 
     return (
         <>
@@ -85,8 +94,10 @@ export const Layout = (props: LayoutProps) => {
                 </script>
             </Head>
             <section className="layout">
-                <NavigationBar tutorial={tutorial} />
-                <div className="app__body">{children}</div>
+                <AuthenticationContext.Provider value={isAuthenticated}>
+                    <NavigationBar tutorial={tutorial} />
+                    <div className="app__body">{children}</div>
+                </AuthenticationContext.Provider>
             </section>
             <InformationSection />
             <Footer />

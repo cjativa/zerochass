@@ -27,11 +27,11 @@ export default async (request, response) => {
             const userInformation = await retrieveUserInformation(authentication);
 
             // Sign them up if need be
-            const userId = await UserService.signUp(userInformation, "GITHUB");
+            const { userId, profileImageUrl } = await UserService.signUp(userInformation, "GITHUB");
 
             // Now that they're signed up, let's authenticate them by storing their access token
             const { access_token: accessToken } = authentication;
-            await AuthenticationService.signIn(accessToken, userId, request, response);
+            await AuthenticationService.signIn(accessToken, userId, profileImageUrl, response);
 
             response.writeHead(302, { Location: '/' });
             response.end();
