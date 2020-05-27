@@ -20,14 +20,25 @@ interface LayoutProps {
     large?: boolean
 };
 
-export const AuthenticationContext = React.createContext(null);
+interface AuthContext {
+    isAuthenticated: boolean,
+    profileImageUrl: string
+};
+
+
+export const AuthenticationContext: React.Context<AuthContext> = React.createContext({
+    isAuthenticated: null,
+    profileImageUrl: null
+});
 
 export const Layout = (props: LayoutProps) => {
 
     const { children, pageTitle, description, keywords, slug, image, large } = props;
     const fullPageTitle = `${pageTitle} | Zerochass`;
     const [tutorial, setTutorial] = useState(null);
-    const [isAuthenticated, setAuthenticated] = useState(null);
+
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const [profileImageUrl, setProfileImageUrl] = useState(null);
 
     /** Sets the tutorial of the day */
     useEffect(() => {
@@ -53,15 +64,15 @@ export const Layout = (props: LayoutProps) => {
     useEffect(() => {
 
         const { zerochassClientCookie } = parseCookies();
-        let isAuthenticated = null;
 
         if (zerochassClientCookie) {
-            const { authenticated, expires } = JSON.parse(zerochassClientCookie);
-            isAuthenticated = authenticated;
+            const { authenticated, expires, profileImageUrl } = JSON.parse(zerochassClientCookie);
+            setIsAuthenticated(authenticated);
+            setProfileImageUrl(profileImageUrl);
+            console.log(JSON.parse(zerochassClientCookie));
         }
 
-        setAuthenticated(isAuthenticated);
-    }, [isAuthenticated]);
+    }, [isAuthenticated, profileImageUrl]);
 
     return (
         <>
@@ -94,7 +105,7 @@ export const Layout = (props: LayoutProps) => {
                 </script>
             </Head>
             <section className="layout">
-                <AuthenticationContext.Provider value={isAuthenticated}>
+                <AuthenticationContext.Provider value={{ isAuthenticated, profileImageUrl }}>
                     <NavigationBar tutorial={tutorial} />
                     <div className="app__body">{children}</div>
                 </AuthenticationContext.Provider>

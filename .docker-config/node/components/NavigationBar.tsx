@@ -42,11 +42,12 @@ export const NavigationBar = (props) => {
 
     const triggerLogout = async () => {
         await fetch('/api/logout');
+        window.location.reload();
     };
 
     const { tutorial } = props;
     const show = (mobileMenuExpanded) ? 'show' : 'hide';
-    const isAuthenticated = useContext(AuthenticationContext);
+    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
 
     return (
         <nav className={`navigation-bar`}>
@@ -62,7 +63,12 @@ export const NavigationBar = (props) => {
 
                 {/* Menu button container*/}
                 <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
-                    <i className="fas fa-bars"></i>
+
+                    {
+                        (isAuthenticated)
+                            ? <img src={profileImageUrl} style={{ height: '52px', width: '52px', borderRadius: '50%' }} />
+                            : <i className="fas fa-bars"></i>
+                    }
                 </a>
             </div>
 
