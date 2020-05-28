@@ -94,6 +94,14 @@
     @media (min-width: 768px) {
     }
     @media (min-width: 1024px) {
+
+        height: 80vh;
+        width: 30vw;
+        padding: 0vw 5vw;
+
+        i {
+            display: none;
+        }
     }
     @media (min-width: 1280px) {
     }

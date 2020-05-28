@@ -13,99 +13,6 @@
     font-size: 30px;
   }
 
-  .save {
-    background-color: $mainPink;
-    color: $white;
-  }
-
-  nav {
-    padding: 40px 0px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #444444;
-  }
-
-  .page-content {
-    background-color: #141414;
-  }
-
-  li {
-    margin-bottom: 20px;
-    &:first-of-type {
-      margin-bottom: 40px;
-    }
-
-    &.nav-link,
-    .nav-link {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    a.nav-link {
-      height: 50px;
-
-      &.active {
-        background-color: #45b914;
-      }
-
-      &:not(.active):hover {
-        background-color: #328110;
-      }
-    }
-  }
-
-  .main-panel {
-    display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
-    grid-template-rows: 40px 1fr 40px;
-  }
-
-  .panel-content {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  @media (min-width: 40rem) {
-    grid-template-columns: 1fr;
-    .page-content {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-    }
-
-    .main-panel {
-      grid-template-columns: 5rem 1fr 5rem;
-    }
-
-    .panel-content {
-      width: 85%;
-    }
-
-    nav {
-      border-bottom: none;
-      border-right: 1px solid #444444;
-    }
-  }
-
-  @media (min-width: 60rem) {
-    grid-template-columns: 20vw 1fr 20vw;
-
-    .page-content {
-      grid-column: 2;
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-    }
-
-    .panel-content {
-      width: 65%;
-    }
-  }
-
-  .divider {
-    border-top: 1px solid #20e9e9;
-    width: 100%;
-    margin: 30px 0px;
-  }
-
   .form-field {
     margin: 0;
 
@@ -138,62 +45,26 @@
     background-color: $mainPink;
     color: $white;
   }
-}
 
-/* Styles shared across components displayed in the panel content */
-.panel-content {
-  .top-box {
-    margin-bottom: 40px;
-
-    h1,
-    p {
-      margin-bottom: 10px;
-    }
-  }
-
-  .heading-box {
-    border-bottom: 1px solid #20e9e9;
-    padding-bottom: 30px;
-  }
-
-  /* .form-field {
-    margin: 20px 0px;
-
-    label {
-      display: block;
-      line-height: 2.5;
-    }
-
-    input,
-    button {
-      height: 50px;
-    }
-  }
- */
-  input,
-  textarea,
-  button {
-    font-family: "Nunito";
-    box-sizing: border-box;
+  .divider {
+    border-top: 1px solid #20e9e9;
     width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
+    margin: 30px 0px;
   }
 
-  .save {
-    display: grid;
-    grid-auto-rows: 1fr;
-    justify-content: end;
+  @media (min-width: 640px) {
+  }
+  @media (min-width: 768px) {
+  }
+  @media (min-width: 1024px) {
+  }
+  @media (min-width: 1280px) {
+    padding: 3vh 35vw;
 
-    button {
-      margin: 30px 0px;
-      height: 45px;
-      width: 75px;
-      border: none;
-      border-radius: 6px;
-      background-color: #ff3366;
-      color: #ffffff;
+    .save {
+      width: min-content;
+      padding: 18px;
+      justify-self: end;
     }
   }
 }
