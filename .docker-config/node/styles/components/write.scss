@@ -5,9 +5,10 @@
     flex: 1;
 
     .body {
+        background-color: $white;
         flex-grow: 1;
         color: $normalFontColor;
-        padding: 30px 45px;
+        padding: 1.5em 1em;
         box-sizing: border-box;
         height: 100%;
 
@@ -41,6 +42,8 @@
     .description {
         &__lines {
             padding: 0px 15px;
+            display: grid;
+            row-gap: 1em;
         }
     }
 
@@ -79,7 +82,8 @@
         padding: 0 0;
 
         .body {
-            background-color: $tutorial_content_grid_background;
+            padding: 2em 2.5em;
+
             grid-template-rows: unset;
             grid-template-columns: 75% 1fr;
             column-gap: 2em;

@@ -121,7 +121,7 @@ const Section = () => {
     return (
         <div className="section outline">
 
-            <span className="section__title" onClick={(e) => setCollapsed(!collapsed)}>Section: {sectionTitle}</span>
+            <span className="section__title" onClick={(e) => setCollapsed(!collapsed)}>Section{(sectionTitle.length > 0) ? ':' : ''} {sectionTitle}</span>
 
             {!collapsed &&
                 <div className="section__body block">
