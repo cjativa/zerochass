@@ -4,12 +4,7 @@ import Link from 'next/link';
 import { AuthenticationContext } from './Layout';
 import logo from '../assets/logo.svg';
 import { AuthenticationDialog } from './authenticationDialog';
-import { TutorialCard } from './TutorialCard';
 
-const style = {
-    height: '52px',
-    width: '52px'
-};
 
 export const NavigationBar = (props) => {
 
@@ -57,62 +52,54 @@ export const NavigationBar = (props) => {
 
                 {/* Logo container */}
                 <a className="main__logo" onClick={() => location.assign('/')}>
-                    <img src={logo} style={style} />
+                    <img src={logo} className="main__ico" />
                     <span className="main__brand">Zerochass</span>
                 </a>
 
-                {/* Menu button container*/}
-                <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
+                {/** Tutorials link */}
+                <div className="main__middle">
+                    <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
+                </div>
 
-                    {
-                        (isAuthenticated)
-                            ? <img src={profileImageUrl} style={{ height: '52px', width: '52px', borderRadius: '50%' }} />
-                            : <i className="fas fa-bars"></i>
-                    }
-                </a>
+                <div className="main__end">
+                    {/* Menu button container*/}
+                    <a id="menu-btn" className="main__menu-btn" onClick={toggleMenu}>
+                        {
+                            (isAuthenticated)
+                                ? <img src={profileImageUrl} className="main__profile" />
+                                : <i className="fas fa-bars"></i>
+                        }
+                    </a>
+                </div>
             </div>
+
+
+
+            {/*  Navigation links */}
+            {isAuthenticated &&
+                <div className={`main__links ${show}`} onClick={toggleMenu}>
+
+                    {/** Login link / Profile link */}
+                    <Link href="/profile"><a className="main__link">Profile</a></Link>
+                    <Link href="/account"><a className="main__link">Account</a></Link>
+                    <button className="main__link" onClick={(e) => triggerLogout()}>Sign out</button>
+
+                </div>
+            }
+
+            {
+                !isAuthenticated &&
+                <div className={`main__links ${show}`} onClick={toggleMenu}>
+                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
+                </div>
+            }
 
             {/* Overlay to show when menu is expanded */}
             {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
 
-            {/*  Navigation links */}
-            <ul className={`main__links ${show}`} onClick={toggleMenu}>
-
-                {/** Tutorials link */}
-                <li className="start">
-                    <Link href="/tutorials"><a className="main__link">Tutorials</a></Link>
-                </li>
-
-                {/** Login link / Profile link */}
-                <li className="end">
-                    {
-                        (isAuthenticated)
-                            ?
-                            <div>
-                                <Link href="/profile"><a className="main__link">Profile</a></Link>
-                                <button className="main__link" onClick={(e) => triggerLogout()}>Sign Out</button>
-                            </div>
-                            : <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
-                    }
-
-                </li>
-
-                {/** Featured tutorial for mobile */}
-                <li className="featured">
-                    <div className={`main__link feat`}>
-                        {tutorial &&
-                            <div className="featured-container">
-                                <TutorialCard tutorial={tutorial} large />
-                                <p className="featured-container__text">Tutorial of the day</p>
-                            </div>
-                        }
-                    </div>
-                </li>
-            </ul>
-
             {/** Show the authentication modal when necessary */}
             {showModal && <AuthenticationDialog modalType={modalType} isOpen={showModal} onRequestClose={() => toggleModal()} />}
-        </nav>
+        </nav >
     )
 };
 

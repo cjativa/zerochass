@@ -43,18 +43,18 @@
     background-color: #f8f8f8;
   }
 
-  .join-btn {
+  .write-btn {
     background-color: #ff3366;
     color: #ffffff;
   }
 
-  .join-btn:active,
-  .join-btn:hover {
+  .write-btn:active,
+  .write-btn:hover {
     background-color: #ff4473;
   }
 
   .browse-btn,
-  .join-btn {
+  .write-btn {
     display: inline-block;
     padding: 15px 20px;
     text-align: center;
@@ -63,8 +63,6 @@
   }
 
   @media (min-width: 20rem) {
-    
-
   }
 
   @media (min-width: 60rem) {

@@ -68,8 +68,8 @@
 
     &__header,
     &__body {
-      border-left: 1px solid lightgray;
-      border-right: 1px solid lightgray;
+      border-left: $solidGrayBorder;
+      border-right: $solidGrayBorder;
     }
 
     &__body {

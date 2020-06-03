@@ -13,6 +13,9 @@ import 'prismjs/components/prism-scss.min.js';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 
+import 'react-markdown-editor-lite/lib/index.css';
+
+
 function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />
 }

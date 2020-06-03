@@ -39,7 +39,7 @@ const Profile = () => {
 
                 {/** Heading section */}
                 <div className="profile__heading">
-                    {profileImage ? <img src={profileImage} /> : ''}
+                    {<img src={profileImage} />}
                     <div className="form-field">
                         <label className="form-field__label">Heading</label>
                         <input className="form-field__input" type="text" placeholder="I'm a newbie software engineer" value={heading} onChange={(e) => setHeading(e.target.value)} />

@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  background-color: #141414;
+  background-color: $mainBlack;
   color: #ffffff;
   font-family: "Nunito";
 
@@ -62,6 +62,54 @@ button:hover {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+.form-field {
+  margin: 0;
+
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  row-gap: 5px;
+
+  &__label,
+  &__input,
+  &__ta,
+  &__button {
+    font-size: 16px;
+    font-family: $normalFontFamily;
+
+    &.bold {
+      font-weight: bold;
+    }
+  }
+
+  &__input,
+  &__ta,
+  &__button,
+  &__select {
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+
+    &.slim {
+      padding: 6px 12px;
+    }
+  }
+
+  &__ta {
+    height: 6em;
+  }
+
+  &__ta,
+  &__input, &__select {
+    border: $solidGrayBorder;
+
+    &:active,
+    &:visited,
+    &:focus-within {
+      outline: none;
+    }
+  }
 }
 
 @import url("https://fonts.googleapis.com/css?family=Nunito");
@@ -111,6 +159,7 @@ button:hover {
 // Shared components
 @import "./components/shared/shareButtons.scss";
 
+@import "./components/write.scss";
 /** Breakpoints set at
  @media (min-width: 640px) {}
  @media (min-width: 768px) {}

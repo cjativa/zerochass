@@ -1,17 +1,19 @@
 .single-page {
-  display: grid;
-  grid-template-areas: "body";
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20vw;
+  flex: 1;
 
   .body {
-    grid-area: body;
+    flex-grow: 1;
     background-color: $tutorial_content_grid_background;
     padding: 30px 15px;
 
     display: grid;
     color: $normalFontColor;
     justify-content: center;
+
+    height: 100%;
   }
 
   .section-content {
@@ -44,9 +46,8 @@
   }
 
   @media (min-width: 1280px) {
+    height: 100%;
     background-color: $tutorial_page_background;
-    grid-template-areas: ". body .";
-    grid-template-columns: 1fr 1fr 1fr;
 
     .body {
       border-left: 1px solid lightgray;
