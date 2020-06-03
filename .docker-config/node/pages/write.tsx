@@ -11,6 +11,18 @@ const Write = () => {
 
     const [sections, setSections] = useState([]);
 
+    const [tag, setTag] = useState('');
+    const [tags, setTags] = useState([]);
+
+    const onTagsKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            console.log('Enter was hit');
+            setTags([...tags, tag]);
+            setTag('');
+            console.log(tags);
+        }
+    };
+
     return (
         <Layout pageTitle={"New Tutorial"}>
 
@@ -71,7 +83,7 @@ const Write = () => {
                         {/** Featured image */}
                         <div className="form-field">
                             <label className="form-field__label">Featured Image</label>
-                            <i className="fas fa-image" />
+                            <i className="fas fa-image upload" />
                         </div>
 
                         {/** Color */}
@@ -86,10 +98,16 @@ const Write = () => {
                         </div>
 
                         {/** Tags */}
-                        <div className="form-field">
-                            <label className="form-field__label">Tags</label>
-                            <input className="form-field__input slim" type="text" value={description2} onChange={(e) => setDescription2(e.target.value)} />
+                        <div className="write__tags">
+                            <div className="form-field">
+                                <label className="form-field__label">Tags</label>
+                                <input className="form-field__input slim" type="text" value={tag}
+                                    onChange={(e) => setTag(e.target.value)}
+                                    onKeyDown={(e) => onTagsKeyDown(e)} />
+                            </div>
+                            {tags.map((tag, index) => <span key={index}>{tag}</span>)}
                         </div>
+
                     </div>
 
                 </div>
