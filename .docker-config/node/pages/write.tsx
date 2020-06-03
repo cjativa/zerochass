@@ -16,10 +16,8 @@ const Write = () => {
 
     const onTagsKeyDown = (e) => {
         if (e.key === 'Enter') {
-            console.log('Enter was hit');
             setTags([...tags, tag]);
             setTag('');
-            console.log(tags);
         }
     };
 
@@ -40,10 +38,10 @@ const Write = () => {
                         </div>
 
                         {/** Description input */}
-                        <div className="form-field outline">
+                        <div className="description-block block outline">
                             <label className="form-field__label">Description</label>
 
-                            <div className="write__block">
+                            <div className="description__lines">
                                 {/** Description 1 */}
                                 <div className="form-field">
                                     <label className="form-field__label">First Line</label>
@@ -59,16 +57,7 @@ const Write = () => {
                         </div>
 
                         {/** Sections */}
-                        {sections.map((Section, index) =>
-
-                            <div className="form-field outline">
-                                <label className="form-field__label">Section</label>
-
-                                <div className="write__block">
-                                    <Section key={index} />
-                                </div>
-                            </div>
-                        )}
+                        {sections.map((Section, index) => <Section key={index} />)}
 
                         {/** Add Content Block */}
                         <div className="form-field">
@@ -78,7 +67,7 @@ const Write = () => {
                     </div>
 
                     {/** Sidebar */}
-                    <div className="write__sidebar outline">
+                    <div className="write__sidebar outline block">
 
                         {/** Featured image */}
                         <div className="form-field">
@@ -122,28 +111,38 @@ export default Write;
 const Section = () => {
 
     const [sectionTitle, setSectionTitle] = useState('');
+    const [collapsed, setCollapsed] = useState(false);
     const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
         ssr: false
     });
 
+
+
     return (
-        <div className="section-block">
+        <div className="section outline">
 
-            {/** Section Title */}
-            <div className="form-field">
-                <label className="form-field__label">Title</label>
-                <input className="form-field__input slim" type="text" value={sectionTitle} onChange={(e) => setSectionTitle(e.target.value)} />
-            </div>
+            <span className="section__title" onClick={(e) => setCollapsed(!collapsed)}>Section: {sectionTitle}</span>
 
-            {/** Section Content */}
-            <div className="form-field">
-                <label className="form-field__label">Content</label>
-                <MdEditor
-                    value=""
-                    style={{ height: "500px" }}
-                    view={{ menu: true, md: true, html: false }}
-                />
-            </div>
+            {!collapsed &&
+                <div className="section__body block">
+
+                    {/** Section Title */}
+                    <div className="form-field">
+                        <label className="form-field__label">Title</label>
+                        <input className="form-field__input slim" type="text" value={sectionTitle} onChange={(e) => setSectionTitle(e.target.value)} />
+                    </div>
+
+                    {/** Section Content */}
+                    <div className="form-field">
+                        <label className="form-field__label">Content</label>
+                        <MdEditor
+                            value=""
+                            style={{ height: "500px" }}
+                            view={{ menu: true, md: true, html: false }}
+                        />
+                    </div>
+                </div>
+            }
         </div>
     )
 };

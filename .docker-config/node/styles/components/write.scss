@@ -19,7 +19,6 @@
     .outline {
         border: 1px solid #c0c0c0;
         border-radius: 6px;
-        padding: 1.8em 1.5em;
     }
 
     &__main {
@@ -39,11 +38,10 @@
         height: fit-content;
     }
 
-    &__block {
-        margin-top: 0.5em;
-        padding: 0 15px;
-        display: grid;
-        row-gap: 1em;
+    .description {
+        &__lines {
+            padding: 0px 15px;
+        }
     }
 
     &__tags {
@@ -54,9 +52,24 @@
         font-size: 2.5em;
     }
 
-    .section-block {
+    .block {
         display: grid;
         row-gap: 1em;
+        padding: 1.8em 1.5em;
+    }
+
+    .section {
+        &__title {
+            display: block;
+            width: 100%;
+            text-align: center;
+
+            padding: 5px 0;
+            border-bottom: 1px solid #c0c0c0;
+        }
+
+        &__body {
+        }
     }
 
     @media (min-width: 640px) {
