@@ -11,10 +11,27 @@ export const Sidebar = () => {
             setTag('');
         }
     };
-    
+
     return (
 
         < div className="write__sidebar" >
+
+            <div className="write__sidebar write__sidebar-bottom">
+                {/** Action buttons */}
+                <div className="write__actions">
+                    <button className="btn btn--secondary btn--slim">Preview</button>
+                    <button className="btn btn--primary btn--slim">Save</button>
+                </div>
+
+                {/** Enablement switch */}
+                <div className="write__enable">
+                    <span>Enabled</span>
+                    <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
+            </div>
 
             <div className="write__sidebar write__sidebar--top outline block">
                 {/** Featured image */}
@@ -26,7 +43,7 @@ export const Sidebar = () => {
                 {/** Color */}
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
-                    <select className="form-field__select" name="colors" id="colors">
+                    <select className="form-field__select slim" name="colors" id="colors">
                         <option value="volvo">Pink</option>
                         <option value="saab">Black</option>
                         <option value="opel">Teal</option>
@@ -45,25 +62,9 @@ export const Sidebar = () => {
                             onKeyDown={(e) => onTagsKeyDown(e)}
                         />
                     </div>
-                    {tags.map((tag, index) => <span key={index}>{tag}</span>)}
-                </div>
-            </div>
-
-            <div className="write__sidebar write__sidebar-bottom">
-
-                {/** Enablement switch */}
-                <div className="write__enable">
-                    <span>Enabled</span>
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-
-                {/** Action buttons */}
-                <div className="write__actions">
-                    <button>Preview</button>
-                    <button>Save</button>
+                    <div className="write__taglist">
+                        {tags.map((tag, index) => <span className="tag-item" key={index}>{tag}</span>)}
+                    </div>
                 </div>
             </div>
 

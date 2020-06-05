@@ -60,7 +60,13 @@ export const Main = (props) => {
 
 
             {/** Add Content Block */}
-            <button onClick={() => setSections([...sections, Section])}>Add Section</button>
+            <div>
+                <button
+                    className="btn btn--secondary btn--slim"
+                    onClick={() => setSections([...sections, Section])}>
+                    Add Section
+                </button>
+            </div>
         </div >
     )
 };

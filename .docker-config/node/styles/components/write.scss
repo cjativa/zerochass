@@ -42,6 +42,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         column-gap: 1em;
+        width: max-content;
     }
 
     .description {
@@ -56,6 +57,21 @@
         overflow-wrap: anywhere;
     }
 
+    &__taglist {
+        margin-top: 10px;
+
+        .tag-item {
+            padding: 8px 10px;
+            border: 1px solid #b9b0ac;
+
+            display: inline-block;
+            border-radius: 6px;
+
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+        }
+    }
+
     .upload {
         font-size: 2.5em;
     }
@@ -67,6 +83,8 @@
     }
 
     .section {
+        margin-bottom: 1em;
+
         &__title {
             display: block;
             width: 100%;
@@ -96,6 +114,10 @@
 
         &__main {
             grid-row: 1;
+        }
+
+        &__sidebar {
+            padding-top: 1em;
         }
     }
 
