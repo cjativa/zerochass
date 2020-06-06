@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
 
     const [tag, setTag] = useState('');
-    const [tags, setTags] = useState([]);
+    const { tags, setTags, color, setColor, onSave } = props;
 
     const onTagsKeyDown = (e) => {
         if (e.key === 'Enter') {
             setTags([...tags, tag]);
             setTag('');
         }
+    };
+
+    const onColorSelect = (e) => {
+        setColor(e.target.value);
     };
 
     return (
@@ -20,7 +24,7 @@ export const Sidebar = () => {
                 {/** Action buttons */}
                 <div className="write__actions">
                     <button className="btn btn--secondary btn--slim">Preview</button>
-                    <button className="btn btn--primary btn--slim">Save</button>
+                    <button onClick={() => onSave()} className="btn btn--primary btn--slim">Save</button>
                 </div>
 
                 {/** Enablement switch */}
@@ -43,11 +47,11 @@ export const Sidebar = () => {
                 {/** Color */}
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
-                    <select className="form-field__select slim" name="colors" id="colors">
-                        <option value="volvo">Pink</option>
-                        <option value="saab">Black</option>
-                        <option value="opel">Teal</option>
-                        <option value="audi">White</option>
+                    <select onChange={onColorSelect} className="form-field__select slim" name="colors" id="colors">
+                        <option value="pink">Pink</option>
+                        <option value="black">Black</option>
+                        <option value="teal">Teal</option>
+                        <option value="white">White</option>
                     </select>
                 </div>
 

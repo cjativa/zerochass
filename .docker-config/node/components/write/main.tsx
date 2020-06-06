@@ -3,11 +3,13 @@ import { Section } from './section';
 
 export const Main = (props) => {
 
-    const [title, setTitle] = useState('');
-    const [description1, setDescription1] = useState('');
-    const [description2, setDescription2] = useState('');
+    const { title, description1, description2, sections,
+        setTitle, setDescription1, setDescription2, setSections
+    } = props;
 
-    const [sections, setSections] = useState([]);
+    const addToSections = () => {
+        setSections([...sections, { title: '', content: '' }]);
+    };
 
     return (
         < div className="write__main" >
@@ -55,7 +57,7 @@ export const Main = (props) => {
             {/** Sections */}
             <div className="form-field">
                 <label className="form-field__label">Content</label>
-                {sections.map((Section, index) => <Section key={index} />)}
+                {sections.map((section, index) => <Section key={index} id={index} />)}
             </div>
 
 
@@ -63,7 +65,7 @@ export const Main = (props) => {
             <div>
                 <button
                     className="btn btn--secondary btn--slim"
-                    onClick={() => setSections([...sections, Section])}>
+                    onClick={() => addToSections()}>
                     Add Section
                 </button>
             </div>

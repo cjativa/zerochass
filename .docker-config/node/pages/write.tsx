@@ -1,26 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Layout } from '../components/Layout';
-import { Main } from '../components/write/main';
-import { Sidebar } from '../components/write/sidebar';
+import { Write } from '../components/write/write';
 
-const Write = () => {
+
+
+const WritePage = () => {
 
 
 
     return (
         <Layout pageTitle={"New Tutorial"}>
-
-            <div className="write">
-                <div className="body">
-
-                    <Main />
-                    <Sidebar />
-
-                </div>
-            </div>
+            <Write />
         </Layout>
     )
 };
 
-export default Write;
+export default WritePage;
