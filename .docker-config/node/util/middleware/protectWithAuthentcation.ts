@@ -50,7 +50,7 @@ export const isAuthenticated = (req, res): Authentication => {
 };
 
 /** Middleware that secures protected routes with authentication */
-const protectWithAuthentication = (request, response) => {
+const handleAccess = (request, response) => {
 
     const { userId, authenticated, accessToken } = isAuthenticated(request, response);
 
@@ -63,13 +63,15 @@ const protectWithAuthentication = (request, response) => {
     else {
         response.status(401).json(`Invalid or missing authorization token`);
     }
+
+    return authenticated;
 };
 
 /** Adds userId and access token to request object for authenticated routes to look up user information */
-const authenticated = (handler) => (request, response) => {
-    protectWithAuthentication(request, response);
+const protectWithAuthentication = (handler) => (request, response) => {
+    const isAuthenticated = handleAccess(request, response);
 
-    return handler(request, response);
+    if (isAuthenticated) return handler(request, response);
 };
 
-export default authenticated;
+export default protectWithAuthentication;

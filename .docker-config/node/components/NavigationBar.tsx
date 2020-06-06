@@ -43,10 +43,12 @@ export const NavigationBar = (props) => {
             <div className="navigation-bar__main" onClick={(mobileMenuExpanded) ? checkForMenu : null}>
 
                 {/* Logo container */}
-                <a className="main__logo" onClick={() => location.assign('/')}>
-                    <img src={logo} className="main__ico" />
-                    <span className="main__brand">Zerochass</span>
-                </a>
+                <Link href="/">
+                    <a className="main__logo">
+                        <img src={logo} className="main__ico" />
+                        <span className="main__brand">Zerochass</span>
+                    </a>
+                </Link>
 
                 {/** Tutorials link */}
                 <div className="main__middle">

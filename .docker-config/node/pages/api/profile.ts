@@ -1,10 +1,22 @@
-import authenticated from '../../util/middleware/authenticated';
+import protectWithAuthentication from '../../util/middleware/protectWithAuthentcation';
 import { UserService } from '../../util/services/userService';
 
 const handler = async (request, response) => {
-    const { userId, accessToken } = request;
-    const profile = await UserService.getProfileInformation(userId);
-    response.json(profile);
+
+    const { userId } = request;
+
+    if (request.method === 'GET') {
+        const profile = await UserService.getProfileInformation(userId);
+        response.json(profile);
+    }
+
+    if (request.method === 'POST') {
+        const { body } = request;
+        const profile = await UserService.updateProfileInformation(body, userId);
+        response.json(profile);
+    }
+
+
 };
 
-export default authenticated(handler);
+export default protectWithAuthentication(handler);

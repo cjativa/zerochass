@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
+import axios from 'axios';
+
 import { UserLayout } from '../components/userLayout';
 
 const fetcher = async (url) => {
@@ -32,6 +34,11 @@ const Profile = () => {
         }
 
     }, [data]);
+
+    const onSave = async () => {
+        const data = { profileImage, name, about, heading, website };
+        const { data: updatedProfile } = (await axios({ url: '/api/profile', data, method: 'POST' }));
+    };
 
     return (
         <UserLayout title={title} subtitle={subtitle}>
@@ -72,7 +79,7 @@ const Profile = () => {
 
                     {/** Save */}
                     <div className="form-field">
-                        <button className="form-field__button save">Save</button>
+                        <button onClick={() => onSave()} className="form-field__button save">Save</button>
                     </div>
                 </div>
             </div>
@@ -80,5 +87,14 @@ const Profile = () => {
     )
 };
 
+export async function getServerSideProps(ctx) {
+
+    const protectPageWithAuthentication = (await import('../util/middleware/protectedPage')).default;
+    protectPageWithAuthentication(ctx);
+
+    return {
+        props: {}, // will be passed to the page component as props
+    }
+}
 
 export default Profile;

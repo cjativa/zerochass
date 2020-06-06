@@ -27,6 +27,7 @@
 
         display: grid;
         row-gap: 2em;
+        height: max-content;
     }
 
     &__sidebar {
@@ -73,7 +74,13 @@
     }
 
     .upload {
-        font-size: 2.5em;
+        font-size: 3em;
+        color: #a3bcc3;
+
+        &:hover {
+            color: #77aebd;
+            cursor: pointer;
+        }
     }
 
     .block {
@@ -92,6 +99,10 @@
 
             padding: 5px 0;
             border-bottom: 1px solid #c0c0c0;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         &__body {

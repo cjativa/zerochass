@@ -28,7 +28,7 @@ export const Section = (props) => {
         <div className="section outline">
             <span
                 className="section__title"
-                onClick={(e) => setCollapsed(!collapsed)}>Section{(sectionTitle.length > 0) ? ':' : ''}
+                onClick={(e) => setCollapsed(!collapsed)}>Section{(sectionTitle.length > 0) ? ': ' : ''}
                 {sectionTitle}
             </span>
 

@@ -1,5 +1,5 @@
 import { Client } from '../database/client';
-import { SignUpInformation } from '../interfaces/userInterfaces';
+import { SignUpInformation, UserProfileInformation } from '../interfaces/userInterfaces';
 
 type AuthProvider = 'GITHUB' | 'TWITTER';
 
@@ -99,8 +99,27 @@ const getProfileInformation = async (userId: number) => {
     return rows[0];
 };
 
+const updateProfileInformation = async (information: UserProfileInformation, userId: number) => {
+    const { name, about, website, heading, profileImage } = information;
+    const updateProfileQuery = `
+    UPDATE user_information 
+    SET
+    "name" = ($1), 
+    "about" = ($2),
+    "website" = ($3), 
+    "heading" = ($4),  
+    "profileImage" = ($5)
+    WHERE "id" = ($6)
+    RETURNING ("name", "about", "website", "heading", "profileImage")
+    `;
+    const userProfileValues = [name, about, website, heading, profileImage, userId];
+    const { rows } = await Client.executeQuery(updateProfileQuery, userProfileValues);
+    return rows[0];
+};
+
 
 export const UserService = {
     signUp,
-    getProfileInformation
+    getProfileInformation,
+    updateProfileInformation
 };

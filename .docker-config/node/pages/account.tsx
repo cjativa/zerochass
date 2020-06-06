@@ -45,4 +45,14 @@ const Account = () => {
     )
 };
 
+export async function getServerSideProps(ctx) {
+
+    const protectPageWithAuthentication = (await import('../util/middleware/protectedPage')).default;
+    protectPageWithAuthentication(ctx);
+
+    return {
+        props: {}, // will be passed to the page component as props
+    }
+}
+
 export default Account;
