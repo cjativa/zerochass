@@ -17,8 +17,9 @@ export const Write = () => {
 
     const [tags, setTags] = useState([]);
     const [color, setColor] = useState('');
+    const [enabled, setEnabled] = useState(null);
 
-    const [saveOccurred, setSaveOccurred] = useState(null);
+    const [saveOccurred, setSaveOccurred] = useState(false);
 
     const sectionUpdate = (id: number, title: string, content: string) => {
         sections[id] = { title, content };
@@ -32,7 +33,8 @@ export const Write = () => {
             description1, description2,
             sections,
             tags,
-            color
+            color,
+            enabled
         };
 
         console.log(tutorial);
@@ -63,6 +65,7 @@ export const Write = () => {
                 <Sidebar
                     tags={tags} setTags={setTags}
                     color={color} setColor={setColor}
+                    enabled={enabled} setEnabled={setEnabled}
                     onSave={onSave}
                 />
 

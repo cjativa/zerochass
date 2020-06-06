@@ -54,6 +54,20 @@
         }
     }
 
+    &__enable {
+        width: max-content;
+
+        display: grid;
+        grid-template-columns: max-content max-content;
+        justify-content: center;
+        align-items: center;
+        column-gap: 1em;
+
+        .enable-text {
+            font-size: 18px;
+        }
+    }
+
     &__tags {
         overflow-wrap: anywhere;
     }
@@ -62,14 +76,26 @@
         margin-top: 10px;
 
         .tag-item {
+            width: fit-content;
             padding: 8px 10px;
             border: 1px solid #b9b0ac;
-
-            display: inline-block;
             border-radius: 6px;
+
+            display: inline-grid;
+            grid-template-columns: max-content min-content;
+            column-gap: 6px;
+            justify-content: center;
+            align-items: center;
 
             margin-right: 0.5em;
             margin-bottom: 0.5em;
+
+            i {
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
     }
 

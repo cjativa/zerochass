@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react';
+import ReactSwitch from "react-switch";
 
 export const Sidebar = (props) => {
 
     const [tag, setTag] = useState('');
-    const { tags, setTags, color, setColor, onSave } = props;
+    const { tags, setTags,
+        color, setColor,
+        enabled, setEnabled,
+        onSave } = props;
+
+    const onEnabledChange = (checked, event, id) => {
+        setEnabled(checked);
+    };
 
     const onTagsKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -29,11 +37,14 @@ export const Sidebar = (props) => {
 
                 {/** Enablement switch */}
                 <div className="write__enable">
-                    <span>Enabled</span>
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider round"></span>
-                    </label>
+                    <span className="enable-text">Enabled</span>
+                    <ReactSwitch
+                        height={24}
+                        onChange={onEnabledChange}
+                        onColor={'#45b914'}
+                        checked={enabled}
+                        checkedIcon={false}
+                        uncheckedIcon={false} />
                 </div>
             </div>
 
@@ -67,7 +78,14 @@ export const Sidebar = (props) => {
                         />
                     </div>
                     <div className="write__taglist">
-                        {tags.map((tag, index) => <span className="tag-item" key={index}>{tag}</span>)}
+                        {tags.map((tag, index) =>
+                            <span
+                                className="tag-item"
+                                key={index}>
+                                {tag}
+                                <i className="fas fa-times" />
+                            </span>)
+                        }
                     </div>
                 </div>
             </div>
