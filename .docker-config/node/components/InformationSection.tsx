@@ -1,5 +1,7 @@
 import Link from 'next/link';
+
 import logo from '../assets/logo.svg';
+
 
 export const InformationSection = () => {
     return (

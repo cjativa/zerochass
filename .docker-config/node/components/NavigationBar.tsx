@@ -1,16 +1,17 @@
 import { useState, useContext } from 'react';
 import Link from 'next/link';
 
-import { AuthenticationContext } from './Layout';
 import logo from '../assets/logo.svg';
+import { AuthenticationContext } from './Layout';
 import { AuthenticationDialog } from './authenticationDialog';
 
 
 export const NavigationBar = (props) => {
 
+    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
+
     const [mobileMenuExpanded, setMobileMenuExpanded] = useState(null);
     const [showModal, setShowModal] = useState(null);
-    const [modalType, setModalType] = useState(null);
 
     const toggleMenu = (event) => {
         event.preventDefault();
@@ -23,16 +24,9 @@ export const NavigationBar = (props) => {
         if (event.target.id !== 'search-input') toggleMenu(event);
     };
 
-    const toggleModal = (type?: 'LOGIN_MODAL' | 'SIGN_UP_MODAL') => {
-
-        // If we have a type, it means modal should be displayed
-        if (type) {
-            const updatedShowModal = !showModal;
-            setModalType(type);
-            setShowModal(updatedShowModal);
-        }
-
-        else setShowModal(false);
+    const toggleModal = () => {
+        const updatedShowModal = !showModal;
+        setShowModal(updatedShowModal);
     };
 
     const triggerLogout = async () => {
@@ -40,9 +34,7 @@ export const NavigationBar = (props) => {
         window.location.reload();
     };
 
-    const { tutorial } = props;
     const show = (mobileMenuExpanded) ? 'show' : 'hide';
-    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
 
     return (
         <nav className={`navigation-bar`}>
@@ -90,7 +82,7 @@ export const NavigationBar = (props) => {
             {
                 !isAuthenticated &&
                 <div className={`main__links ${show}`} onClick={toggleMenu}>
-                    <button className="main__link" onClick={(e) => toggleModal('LOGIN_MODAL')}>Login / Sign Up</button>
+                    <button className="main__link" onClick={(e) => toggleModal()}>Login / Sign Up</button>
                 </div>
             }
 
@@ -98,7 +90,7 @@ export const NavigationBar = (props) => {
             {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
 
             {/** Show the authentication modal when necessary */}
-            {showModal && <AuthenticationDialog modalType={modalType} isOpen={showModal} onRequestClose={() => toggleModal()} />}
+            {showModal && <AuthenticationDialog isOpen={showModal} onRequestClose={() => toggleModal()} />}
         </nav >
     )
 };

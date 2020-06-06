@@ -1,6 +1,24 @@
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 
+import { AuthenticationContext } from './Layout';
+import { AuthenticationDialog } from './authenticationDialog';
+
 export const SiteBanner = () => {
+
+    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
+    const [showModal, setShowModal] = useState(null);
+
+    const toggleModal = () => {
+        const updatedShowModal = !showModal;
+        setShowModal(updatedShowModal);
+    };
+
+    const WriteButton = (isAuthenticated)
+        ? <Link href="/write"><a className="btn btn--primary btn--sb">WRITE YOUR OWN</a></Link>
+        : <button onClick={() => toggleModal()} className="btn btn--primary btn--sb">WRITE YOUR OWN</button>;
+
+
     return (
         <div className="site-banner">
             <div className="content">
@@ -13,9 +31,12 @@ export const SiteBanner = () => {
 
                 {/** Banner Buttons */}
                 <div className="button-container">
-                    <Link href="/tutorials"><a className="browse-btn">BROWSE TUTORIALS</a></Link>
-                    <Link href="/write"><a className="write-btn">WRITE YOUR OWN</a></Link>
+                    <Link href="/tutorials"><a className="btn btn--secondary btn--sb">BROWSE TUTORIALS</a></Link>
+                    {WriteButton}
                 </div>
+
+                {/** Show the authentication modal when necessary */}
+                {showModal && <AuthenticationDialog isOpen={showModal} onRequestClose={() => toggleModal()} />}
 
                 {/** Featured tutorial for mobile */}
                 {/* <li className="featured">

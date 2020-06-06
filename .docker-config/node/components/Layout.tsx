@@ -107,9 +107,9 @@ export const Layout = (props: LayoutProps) => {
                 <AuthenticationContext.Provider value={{ isAuthenticated, profileImageUrl }}>
                     <NavigationBar tutorial={tutorial} />
                     <div className="app__body">{children}</div>
+                    <InformationSection />
                 </AuthenticationContext.Provider>
             </section>
-            <InformationSection />
             <Footer />
         </>
     )

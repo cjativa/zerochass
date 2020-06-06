@@ -121,7 +121,7 @@ button:hover {
 
 // Top-level items
 @import "./components/layout.scss";
-@import "./components/authenticationDialog.scss";
+@import "./components/shared/authenticationDialog.scss";
 @import "./components/navigationBar.scss";
 @import "./components/siteBanner.scss";
 @import "./components/contentList.scss";

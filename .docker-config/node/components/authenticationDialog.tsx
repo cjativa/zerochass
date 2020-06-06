@@ -5,7 +5,6 @@ type modalType = 'LOGIN_MODAL' | 'SIGN_UP_MODAL';
 interface Props {
     isOpen: boolean,
     onRequestClose: any,
-    modalType: modalType
 }
 
 export const AuthenticationDialog = (props: Props) => {
@@ -27,26 +26,22 @@ export const AuthenticationDialog = (props: Props) => {
             contentLabel="Example Modal"
             className="modal-content"
         >
-            <ModalContent modalType={props.modalType} onRequestClose={props.onRequestClose}></ModalContent>
+            <ModalContent onRequestClose={props.onRequestClose}></ModalContent>
         </Modal>
     )
 };
 
 interface ModalContentProps {
-    modalType: modalType,
     onRequestClose: any
 }
 
 const ModalContent = (props: ModalContentProps) => {
 
-    const { modalType, onRequestClose } = props;
-
-    let loginClass;
-    let signUpClass;
+    const { onRequestClose } = props;
     const highlightClass = 'current';
 
-    if (modalType === 'LOGIN_MODAL') loginClass = highlightClass;
-    if (modalType === 'SIGN_UP_MODAL') signUpClass = highlightClass;
+    let loginClass = highlightClass;
+    let signUpClass = highlightClass;
 
     const onGitHubClick = () => {
         window.location.href = `https://github.com/login/oauth/authorize?scope=read:user%20user:email&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
