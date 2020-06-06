@@ -20,6 +20,11 @@ export const Sidebar = (props) => {
         }
     };
 
+    const onTagRemove = (index) => {
+        tags.splice(index, 1);
+        setTags([...tags]);
+    };
+
     const onColorSelect = (e) => {
         setColor(e.target.value);
     };
@@ -28,7 +33,7 @@ export const Sidebar = (props) => {
 
         < div className="write__sidebar" >
 
-            <div className="write__sidebar write__sidebar-bottom">
+            <div className="write__sidebar write__sidebar-bottom outline block">
                 {/** Action buttons */}
                 <div className="write__actions">
                     <button className="btn btn--secondary btn--slim">Preview</button>
@@ -83,7 +88,9 @@ export const Sidebar = (props) => {
                                 className="tag-item"
                                 key={index}>
                                 {tag}
-                                <i className="fas fa-times" />
+                                <i 
+                                onClick={() => onTagRemove(index)}
+                                className="fas fa-times" />
                             </span>)
                         }
                     </div>

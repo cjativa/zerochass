@@ -17,9 +17,9 @@ export const Write = () => {
 
     const [tags, setTags] = useState([]);
     const [color, setColor] = useState('');
-    const [enabled, setEnabled] = useState(null);
+    const [enabled, setEnabled] = useState(false);
 
-    const [saveOccurred, setSaveOccurred] = useState(false);
+    const [saveOccurred, setSaveOccurred] = useState(null);
 
     const sectionUpdate = (id: number, title: string, content: string) => {
         sections[id] = { title, content };

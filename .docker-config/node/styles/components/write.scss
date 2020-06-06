@@ -91,9 +91,10 @@
             margin-bottom: 0.5em;
 
             i {
-
+                color: #a7a5a5;
                 &:hover {
                     cursor: pointer;
+                    color: #747272;
                 }
             }
         }
@@ -102,6 +103,7 @@
     .upload {
         font-size: 3em;
         color: #a3bcc3;
+        width: fit-content;
 
         &:hover {
             color: #77aebd;
