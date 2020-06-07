@@ -89,14 +89,6 @@
 
             margin-right: 0.5em;
             margin-bottom: 0.5em;
-
-            i {
-                color: #a7a5a5;
-                &:hover {
-                    cursor: pointer;
-                    color: #747272;
-                }
-            }
         }
     }
 
@@ -125,15 +117,17 @@
             width: 100%;
             text-align: center;
 
-            padding: 5px 0;
+            padding: 5px 15px;
+            box-sizing: border-box;
             border-bottom: 1px solid #c0c0c0;
 
             &:hover {
                 cursor: pointer;
             }
-        }
 
-        &__body {
+            .x-btn-cont {
+                float: right;
+            }
         }
     }
 
