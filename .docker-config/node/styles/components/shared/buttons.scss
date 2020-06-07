@@ -38,3 +38,11 @@
         padding: 10px 15px;
     }
 }
+
+.x-btn {
+    color: #a7a5a5;
+    &:hover {
+        cursor: pointer;
+        color: #747272;
+    }
+}

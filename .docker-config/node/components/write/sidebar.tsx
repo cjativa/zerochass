@@ -90,7 +90,7 @@ export const Sidebar = (props) => {
                                 {tag}
                                 <i 
                                 onClick={() => onTagRemove(index)}
-                                className="fas fa-times" />
+                                className="x-btn fas fa-times" />
                             </span>)
                         }
                     </div>
