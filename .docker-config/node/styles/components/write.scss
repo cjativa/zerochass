@@ -92,6 +92,38 @@
         }
     }
 
+    .file-container {
+        overflow: hidden;
+        position: relative;
+        width: min-content;
+    }
+
+    .file-hide {
+        height: 0;
+        width: 0;
+        cursor: inherit;
+        display: inline-block;
+        filter: alpha(opacity=0);
+        opacity: 0;
+    }
+
+    .preview {
+        width: min-content;
+        position: relative;
+
+        &__file {
+            display: block;
+            height: 100px;
+            width: auto;
+        }
+
+        &__remove {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    }
+
     .upload {
         font-size: 3em;
         color: #a3bcc3;
@@ -141,7 +173,7 @@
             padding: 2em 2em;
 
             grid-template-rows: unset;
-            grid-template-columns: 75% 1fr;
+            grid-template-columns: 70% 1fr;
             column-gap: 2em;
         }
 

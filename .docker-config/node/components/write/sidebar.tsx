@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ReactSwitch from "react-switch";
 
+import { ImageUpload } from '../custom/imageUpload';
+
 export const Sidebar = (props) => {
 
     const [tag, setTag] = useState('');
@@ -8,6 +10,21 @@ export const Sidebar = (props) => {
         color, setColor,
         enabled, setEnabled,
         onSave } = props;
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewFileUrl, setPreviewFileUrl] = useState(null);
+
+    const fileChangedHandler = event => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+        setPreviewFileUrl(window.URL.createObjectURL(file));
+    }
+
+    const onImageRemove = () => {
+        setSelectedFile(null);
+        window.URL.revokeObjectURL(previewFileUrl);
+        setPreviewFileUrl(null);
+    };
 
     const onEnabledChange = (checked, event, id) => {
         setEnabled(checked);
@@ -57,7 +74,18 @@ export const Sidebar = (props) => {
                 {/** Featured image */}
                 <div className="form-field">
                     <label className="form-field__label">Featured Image</label>
-                    <i className="fas fa-image upload" />
+                    {!selectedFile && <label className="file-container">
+                        <input type="file" className="file-hide" onChange={fileChangedHandler} />
+                        <i className="fas fa-image upload" />
+                    </label>
+                    }
+                    {previewFileUrl &&
+                        <div className="preview">
+                            <img className="preview__file" src={previewFileUrl} />
+                            <i
+                                onClick={onImageRemove}
+                                className="preview__remove x-btn fas fa-times" />
+                        </div>}
                 </div>
 
                 {/** Color */}
@@ -88,9 +116,9 @@ export const Sidebar = (props) => {
                                 className="tag-item"
                                 key={index}>
                                 {tag}
-                                <i 
-                                onClick={() => onTagRemove(index)}
-                                className="x-btn fas fa-times" />
+                                <i
+                                    onClick={() => onTagRemove(index)}
+                                    className="x-btn fas fa-times" />
                             </span>)
                         }
                     </div>
