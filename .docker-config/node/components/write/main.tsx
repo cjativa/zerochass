@@ -8,7 +8,12 @@ export const Main = (props) => {
     } = props;
 
     const addToSections = () => {
-        setSections([...sections, { title: '', content: '' }]);
+        setSections([...sections, { id: Date.now(), component: Section }]);
+    };
+
+    const removeSection = (id) => {
+        const updatedSections = sections.filter((el) => el.id !== id);
+        setSections([...updatedSections]);
     };
 
     return (
@@ -57,7 +62,16 @@ export const Main = (props) => {
             {/** Sections */}
             <div className="form-field">
                 <label className="form-field__label">Content</label>
-                {sections.map((section, index) => <Section key={index} id={index} />)}
+                {sections.map((sectionElement, index) => {
+
+                    const { id, component: SectionComponent } = sectionElement;
+
+                    return <SectionComponent
+                        key={id}
+                        id={id}
+                        removeSection={removeSection} />
+                }
+                )}
             </div>
 
 

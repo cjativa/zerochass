@@ -7,6 +7,8 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite'), { ssr: fals
 
 export const Section = (props) => {
 
+    const { id, removeSection } = props;
+
     const [sectionTitle, setSectionTitle] = useState('');
     const [sectionContent, setSectionContent] = useState('');
     const [collapsed, setCollapsed] = useState(false);
@@ -20,7 +22,7 @@ export const Section = (props) => {
 
     useEffect(() => {
         if (saveOccurred) {
-            sectionUpdate(props.id, sectionTitle, sectionContent);
+            sectionUpdate(id, sectionTitle, sectionContent);
         }
     }, [saveOccurred]);
 
@@ -30,6 +32,11 @@ export const Section = (props) => {
                 className="section__title"
                 onClick={(e) => setCollapsed(!collapsed)}>Section{(sectionTitle.length > 0) ? ': ' : ''}
                 {sectionTitle}
+                <span className="x-btn-cont">
+                    <i
+                        onClick={() => removeSection(id)}
+                        className="x-btn fas fa-times" />
+                </span>
             </span>
 
             {!collapsed &&
