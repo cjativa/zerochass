@@ -1,6 +1,7 @@
 export interface WriteTutorial {
+    id?: string | number,
     title: string,
-    description1: string, 
+    description1: string,
     description2: string,
     sections: any[],
     tags: string[],

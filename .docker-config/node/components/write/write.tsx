@@ -52,7 +52,8 @@ export const Write = () => {
             });
         }
 
-        const tutorial: WriteTutorial = {
+        // Set up the payload
+        const writeTutorialPayload: WriteTutorial = {
             title,
             description1, description2,
             sections,
@@ -63,10 +64,10 @@ export const Write = () => {
         };
 
 
-        await axios('/api/write', { data: tutorial, method: 'post' });
+        await axios('/api/write', { data: writeTutorialPayload, method: 'post' });
 
         setSaveOccurred(true);
-        console.log(tutorial);
+        console.log(writeTutorialPayload);
     };
 
 
