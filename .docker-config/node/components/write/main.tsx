@@ -24,7 +24,7 @@ export const Main = (props) => {
             <div className="form-field">
                 <label className="form-field__label">Title</label>
                 <input
-                    className="form-field__input slim"
+                    className="form-field__input form-field--blue slim"
                     type="text" value={title}
                     onChange={(e) => setTitle(e.target.value)} />
             </div>
@@ -38,7 +38,7 @@ export const Main = (props) => {
                     <div className="form-field">
                         <label className="form-field__label">First Line</label>
                         <input
-                            className="form-field__input slim"
+                            className="form-field__input form-field--blue slim"
                             placeholder="Describe the topic of your tutorial here"
                             type="text" value={description1}
                             onChange={(e) => setDescription1(e.target.value)}
@@ -49,7 +49,7 @@ export const Main = (props) => {
                     <div className="form-field">
                         <label className="form-field__label">Second Line</label>
                         <input
-                            className="form-field__input slim"
+                            className="form-field__input form-field--blue slim"
                             placeholder="Motivate others to follow along!"
                             type="text"
                             value={description2}

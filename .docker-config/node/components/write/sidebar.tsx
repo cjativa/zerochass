@@ -100,6 +100,7 @@ export const Sidebar = (props) => {
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
                     <ReactSelect
+                        id={"react-select"}
                         value={color}
                         onChange={onColorSelect}
                         options={colorOptions}
@@ -111,7 +112,7 @@ export const Sidebar = (props) => {
                 <div className="write__tags">
                     <div className="form-field">
                         <label className="form-field__label">Tags</label>
-                        <input className="form-field__input slim"
+                        <input className="form-field__input form-field--blue slim"
                             type="text"
                             value={tag}
                             onChange={(e) => setTag(e.target.value)}

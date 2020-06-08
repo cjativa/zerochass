@@ -53,7 +53,7 @@ export const Write = () => {
 
     return (
         <div className="write">
-            <div className="body">
+            <div className="write__body">
 
                 <WriteSaveContext.Provider value={{ saveOccurred, sectionUpdate }}>
                     <Main
