@@ -3,8 +3,10 @@ import { UserService } from '../../util/services/userService';
 
 const handler = async (request, response) => {
     const { userId } = request;
-    const profile = await UserService.getProfileInformation(userId);
-    response.json(profile);
+    const { body } = request;
+    console.log(userId);
+    console.log(body);
+    response.json('Write');
 };
 
 export default protectWithAuthentication(handler);

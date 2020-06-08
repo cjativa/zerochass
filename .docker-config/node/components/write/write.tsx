@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
+import { WriteTutorial } from '../../util/interfaces/writeTutorial';
 import { Main } from './main';
 import { Sidebar } from './sidebar';
 
@@ -10,36 +12,60 @@ export const WriteSaveContext = React.createContext({
 
 export const Write = () => {
 
+    // State variables and controls for Main component
     const [title, setTitle] = useState('');
     const [description1, setDescription1] = useState('');
     const [description2, setDescription2] = useState('');
     const [sections, setSections] = useState([]);
 
+    // State variables and controls for Sidebar component
     const [tags, setTags] = useState([]);
     const [color, setColor] = useState({ value: 'pink', label: 'Pink' });
     const [enabled, setEnabled] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
-
+    const [featuredImage, setFeaturedImage] = useState(null);
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
+    /** Handles updating the list of sections */
     const sectionUpdate = (id: number, title: string, content: string) => {
         sections[id] = { title, content };
         setSections(sections);
     };
 
-    const onSave = () => {
-        setSaveOccurred(true);
-        const tutorial = {
+    /** When a save occurs */
+    const onSave = async () => {
+
+        let fiObject = { name: null, dataUrl: null };
+
+        // If there's a featured image, convert it to data url
+        if (featuredImage) {
+            await new Promise((resolve) => {
+                const reader = new FileReader();
+
+                reader.addEventListener('load', (event) => {
+                    fiObject.name = featuredImage.name;
+                    fiObject.dataUrl = event.target.result;
+                    resolve();
+                });
+
+                reader.readAsDataURL(featuredImage);
+            });
+        }
+
+        const tutorial: WriteTutorial = {
             title,
             description1, description2,
             sections,
             tags,
             color,
-            selectedFile,
+            featuredImage: fiObject,
             enabled
         };
 
+
+        await axios('/api/write', { data: tutorial, method: 'post' });
+
+        setSaveOccurred(true);
         console.log(tutorial);
     };
 
@@ -69,7 +95,7 @@ export const Write = () => {
                     tags={tags} setTags={setTags}
                     color={color} setColor={setColor}
                     enabled={enabled} setEnabled={setEnabled}
-                    selectedFile={selectedFile} setSelectedFile={setSelectedFile}
+                    featuredImage={featuredImage} setFeaturedImage={setFeaturedImage}
                     onSave={onSave}
                 />
 

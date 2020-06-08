@@ -17,19 +17,19 @@ export const Sidebar = (props) => {
     const { tags, setTags,
         color, setColor,
         enabled, setEnabled,
-        selectedFile, setSelectedFile,
+        featuredImage, setFeaturedImage,
         onSave } = props;
 
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
 
     const fileChangedHandler = event => {
         const file = event.target.files[0];
-        setSelectedFile(file);
+        setFeaturedImage(file);
         setPreviewFileUrl(window.URL.createObjectURL(file));
     }
 
     const onImageRemove = () => {
-        setSelectedFile(null);
+        setFeaturedImage(null);
         window.URL.revokeObjectURL(previewFileUrl);
         setPreviewFileUrl(null);
     };
@@ -67,7 +67,7 @@ export const Sidebar = (props) => {
 
                 {/** Enablement switch */}
                 <div className="write__enable">
-                    <span className="enable-text">Enabled</span>
+                    <label className="enable-text">Enabled</label>
                     <ReactSwitch
                         height={24}
                         onChange={onEnabledChange}
@@ -82,8 +82,8 @@ export const Sidebar = (props) => {
                 {/** Featured image */}
                 <div className="form-field">
                     <label className="form-field__label">Featured Image</label>
-                    {!selectedFile && <label className="file-container">
-                        <input type="file" className="file-hide" onChange={fileChangedHandler} />
+                    {!featuredImage && <label className="file-container">
+                        <input type="file" className="file-hide" onChange={fileChangedHandler} accept="jpg, .jpeg, .png" />
                         <i className="fas fa-image upload" />
                     </label>
                     }
