@@ -16,8 +16,10 @@ export const Write = () => {
     const [sections, setSections] = useState([]);
 
     const [tags, setTags] = useState([]);
-    const [color, setColor] = useState('');
+    const [color, setColor] = useState({ value: 'pink', label: 'Pink' });
     const [enabled, setEnabled] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
@@ -34,6 +36,7 @@ export const Write = () => {
             sections,
             tags,
             color,
+            selectedFile,
             enabled
         };
 
@@ -66,6 +69,7 @@ export const Write = () => {
                     tags={tags} setTags={setTags}
                     color={color} setColor={setColor}
                     enabled={enabled} setEnabled={setEnabled}
+                    selectedFile={selectedFile} setSelectedFile={setSelectedFile}
                     onSave={onSave}
                 />
 

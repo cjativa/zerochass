@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
-import ReactSwitch from "react-switch";
+import ReactSwitch from 'react-switch';
+import ReactSelect from 'react-select';
 
 import { ImageUpload } from '../custom/imageUpload';
+
+const colorOptions = [
+    { value: 'pink', label: 'Pink' },
+    { value: 'black', label: 'Black' },
+    { value: 'teal', label: 'Teal' },
+    { value: 'white', label: 'White' }
+]
 
 export const Sidebar = (props) => {
 
@@ -9,9 +17,9 @@ export const Sidebar = (props) => {
     const { tags, setTags,
         color, setColor,
         enabled, setEnabled,
+        selectedFile, setSelectedFile,
         onSave } = props;
 
-    const [selectedFile, setSelectedFile] = useState(null);
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
 
     const fileChangedHandler = event => {
@@ -42,8 +50,8 @@ export const Sidebar = (props) => {
         setTags([...tags]);
     };
 
-    const onColorSelect = (e) => {
-        setColor(e.target.value);
+    const onColorSelect = (selectedColor) => {
+        setColor(selectedColor);
     };
 
     return (
@@ -91,12 +99,12 @@ export const Sidebar = (props) => {
                 {/** Color */}
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
-                    <select onChange={onColorSelect} className="form-field__select slim" name="colors" id="colors">
-                        <option value="pink">Pink</option>
-                        <option value="black">Black</option>
-                        <option value="teal">Teal</option>
-                        <option value="white">White</option>
-                    </select>
+                    <ReactSelect
+                        value={color}
+                        onChange={onColorSelect}
+                        options={colorOptions}
+                        className="slim"
+                    />
                 </div>
 
                 {/** Tags */}
