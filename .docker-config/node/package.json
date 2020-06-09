@@ -19,7 +19,7 @@
     "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
-    "next": "9.3.6",
+    "next": "^9.4.4",
     "next-images": "^1.4.0",
     "nextjs-sitemap-generator": "^1.0.0",
     "nookies": "^2.3.0",
