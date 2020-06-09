@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { Layout } from '../components/Layout';
-import { Write } from '../components/write/write';
+import { Layout } from '../../components/Layout';
+import { Write } from '../../components/write/write';
 
 const WritePage = () => {
 
@@ -14,7 +14,7 @@ const WritePage = () => {
 
 export const getServerSideProps = async (ctx) => {
 
-    const protectPageWithAuthentication = (await import('../util/middleware/protectedPage')).default;
+    const protectPageWithAuthentication = (await import('../../util/middleware/protectedPage')).default;
     protectPageWithAuthentication(ctx);
 
     return {
