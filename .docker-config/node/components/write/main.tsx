@@ -4,8 +4,11 @@ import { Section } from './section';
 export const Main = (props) => {
 
     const { title, description1, description2, sections,
-        setTitle, setDescription1, setDescription2, setSections
+        setTitle, setDescription1, setDescription2, setSections,
+        edit
     } = props;
+
+    const headingText = edit ? 'Edit tutorial' : 'Create a new tutorial post';
 
     const addToSections = () => {
         setSections([...sections, { id: Date.now(), component: Section }]);
@@ -18,7 +21,7 @@ export const Main = (props) => {
 
     return (
         < div className="write__main" >
-            <h1>Create a new tutorial post</h1>
+            <h1>{headingText}</h1>
 
             {/** Title input */}
             <div className="form-field">

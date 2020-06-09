@@ -10,7 +10,14 @@ export const WriteSaveContext = React.createContext({
     sectionUpdate: null
 });
 
-export const Write = () => {
+interface Props {
+    edit: boolean,
+    id?: number
+}
+
+export const Write = (props: Props) => {
+
+    const { edit } = props;
 
     // State variables and controls for Main component
     const [title, setTitle] = useState('');
@@ -84,6 +91,7 @@ export const Write = () => {
 
                 <WriteSaveContext.Provider value={{ saveOccurred, sectionUpdate }}>
                     <Main
+                        edit={edit}
                         setTitle={setTitle} title={title}
                         setDescription1={setDescription1} description1={description1}
                         setDescription2={setDescription2} description2={description2}
