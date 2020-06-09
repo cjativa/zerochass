@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import useSWR from 'swr';
 
 import { Layout } from '../../components/Layout';
 import { Write } from '../../components/write/write';
+import { WriteTutorial } from '../../util/interfaces/writeTutorial';
+import TutorialService from '../../util/services/tutorialService';
 
-const WritePage = ({ pageTitle, edit }) => {
+const WritePage = ({ pageTitle, edit, tutorial }) => {
 
     return (
         <Layout pageTitle={pageTitle}>
-            <Write edit={edit} />
+            <Write edit={edit} tutorial={tutorial} />
         </Layout>
     )
 };
@@ -15,15 +18,19 @@ const WritePage = ({ pageTitle, edit }) => {
 export const getServerSideProps = async (ctx) => {
 
     const protectPageWithAuthentication = (await import('../../util/middleware/protectedPage')).default;
-    protectPageWithAuthentication(ctx);
+    await protectPageWithAuthentication(ctx);
+
 
     const { id } = ctx.params;
-    const pageTitle = id ? 'Edit Tutorial' : 'New Tutorial';
-    const edit = id ? true : false;
+    const tutorialId = parseInt(id[0]);
+    const { userId } = ctx.req;
+    const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';
+    const edit = tutorialId ? true : false;
+    let tutorial = {};
 
     // If there's a slug, we're updating an existing tutorial
-    if (id) {
-
+    if (tutorialId) {
+        tutorial = await TutorialService.retrieveTutorial(tutorialId, userId);
     }
 
     // Otherwise, we're creating a new tutorial
@@ -34,7 +41,8 @@ export const getServerSideProps = async (ctx) => {
     return {
         props: {
             pageTitle,
-            edit
+            edit,
+            tutorial
         }, // will be passed to the page component as props
     }
 };

@@ -12,23 +12,24 @@ export const WriteSaveContext = React.createContext({
 
 interface Props {
     edit: boolean,
+    tutorial: WriteTutorial,
     id?: number
 }
 
 export const Write = (props: Props) => {
 
-    const { edit } = props;
+    const { edit, tutorial } = props;
 
     // State variables and controls for Main component
-    const [title, setTitle] = useState('');
-    const [description1, setDescription1] = useState('');
-    const [description2, setDescription2] = useState('');
+    const [title, setTitle] = useState(tutorial.title || '');
+    const [description1, setDescription1] = useState(tutorial.description1 || '');
+    const [description2, setDescription2] = useState(tutorial.description2 || '');
     const [sections, setSections] = useState([]);
 
     // State variables and controls for Sidebar component
     const [tags, setTags] = useState([]);
-    const [color, setColor] = useState({ value: 'pink', label: 'Pink' });
-    const [enabled, setEnabled] = useState(false);
+    const [color, setColor] = useState(tutorial.color || { value: 'pink', label: 'Pink' });
+    const [enabled, setEnabled] = useState(tutorial.enabled || false);
     const [featuredImage, setFeaturedImage] = useState(null);
 
     const [saveOccurred, setSaveOccurred] = useState(null);
@@ -67,9 +68,9 @@ export const Write = (props: Props) => {
             tags,
             color,
             featuredImage: fiObject,
-            enabled
+            enabled,
+            id: tutorial.id
         };
-
 
         await axios('/api/write', { data: writeTutorialPayload, method: 'post' });
 
