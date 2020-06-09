@@ -8,6 +8,7 @@ module.exports = withImages({
         config.plugins.push(new Dotenv({ silent: true }));
         return config;
     },
+    experimental: { optionalCatchAll: true }
 });
 
 
