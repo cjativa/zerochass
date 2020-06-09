@@ -9,6 +9,11 @@ const handler = async (request, response) => {
 
     if (request.method === 'GET') {
 
+        // Get the tutorial
+        const { id } = request.params.slug;
+        const tutorial = await TutorialService.retrieveTutorial(id, userId);
+
+        response.json(tutorial);
     }
 
     if (request.method === 'POST') {
@@ -28,9 +33,6 @@ const handler = async (request, response) => {
             response.json(tutorialId);
         }
     }
-
-
-    response.json('Write');
 };
 
 export default protectWithAuthentication(handler);
