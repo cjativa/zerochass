@@ -3,12 +3,7 @@ import useSWR from 'swr';
 import axios from 'axios';
 
 import { UserLayout } from '../components/userLayout';
-
-const fetcher = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-};
+import { fetcher } from '../util/constants/fetcher';
 
 const Profile = () => {
 

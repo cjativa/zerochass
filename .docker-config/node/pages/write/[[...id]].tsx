@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx) => {
 
 
     const { id } = ctx.params;
-    const tutorialId = parseInt(id[0]);
+    const tutorialId = id && parseInt(id[0]);
     const { userId } = ctx.req;
     const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';
     const edit = tutorialId ? true : false;
@@ -31,6 +31,11 @@ export const getServerSideProps = async (ctx) => {
     // If there's a slug, we're updating an existing tutorial
     if (tutorialId) {
         tutorial = await TutorialService.retrieveTutorial(tutorialId, userId);
+
+        if (tutorial['id']) {
+            const sections = await TutorialService.retrieveSectionsForTutorial(tutorialId);
+            tutorial['sections'] = sections;
+        }
     }
 
     // Otherwise, we're creating a new tutorial

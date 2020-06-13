@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import logo from '../assets/logo.svg';
 
+//<a href="https://twitter.com/zerochass?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @zerochass</a> 
 
 export const InformationSection = () => {
     return (
@@ -16,7 +17,7 @@ export const InformationSection = () => {
                         <p className="top">practical and goal-oriented resources</p>
                         <p className="top small-text">learn by doing. enjoy what you do.</p>
                         <br></br>
-                        <a href="https://twitter.com/zerochass?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @zerochass</a>
+                        
                     </div>
                 </div>
 

@@ -10,6 +10,15 @@ export const WriteSaveContext = React.createContext({
     sectionUpdate: null
 });
 
+const colorOptions = [
+    { value: 'pink', label: 'Pink' },
+    { value: 'black', label: 'Black' },
+    { value: 'teal', label: 'Teal' },
+    { value: 'white', label: 'White' }
+];
+
+const getMatchingColor = (color: string) => colorOptions.find((co) => co.value === color);
+
 interface Props {
     edit: boolean,
     tutorial: WriteTutorial,
@@ -24,19 +33,19 @@ export const Write = (props: Props) => {
     const [title, setTitle] = useState(tutorial.title || '');
     const [description1, setDescription1] = useState(tutorial.description1 || '');
     const [description2, setDescription2] = useState(tutorial.description2 || '');
-    const [sections, setSections] = useState([]);
+    const [sections, setSections] = useState(tutorial.sections || []);
 
     // State variables and controls for Sidebar component
     const [tags, setTags] = useState([]);
-    const [color, setColor] = useState(tutorial.color || { value: 'pink', label: 'Pink' });
+    const [color, setColor] = useState(tutorial.color || 'pink');
     const [enabled, setEnabled] = useState(tutorial.enabled || false);
     const [featuredImage, setFeaturedImage] = useState(null);
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
     /** Handles updating the list of sections */
-    const sectionUpdate = (id: number, title: string, content: string) => {
-        sections[id] = { title, content };
+    const sectionUpdate = (index: number, id: number, title: string, content: string) => {
+        sections[index] = { id, title, content };
         setSections(sections);
     };
 
@@ -72,10 +81,11 @@ export const Write = (props: Props) => {
             id: tutorial.id
         };
 
+        console.log(writeTutorialPayload);
+
         await axios('/api/write', { data: writeTutorialPayload, method: 'post' });
 
         setSaveOccurred(true);
-        console.log(writeTutorialPayload);
     };
 
 

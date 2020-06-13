@@ -3,9 +3,9 @@ export interface WriteTutorial {
     title: string,
     description1: string,
     description2: string,
-    sections: { title: string, content: string }[],
+    sections: { id?: number, title: string, content: string }[],
     tags: string[],
-    color: { value: string, label: string },
+    color: 'pink' | 'teal' | 'black' | 'white',
     featuredImage: any,
     enabled: boolean,
 }

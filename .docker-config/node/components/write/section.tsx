@@ -2,12 +2,11 @@ import { useState, useEffect, useContext } from 'react';
 import dynamic from 'next/dynamic';
 
 import { WriteSaveContext } from './write';
-const MdEditor = dynamic(() => import('react-markdown-editor-lite'), { ssr: false });
-
+const MdEditor = dynamic(() => import('react-markdown-editor-lite').then((mod) => mod.default), { ssr: false }) as any;
 
 export const Section = (props) => {
 
-    const { id, removeSection } = props;
+    const { index, removeSection, id, title, content } = props;
 
     const [sectionTitle, setSectionTitle] = useState('');
     const [sectionContent, setSectionContent] = useState('');
@@ -17,14 +16,30 @@ export const Section = (props) => {
     const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);
 
     const handleEditorChange = ({ html, text }) => {
-        setSectionContent(text);
+        sectionUpdate(index, id, sectionTitle, text);
+    };
+
+    const handleImageUpload = (file: File): Promise<string> => {
+        return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = data => {
+                // @ts-ignore
+                resolve(data.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
     };
 
     useEffect(() => {
-        if (saveOccurred) {
-            sectionUpdate(id, sectionTitle, sectionContent);
+        if (title && content) {
+            setSectionTitle(title);
+            setSectionContent(content);
         }
-    }, [saveOccurred]);
+    }, []);
+
+    /* useEffect(() => {
+
+    }, [sectionContent]); */
 
     return (
         <div className="section outline">
@@ -34,7 +49,7 @@ export const Section = (props) => {
                 {sectionTitle}
                 <span className="x-btn-cont">
                     <i
-                        onClick={() => removeSection(id)}
+                        onClick={() => removeSection(index)}
                         className="x-btn fas fa-times" />
                 </span>
             </span>
@@ -59,6 +74,7 @@ export const Section = (props) => {
                             style={{ height: "500px" }}
                             view={{ menu: true, md: true, html: false }}
                             onChange={handleEditorChange}
+                            onImageUpload={handleImageUpload}
                         />
                     </div>
                 </div>

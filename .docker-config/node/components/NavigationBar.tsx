@@ -74,6 +74,8 @@ export const NavigationBar = (props) => {
                 <div className={`main__links ${show}`} onClick={toggleMenu}>
 
                     {/** Login link / Profile link */}
+                    <Link href="/dashboard"><a className="main__link">Dashboard</a></Link>
+                    <Link href="/planner"><a className="main__link">Planner</a></Link>
                     <Link href="/profile"><a className="main__link">Profile</a></Link>
                     <Link href="/account"><a className="main__link">Account</a></Link>
                     <button className="main__link" onClick={(e) => triggerLogout()}>Sign out</button>

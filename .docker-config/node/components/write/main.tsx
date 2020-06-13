@@ -11,11 +11,11 @@ export const Main = (props) => {
     const headingText = edit ? 'Edit tutorial' : 'Create a new tutorial post';
 
     const addToSections = () => {
-        setSections([...sections, { id: Date.now(), component: Section }]);
+        setSections([...sections, { key: Date.now(), title: '', content: '' }]);
     };
 
-    const removeSection = (id) => {
-        const updatedSections = sections.filter((el) => el.id !== id);
+    const removeSection = (key) => {
+        const updatedSections = sections.filter((el) => el.key !== key);
         setSections([...updatedSections]);
     };
 
@@ -66,12 +66,14 @@ export const Main = (props) => {
             <div className="form-field">
                 <label className="form-field__label">Content</label>
                 {sections.map((sectionElement, index) => {
+                    const { key, title, content, id } = sectionElement;
 
-                    const { id, component: SectionComponent } = sectionElement;
-
-                    return <SectionComponent
-                        key={id}
+                    return <Section
+                        key={(id) ? id : key}
                         id={id}
+                        index={index}
+                        title={title}
+                        content={content}
                         removeSection={removeSection} />
                 }
                 )}
