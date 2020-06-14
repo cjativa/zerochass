@@ -67,8 +67,7 @@ export const Main = (props) => {
                 <label className="form-field__label">Content</label>
                 {sections.map((sectionElement, index) => {
                     const { tempKey, title, content, id } = sectionElement;
-                    console.log(tempKey, id);
-
+                    
                     return <Section
                         key={(id) ? id : tempKey}
                         tempKey={tempKey}

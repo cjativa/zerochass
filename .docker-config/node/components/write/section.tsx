@@ -10,7 +10,7 @@ export const Section = (props) => {
 
     const [sectionTitle, setSectionTitle] = useState('');
     const [sectionContent, setSectionContent] = useState('');
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
 
     const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);

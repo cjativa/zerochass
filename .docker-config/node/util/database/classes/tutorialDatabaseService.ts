@@ -95,7 +95,7 @@ export class TutorialDatabaseService {
     /** Retrieves all existing tutorials written by the user for editing */
     public async retrieveTutorials() {
         const query = `
-        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage"
+        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color"
         FROM tutorials
         WHERE "userId" = ($1)
         `;
