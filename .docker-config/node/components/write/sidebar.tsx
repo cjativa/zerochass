@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import dynamic from 'next/dynamic';
 import ReactSwitch from 'react-switch';
 
@@ -20,24 +21,35 @@ export const Sidebar = (props) => {
         featuredImage, setFeaturedImage,
         onSave } = props;
 
+    const [matchingTags, setMatchingTags] = useState([]);
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
     const [displayedColor, setDisplayedColor] = useState(null);
 
     useEffect(() => {
-
-        console.log(featuredImage);
-
         // If we've got a featured image that's a string -- it's a url we can preview
         if (typeof featuredImage === 'string') {
             setPreviewFileUrl(featuredImage);
         }
-
     }, [])
 
     useEffect(() => {
         const dColor = colorOptions.find((co) => co.value === color);
         setDisplayedColor(dColor);
     }, [color]);
+
+    useEffect(() => {
+        const fetchMatchingTags = async () => {
+            const { data } = await axios.get('/api/tags', { params: { tag } });
+
+            const foundMatchingTags = data.map((tagItem) => tagItem.tag);
+            setMatchingTags(foundMatchingTags);
+        };
+
+        if (tag.length > 1) fetchMatchingTags();
+
+        if (tag.length == 0) setMatchingTags([]);
+
+    }, [tag]);
 
     const fileChangedHandler = event => {
         const file = event.target.files[0];
@@ -136,6 +148,8 @@ export const Sidebar = (props) => {
                             onKeyDown={(e) => onTagsKeyDown(e)}
                         />
                     </div>
+
+                    {/** List of tags for this tutorial */}
                     <div className="write__taglist">
                         {tags.map((tag, index) =>
                             <span
@@ -148,6 +162,18 @@ export const Sidebar = (props) => {
                             </span>)
                         }
                     </div>
+
+                    {/** List of matching tags for the entered tag term */}
+                    <div className="write__foundtags">
+                        {matchingTags.map((tag, index) =>
+                            <span
+                                className="tag-item"
+                                key={index}>
+                                {tag}
+                            </span>)
+                        }
+                    </div>
+
                 </div>
             </div>
 

@@ -15,7 +15,7 @@ pool.on('error', (error, client) => {
 });
 
 // Execute query
-const executeQuery = async (query: string, values: any[]) => {
+const executeQuery = async (query: string, values?: any[]) => {
 
     try {
         // Get a client from pool
@@ -23,7 +23,7 @@ const executeQuery = async (query: string, values: any[]) => {
 
         // Execute the query
         try {
-            const result = await client.query(query, values);
+            const result = (values) ? await client.query(query, values) : await client.query(query);
             return result
         }
 
