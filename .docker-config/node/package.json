@@ -14,6 +14,7 @@
     "@octokit/auth-app": "^2.4.5",
     "@octokit/rest": "^17.9.2",
     "@types/jsonwebtoken": "^8.5.0",
+    "aws-sdk": "^2.696.0",
     "axios": "^0.19.2",
     "babel-plugin-prismjs": "^2.0.1",
     "cookie": "^0.4.1",
@@ -37,6 +38,7 @@
     "react-switch": "^5.0.1",
     "sass": "^1.26.5",
     "save-dev": "0.0.1-security",
+    "shortid": "^2.2.15",
     "swr": "^0.2.2"
   },
   "devDependencies": {

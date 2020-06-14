@@ -2,9 +2,9 @@ import Head from 'next/head';
 import React, { useEffect, useState, useContext } from 'react';
 import { parseCookies } from 'nookies';
 
-import { NavigationBar } from './NavigationBar';
-import { InformationSection } from './InformationSection';
-import { Footer } from './Footer';
+import { NavigationBar } from './shared/NavigationBar';
+import { InformationSection } from './landing/InformationSection';
+import { Footer } from './shared/Footer';
 import { CraftQL } from '../util/services/craftGQL';
 import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
 

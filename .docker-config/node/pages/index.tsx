@@ -3,8 +3,8 @@ import { CraftQL } from '../util/services/craftGQL';
 import { EightTutorialsQuery } from '../util/queries/tutorialsQuery';
 
 import { Layout } from '../components/Layout';
-import { SiteBanner } from '../components/SiteBanner';
-import { TutorialBannerList } from '../components/TutorialBannerList';
+import { SiteBanner } from '../components/landing/SiteBanner';
+import { TutorialBannerList } from '../components/landing/TutorialBannerList';
 import { GetStaticProps } from 'next';
 
 const Index = ({ title, description, tutorials, keywords, ...props }) => {

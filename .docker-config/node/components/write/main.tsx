@@ -11,7 +11,7 @@ export const Main = (props) => {
     const headingText = edit ? 'Edit tutorial' : 'Create a new tutorial post';
 
     const addToSections = () => {
-        setSections([...sections, { key: Date.now(), title: '', content: '' }]);
+        setSections([...sections, { tempKey: Date.now(), title: '', content: '' }]);
     };
 
     const removeSection = (key) => {
@@ -66,10 +66,12 @@ export const Main = (props) => {
             <div className="form-field">
                 <label className="form-field__label">Content</label>
                 {sections.map((sectionElement, index) => {
-                    const { key, title, content, id } = sectionElement;
+                    const { tempKey, title, content, id } = sectionElement;
+                    console.log(tempKey, id);
 
                     return <Section
-                        key={(id) ? id : key}
+                        key={(id) ? id : tempKey}
+                        tempKey={tempKey}
                         id={id}
                         index={index}
                         title={title}

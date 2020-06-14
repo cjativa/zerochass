@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { WriteTutorial } from '../../util/interfaces/writeTutorial';
+import { Tutorial, TutorialRequest } from '../../util/interfaces/tutorial';
 import { Main } from './main';
 import { Sidebar } from './sidebar';
 
@@ -21,7 +21,7 @@ const getMatchingColor = (color: string) => colorOptions.find((co) => co.value =
 
 interface Props {
     edit: boolean,
-    tutorial: WriteTutorial,
+    tutorial: Tutorial,
     id?: number
 }
 
@@ -33,35 +33,34 @@ export const Write = (props: Props) => {
     const [title, setTitle] = useState(tutorial.title || '');
     const [description1, setDescription1] = useState(tutorial.description1 || '');
     const [description2, setDescription2] = useState(tutorial.description2 || '');
-    const [sections, setSections] = useState(tutorial.sections || []);
+    const [sections, setSections] = useState(tutorial.sections || []) as any;
 
     // State variables and controls for Sidebar component
     const [tags, setTags] = useState([]);
     const [color, setColor] = useState(tutorial.color || 'pink');
     const [enabled, setEnabled] = useState(tutorial.enabled || false);
-    const [featuredImage, setFeaturedImage] = useState(null);
+    const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage);
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
     /** Handles updating the list of sections */
-    const sectionUpdate = (index: number, id: number, title: string, content: string) => {
-        sections[index] = { id, title, content };
+    const sectionUpdate = (index: number, id: number, title: string, content: string, tempKey: number) => {
+        sections[index] = { id, title, content, tempKey };
         setSections(sections);
     };
 
     /** When a save occurs */
     const onSave = async () => {
 
-        let fiObject = { name: null, dataUrl: null };
+        let featuredImagePayload;
 
         // If there's a featured image, convert it to data url
-        if (featuredImage) {
+        if (typeof featuredImage !== 'string') {
             await new Promise((resolve) => {
                 const reader = new FileReader();
-
                 reader.addEventListener('load', (event) => {
-                    fiObject.name = featuredImage.name;
-                    fiObject.dataUrl = event.target.result;
+                    featuredImagePayload = { dataUrl: '' }
+                    featuredImagePayload.dataUrl = event.target.result;
                     resolve();
                 });
 
@@ -69,21 +68,23 @@ export const Write = (props: Props) => {
             });
         }
 
+        else { featuredImagePayload = featuredImage }
+
         // Set up the payload
-        const writeTutorialPayload: WriteTutorial = {
+        const writeTutorialPayload: Tutorial | TutorialRequest = {
             title,
             description1, description2,
             sections,
             tags,
             color,
-            featuredImage: fiObject,
+            featuredImage: featuredImagePayload,
             enabled,
             id: tutorial.id
         };
 
-        console.log(writeTutorialPayload);
-
-        await axios('/api/write', { data: writeTutorialPayload, method: 'post' });
+        // If we have an id, this is an update, otherwise it's a create
+        const method = (tutorial.id) ? 'PUT' : 'POST';
+        await axios('/api/write', { data: writeTutorialPayload, method });
 
         setSaveOccurred(true);
     };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ShareButtons } from '../ShareButtons';
+import { ShareButtons } from '../shared/ShareButtons';
 
 interface Props {
     tutorialTitle: string,

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import logo from '../assets/logo.svg';
+import logo from '../../assets/logo.svg';
 
 //<a href="https://twitter.com/zerochass?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-size="large" data-show-count="false">Follow @zerochass</a> 
 

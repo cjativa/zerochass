@@ -1,5 +1,5 @@
 import { Layout } from '../components/Layout';
-import { TutorialCard } from '../components/TutorialCard';
+import { TutorialCard } from '../components/tutorials/TutorialCard';
 import { CraftQL } from '../util/services/craftGQL';
 import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
 import { GetStaticProps } from 'next';

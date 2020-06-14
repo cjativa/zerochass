@@ -1,5 +1,5 @@
-import { CustomIcon } from './custom/CustomIcon';
-import { createShareForPlatform } from './custom/ShareGenerator'
+import { CustomIcon } from '../custom/CustomIcon';
+import { createShareForPlatform } from '../custom/ShareGenerator'
 
 interface Props {
     link: string,

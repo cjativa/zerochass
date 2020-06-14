@@ -1,38 +1,46 @@
-import protectWithAuthentication from '../../util/middleware/protectWithAuthentcation';
-import { UserService } from '../../util/services/userService';
-import TutorialService from '../../util/services/tutorialService';
-import { WriteTutorial } from '../../util/interfaces/writeTutorial';
 
+import protectWithAuthentication from '../../util/middleware/protectWithAuthentcation';
+import TutorialService from '../../util/services/tutorialHelpers';
+import { Tutorial, TutorialRequest } from '../../util/interfaces/tutorial';
 
 const handler = async (request, response) => {
+
+    const { method } = request;
+
+    if (method === 'GET') await retrieveTutorial(request, response);
+    if (method === 'POST') await createTutorial(request, response);
+    if (method === 'PUT') await updateTutorial(request, response);
+
+};
+
+const retrieveTutorial = async (request, response) => {
+
+    // Get the tutorial
+    const { id } = request.params.slug;
     const { userId } = request;
 
-    if (request.method === 'GET') {
+    const tutorial = await TutorialService.retrieveTutorial(id, userId);
+    response.json(tutorial);
+};
 
-        // Get the tutorial
-        const { id } = request.params.slug;
-        const tutorial = await TutorialService.retrieveTutorial(id, userId);
+const createTutorial = async (request, response) => {
 
-        response.json(tutorial);
-    }
+    // Get the tutorial to write
+    const tutorialRequest = request.body as TutorialRequest;
+    const { userId } = request;
 
-    if (request.method === 'POST') {
+    const id = await TutorialService.createTutorial(tutorialRequest, userId);
+    response.json(id);
+};
 
-        // Get the tutorial to write
-        const tutorial = request.body as WriteTutorial;
+const updateTutorial = async (request, response) => {
 
-        // If we have an id, it means it's an update
-        if (tutorial.id) {
-            await TutorialService.updateTutorial(tutorial, userId);
-            response.json('Updated');
-        }
+    // Get the tutorial to write
+    const tutorial = request.body as TutorialRequest;
+    const { userId } = request;
 
-        // Otherwise, it's a new tutorial
-        else {
-            const tutorialId = await TutorialService.createTutorial(tutorial, userId);
-            response.json(tutorialId);
-        }
-    }
+    await TutorialService.updateTutorial(tutorial, userId);
+    response.json('Updated');
 };
 
 export default protectWithAuthentication(handler);

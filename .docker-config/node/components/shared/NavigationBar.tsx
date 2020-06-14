@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import Link from 'next/link';
 
-import logo from '../assets/logo.svg';
-import { AuthenticationContext } from './Layout';
+import logo from '../../assets/logo.svg';
+import { AuthenticationContext } from '../Layout';
 import { AuthenticationDialog } from './authenticationDialog';
 
 

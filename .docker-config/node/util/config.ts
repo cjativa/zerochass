@@ -10,5 +10,8 @@ export const Config = {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
 
-    zerochassSecret: process.env.ZEROCHASS_SECRET
+    zerochassSecret: process.env.ZEROCHASS_SECRET,
+
+    awsRegion: process.env.AWS_REGION,
+    awsBucket: process.env.AWS_BUCKET,
 }

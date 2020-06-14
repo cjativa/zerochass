@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
 
-import { AuthenticationContext } from './Layout';
-import { AuthenticationDialog } from './authenticationDialog';
+import { AuthenticationContext } from '../Layout';
+import { AuthenticationDialog } from '../shared/authenticationDialog';
 
 export const SiteBanner = () => {
 

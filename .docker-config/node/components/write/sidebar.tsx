@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import ReactSwitch from 'react-switch';
 
-const ReactSelect = dynamic(() => import('react-select').then((mod) => mod.default), { ssr: false }) as any;
+const ReactSelect = dynamic(() => import('react-select')
+    .then((mod) => mod.default), { ssr: false }) as any;
 
 const colorOptions = [
     { value: 'pink', label: 'Pink' },
@@ -21,6 +22,22 @@ export const Sidebar = (props) => {
 
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
     const [displayedColor, setDisplayedColor] = useState(null);
+
+    useEffect(() => {
+
+        console.log(featuredImage);
+
+        // If we've got a featured image that's a string -- it's a url we can preview
+        if (typeof featuredImage === 'string') {
+            setPreviewFileUrl(featuredImage);
+        }
+
+    }, [])
+
+    useEffect(() => {
+        const dColor = colorOptions.find((co) => co.value === color);
+        setDisplayedColor(dColor);
+    }, [color]);
 
     const fileChangedHandler = event => {
         const file = event.target.files[0];
@@ -53,12 +70,6 @@ export const Sidebar = (props) => {
     const onColorSelect = (selectedColor) => {
         setColor(selectedColor.value);
     };
-
-    useEffect(() => {
-        const dColor = colorOptions.find((co) => co.value === color);
-        setDisplayedColor(dColor);
-        console.log(dColor);
-    }, [color]);
 
     return (
 

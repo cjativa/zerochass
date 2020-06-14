@@ -6,7 +6,7 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite').then((mod) =
 
 export const Section = (props) => {
 
-    const { index, removeSection, id, title, content } = props;
+    const { index, removeSection, id, title, content, tempKey } = props;
 
     const [sectionTitle, setSectionTitle] = useState('');
     const [sectionContent, setSectionContent] = useState('');
@@ -16,7 +16,10 @@ export const Section = (props) => {
     const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);
 
     const handleEditorChange = ({ html, text }) => {
-        sectionUpdate(index, id, sectionTitle, text);
+
+        if (id) sectionUpdate(index, id, sectionTitle, text);
+
+        else sectionUpdate(index, id, sectionTitle, text, tempKey);
     };
 
     const handleImageUpload = (file: File): Promise<string> => {
@@ -37,9 +40,6 @@ export const Section = (props) => {
         }
     }, []);
 
-    /* useEffect(() => {
-
-    }, [sectionContent]); */
 
     return (
         <div className="section outline">
