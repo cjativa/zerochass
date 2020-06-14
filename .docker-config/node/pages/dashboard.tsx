@@ -33,8 +33,13 @@ const Dashboard = ({ tutorials }) => {
                                     <tr className="dashboard__row" key={`${tutorial.title}__${index}`}>
 
                                         {/** Title and enabled */}
-                                        <td>
-                                            <Link href={`/write/${tutorial.id}`}><a>{tutorial.title}</a></Link>
+                                        <td >
+                                            <span className={`circle ${(tutorial.enabled) ? 'enabled' : 'not-enabled'}`} />
+                                            <Link href={`/write/${tutorial.id}`}>
+                                                <a className="dashboard__row-link">
+                                                    {tutorial.title}
+                                                </a>
+                                            </Link>
                                         </td>
 
                                         {/** Featured Image */}
