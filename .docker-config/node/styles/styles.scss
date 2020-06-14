@@ -64,57 +64,10 @@ button:hover {
   box-sizing: border-box;
 }
 
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import "./imports.scss";
 
-// Top-level items
-@import "./components/layout.scss";
-@import "./components/shared/authenticationDialog.scss";
-@import "./components/navigationBar.scss";
-@import "./components/siteBanner.scss";
-@import "./components/contentList.scss";
-@import "./components/tutorialBanner.scss";
-@import "./components/informationBanner.scss";
-@import "./components/technologiesBanner.scss";
-@import "./components/footer.scss";
-@import "./components//userMenu.scss";
-@import "./components/tutorialList.scss";
-@import "./components/tutorialCard.scss";
 
-// Authentication styles
-@import "./components/authentication/baseAuthenticationPage.scss";
-@import "./components/authentication/login.scss";
-@import "./components/authentication/signUp.scss";
 
-// Tutorial Component Styles
-@import "./components/tutorialComponents/tutorialPage.scss";
-@import "./components/tutorialComponents/header.scss";
-@import "./components/tutorialComponents/section.scss";
-@import "./components/tutorialComponents/progressCheck.scss";
-@import "./components/tutorialComponents/contentBar.scss";
-@import "./components/tutorialComponents/shareBar.scss";
-@import "./components/tutorialComponents/relatedNavigator.scss";
-
-// Dialog Component Styles
-@import "./components/dialogComponents/baseDialog.scss";
-@import "./components/dialogComponents/loginDialog.scss";
-@import "./components/dialogComponents/signUpDialog.scss";
-
-// User Component Styles
-@import "./components/user/userPage.scss";
-@import "./components/user/profile.scss";
-@import "./components/user/account.scss";
-@import "./components/user/connect.scss";
-
-// Singles style
-@import "./components/singles/singlePage.scss";
-
-// Shared components
-@import "./components/shared/shareButtons.scss";
-@import "./components/shared/buttons.scss";
-@import "./components/shared/formField.scss";
-@import "./components/shared/paddedPage.scss";
-
-@import "./components/write/write.scss";
 /** Breakpoints set at
  @media (min-width: 640px) {}
  @media (min-width: 768px) {}

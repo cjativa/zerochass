@@ -15,15 +15,55 @@ const Dashboard = ({ tutorials }) => {
                 <div className="padded-page__content">
                     <h1>Dashboard</h1>
                     <p>Here's where you'll find tutorials you've written</p>
-                    <div className="dashboard__tut-list">
-                        {tutorials.map((tutorial, index) => {
-                            return (
-                                <div className="dashboard__tut-item" key={`${tutorial.title}__${index}`}>
-                                    <Link href={`/write/${tutorial.id}`}><a>{tutorial.title}</a></Link>
-                                </div>
-                            )
-                        })}
-                    </div>
+
+                    {/** Tutorial list table */}
+                    <table className="dashboard__table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Featured Image</th>
+                                <th>Banner Color</th>
+                                <th>Tags</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {tutorials.map((tutorial, index) => {
+                                return (
+                                    <tr className="dashboard__row" key={`${tutorial.title}__${index}`}>
+
+                                        {/** Title and enabled */}
+                                        <td>
+                                            <Link href={`/write/${tutorial.id}`}><a>{tutorial.title}</a></Link>
+                                        </td>
+
+                                        {/** Featured Image */}
+                                        <td>
+                                            {
+                                                tutorial.featuredImage ?
+                                                    <img className="dashboard__row-fi" src={tutorial.featuredImage} /> :
+                                                    <i className="dashboard__row-fi fas fa-image " />
+                                            }
+                                        </td>
+
+                                        {/** Tutorial Color */}
+                                        <td className="dashboard__row-color">
+                                            <p>{tutorial.color}</p>
+                                        </td>
+
+                                        {/** Tags */}
+                                        <td>
+                                            {/* {tutorial.tags.map((tag) => {
+                                                <span>{tag}</span>
+                                            })} */}
+                                        </td>
+
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+
+                    </table>
                 </div>
             </div>
         </Layout>
