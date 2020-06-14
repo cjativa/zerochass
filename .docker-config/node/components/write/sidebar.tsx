@@ -41,7 +41,17 @@ export const Sidebar = (props) => {
         const fetchMatchingTags = async () => {
             const { data } = await axios.get('/api/tags', { params: { tag } });
 
-            const foundMatchingTags = data.map((tagItem) => tagItem.tag);
+            const foundMatchingTags = data.reduce((acc, matchingTag) => {
+
+                // Find if this matching tag is already used by this tutorial
+                const isMatchingTagUsed = tags.some((tag) => tag === matchingTag.tag);
+
+                // If we don't already use this tag, let's display it
+                if (isMatchingTagUsed == false) acc.push(matchingTag.tag);
+
+                return acc;
+            }, []);
+
             setMatchingTags(foundMatchingTags);
         };
 
@@ -69,9 +79,25 @@ export const Sidebar = (props) => {
 
     const onTagsKeyDown = (e) => {
         if (e.key === 'Enter') {
-            setTags([...tags, tag]);
-            setTag('');
+            setIntoTags(tag);
         }
+    };
+
+    const onMatchingTagClick = (matchingTag: string) => {
+        setIntoTags(matchingTag);
+    };
+
+    const setIntoTags = (value: string) => {
+
+        // Find if this value is already in the tags list
+        const isMatchingTagUsed = tags.some((tag) => tag === value);
+
+        // If we don't already use this tag, let's display it
+        if (isMatchingTagUsed == false) {
+            setTags([...tags, value]);
+        }
+
+        setTag('');
     };
 
     const onTagRemove = (index) => {
@@ -155,7 +181,7 @@ export const Sidebar = (props) => {
                             <span
                                 className="tag-item"
                                 key={index}>
-                                {tag}
+                                #{tag}
                                 <i
                                     onClick={() => onTagRemove(index)}
                                     className="x-btn fas fa-times" />
@@ -164,15 +190,18 @@ export const Sidebar = (props) => {
                     </div>
 
                     {/** List of matching tags for the entered tag term */}
-                    <div className="write__foundtags">
-                        {matchingTags.map((tag, index) =>
-                            <span
-                                className="tag-item"
-                                key={index}>
-                                {tag}
-                            </span>)
-                        }
-                    </div>
+                    {matchingTags.length > 0 &&
+                        <div className="write__foundtags">
+                            {matchingTags.map((matchingTag, index) =>
+                                <div
+                                    className="f-tag-item"
+                                    key={index}
+                                    onClick={() => onMatchingTagClick(matchingTag)} >
+                                    {matchingTag}
+                                </div>)
+                            }
+                        </div>
+                    }
 
                 </div>
             </div>

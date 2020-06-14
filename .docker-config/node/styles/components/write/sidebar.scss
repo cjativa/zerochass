@@ -31,6 +31,7 @@
 
     &__tags {
         overflow-wrap: anywhere;
+        position: relative;
     }
 
     &__taglist {
@@ -51,6 +52,26 @@
 
             margin-right: 0.5em;
             margin-bottom: 0.5em;
+        }
+    }
+
+    &__foundtags {
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px hsla(0,0%,0%,0.1), 0 4px 11px hsla(0,0%,0%,0.1);
+
+        width: 100%;
+        position: absolute;
+        background-color: white;
+        top: 75px;
+
+        .f-tag-item {
+            padding: 0.5em 1em;
+            box-sizing: border-box;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #DEEBFF;
+            }
         }
     }
 
