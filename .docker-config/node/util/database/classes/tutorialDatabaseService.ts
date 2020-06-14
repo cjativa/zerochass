@@ -85,6 +85,7 @@ export class TutorialDatabaseService {
         SELECT id, title, content
         FROM tutorial_sections 
         WHERE "tutorialId" = ($1)
+        ORDER BY "id" ASC
         `;
         const values = [tutorialId];
 
