@@ -24,6 +24,7 @@ class TutorialService {
 
         if (id) {
             const { sections, tags } = tutorialRequest;
+            console.log(tags);
             await ts.addSections();
         }
 
