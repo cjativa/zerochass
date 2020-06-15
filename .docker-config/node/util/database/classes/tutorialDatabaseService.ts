@@ -64,6 +64,33 @@ export class TutorialDatabaseService {
         await Promise.all(sectionRequests);
     };
 
+    /** Associates a tutorial with a list of tags */
+    public async associateTutorialAndTags(tagIds: number[]) {
+
+        const valueString = tagIds.map((tag, index) => {
+            const counter = index + 1;
+            const first = counter + index;
+            const second = first + 1;
+            return `($${first}, $${second})`
+        }
+        ).join();
+        const values = tagIds.reduce((acc, tagId) => {
+            acc.push(tagId, this.tutorial.id);
+            return acc;
+        }, []);
+
+        const query = `
+        INSERT INTO tutorial_tag_relations ("tagId", "tutorialId")
+        VALUES ${valueString}
+        ON CONFLICT
+        DO NOTHING
+        `;
+
+        console.log(query, values);
+
+        await Client.executeQuery(query, values);
+    };
+
     /** Retrieves an existing tutorial in the database */
     public async retrieveTutorial(id: number) {
 
@@ -109,8 +136,10 @@ export class TutorialDatabaseService {
     /** Updates an existing tutorial in the database */
     public async updateTutorial(): Promise<number> {
 
-        const { title, description1, description2, enabled, color, featuredImage, id,
-            tags, sections } = this.tutorial;
+        const {
+            title, description1, description2, enabled, color, featuredImage, id,
+            tags, sections
+        } = this.tutorial;
 
         const query = `
         UPDATE tutorials

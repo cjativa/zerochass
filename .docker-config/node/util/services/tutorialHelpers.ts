@@ -2,6 +2,7 @@ import shortid from 'shortid';
 
 import { TutorialRequest, Tutorial } from '../interfaces/tutorial';
 import { TutorialDatabaseService } from '../database/classes/tutorialDatabaseService';
+import { TagDatabaseService } from '../database/classes/tagDatabaseService';
 
 import { S3 } from '../aws';
 import { Config } from '../config';
@@ -11,7 +12,7 @@ class TutorialService {
     /** Creates a tutorial in the database */
     public static createTutorial = async (tutorialRequest: TutorialRequest, userId: number) => {
 
-        const tutorial = { ...tutorialRequest, featuredImage: '' } as Tutorial;
+        const tutorial = { ...tutorialRequest, featuredImage: null } as Tutorial;
 
         // If we have a featured image, we need to upload it to S3 prior to inserting the URL into our database
         if (tutorialRequest.featuredImage) {
@@ -38,7 +39,7 @@ class TutorialService {
 
         // If we have a featured image and it's an object
         // We need to upload it to S3 prior to inserting the URL into our database
-        if (typeof tutorialRequest.featuredImage === 'object') {
+        if (tutorialRequest.featuredImage && typeof tutorialRequest.featuredImage === 'object') {
             tutorial['featuredImage'] = await TutorialService.uploadFeaturedImage(tutorialRequest.featuredImage);
         }
 
@@ -49,6 +50,13 @@ class TutorialService {
         if (id) {
             const { sections, tags } = tutorial;
             await ts.addSections();
+
+            // Add tags provided with this tutorial and retrieve the id's for them56
+            await TagDatabaseService.insertTags(tags);
+            const tagIds = (await TagDatabaseService.retrieveTagIds(tags)).map((o) => o.id);
+
+            // Create the associations between this tutorial and those tags
+            await ts.associateTutorialAndTags(tagIds);
         }
 
         return id;
