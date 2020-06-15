@@ -39,7 +39,7 @@ export const Write = (props: Props) => {
     const [tags, setTags] = useState([]);
     const [color, setColor] = useState(tutorial.color || 'pink');
     const [enabled, setEnabled] = useState(tutorial.enabled || false);
-    const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage);
+    const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage || null);
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
@@ -55,7 +55,7 @@ export const Write = (props: Props) => {
         let featuredImagePayload;
 
         // If there's a featured image, convert it to data url
-        if (typeof featuredImage !== 'string') {
+        if (featuredImage && typeof featuredImage !== 'string') {
             await new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.addEventListener('load', (event) => {
