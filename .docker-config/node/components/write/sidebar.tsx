@@ -154,6 +154,7 @@ export const Sidebar = (props) => {
                 {/** Color */}
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
+                    <span className="form-field__hint">Select the color for your post header</span>
                     <ReactSelect
                         id={"react-select"}
                         value={displayedColor}
@@ -167,6 +168,7 @@ export const Sidebar = (props) => {
                 <div className="write__tags">
                     <div className="form-field">
                         <label className="form-field__label">Tags</label>
+                        <span className="form-field__hint">Add up to 4 tags related to your post</span>
                         <input className="form-field__input form-field--blue slim"
                             type="text"
                             value={tag}
