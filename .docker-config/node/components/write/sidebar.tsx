@@ -90,11 +90,12 @@ export const Sidebar = (props) => {
     const setIntoTags = (value: string) => {
 
         // Find if this value is already in the tags list
-        const isMatchingTagUsed = tags.some((tag) => tag === value);
+        const tagToAdd = value.toLowerCase();
+        const isMatchingTagUsed = tags.some((tag) => tag === tagToAdd);
 
         // If we don't already use this tag, let's display it
         if (isMatchingTagUsed == false) {
-            setTags([...tags, value]);
+            setTags([...tags, tagToAdd]);
         }
 
         setTag('');

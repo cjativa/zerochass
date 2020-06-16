@@ -2,9 +2,7 @@
 import protectWithAuthentication from '../../util/middleware/protectWithAuthentcation';
 import TutorialService from '../../util/services/tutorialHelpers';
 
-import { S3 } from '../../util/aws';
-
-import { Tutorial, TutorialRequest } from '../../util/interfaces/tutorial';
+import { TutorialRequest } from '../../util/interfaces/tutorial';
 import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
 
 const handler = async (request, response) => {
@@ -52,7 +50,7 @@ const updateTutorial = async (request, response) => {
     const preparedTutorial = await TutorialService.prepareTutorial(tutorialRequest);
 
     const tds = new TutorialDatabaseService(preparedTutorial, userId);
-    const id = await tds.createTutorial();
+    const id = await tds.updateTutorial();
 
     response.json(id);
 };

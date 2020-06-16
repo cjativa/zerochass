@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import useSWR from 'swr';
-
 import { Layout } from '../../components/Layout';
 import { Write } from '../../components/write/write';
 import { Tutorial } from '../../util/interfaces/tutorial';
