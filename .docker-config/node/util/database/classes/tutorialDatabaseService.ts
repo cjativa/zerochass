@@ -67,6 +67,8 @@ export class TutorialDatabaseService {
             // Delete any tags no longer associated with the tutorial
             await TagDatabaseService.deleteTagAssociations(this.tutorial.tags, tagIdentifierList);
         }
+
+        return this.tutorial.id;
     };
 
     /** Retrieves an existing tutorial in the database */
@@ -81,8 +83,6 @@ export class TutorialDatabaseService {
             sections,
             tags
         };
-
-        console.log(tags);
 
         return tutorial;
     };

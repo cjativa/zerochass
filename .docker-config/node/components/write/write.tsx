@@ -36,10 +36,10 @@ export const Write = (props: Props) => {
     const [sections, setSections] = useState(tutorial.sections || []) as any;
 
     // State variables and controls for Sidebar component
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState(tutorial.tags || []);
     const [color, setColor] = useState(tutorial.color || 'pink');
     const [enabled, setEnabled] = useState(tutorial.enabled || false);
-    const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage || null);
+    const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage || '');
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
@@ -52,7 +52,7 @@ export const Write = (props: Props) => {
     /** When a save occurs */
     const onSave = async () => {
 
-        let featuredImagePayload;
+        let featuredImagePayload = '' as any;
 
         // If there's a featured image, convert it to data url
         if (featuredImage && typeof featuredImage !== 'string') {

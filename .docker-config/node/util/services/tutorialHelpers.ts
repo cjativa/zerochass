@@ -1,7 +1,6 @@
 import shortid from 'shortid';
 
 import { TutorialRequest, Tutorial } from '../interfaces/tutorial';
-import { TutorialDatabaseService } from '../database/classes/tutorialDatabaseService';
 
 import { S3 } from '../aws';
 import { Config } from '../config';
@@ -13,9 +12,11 @@ class TutorialService {
 
         // These fields require some transformation prior to being ready to be part of a tutorial
         const tutorial = { ...tutorialRequest, 
-            featuredImage: null,
+            featuredImage: '',
             tags: tutorialRequest.tags.map((tag) => tag.toLowerCase())
          } as Tutorial;
+
+         console.log('The fi', tutorialRequest.featuredImage);
 
         // If we have a featured image, we need to upload it to S3 and get the upload
         // URL prior to inserting the URL to our database
