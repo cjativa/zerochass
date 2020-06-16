@@ -7,10 +7,11 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite').then((mod) =
 export const Section = (props) => {
 
     const { index, removeSection, id, title, content, tempKey } = props;
+    const initialCollapse = props.collapsed != undefined ? props.collapsed : true;
 
     const [sectionTitle, setSectionTitle] = useState('');
     const [sectionContent, setSectionContent] = useState('');
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(initialCollapse);
 
 
     const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);

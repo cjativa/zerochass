@@ -11,11 +11,11 @@ export const Main = (props) => {
     const headingText = edit ? 'Edit tutorial' : 'Create a new tutorial post';
 
     const addToSections = () => {
-        setSections([...sections, { tempKey: Date.now(), title: '', content: '' }]);
+        setSections([...sections, { tempKey: Date.now(), title: '', content: '', collapsed: false }]);
     };
 
-    const removeSection = (key) => {
-        const updatedSections = sections.filter((el) => el.key !== key);
+    const removeSection = (index) => {
+        const updatedSections = sections.filter((el, elIndex) => elIndex !== index);
         setSections([...updatedSections]);
     };
 
@@ -66,8 +66,8 @@ export const Main = (props) => {
             <div className="form-field">
                 <label className="form-field__label">Content</label>
                 {sections.map((sectionElement, index) => {
-                    const { tempKey, title, content, id } = sectionElement;
-                    
+                    const { tempKey, title, content, id, collapsed } = sectionElement;
+
                     return <Section
                         key={(id) ? id : tempKey}
                         tempKey={tempKey}
@@ -75,7 +75,9 @@ export const Main = (props) => {
                         index={index}
                         title={title}
                         content={content}
-                        removeSection={removeSection} />
+                        removeSection={removeSection} 
+                        collapsed={collapsed}
+                        />
                 }
                 )}
             </div>
