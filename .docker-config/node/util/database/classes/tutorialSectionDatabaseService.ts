@@ -39,7 +39,7 @@ export class TutorialSectionService {
     };
 
     /** Deletes any sections that from the tutorial that exist in the database but were not sent along with an update */
-    public static async deleteSections(tutorialId: number, providedSections: Tutorial['sections'] ) {
+    public static async deleteSections(tutorialId: number, providedSections: Tutorial['sections']) {
 
         // Retrieve the sections this tutorial has in the database
         const existingSections = await this.retrieveSectionsForTutorial(tutorialId);
@@ -56,8 +56,15 @@ export class TutorialSectionService {
             return sectionShouldBeDeleted;
         });
 
-        console.log(`The sections to delete`);
-        console.log(sectionsToDelete);
+        const idsToDelete = sectionsToDelete.map((sd) => sd.id).join();
+
+        const query = `
+        DELETE FROM tutorial_sections 
+        WHERE "id" IN (${idsToDelete})
+        AND "tutorialId" = ${tutorialId}
+        `;
+
+        await Client.executeQuery(query);
     };
 
     /** Retrieve the sections for the tutorial */
