@@ -72,14 +72,18 @@ export class TutorialDatabaseService {
     /** Retrieves an existing tutorial in the database */
     public async retrieveTutorial(id: number) {
 
-        const query = `
-        SELECT t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id"
-        FROM tutorials t
-        WHERE t."id" = ($1) AND t."userId" = ($2)
-        `;
-        const values = [id, this.userId];
+        const main = await this.getTutorial(id);
+        const sections = await TutorialSectionService.retrieveSectionsForTutorial(id);
+        const tags = await TagDatabaseService.retrieveTagsForTutorial(id);
 
-        const tutorial = (await Client.executeQuery(query, values)).rows[0];
+        const tutorial = {
+            ...main,
+            sections,
+            tags
+        };
+
+        console.log(tags);
+
         return tutorial;
     };
 
@@ -96,6 +100,21 @@ export class TutorialDatabaseService {
         return tutorials;
     };
 
+    /** Retrieves tutorial information */
+    private async getTutorial(id: number) {
+
+        const query = `
+        SELECT t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id"
+        FROM tutorials t
+        WHERE t."id" = ($1) AND t."userId" = ($2)
+        `;
+        const values = [id, this.userId];
+
+        const tutorial = (await Client.executeQuery(query, values)).rows[0];
+        return tutorial;
+    };
+
+    /** Updates a tutorial in the database */
     private async upsertTutorial() {
         const { title, description1, description2, enabled, color, featuredImage, id,
             tags, sections
@@ -116,7 +135,7 @@ export class TutorialDatabaseService {
         const values = [title, description1, description2, enabled, color, featuredImage, id, this.userId];
 
         await Client.executeQuery(query, values);
-    }
+    };
 
     /** Inserts a new tutorial into the database and sets the tutorial id for this instance */
     private async insertTutorial() {

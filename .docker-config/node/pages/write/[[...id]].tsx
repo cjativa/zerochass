@@ -20,24 +20,14 @@ export const getServerSideProps = async (ctx) => {
     const protectPageWithAuthentication = (await import('../../util/middleware/protectedPage')).default;
     await protectPageWithAuthentication(ctx);
 
-
     const { id } = ctx.params;
-    const tutorialId = id && parseInt(id[0]);
     const { userId } = ctx.req;
-    const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';
+    const tutorialId = id && parseInt(id[0]);
+    const ts = new TutorialDatabaseService(null, userId)
+
     const edit = tutorialId ? true : false;
-    let tutorial = {};
-
-    // If there's a slug, we're updating an existing tutorial
-    if (tutorialId) {
-        const ts = new TutorialDatabaseService(null, userId);
-        tutorial = await ts.retrieveTutorial(tutorialId);
-    }
-
-    // Otherwise, we're creating a new tutorial
-    else {
-
-    }
+    const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';
+    const tutorial = (tutorialId) ? await ts.retrieveTutorial(tutorialId) : {};
 
     return {
         props: {

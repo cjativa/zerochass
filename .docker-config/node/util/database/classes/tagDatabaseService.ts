@@ -90,4 +90,19 @@ export class TagDatabaseService {
 
         await Client.executeQuery(query, values);
     };
+
+    /** Retrieves the tags associated with a tutorial */
+    public static async retrieveTagsForTutorial(tutorialId: number) {
+
+        const query = `
+        SELECT b."tag"
+        FROM tutorial_tag_relations a
+        INNER JOIN tags b
+        ON a."tagId" = b."id"
+        WHERE a."tutorialId" = ${tutorialId}
+        `;
+
+        const tags = (await Client.executeQuery(query)).rows.map((row) => row.tag);
+        return tags;
+    };
 }
