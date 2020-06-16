@@ -1,7 +1,11 @@
 
 import protectWithAuthentication from '../../util/middleware/protectWithAuthentcation';
 import TutorialService from '../../util/services/tutorialHelpers';
+
+import { S3 } from '../../util/aws';
+
 import { Tutorial, TutorialRequest } from '../../util/interfaces/tutorial';
+import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
 
 const handler = async (request, response) => {
 
@@ -19,28 +23,38 @@ const retrieveTutorial = async (request, response) => {
     const { id } = request.params.slug;
     const { userId } = request;
 
-    const tutorial = await TutorialService.retrieveTutorial(id, userId);
+    const tds = new TutorialDatabaseService(null, userId);
+    const tutorial = await tds.retrieveTutorial(id);
+
     response.json(tutorial);
 };
 
 const createTutorial = async (request, response) => {
 
-    // Get the tutorial to write
+    // Get the tutorial to write and the user id for it
     const tutorialRequest = request.body as TutorialRequest;
     const { userId } = request;
 
-    const id = await TutorialService.createTutorial(tutorialRequest, userId);
+    const preparedTutorial = await TutorialService.prepareTutorial(tutorialRequest);
+
+    const tds = new TutorialDatabaseService(preparedTutorial, userId);
+    const id = await tds.createTutorial();
+
     response.json(id);
 };
 
 const updateTutorial = async (request, response) => {
 
     // Get the tutorial to write
-    const tutorial = request.body as TutorialRequest;
+    const tutorialRequest = request.body as TutorialRequest;
     const { userId } = request;
 
-    await TutorialService.updateTutorial(tutorial, userId);
-    response.json('Updated');
+    const preparedTutorial = await TutorialService.prepareTutorial(tutorialRequest);
+
+    const tds = new TutorialDatabaseService(preparedTutorial, userId);
+    const id = await tds.createTutorial();
+
+    response.json(id);
 };
 
 export default protectWithAuthentication(handler);

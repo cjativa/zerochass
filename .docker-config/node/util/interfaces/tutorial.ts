@@ -22,6 +22,8 @@ export interface Tutorial {
     enabled: boolean,
 };
 
+/** A tutorial request can have 
+ * - an existing featured image -- which would be a string (or object, if it didn't have a featured image prior) */
 export interface TutorialRequest {
     id?: number,
 
@@ -34,6 +36,6 @@ export interface TutorialRequest {
     tags: string[],
     color: TutorialColors,
 
-    featuredImage: { dataUrl: string },
+    featuredImage: { dataUrl: string } | string,
     enabled: boolean,
 };

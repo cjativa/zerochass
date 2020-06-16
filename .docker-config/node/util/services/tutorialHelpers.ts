@@ -2,90 +2,37 @@ import shortid from 'shortid';
 
 import { TutorialRequest, Tutorial } from '../interfaces/tutorial';
 import { TutorialDatabaseService } from '../database/classes/tutorialDatabaseService';
-import { TagDatabaseService } from '../database/classes/tagDatabaseService';
 
 import { S3 } from '../aws';
 import { Config } from '../config';
 
 class TutorialService {
 
-    /** Creates a tutorial in the database */
-    public static createTutorial = async (tutorialRequest: TutorialRequest, userId: number) => {
+    /** Prepares a tutorial by creating the payload that can be inserted into the database */
+    public static async prepareTutorial(tutorialRequest: TutorialRequest): Promise<Tutorial> {
 
-        const tutorial = { ...tutorialRequest, featuredImage: null } as Tutorial;
+        // These fields require some transformation prior to being ready to be part of a tutorial
+        const tutorial = { ...tutorialRequest, 
+            featuredImage: null,
+            tags: tutorialRequest.tags.map((tag) => tag.toLowerCase())
+         } as Tutorial;
 
-        // If we have a featured image, we need to upload it to S3 prior to inserting the URL into our database
-        if (tutorialRequest.featuredImage) {
-            tutorial['featuredImage'] = await TutorialService.uploadFeaturedImage(tutorialRequest.featuredImage);
+        // If we have a featured image, we need to upload it to S3 and get the upload
+        // URL prior to inserting the URL to our database
+        if (typeof tutorialRequest.featuredImage === 'object') {
+            tutorial.featuredImage = await TutorialService.uploadFeaturedImage(tutorialRequest.featuredImage.dataUrl);
         }
 
-        // Get the id for the created tutorial
-        const ts = new TutorialDatabaseService(tutorial, userId);
-        const id = await ts.createTutorial();
-
-        if (id) {
-            const { sections, tags } = tutorialRequest;
-            console.log(tags);
-            await ts.addSections();
-        }
-
-        return id;
-    };
-
-    /** Updates an existing tutorial */
-    public static updateTutorial = async (tutorialRequest: TutorialRequest, userId: number) => {
-
-        const tutorial = { ...tutorialRequest, id: tutorialRequest.id } as any;
-
-        // If we have a featured image and it's an object
-        // We need to upload it to S3 prior to inserting the URL into our database
-        if (tutorialRequest.featuredImage && typeof tutorialRequest.featuredImage === 'object') {
-            tutorial['featuredImage'] = await TutorialService.uploadFeaturedImage(tutorialRequest.featuredImage);
-        }
-
-        const ts = new TutorialDatabaseService(tutorial, userId);
-        const id = await ts.updateTutorial();
-
-        // If we successfully updated the tutorial, tutorial id is returned
-        if (id) {
-            const { sections, tags } = tutorial;
-            await ts.addSections();
-
-            // Add tags provided with this tutorial and retrieve the id's for them56
-            await TagDatabaseService.insertTags(tags);
-            const tagIds = (await TagDatabaseService.retrieveTagIds(tags)).map((o) => o.id);
-
-            // Create the associations between this tutorial and those tags
-            await ts.associateTutorialAndTags(tagIds);
-        }
-
-        return id;
-    }
-
-    /** Retrieves existing tutorials for a user id */
-    public static retrieveTutorials = async (userId: number) => {
-
-        const ts = new TutorialDatabaseService(null, userId);
-        return await ts.retrieveTutorials();
-    };
-
-    /** Retrieves a specific tutorial belonging to a specific user id*/
-    public static retrieveTutorial = async (tutorialId: number, userId: number) => {
-
-        const ts = new TutorialDatabaseService(null, userId);
-        const tutorial = await ts.retrieveTutorial(tutorialId);
-
-        if (tutorial) {
-            tutorial['sections'] = await ts.retrieveSectionsForTutorial(tutorialId);
-        }
+        // Otherwise, if a string, let it remain
+        else { tutorial.featuredImage = tutorialRequest.featuredImage; }
 
         return tutorial;
-    };
+    }
 
     /** Uploads a featured image for the tutorial */
-    private static uploadFeaturedImage = async (featuredImage: TutorialRequest['featuredImage']): Promise<string> => {
+    private static uploadFeaturedImage = async (featuredImageDataUrl: string): Promise<string> => {
 
-        const dataUrl = featuredImage.dataUrl;
+        const dataUrl = featuredImageDataUrl;
         const base64 = Buffer.from(dataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
         const params = {

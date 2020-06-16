@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { Layout } from '../../components/Layout';
 import { Write } from '../../components/write/write';
 import { Tutorial } from '../../util/interfaces/tutorial';
-import TutorialService from '../../util/services/tutorialHelpers';
+import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
 
 const WritePage = ({ pageTitle, edit, tutorial }) => {
 
@@ -30,7 +30,8 @@ export const getServerSideProps = async (ctx) => {
 
     // If there's a slug, we're updating an existing tutorial
     if (tutorialId) {
-        tutorial = await TutorialService.retrieveTutorial(tutorialId, userId);
+        const ts = new TutorialDatabaseService(null, userId);
+        tutorial = await ts.retrieveTutorial(tutorialId);
     }
 
     // Otherwise, we're creating a new tutorial
