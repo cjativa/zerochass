@@ -12,7 +12,6 @@ import 'prismjs/components/prism-tsx.min.js';
 import 'prismjs/components/prism-scss.min.js';
 
 import '@fortawesome/fontawesome-free/css/all.css';
-
 import 'react-markdown-editor-lite/lib/index.css';
 
 
