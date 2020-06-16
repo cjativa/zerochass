@@ -58,12 +58,12 @@
 
     &__foundtags {
         border-radius: 4px;
-        box-shadow: 0 0 0 1px hsla(0,0%,0%,0.1), 0 4px 11px hsla(0,0%,0%,0.1);
+        box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
 
         width: 100%;
         position: absolute;
         background-color: white;
-        top: 115px;
+        top: 92px;
 
         .f-tag-item {
             padding: 0.5em 1em;
@@ -71,7 +71,7 @@
 
             &:hover {
                 cursor: pointer;
-                background-color: #DEEBFF;
+                background-color: #deebff;
             }
         }
     }
@@ -123,8 +123,15 @@
         &__sidebar {
             padding-top: 1em;
         }
+
+        &__foundtags {
+            top: 113px;
+        }
     }
 
-    @media (min-width: 1024px) {}
-
+    @media (min-width: 1024px) {
+        &__foundtags {
+            top: 94px;
+        }
+    }
 }
