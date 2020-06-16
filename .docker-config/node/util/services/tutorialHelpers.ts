@@ -16,8 +16,6 @@ class TutorialService {
             tags: tutorialRequest.tags.map((tag) => tag.toLowerCase())
          } as Tutorial;
 
-         console.log('The fi', tutorialRequest.featuredImage);
-
         // If we have a featured image, we need to upload it to S3 and get the upload
         // URL prior to inserting the URL to our database
         if (typeof tutorialRequest.featuredImage === 'object') {
