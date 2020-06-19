@@ -2,22 +2,6 @@
 version: "3.4"
 
 services:
-  
-  # craft cms server
-  php:
-    container_name: "php"
-    build:
-      context: ./.docker-config/php/
-      dockerfile: Dockerfile
-    expose:
-      - 9000
-    volumes:
-      - ./.docker-config/php/src/config:/var/www/html/config
-      - ./.docker-config/php/src/templates:/var/www/html/templates
-      - ./.docker-config/php/src/modules:/var/www/html/modules
-      - ./.docker-config/php/src/web:/var/www/html/web
-      - ./.docker-config/php/src/composer.json:/var/www/html/composer.json
-      - ./.docker-config/php/src/.env:/var/www/html/.env
 
   # nginx server
   nginx:
