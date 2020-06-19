@@ -1,12 +1,11 @@
 export const TutorialHeader = (props) => {
     const { title, tags, featuredImage, color } = props;
-    const style = { backgroundImage: `url(${featuredImage})` };
 
     return (
-        <header className={`tutorial-header ${color.toLowerCase()}`} style={style}>
+        <header className={`tutorial-header ${color.toLowerCase()}`}>
             <div className="tutorial-header__image">
                 {featuredImage.length > 0 &&
-                    <img className="featured-image" src={featuredImage[0].url} />}
+                    <img className="featured-image" src={featuredImage} />}
             </div>
             <ul className="tutorial-header__tags">
                 {tags && tags.map((tag, index) => {

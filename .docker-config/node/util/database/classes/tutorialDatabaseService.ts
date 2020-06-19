@@ -76,9 +76,11 @@ export class TutorialDatabaseService {
     };
 
     /** Retrieves an existing tutorial in the database */
-    public async retrieveTutorial(id: number) {
+    public async retrieveTutorial(identifier: number | string, forEditing?: boolean) {
 
-        const main = await this.getTutorial(id);
+        const id = (typeof identifier === 'number') ? identifier : await this.getTutorialIdBySlug(identifier);
+
+        const main = (forEditing) ? await this.getTutorialForEditing(id) : await this.getTutorial(id);
         const sections = await TutorialSectionService.retrieveSectionsForTutorial(id);
         const tags = await TagDatabaseService.retrieveTagsForTutorial(id);
 
@@ -118,8 +120,8 @@ export class TutorialDatabaseService {
         return tutorials;
     };
 
-    /** Retrieves tutorial information */
-    private async getTutorial(id: number) {
+    /** Retrieves tutorial information for editing */
+    private async getTutorialForEditing(id: number) {
 
         const query = `
         SELECT t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id"
@@ -130,6 +132,35 @@ export class TutorialDatabaseService {
 
         const tutorial = (await Client.executeQuery(query, values)).rows[0];
         return tutorial;
+    };
+
+    /** Retrieves tutorial information */
+    private async getTutorial(id: number) {
+
+        const query = `
+        SELECT t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id"
+        FROM tutorials t
+        WHERE t."id" = ($1)
+        `;
+        const values = [id];
+
+        const tutorial = (await Client.executeQuery(query, values)).rows[0];
+        return tutorial;
+    };
+
+    /** Retrieves tutorial information */
+    public async getTutorialIdBySlug(slug: string): Promise<number> {
+
+        const query = `
+        SELECT "id" 
+        FROM tutorials
+        WHERE tutorials."slug" = ($1)
+        `;
+        const values = [slug];
+        const results = (await Client.executeQuery(query, values));
+        const { id } = results.rows[0];
+
+        return id;
     };
 
     /** Updates a tutorial in the database */

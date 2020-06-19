@@ -1,26 +1,22 @@
 import { useEffect, useState, createRef } from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next'
-import useMetaTags from 'react-metatags-hook';
+import { GetServerSideProps } from 'next'
 
 import { Layout } from '../../components/Layout'
-
-import { CraftQL } from '../../util/services/craftGQL';
 import { slugify } from '../../util/services/slugify';
-import { TutorialSingleQuery } from '../../util/queries/tutorialQuery';
-import { AllTutorialsQuery } from '../../util/queries/tutorialsQuery';
 
 import { TutorialHeader } from '../../components/tutorial/tutorialHeader';
 import { TutorialSection } from '../../components/tutorial/tutorialSection';
 import { SectionsBar } from '../../components/tutorial/sectionsBar';
 import { ShareBar } from '../../components/tutorial/shareBar';
 import { ProgressCheck } from '../../components/tutorial/progressCheck';
+import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
 
 const TutorialPost = ({ siteTitle, tutorial }) => {
     if (!tutorial) return <></>
 
     let previousEntry, nextEntry;
 
-    const { title, tags, featuredImage, color, tutorialContent, description, slug } = tutorial;
+    const { title, tags, featuredImage, color, sections, description1, description2, slug } = tutorial;
 
     const [sectionRefs, setSectionRefs] = useState([]);
     const [sectionInformation, setSectionInformation] = useState([]);
@@ -47,11 +43,11 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
 
     const parseContentSections = () => {
 
-        const { tutorialContent } = tutorial;
+        const { sections } = tutorial;
         const sectionInformation = [];
 
-        tutorialContent.forEach((section) => {
-            const { sectionTitle: title } = section;
+        sections.forEach((section) => {
+            const { title } = section;
             const id = slugify(title);
             const meta = { title, id, sectionComplete: false };
 
@@ -106,7 +102,7 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
         setSectionInformation(sections);
     }
     const keywords = tags.map((tag) => tag.title).join();
-    const descriptions = description.map((d) => `${d.firstLine} ${d.secondLine}`).join();
+    const descriptions = `${description1} ${description2}`;
 
     return (
         <Layout pageTitle={tutorial.title} description={descriptions} keywords={keywords} slug={`tutorial/${slug}`} image={featuredImage[0].url} large={true}>
@@ -131,12 +127,12 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
 
                     {/* Display the content sections */}
                     <div className="sections">
-                        {sectionInformation.length > 0 && tutorialContent.map((content, index) => {
+                        {sectionInformation.length > 0 && sections.map((section, index) => {
 
                             const sectionComplete = sectionInformation[index].sectionComplete;
 
                             // Slugify the title
-                            const id = slugify(content.sectionTitle);
+                            const id = slugify(section.title);
 
                             // Build the Progress Check component
                             const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
@@ -144,7 +140,7 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
                             // Return the composed Section component
                             return (
                                 <div className="section-item" key={index} ref={sectionRefs[index]}>
-                                    <TutorialSection content={content} key={index} index={index} id={id} progressCheck={progressCheck} />
+                                    <TutorialSection content={section} key={index} index={index} id={id} progressCheck={progressCheck} />
                                 </div>
                             );
                         })}
@@ -157,29 +153,24 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
     )
 }
 
-export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
-
+export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     const slug = ctx.params.slug as string;
-    const tutorialQuery = TutorialSingleQuery(slug);
 
-    const params = (ctx.preview) ? ctx.previewData.params : null;
-
-    const tutorialContent = (ctx.preview) ?
-        (await CraftQL(tutorialQuery, params))[0]
-        : (await CraftQL(tutorialQuery))[0];
+    const ts = new TutorialDatabaseService(null, null);
+    const tutorial = await ts.retrieveTutorial(slug);
     const config = await import(`../../siteconfig.json`);
 
     return {
         props: {
             siteTitle: config.title,
-            tutorial: tutorialContent,
+            tutorial,
         },
     }
 }
 
 export default TutorialPost;
 
-export const getStaticPaths: GetStaticPaths = async () => {
+/* export const getStaticPaths: GetStaticPaths = async () => {
     const tutorials = await CraftQL(AllTutorialsQuery());
     const paths = tutorials.map((tutorial) => ({
         params: { slug: tutorial.slug }
@@ -189,4 +180,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths,
         fallback: false,
     }
-}
+} */

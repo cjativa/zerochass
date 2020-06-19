@@ -22,7 +22,7 @@ const retrieveTutorial = async (request, response) => {
     const { userId } = request;
 
     const tds = new TutorialDatabaseService(null, userId);
-    const tutorial = await tds.retrieveTutorial(id);
+    const tutorial = await tds.retrieveTutorial(id, true);
 
     response.json(tutorial);
 };
