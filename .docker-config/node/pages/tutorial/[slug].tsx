@@ -127,15 +127,15 @@ const TutorialPost = ({ siteTitle, tutorial }) => {
 
                     {/* Display the content sections */}
                     <div className="sections">
-                        {sectionInformation.length > 0 && sections.map((section, index) => {
+                        {/* sectionInformation.length > 0 &&  */sections.map((section, index) => {
 
-                            const sectionComplete = sectionInformation[index].sectionComplete;
+                            const sectionComplete = (sectionInformation.length > 0) ? sectionInformation[index].sectionComplete : null;
 
                             // Slugify the title
                             const id = slugify(section.title);
 
                             // Build the Progress Check component
-                            const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />
+                            const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />;
 
                             // Return the composed Section component
                             return (

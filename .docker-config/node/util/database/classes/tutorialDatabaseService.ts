@@ -108,13 +108,14 @@ export class TutorialDatabaseService {
     };
 
     /** Retrieves tutorials for displaying on site */
-    public static async retrieveTutorialsForSite() {
-        const query = `
+    public static async retrieveTutorialsForSite(limit?: boolean) {
+        let query = `
         SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color", "slug"
         FROM tutorials
         WHERE enabled = true
-        LIMIT 8
         `;
+
+        if (limit) query += ` LIMIT 8`;
 
         const tutorials = (await Client.executeQuery(query)).rows;
         return tutorials;
