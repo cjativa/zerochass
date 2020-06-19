@@ -7,10 +7,7 @@ interface TutorialCardProps {
 
 export const TutorialCard = (props: TutorialCardProps) => {
 
-    const { featuredImage, title, color, description, slug } = props.tutorial;
-
-    const shorterDescription = description[0].secondLine;
-    const imageUrl = featuredImage[0].url;
+    const { featuredImage, title, color, description2, slug } = props.tutorial;
 
     let titleClass = 'tl-card__title';
     let subtitleClass = 'tl-card__subtitle';
@@ -24,12 +21,12 @@ export const TutorialCard = (props: TutorialCardProps) => {
         <Link href={`/tutorial/${slug}`}>
             <a className="tl-card" >
                 <div className={`tl-card__top ${color}`}  >
-                    <img className="tl-card__image" src={imageUrl} />
+                    <img className="tl-card__image" src={featuredImage} />
                     <div className="tl-card__layer" />
                 </div>
                 <div className={`tl-card__bottom`}>
                     <h1 className={titleClass}>{title}</h1>
-                    <p className={subtitleClass}>{shorterDescription}</p>
+                    <p className={subtitleClass}>{description2}</p>
                 </div>
             </a>
         </Link>

@@ -1,7 +1,6 @@
 import { Layout } from '../components/Layout';
 import { TutorialCard } from '../components/tutorials/TutorialCard';
-import { CraftQL } from '../util/services/craftGQL';
-import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
+import { TutorialDatabaseService} from '../util/database/classes/tutorialDatabaseService';
 import { GetStaticProps } from 'next';
 
 const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
@@ -26,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
 
     const params = (ctx.preview) ? ctx.previewData.params : null;
 
-    const tutorials = (ctx.preview) ? await CraftQL(AllTutorialsQuery(), params) : await CraftQL(AllTutorialsQuery());
+    const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite();
     const config = await import(`../siteconfig.json`);
 
     return {
