@@ -1,8 +1,6 @@
   
-FROM staticfloat/nginx-certbot
+FROM nginx:1.13
 
-ENV CERTBOT_EMAIL="christopher.jativa320@outlook.com"
-# ENV IS_STAGING=1
+COPY ./.docker-config/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./.docker-config/nginx/conf.d /etc/nginx/user.conf.d
-COPY ./.docker-config/nginx/letsencrypt /etc/letsencrypt
-# ./.docker-config/php/src/web /var/www/html/web
+# COPY ./.docker-config/nginx/letsencrypt/ /etc/letsencrypt/   

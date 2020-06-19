@@ -68,20 +68,19 @@ export const TutorialBannerList = (props: any) => {
 
 const TutorialBanner = (props) => {
 
-    const { tutorial } = props;
-    const { color, description, featuredImage } = tutorial;
+    const { title, slug, color, description1, description2, featuredImage } = props.tutorial;
 
     return (
         <div className={`tutorial-banner tutorial-banner--${color.toLowerCase()}`}>
-            <Link href={`/tutorial/${tutorial.slug}`}>
+            <Link href={`/tutorial/${slug}`}>
                 <a className={`tutorial-banner__link`}>
                     <div className="banner-inner">
-                        <h1 className="banner-inner__header">{tutorial.title}</h1>
-                        <p className="banner-inner__description">{description[0].firstLine}</p>
-                        <p className="banner-inner__description">{description[0].secondLine}</p>
+                        <h1 className="banner-inner__header">{title}</h1>
+                        <p className="banner-inner__description">{description1}</p>
+                        <p className="banner-inner__description">{description2}</p>
                     </div>
                     {featuredImage.length > 0 && <div className="banner-image">
-                        <img className="tutorial-banner__image" src={featuredImage[0].url} />
+                        <img className="tutorial-banner__image" src={featuredImage} />
                     </div>}
                 </a>
             </Link>

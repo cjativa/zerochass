@@ -8,7 +8,6 @@ import { TutorialDatabaseService } from '../util/database/classes/tutorialDataba
 const Dashboard = ({ tutorials }) => {
 
     const title = 'Dashboard';
-    console.log(tutorials);
 
     return (
         <Layout pageTitle={title}>
@@ -23,8 +22,9 @@ const Dashboard = ({ tutorials }) => {
                             <tr>
                                 <th>Title</th>
                                 <th>Featured Image</th>
-                                <th>Banner Color</th>
+                                <th>Color</th>
                                 <th>Tags</th>
+                                <th>Url</th>
                             </tr>
                         </thead>
 
@@ -62,6 +62,11 @@ const Dashboard = ({ tutorials }) => {
                                             {/* {tutorial.tags.map((tag) => {
                                                 <span>{tag}</span>
                                             })} */}
+                                        </td>
+
+                                        {/** Slug Url */}
+                                        <td>
+                                            <p>{tutorial.slug}</p>
                                         </td>
 
                                     </tr>

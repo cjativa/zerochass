@@ -41,30 +41,20 @@ export class TutorialSectionService {
     /** Deletes any sections that from the tutorial that exist in the database but were not sent along with an update */
     public static async deleteSections(tutorialId: number, providedSections: Tutorial['sections']) {
 
-        // Retrieve the sections this tutorial has in the database
-        const existingSections = await this.retrieveSectionsForTutorial(tutorialId);
-
         // Iterate through the sections we've been provided by the request
-        const sectionsToDelete = existingSections.filter((existingSection) => {
+        const sectionsToDelete = providedSections.filter((providedSection) => providedSection.isDeleted);
 
-            // An existing section should be deleted if it is no longer in the listed of provided sections
-            // Does the existing section match one of the provided sections? 
-            // As long as one of the existing sections matched a provided section it will not be deleted
-            const sectionShouldBeDeleted = (providedSections
-                .some((providedSection) => providedSection.id == existingSection.id) == false);
+        if (sectionsToDelete.length > 0) {
+            const idsToDelete = sectionsToDelete.map((sd) => sd.id).join();
 
-            return sectionShouldBeDeleted;
-        });
+            const query = `
+            DELETE FROM tutorial_sections 
+            WHERE "id" IN (${idsToDelete})
+            AND "tutorialId" = ${tutorialId}
+            `;
 
-        const idsToDelete = sectionsToDelete.map((sd) => sd.id).join();
-
-        const query = `
-        DELETE FROM tutorial_sections 
-        WHERE "id" IN (${idsToDelete})
-        AND "tutorialId" = ${tutorialId}
-        `;
-
-        await Client.executeQuery(query);
+            await Client.executeQuery(query);
+        }
     };
 
     /** Retrieve the sections for the tutorial */

@@ -8,12 +8,13 @@ interface RequestConfig {
 
 const method = 'POST' as any;
 const url = `gqlApi`;
-const baseURL = process.env.NEXT_PUBLIC_CRAFT_CMS_URL;
+const baseURL = 'https://host.docker.internal:443';//process.env.NEXT_PUBLIC_CRAFT_CMS_URL;
 const headers = { "Content-Type": 'application/json' };
 
 /** Sends a GraphQL request to the Craft GraphQL endpoint */
 export const CraftQL = async (query: string, params?: any): Promise<any> => {
-    let axiosConfig = { method, url, baseURL, headers, data: { query } } as AxiosRequestConfig;
+    console.log(baseURL);
+    let axiosConfig = { method, url, headers, data: { query } } as AxiosRequestConfig;
 
     if (params) {
         axiosConfig = { ...axiosConfig, params };

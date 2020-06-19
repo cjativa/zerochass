@@ -1,7 +1,4 @@
-import useMetaTags from 'react-metatags-hook';
-import { CraftQL } from '../util/services/craftGQL';
-import { EightTutorialsQuery } from '../util/queries/tutorialsQuery';
-
+import { TutorialDatabaseService } from '../util/database/classes/tutorialDatabaseService';
 import { Layout } from '../components/Layout';
 import { SiteBanner } from '../components/landing/SiteBanner';
 import { TutorialBannerList } from '../components/landing/TutorialBannerList';
@@ -22,7 +19,7 @@ const Index = ({ title, description, tutorials, keywords, ...props }) => {
 export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
   const params = (ctx.preview) ? ctx.previewData.params : null;
 
-  const tutorials = (ctx.preview) ? await CraftQL(EightTutorialsQuery(), params) : await CraftQL(EightTutorialsQuery());
+  const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite();
   const config = await import(`../siteconfig.json`);
 
   return {

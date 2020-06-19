@@ -51,7 +51,10 @@ export class TagDatabaseService {
     };
 
     /** Deletes any tags from the tutorial that are meant to be deleted from the tutorial */
-    public static async deleteTagAssociations(providedTags: string[], existingTags: { id: number, tag: string }[]) {
+    public static async deleteTagAssociations(tutorialId: number, providedTags: string[]) {
+
+        // Retrieve the tags this tutorial has in the database
+        const existingTags = await this.retrieveTagsForTutorial(tutorialId);
 
         // An existing tag would be deleted if it is not in the list of provided tags
         const tagsToDelete = existingTags.filter((existingTag) => {
@@ -92,17 +95,17 @@ export class TagDatabaseService {
     };
 
     /** Retrieves the tags associated with a tutorial */
-    public static async retrieveTagsForTutorial(tutorialId: number) {
+    public static async retrieveTagsForTutorial(tutorialId: number): Promise<{ id: number, tag: string }[]> {
 
         const query = `
-        SELECT b."tag"
+        SELECT b."id", b."tag"
         FROM tutorial_tag_relations a
         INNER JOIN tags b
         ON a."tagId" = b."id"
         WHERE a."tutorialId" = ${tutorialId}
         `;
 
-        const tags = (await Client.executeQuery(query)).rows.map((row) => row.tag);
+        const tags = (await Client.executeQuery(query)).rows;
         return tags;
     };
 }

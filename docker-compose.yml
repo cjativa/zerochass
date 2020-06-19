@@ -2,6 +2,7 @@
 version: "3.4"
 
 services:
+  
   # craft cms server
   php:
     container_name: "php"
@@ -25,13 +26,15 @@ services:
       context: .
       dockerfile: ./.docker-config/nginx/Dockerfile
     ports:
-      - "80:80"
+      - "80:80/tcp"
+      - "443:443/tcp"
     volumes:
       - ./.docker-config/nginx/conf.d:/etc/nginx/user.conf.d:ro
       - ./.docker-config/php/src/web:/var/www/html/web
     depends_on:
       - php
       - node
+    restart: always
 
   # zerochass application
   node:
@@ -39,7 +42,7 @@ services:
     build:
       context: ./.docker-config/node/
       dockerfile: Dockerfile
-      target: production
+      target: development
     volumes:
       - ./.docker-config/node:/home/node/app
       - /home/node/app/node_modules
@@ -54,7 +57,5 @@ services:
       - "3000:3000"
       - "5432:5432"
       - "35729:35729"
-    depends_on:
-      - php
     command: "npm run dev"
     # command: "pm2 start ecosystem.config.js --no-daemon"

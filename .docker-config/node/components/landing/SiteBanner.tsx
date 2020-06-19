@@ -16,7 +16,7 @@ export const SiteBanner = () => {
 
     const WriteButton = (isAuthenticated)
         ? <Link href="/write"><a className="btn btn--primary btn--sb">WRITE YOUR OWN</a></Link>
-        : <button onClick={() => toggleModal()} className="btn btn--primary btn--sb">WRITE YOUR OWN</button>;
+        : <button onClick={() => toggleModal()} className="btn btn--primary btn--sb">START WRITING</button>;
 
 
     return (

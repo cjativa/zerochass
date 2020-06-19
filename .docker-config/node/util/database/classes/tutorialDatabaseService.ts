@@ -1,3 +1,6 @@
+import slugify from 'slugify';
+import { nanoid } from 'nanoid';
+
 import { Client } from '../client';
 import { Tutorial } from '../../interfaces/tutorial';
 
@@ -61,11 +64,12 @@ export class TutorialDatabaseService {
             await TagDatabaseService.insertTags(this.tutorial.tags);
 
             // Get the ids for the tags meant to be associated with this tutorial
-            const tagIdentifierList = await TagDatabaseService.retrieveTagIds(this.tutorial.tags);
+            const tagIdentifierList = (await TagDatabaseService.retrieveTagIds(this.tutorial.tags));
             await TagDatabaseService.createTagAssociations(this.tutorial.id, tagIdentifierList);
 
             // Delete any tags no longer associated with the tutorial
-            await TagDatabaseService.deleteTagAssociations(this.tutorial.tags, tagIdentifierList);
+            const tagList = tagIdentifierList.map((ti) => ti.tag);
+            await TagDatabaseService.deleteTagAssociations(this.tutorial.id, tagList);
         }
 
         return this.tutorial.id;
@@ -90,13 +94,27 @@ export class TutorialDatabaseService {
     /** Retrieves all existing tutorials written by the user for editing */
     public async retrieveTutorials() {
         const query = `
-        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color"
+        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color", "slug"
         FROM tutorials
         WHERE "userId" = ($1)
+        ORDER BY "id" ASC
         `;
         const values = [this.userId];
 
         const tutorials = (await Client.executeQuery(query, values)).rows;
+        return tutorials;
+    };
+
+    /** Retrieves tutorials for displaying on site */
+    public static async retrieveTutorialsForSite() {
+        const query = `
+        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color", "slug"
+        FROM tutorials
+        WHERE enabled = true
+        LIMIT 8
+        `;
+
+        const tutorials = (await Client.executeQuery(query)).rows;
         return tutorials;
     };
 
@@ -141,14 +159,16 @@ export class TutorialDatabaseService {
     private async insertTutorial() {
 
         const { title, description1, description2, enabled, color, featuredImage } = this.tutorial;
-        const values = [title, description1, description2, enabled, color, featuredImage, this.userId];
+        const slug = slugify(title, { lower: true }) + nanoid(4);
 
         const query = `
         INSERT INTO tutorials 
-        ("title", "description1", "description2", "enabled", "color", "featuredImage", "userId")
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ("title", "description1", "description2", "enabled", "color", "featuredImage", "userId", "slug")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id
         `;
+        const values = [title, description1, description2, enabled, color, featuredImage, this.userId, slug];
+
 
         const { id } = (await Client.executeQuery(query, values)).rows[0];
         this.tutorial.id = id;

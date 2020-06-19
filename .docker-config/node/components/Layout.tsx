@@ -57,7 +57,7 @@ export const Layout = (props: LayoutProps) => {
             setTutorial(randomTutorial);
         };
 
-        fetchTutorialOfDay();
+        /* fetchTutorialOfDay(); */
     }, []);
 
     /** Determines if a user is authenticated client-side */

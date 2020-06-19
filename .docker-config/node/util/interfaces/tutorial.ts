@@ -3,7 +3,8 @@ type TutorialColors = 'pink' | 'teal' | 'black' | 'white';
 interface TutorialSection {
     id: number,
     title: string,
-    content: string
+    content: string,
+    isDeleted?: boolean,
 };
 
 export interface Tutorial {
@@ -31,7 +32,7 @@ export interface TutorialRequest {
     description1: string,
     description2: string,
 
-    sections: TutorialSection[],
+    sections: TutorialSection[] ,
 
     tags: string[],
     color: TutorialColors,
