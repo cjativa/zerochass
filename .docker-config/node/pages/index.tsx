@@ -19,7 +19,7 @@ const Index = ({ title, description, tutorials, keywords, ...props }) => {
 export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
   const params = (ctx.preview) ? ctx.previewData.params : null;
 
-  const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite();
+  const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite(true);
   const config = await import(`../siteconfig.json`);
 
   return {
