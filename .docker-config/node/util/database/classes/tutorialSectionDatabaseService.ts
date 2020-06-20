@@ -71,4 +71,35 @@ export class TutorialSectionService {
         const sections = (await Client.executeQuery(query, values)).rows;
         return sections;
     };
+
+    /** Retrieves the id of the tutorial that the section belongs to */
+    public static async retrieveAssociatedTutorial(sectionId: number): Promise<number> {
+
+        const query = `
+            SELECT "tutorialId"
+            FROM tutorial_sections
+            WHERE "id" = ($1)
+        `;
+        const values = [sectionId];
+
+        const { id } = (await Client
+            .executeQuery(query, values))
+            .rows.shift();
+
+        return id;
+    }
+
+    /** Retrieves all of the section id's for a specified tutorial id */
+    public static async retrieveSectionIds(tutorialId: number): Promise<number[]> {
+
+        const query = `
+            SELECT "id"
+            FROM tutorial_sections
+            WHERE "tutorialId" = ($1)
+        `;
+        const values = [tutorialId];
+
+        const sectionIds = (await Client.executeQuery(query, values)).rows.map((row) => row.id);
+        return sectionIds;
+    }
 }
