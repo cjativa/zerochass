@@ -17,10 +17,8 @@ export class TutorialProgressManager {
         const isTutorialRegistered = await Planner.isTutorialRegistered(tutorialId, plannerId);
 
         // If the tutorial is not registered, register it and add its sections
-        if (isTutorialRegistered === false) {
-            await Planner.registerTutorial(tutorialId, plannerId, userId);
-        }
-
+        if (isTutorialRegistered === false) await Planner.registerTutorial(tutorialId, plannerId, userId);
+        
         // Mark the section as complete
         const query = `
             UPDATE tutorial_sections_progress
@@ -33,7 +31,7 @@ export class TutorialProgressManager {
         await Client.executeQuery(query, values);
     }
 
-    /** Registers section progress for initialization */
+    /** Registers section for progress tracking */
     public static async registerSection(sectionId: number, userId: number) {
 
         const query = `
