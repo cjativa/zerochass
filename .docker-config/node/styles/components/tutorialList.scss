@@ -7,7 +7,7 @@
 
   .body {
     grid-area: body;
-    background-color: $tutorial_content_grid_background;
+    background-color: $mainBlack;
     padding: 30px 5px;
 
     display: grid;
@@ -46,14 +46,14 @@
   }
 
   @media (min-width: 1280px) {
-    background-color: $tutorial_page_background;
+    // background-color: $tutorial_page_background;
     grid-template-areas: ". body .";
     grid-template-columns: 1fr min-content 1fr;
 
     .body {
       padding: 30px 60px;
-      border-left: 1px solid lightgray;
-      border-right: 1px solid lightgray;
+      // border-left: 1px solid lightgray;
+      // border-right: 1px solid lightgray;
     }
   }
 }

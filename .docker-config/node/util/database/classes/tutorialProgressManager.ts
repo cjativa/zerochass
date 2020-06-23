@@ -16,14 +16,29 @@ export class TutorialProgressManager {
         const plannerId = await Planner.getPlannerId(userId);
         const isTutorialRegistered = await Planner.isTutorialRegistered(tutorialId, plannerId);
 
-        // If the tutorial is not registered, register it and add its sections
+        // If the tutorial is not registered, register it and its sections
         if (isTutorialRegistered === false) await Planner.registerTutorial(tutorialId, plannerId, userId);
-        
+
         // Mark the section as complete
         const query = `
             UPDATE tutorial_sections_progress
             SET 
             "isCompleted" = true
+            WHERE "sectionId" = ($1)
+        `;
+        const values = [sectionId];
+
+        await Client.executeQuery(query, values);
+    }
+
+    /** Marks this particular section as incomplete */
+    public static async setSectionIncomplete(sectionId: number) {
+
+        // Mark the section as complete
+        const query = `
+            UPDATE tutorial_sections_progress
+            SET 
+            "isCompleted" = false
             WHERE "sectionId" = ($1)
         `;
         const values = [sectionId];

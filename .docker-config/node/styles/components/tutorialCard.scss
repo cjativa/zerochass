@@ -1,7 +1,5 @@
 .tl-card {
     height: 260px;
-
-    border: 1px solid lightgray;
     border-radius: 10px;
     overflow: hidden;
 
@@ -29,9 +27,7 @@
         text-align: center;
         font-size: 12px;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        display: grid;
         align-items: center;
 
         height: 100%;
@@ -102,7 +98,7 @@
     }
 
     @media (min-width: 1280px) {
-        height: 310px;
+        min-height: 310px;
         width: 300px;
     }
 }
