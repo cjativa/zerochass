@@ -24,7 +24,7 @@ const Dashboard = ({ tutorials }) => {
                                 <th>Featured Image</th>
                                 <th>Color</th>
                                 <th>Tags</th>
-                                <th>Url</th>
+                                <th>Slug</th>
                             </tr>
                         </thead>
 

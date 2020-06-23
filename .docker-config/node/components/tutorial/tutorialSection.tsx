@@ -8,13 +8,13 @@ export const TutorialSection = (props) => {
         prismjs.highlightAll();
     }, []);
 
-    const {  id, progressCheck } = props;
+    const {  slug, progressCheck } = props;
     const { title, content } = props.content;
 
     return (
         <section className="section line-numbers">
             {/** Section title and content */}
-            <h2 id={id}>{title}</h2>
+            <h2 id={slug}>{title}</h2>
             <ReactMarkdown className="section__text" source={content} linkTarget="_blank" />
 
             {/** Section progress check icon */}
