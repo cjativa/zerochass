@@ -8,12 +8,23 @@
 
   &__header {
     grid-area: header;
+    position: relative;
+  }
+
+  &__actions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -33px;
+
+    margin: auto;
+    width: fit-content;
   }
 
   &__body {
     grid-area: body;
     background-color: $tutorial_content_grid_background;
-    padding: 30px 15px;
+    padding: 2em 1em;
 
     display: grid;
     grid-template-areas:
@@ -46,13 +57,17 @@
   }
 
   @media (min-width: 768px) {
+    &__body {
+      padding: 5em 3em;
+    }
+
     .sections {
       display: grid;
       justify-content: center;
     }
 
     .section-item {
-      width: 550px;
+      width: 630px;
     }
   }
 
@@ -73,13 +88,17 @@
     }
 
     &__body {
-      padding: 40px 35px;
       grid-template-areas:
         "sections sidebarColumn"
         "sections sidebarColumn"
         "relatedEntries sidebarColumn";
       grid-template-columns: 1fr min-content;
-      column-gap: 70px;
+      column-gap: 10em;
+    }
+
+    .sections {
+      display: grid;
+      justify-content: left;
     }
   }
 }

@@ -1,11 +1,12 @@
 import { useEffect, useState, createRef } from 'react';
 
 import { slugify } from '../../util/services/slugify';
-import { TutorialHeader } from '../../components/tutorial/tutorialHeader';
-import { TutorialSection } from '../../components/tutorial/tutorialSection';
-import { SectionsBar } from '../../components/tutorial/sectionsBar';
-import { ShareBar } from '../../components/tutorial/shareBar';
-import { ProgressCheck } from '../../components/tutorial/progressCheck';
+import { TutorialHeader } from './tutorialHeader';
+import { ActionBar } from './actionBar';
+import { TutorialSection } from './tutorialSection';
+import { SectionsBar } from './sectionsBar';
+import { ShareBar } from './shareBar';
+import { ProgressCheck } from './progressCheck';
 
 export const Tutorial = ({ tutorial }) => {
     if (!tutorial) return <></>
@@ -115,6 +116,11 @@ export const Tutorial = ({ tutorial }) => {
             {/* Header section containing the tutorial image and title */}
             <div className="tutorial-page__header">
                 <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
+
+                {/** Display the tutorial actions */}
+                <div className="tutorial-page__actions">
+                    <ActionBar />
+                </div>
             </div>
 
             {/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
