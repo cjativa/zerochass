@@ -21,6 +21,9 @@ export interface Tutorial {
 
     featuredImage: string,
     enabled: boolean,
+
+    codeUrl?: string,
+    liveUrl?: string,
 };
 
 /** A tutorial request can have 

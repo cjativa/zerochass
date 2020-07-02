@@ -19,7 +19,10 @@ export const Sidebar = (props) => {
         color, setColor,
         enabled, setEnabled,
         featuredImage, setFeaturedImage,
-        onSave } = props;
+        onSave,
+        codeUrl, setCodeUrl,
+        liveUrl, setLiveUrl
+    } = props;
 
     const [matchingTags, setMatchingTags] = useState([]);
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
@@ -112,27 +115,7 @@ export const Sidebar = (props) => {
 
     return (
 
-        < div className="write__sidebar" >
-
-            <div className="write__sidebar write__sidebar-bottom outline block">
-                {/** Action buttons */}
-                <div className="write__actions">
-                    <button className="btn btn--secondary btn--slim">Preview</button>
-                    <button onClick={() => onSave()} className="btn btn--primary btn--slim">Save</button>
-                </div>
-
-                {/** Enablement switch */}
-                <div className="write__enable">
-                    <label className="enable-text">Enabled</label>
-                    <ReactSwitch
-                        height={24}
-                        onChange={onEnabledChange}
-                        onColor={'#45b914'}
-                        checked={enabled}
-                        checkedIcon={false}
-                        uncheckedIcon={false} />
-                </div>
-            </div>
+        <div className="write__sidebar">
 
             <div className="write__sidebar write__sidebar--top outline block">
                 {/** Featured image */}
@@ -155,13 +138,59 @@ export const Sidebar = (props) => {
                 {/** Color */}
                 <div className="form-field">
                     <label className="form-field__label">Color</label>
-                    <span className="form-field__hint">Select the color for your post header</span>
+                    <span className="form-field__hint">Set a color for your post header</span>
                     <ReactSelect
                         id={"react-select"}
                         value={displayedColor}
                         onChange={onColorSelect}
                         options={colorOptions}
                         className="slim"
+                    />
+                </div>
+            </div>
+
+            <div className="write__sidebar write__sidebar-bottom outline block">
+                {/** Action buttons */}
+                <div className="write__actions">
+                    <button className="btn btn--secondary btn--slim">Preview</button>
+                    <button onClick={() => onSave()} className="btn btn--primary btn--slim">Save</button>
+                </div>
+
+                {/** Enablement switch */}
+                <div className="write__enable">
+                    <label className="enable-text">Enabled</label>
+                    <ReactSwitch
+                        height={24}
+                        onChange={onEnabledChange}
+                        onColor={'#45b914'}
+                        checked={enabled}
+                        checkedIcon={false}
+                        uncheckedIcon={false} />
+                </div>
+            </div>
+
+            <div className="write__sidebar write__sidebar--middle outline block">
+
+                {/** Code Repository URL */}
+                <div className="form-field">
+                    <label className="form-field__label">Code Repository</label>
+                    <span className="form-field__hint">Have a repo? Link it here</span>
+                    <input className="form-field__input form-field--blue slim"
+                        type="text"
+                        value={codeUrl}
+                        onChange={(e) => setCodeUrl(e.target.value)}
+                    />
+                </div>
+
+                {/** Live URL */}
+                <div className="form-field">
+                    <label className="form-field__label">Live Site</label>
+                    <span className="form-field__hint">You can link a demo site here</span>
+                    <input className="form-field__input form-field--blue slim pl"
+                        type="text"
+                        value={liveUrl}
+                        onChange={(e) => setLiveUrl(e.target.value)}
+                        placeholder="CodePen, StackBlitz, etc."
                     />
                 </div>
 
@@ -207,6 +236,8 @@ export const Sidebar = (props) => {
                     }
 
                 </div>
+
+
             </div>
 
         </div >

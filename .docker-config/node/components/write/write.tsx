@@ -40,6 +40,8 @@ export const Write = (props: Props) => {
     const [color, setColor] = useState(tutorial.color || 'pink');
     const [enabled, setEnabled] = useState(tutorial.enabled || false);
     const [featuredImage, setFeaturedImage] = useState(tutorial.featuredImage || '');
+    const [codeUrl, setCodeUrl] = useState(tutorial.codeUrl || '');
+    const [liveUrl, setLiveUrl] = useState(tutorial.liveUrl || '');
 
     const [saveOccurred, setSaveOccurred] = useState(null);
 
@@ -118,6 +120,8 @@ export const Write = (props: Props) => {
                     enabled={enabled} setEnabled={setEnabled}
                     featuredImage={featuredImage} setFeaturedImage={setFeaturedImage}
                     onSave={onSave}
+                    liveUrl={liveUrl} setLiveUrl={setLiveUrl}
+                    codeUrl={codeUrl} setCodeUrl={setCodeUrl}
                 />
 
             </div>
