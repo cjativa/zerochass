@@ -119,10 +119,13 @@
         }
     }
 
-    @media (min-width: 768px) {
-        &__sidebar {
-            padding-top: 1em;
+    .pl {
+        &::placeholder {
+            font-size: 14px;
         }
+    }
+
+    @media (min-width: 768px) {
 
         &__foundtags {
             top: 113px;
