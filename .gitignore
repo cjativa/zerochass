@@ -8,3 +8,4 @@ ebdeploy.zip
 !.elasticbeanstalk/*.global.yml
 
 letsencrypt.zip
+dump-*
