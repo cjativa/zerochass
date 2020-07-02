@@ -1,47 +1,73 @@
-.ta-bar {
-    &__btn {
+.tutorial-action-bar {
+    .ta-bar {
+        position: absolute;
+        margin: auto;
+        width: fit-content;
+        bottom: -33px;
 
-
-        i.fa-circle {
-            text-shadow: 0px 0px 2px #f5edef
+        &--center {
+            left: 0;
+            right: 0;
         }
 
-        &:hover {
-            cursor: pointer;
+        &--right {
+            right: 3em;
         }
 
-        &--code {
-            i:first-of-type {
-                color: #ff3366;
+        &__btn {
+            i.fa-circle {
+                text-shadow: 0px 0px 2px #f5edef;
             }
 
             &:hover {
+                cursor: pointer;
+            }
+
+            &--code {
                 i:first-of-type {
-                    color: #ff4f7e;
+                    color: #ff3366;
+                }
+
+                &:hover {
+                    i:first-of-type {
+                        color: #ff4f7e;
+                    }
                 }
             }
-        }
 
-        &--comments {
-            i:first-of-type {
-                color: #f15946;
-            }
-
-            &:hover {
+            &--comments {
                 i:first-of-type {
-                    color: #f86753;
+                    color: #f15946;
+                }
+
+                &:hover {
+                    i:first-of-type {
+                        color: #f86753;
+                    }
                 }
             }
-        }
 
-        &--enrolls {
-            i:first-of-type {
-                color: #f9c22e;
+            &--enrolls {
+                i:first-of-type {
+                    color: #f9c22e;
+                }
+
+                &:hover {
+                    i:first-of-type {
+                        color: #ffd04f;
+                    }
+                }
             }
 
-            &:hover {
+            &--planner {
                 i:first-of-type {
-                    color: #ffd04f;
+                    color: #45b914;
+                }
+
+                &:hover {
+                    i:first-of-type {
+                        color: #5cd12a;
+                    }
                 }
             }
         }

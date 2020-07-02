@@ -118,9 +118,7 @@ export const Tutorial = ({ tutorial }) => {
                 <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
 
                 {/** Display the tutorial actions */}
-                <div className="tutorial-page__actions">
-                    <ActionBar />
-                </div>
+                <ActionBar />
             </div>
 
             {/** Body section containing the tutorial content and share bars, sections, and related tutorials */}

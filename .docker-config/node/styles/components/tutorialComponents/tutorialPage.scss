@@ -11,16 +11,6 @@
     position: relative;
   }
 
-  &__actions {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -33px;
-
-    margin: auto;
-    width: fit-content;
-  }
-
   &__body {
     grid-area: body;
     background-color: $tutorial_content_grid_background;
