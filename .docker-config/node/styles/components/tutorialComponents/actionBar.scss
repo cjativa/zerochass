@@ -14,11 +14,11 @@
             right: 3em;
         }
 
-        &__btn {
-            i.fa-circle {
-                text-shadow: 0px 0px 2px #f5edef;
-            }
+        i.fa-circle {
+            text-shadow: 0px 0px 2px #f5edef;
+        }
 
+        &__btn {
             &:hover {
                 cursor: pointer;
             }

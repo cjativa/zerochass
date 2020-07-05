@@ -8,9 +8,13 @@ export const TutorialHeader = (props) => {
                     <img className="featured-image" src={featuredImage} />}
             </div>
             <ul className="tutorial-header__tags">
-                {tags && tags.map((tag, index) => {
-                    return (<li className="tutorial-header__tag" key={index}>{`#${tag.tag}`}</li>)
-                })}
+                {tags && tags.map((tag, index) =>
+                    <li className="tutorial-header__tag"
+                        key={index}
+                    >
+                        {`#${tag.tag}`}
+                    </li>
+                )}
             </ul>
             <h1 className="tutorial-header__title">{title}</h1>
         </header>

@@ -25,7 +25,7 @@ export const ActionBar = (props) => {
             </div>
 
             <div className="ta-bar ta-bar--right">
-                {/** Code icon */}
+                {/** Bookmark icon */}
                 <span className="ta-bar__btn ta-bar__btn--planner fa-stack fa-2x" >
                     <i className={`fas fa-circle fa-stack-2x`} />
                     <i className={`fas fa-bookmark fa-stack-1x fa-inverse`} />
