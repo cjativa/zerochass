@@ -56,9 +56,24 @@
       display: grid;
       grid-auto-rows: min-content;
       row-gap: 3px;
+      justify-content: end;
+      justify-items: end;
 
       text-align: right;
       font-size: 16px;
+    }
+
+    &__tag {
+      background: rgba(240, 248, 255, 0.41);
+      width: fit-content;
+
+      padding: 5px 10px;
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(240, 248, 255, 0.664);
+        cursor: pointer;
+      }
     }
   }
 
