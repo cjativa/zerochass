@@ -9,7 +9,7 @@ export const TutorialHeader = (props) => {
             </div>
             <ul className="tutorial-header__tags">
                 {tags && tags.map((tag, index) => {
-                    return (<li key={index}>{`${tag.tag}`}</li>)
+                    return (<li key={index}>{`#${tag.tag}`}</li>)
                 })}
             </ul>
             <h1 className="tutorial-header__title">{title}</h1>
