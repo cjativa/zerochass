@@ -67,10 +67,14 @@ const handleAccess = (request, response) => {
     return authenticated;
 };
 
-/** Adds userId and access token to request object for authenticated routes to look up user information */
+/** Protects secured API routes against non-authenticated sessions.
+ * Also adds userId and access token to request object for authenticated sessions */
 const protectWithAuthentication = (handler) => (request, response) => {
+
+    // Determine if the session is authenticated
     const isAuthenticated = handleAccess(request, response);
 
+    // If the session was authenticated, allows the requested endpoint to handle responding
     if (isAuthenticated) return handler(request, response);
 };
 
