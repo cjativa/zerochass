@@ -7,7 +7,7 @@ export const SectionsBar = (props) => {
                 <span>Tutorial Content</span>
                 <ul>
                     {sectionInformation.map((section, index) => {
-                        return (<li key={index}><a href={`#${section.id}`}>{section.title}</a></li>)
+                        return (<li key={index}><a href={`#${section.slug}`}>{section.title}</a></li>)
                     })}
                 </ul>
             </div>

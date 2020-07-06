@@ -143,7 +143,11 @@ export const Tutorial = ({ tutorial }) => {
                         const slug = slugify(section.title);
 
                         // Build the Progress Check component
-                        const progressCheck = <ProgressCheck index={index} onProgressClick={onProgressClick} sectionComplete={sectionComplete} />;
+                        const progressCheck = <ProgressCheck
+                            index={index}
+                            onProgressClick={onProgressClick}
+                            sectionComplete={sectionComplete}
+                        />;
 
                         // Return the composed Section component
                         return (
