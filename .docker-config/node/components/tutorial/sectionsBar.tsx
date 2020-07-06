@@ -6,9 +6,11 @@ export const SectionsBar = (props) => {
             <div className="content-box">
                 <span>Tutorial Content</span>
                 <ul>
-                    {sectionInformation.map((section, index) => {
-                        return (<li key={index}><a href={`#${section.slug}`}>{section.title}</a></li>)
-                    })}
+                    {sectionInformation.map((section, index) =>
+                        <li key={index}>
+                            <a href={`#${section.slug}`}>{section.title}</a>
+                        </li>
+                    )}
                 </ul>
             </div>
         </div>
