@@ -2,7 +2,7 @@ import { Client } from '../client';
 import { TutorialSectionService } from './tutorialSectionDatabaseService';
 import { TutorialProgressManager } from './tutorialProgressManager';
 
-export class Planner {
+export default class Planner {
 
     /** Get the id of the planner belonging to the user */
     public static async getPlannerId(userId: number): Promise<number> {
@@ -31,6 +31,19 @@ export class Planner {
         await Promise.all(registrations);
     }
 
+    /** Unregisters this tutorial from a user's planner */
+    public static async unregisterTutorial(tutorialId: number, plannerId: number, userId: number): Promise<void> {
+
+        // Remove this tutorial from the planner
+        await this.deleteTutorial(tutorialId, plannerId);
+
+        // Unregister all of its sections from the tutorial section progress table
+        const sectionIds = await TutorialSectionService.retrieveSectionIds(tutorialId);
+        const unregistrations = sectionIds.map((sectionId) => TutorialProgressManager.unregisterSection(sectionId, userId));
+
+        await Promise.all(unregistrations);
+    }
+
     /** Checks if the provided tutorial is registered in the user's planner */
     public static async isTutorialRegistered(tutorialId: number, plannerId: number): Promise<boolean> {
 
@@ -54,6 +67,18 @@ export class Planner {
             INSERT INTO planner_detail 
             ("plannerId", "tutorialId")
             VALUES ($1, $2)
+        `;
+        const values = [plannerId, tutorialId];
+
+        await Client.executeQuery(query, values);
+    }
+
+    /** Removes a tutorial id from the planner detail */
+    private static async deleteTutorial(tutorialId: number, plannerId: number) {
+
+        const query = `
+            DELETE FROM planner_detail 
+            WHERE "plannerId" = ($1) AND "tutorialId" = ($2)
         `;
         const values = [plannerId, tutorialId];
 

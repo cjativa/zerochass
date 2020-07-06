@@ -1,5 +1,5 @@
 import { Client } from '../client';
-import { Planner } from './planner';
+import Planner from './planner';
 import { TutorialSectionService } from './tutorialSectionDatabaseService';
 
 export class TutorialProgressManager {
@@ -53,6 +53,18 @@ export class TutorialProgressManager {
             INSERT INTO tutorial_sections_progress
             ("sectionId", "userId")
             VALUES ($1, $2)
+        `;
+        const values = [sectionId, userId];
+
+        await Client.executeQuery(query, values);
+    }
+
+    /** Unregisters section from progress tracking */
+    public static async unregisterSection(sectionId: number, userId: number) {
+
+        const query = `
+        DELETE FROM tutorial_sections_progress
+        WHERE "sectionId" = ($1) AND "userId" = ($2)  
         `;
         const values = [sectionId, userId];
 
