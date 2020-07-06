@@ -1,5 +1,5 @@
 import { useEffect, useState, createRef } from 'react';
-
+import axios from 'axios';
 import { slugify } from '../../util/services/slugify';
 import { TutorialHeader } from './tutorialHeader';
 import { ActionBar } from './actionBar';
@@ -20,7 +20,7 @@ export const Tutorial = ({ tutorial }) => {
 
     /** Effects to occur on mount */
     useEffect(() => {
-        parseContentSections();
+        generateSectionBarContent();
 
         if (tutorial.hasOwnProperty('parent')) {
             setupTutorialSeries();
@@ -38,7 +38,8 @@ export const Tutorial = ({ tutorial }) => {
 
     }, [sectionInformation]);
 
-    const parseContentSections = () => {
+    /** Iterates through each tutorial section to set up content for the Sections Bar */
+    const generateSectionBarContent = () => {
 
         const { sections } = tutorial;
         const sectionInformation = [];
@@ -52,7 +53,7 @@ export const Tutorial = ({ tutorial }) => {
         });
 
         setSectionInformation(sectionInformation);
-    }
+    };
 
     const setupTutorialSeries = () => {
         const entries = tutorial.parent.children;
@@ -81,13 +82,12 @@ export const Tutorial = ({ tutorial }) => {
 
             nextEntry = { title, link };
         }
-    }
+    };
 
+    /** Handles scrolling to the next proceeding section during a progress checkmark click */
     const onProgressClick = (index: number) => {
 
         const nextIndex = index + 1;
-
-
 
         if (nextIndex !== sectionInformation.length) {
 
@@ -104,11 +104,21 @@ export const Tutorial = ({ tutorial }) => {
         const sections = [...sectionInformation];
         sections[index].sectionComplete = !sections[index].sectionComplete;
 
-
         setSectionInformation(sections);
-    }
-    const keywords = tags.map((tag) => tag.title).join();
-    const descriptions = `${description1} ${description2}`;
+    };
+
+    /** Handles enrolling a user into the tutorial */
+    const onEnrollClick = async () => {
+        console.log(`Going to handle enrollment click for tutorial ${tutorial.id}`);
+
+        const response = await axios({
+            url: '/api/planner/enroll',
+            method: 'POST',
+            data: { tutorialId: tutorial.id }
+        });
+
+        console.log(response.data);
+    };
 
     return (
         <article className="tutorial-page">
@@ -118,7 +128,7 @@ export const Tutorial = ({ tutorial }) => {
                 <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
 
                 {/** Display the tutorial actions */}
-                <ActionBar />
+                <ActionBar onEnrollClick={onEnrollClick} />
             </div>
 
             {/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
