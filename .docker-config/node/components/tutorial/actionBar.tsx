@@ -26,7 +26,7 @@ export const ActionBar = (props) => {
 
             <div className="ta-bar ta-bar--right">
                 {/** Bookmark icon */}
-                <span className="ta-bar__btn ta-bar__btn--planner fa-stack fa-2x" >
+                <span className="ta-bar__btn ta-bar__btn--planner fa-stack fa-2x" onClick={props.onEnrollClick}>
                     <i className={`fas fa-circle fa-stack-2x`} />
                     <i className={`fas fa-bookmark fa-stack-1x fa-inverse`} />
                 </span>
