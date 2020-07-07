@@ -1,6 +1,11 @@
 type TutorialColors = 'pink' | 'teal' | 'black' | 'white';
 
-interface TutorialSection {
+export interface TutorialProgress {
+    isTutorialRegistered: boolean,
+    sectionProgress: any[]
+}
+
+export interface TutorialSection {
     id: number,
     title: string,
     content: string,
