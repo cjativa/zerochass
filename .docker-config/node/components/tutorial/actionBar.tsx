@@ -1,6 +1,9 @@
 
 export const ActionBar = (props) => {
 
+    const { onEnrollClick, isTutorialRegistered } = props;
+    const enrolledStyle = (isTutorialRegistered) ? 'enrolled' : '';
+
     return (
         <div className="tutorial-action-bar">
 
@@ -26,9 +29,9 @@ export const ActionBar = (props) => {
 
             <div className="ta-bar ta-bar--right">
                 {/** Bookmark icon */}
-                <span className="ta-bar__btn ta-bar__btn--planner fa-stack fa-2x" onClick={props.onEnrollClick}>
+                <span className="ta-bar__btn ta-bar__btn--planner fa-stack fa-2x" onClick={onEnrollClick}>
                     <i className={`fas fa-circle fa-stack-2x`} />
-                    <i className={`fas fa-bookmark fa-stack-1x fa-inverse`} />
+                    <i className={`fas fa-bookmark fa-stack-1x fa-inverse ${enrolledStyle}`} />
                 </span>
             </div>
 
