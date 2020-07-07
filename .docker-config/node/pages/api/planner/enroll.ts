@@ -68,7 +68,10 @@ const handleTutorialEnrollment = async (request, response) => {
         }
     }
 
-    response.json(`Completed`);
+    // Return the final status of the tutorial being registered
+    const isTutorialRegistered = await Planner.isTutorialRegistered(tutorialId, plannerId);
+
+    response.json({ isTutorialRegistered });
 };
 
 

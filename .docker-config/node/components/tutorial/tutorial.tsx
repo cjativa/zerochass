@@ -7,6 +7,7 @@ import { TutorialSection } from './tutorialSection';
 import { SectionsBar } from './sectionsBar';
 import { ShareBar } from './shareBar';
 import { ProgressCheck } from './progressCheck';
+import { TutorialProgress } from '../../util/interfaces/tutorial';
 
 export const Tutorial = ({ tutorial }) => {
     if (!tutorial) return <></>
@@ -18,13 +19,23 @@ export const Tutorial = ({ tutorial }) => {
     const [sectionRefs, setSectionRefs] = useState([]);
     const [sectionInformation, setSectionInformation] = useState([]);
 
+    const [isTutorialRegistered, setIsTutorialRegistered] = useState(null);
+    const [sectionProgress, setSectionProgress] = useState([]);
+
     /** Effects to occur on mount */
     useEffect(() => {
+
+        // Generate the section bar content
         generateSectionBarContent();
 
+        // If this tutorial is part of a series, set up the next - prev links
         if (tutorial.hasOwnProperty('parent')) {
             setupTutorialSeries();
         }
+
+        // Retrieve information on the user's progress with this tutorial
+        retrieveTutorialProgress();
+
     }, []);
 
     /** Effects to occur when section information changes */
@@ -109,15 +120,30 @@ export const Tutorial = ({ tutorial }) => {
 
     /** Handles enrolling a user into the tutorial */
     const onEnrollClick = async () => {
-        console.log(`Going to handle enrollment click for tutorial ${tutorial.id}`);
 
-        const response = await axios({
+        // The user should become unenrolled if the tutorial is registered
+        // and they should be enrolled if the tutorial is not already registered
+        const shouldBeEnrolled = (isTutorialRegistered) ? false : true;
+
+        const { isTutorialRegistered: updatedRegistration } = (await axios({
             url: '/api/planner/enroll',
             method: 'POST',
-            data: { tutorialId: tutorial.id }
-        });
+            data: { tutorialId: tutorial.id, shouldBeEnrolled }
+        })).data;
 
-        console.log(response.data);
+        setIsTutorialRegistered(updatedRegistration);
+    };
+
+    /** Retrieves information on the user's progress with this tutorial */
+    const retrieveTutorialProgress = async () => {
+
+        const { isTutorialRegistered, sectionProgress } = (await axios({
+            url: `/api/planner/enroll?tutorialId=${tutorial.id}`,
+            method: 'GET'
+        })).data as TutorialProgress;
+
+        setIsTutorialRegistered(isTutorialRegistered);
+        setSectionProgress(sectionProgress);
     };
 
     return (
@@ -128,7 +154,7 @@ export const Tutorial = ({ tutorial }) => {
                 <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
 
                 {/** Display the tutorial actions */}
-                <ActionBar onEnrollClick={onEnrollClick} />
+                <ActionBar onEnrollClick={onEnrollClick} isTutorialRegistered={isTutorialRegistered} />
             </div>
 
             {/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
@@ -147,7 +173,9 @@ export const Tutorial = ({ tutorial }) => {
                 <div className="sections">
                     {sections.map((section, index) => {
 
-                        const sectionComplete = (sectionInformation.length > 0) ? sectionInformation[index].sectionComplete : null;
+                        const sectionComplete = (sectionInformation.length > 0)
+                            ? sectionInformation[index].sectionComplete
+                            : null;
 
                         // Slugify the title
                         const slug = slugify(section.title);
