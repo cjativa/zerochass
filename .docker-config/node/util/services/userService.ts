@@ -1,5 +1,6 @@
 import { Client } from '../database/client';
 import { SignUpInformation, UserProfileInformation } from '../interfaces/userInterfaces';
+import Planner from '../database/classes/planner';
 
 type AuthProvider = 'GITHUB' | 'TWITTER';
 
@@ -19,12 +20,16 @@ const signUp = async (information: SignUpInformation, provider: AuthProvider) =>
 
     // If they don't, sign them up
     if (!exists) {
+
         // Get the auth provider id and userId after insertion
         const providerId = getIdForProvider(provider);
         userId = await insertUser(information, providerId);
 
         // Add their user account info
         await insertUserAccountInformation(information, userId);
+
+        // Create their planner 
+        await Planner.createPlanner(userId);
     }
 
     else { userId = foundUserId };

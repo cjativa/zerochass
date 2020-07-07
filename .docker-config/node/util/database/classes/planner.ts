@@ -4,6 +4,18 @@ import { TutorialProgressManager } from './tutorialProgressManager';
 
 export default class Planner {
 
+    /** Creates the planner entry for the user */
+    public static async createPlanner(userId: number) {
+
+        const query = `
+            INSERT into planner ("userId")
+            VALUES ($1)
+        `;
+        const values = [userId];
+
+        await Client.executeQuery(query, values);
+    }
+
     /** Get the id of the planner belonging to the user */
     public static async getPlannerId(userId: number): Promise<number> {
 
@@ -44,6 +56,7 @@ export default class Planner {
         await Promise.all(unregistrations);
     }
 
+
     /** Checks if the provided tutorial is registered in the user's planner */
     public static async isTutorialRegistered(tutorialId: number, plannerId: number): Promise<boolean> {
 
@@ -56,9 +69,11 @@ export default class Planner {
         `;
         const values = [tutorialId, plannerId];
 
-        const result = await Client.executeQuery(query, values);
-        return result;
+        const { exists } = (await Client.executeQuery(query, values)).rows.shift();
+        return exists;
     }
+
+
 
     /** Inserts a tutorial id into the planner detail */
     private static async insertTutorial(tutorialId: number, plannerId: number) {
