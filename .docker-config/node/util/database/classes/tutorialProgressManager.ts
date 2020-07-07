@@ -2,13 +2,14 @@ import { Client, } from '../client';
 import QueryHelpers from '../queryHelpers';
 import Planner from './planner';
 import { TutorialSectionService } from './tutorialSectionDatabaseService';
+import { SectionProgress } from '../../interfaces/tutorial';
 
 export class TutorialProgressManager {
 
     /** Registers the section this tutorial belongs to the user's Planner 
      * and marks this particular section as complete
      */
-    public static async setSectionComplete(userId: number, sectionId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
+    public static async setSectionComplete(userId: number, sectionId: number): Promise<SectionProgress> {
 
         // Get the tutorial id this section belongs to
         const tutorialId = await TutorialSectionService.retrieveAssociatedTutorial(sectionId);
@@ -24,37 +25,47 @@ export class TutorialProgressManager {
         return await this.executeSectionComplete(sectionId, userId);
     }
 
-    private static async executeSectionComplete(sectionId: number, userId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
+    private static async executeSectionComplete(sectionId: number, userId: number): Promise<SectionProgress> {
 
         const query = `
-            UPDATE tutorial_sections_progress
-            SET 
-            "isCompleted" = true
-            WHERE "sectionId" = ($1) AND "userId" = ($2)
-            RETURNING "isCompleted", "sectionId"
+            INSERT INTO tutorial_sections_progress
+            ("sectionId", "userId", "isComplete")
+            VALUES ($1, $2, true)
+
+            ON CONFLICT ("sectionId", "userId") 
+            DO UPDATE
+                SET 
+                "isComplete" = true
+                WHERE EXCLUDED."sectionId" = ($1) AND EXCLUDED."userId" = ($2)
+
+            RETURNING "isComplete", "sectionId"
         `;
         const values = [sectionId, userId];
 
         const row = (await Client.executeQuery(query, values)).rows.shift();
-        console.log(row);
         return row;
     }
 
     /** Marks this particular section as incomplete */
-    public static async setSectionIncomplete(sectionId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
+    public static async setSectionIncomplete(sectionId: number, userId: number): Promise<SectionProgress> {
 
         // Mark the section as complete
         const query = `
-            UPDATE tutorial_sections_progress
+        INSERT INTO tutorial_sections_progress
+        ("sectionId", "userId", "isComplete")
+        VALUES ($1, $2, false)
+
+        ON CONFLICT ("sectionId", "userId") 
+        DO UPDATE
             SET 
-            "isCompleted" = false
-            WHERE "sectionId" = ($1) AND "userId" = ($2)
-            RETURNING "isCompleted", "sectionId"
+            "isComplete" = false
+            WHERE EXCLUDED."sectionId" = ($1) AND EXCLUDED."userId" = ($2)
+
+        RETURNING "isComplete", "sectionId"
         `;
-        const values = [sectionId];
+        const values = [sectionId, userId];
 
         const row = (await Client.executeQuery(query, values)).rows.shift();
-        console.log(row);
         return row;
     }
 
