@@ -8,7 +8,7 @@ export class TutorialProgressManager {
     /** Registers the section this tutorial belongs to the user's Planner 
      * and marks this particular section as complete
      */
-    public static async setSectionComplete(userId: number, sectionId: number): Promise<void> {
+    public static async setSectionComplete(userId: number, sectionId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
 
         // Get the tutorial id this section belongs to
         const tutorialId = await TutorialSectionService.retrieveAssociatedTutorial(sectionId);
@@ -17,34 +17,45 @@ export class TutorialProgressManager {
         const plannerId = await Planner.getPlannerId(userId);
         const isTutorialRegistered = await Planner.isTutorialRegistered(tutorialId, plannerId);
 
-        // If the tutorial is not registered, register it and its sections
+        // If the tutorial is not registered, register it
         if (isTutorialRegistered === false) await Planner.registerTutorial(tutorialId, plannerId, userId);
 
         // Mark the section as complete
+        return await this.executeSectionComplete(sectionId, userId);
+    }
+
+    private static async executeSectionComplete(sectionId: number, userId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
+
         const query = `
             UPDATE tutorial_sections_progress
             SET 
             "isCompleted" = true
-            WHERE "sectionId" = ($1)
+            WHERE "sectionId" = ($1) AND "userId" = ($2)
+            RETURNING "isCompleted", "sectionId"
         `;
-        const values = [sectionId];
+        const values = [sectionId, userId];
 
-        await Client.executeQuery(query, values);
+        const row = (await Client.executeQuery(query, values)).rows.shift();
+        console.log(row);
+        return row;
     }
 
     /** Marks this particular section as incomplete */
-    public static async setSectionIncomplete(sectionId: number): Promise<void> {
+    public static async setSectionIncomplete(sectionId: number): Promise<{ isCompleted: boolean, sectionId: number }> {
 
         // Mark the section as complete
         const query = `
             UPDATE tutorial_sections_progress
             SET 
             "isCompleted" = false
-            WHERE "sectionId" = ($1)
+            WHERE "sectionId" = ($1) AND "userId" = ($2)
+            RETURNING "isCompleted", "sectionId"
         `;
         const values = [sectionId];
 
-        await Client.executeQuery(query, values);
+        const row = (await Client.executeQuery(query, values)).rows.shift();
+        console.log(row);
+        return row;
     }
 
     /** Registers section for progress tracking */
