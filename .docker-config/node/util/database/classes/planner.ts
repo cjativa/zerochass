@@ -49,7 +49,7 @@ export default class Planner {
         // Remove this tutorial from the planner
         await this.deleteTutorial(tutorialId, plannerId);
 
-        // Unregister all of its sections from the tutorial section progress table
+        // Unregister all of its sections from  the tutorial section progress table
         const sectionIds = await TutorialSectionService.retrieveSectionIds(tutorialId);
         const unregistrations = sectionIds.map((sectionId) => TutorialProgressManager.unregisterSection(sectionId, userId));
 
