@@ -82,11 +82,11 @@ export class TutorialSectionService {
         `;
         const values = [sectionId];
 
-        const { id } = (await Client
+        const { tutorialId } = (await Client
             .executeQuery(query, values))
             .rows.shift();
 
-        return id;
+        return tutorialId;
     }
 
     /** Retrieves all of the section id's for a specified tutorial id */
