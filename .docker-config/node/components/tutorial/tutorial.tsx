@@ -1,4 +1,4 @@
-import { useEffect, useState, createRef } from 'react';
+import { useEffect, useState, createRef, useContext } from 'react';
 import axios from 'axios';
 import { slugify } from '../../util/services/slugify';
 import { TutorialHeader } from './tutorialHeader';
@@ -7,7 +7,10 @@ import { TutorialSection } from './tutorialSection';
 import { SectionsBar } from './sectionsBar';
 import { ShareBar } from './shareBar';
 import { ProgressCheck } from './progressCheck';
-import { TutorialProgress } from '../../util/interfaces/tutorial';
+import { TutorialProgress, SectionProgress } from '../../util/interfaces/tutorial';
+import { AuthenticationContext } from '../Layout';
+import { AuthenticationDialog } from '../shared/authenticationDialog';
+
 
 export const Tutorial = ({ tutorial }) => {
     if (!tutorial) return <></>
@@ -22,6 +25,10 @@ export const Tutorial = ({ tutorial }) => {
     const [isTutorialRegistered, setIsTutorialRegistered] = useState(null);
     const [sectionProgress, setSectionProgress] = useState([]);
 
+    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
+
+    console.log(`From tutorial, user is authenticated ${isAuthenticated}`);
+
     /** Effects to occur on mount */
     useEffect(() => {
 
@@ -34,9 +41,9 @@ export const Tutorial = ({ tutorial }) => {
         }
 
         // Retrieve information on the user's progress with this tutorial
-        retrieveTutorialProgress();
+        if (isAuthenticated) retrieveTutorialProgress();
 
-    }, []);
+    }, [isAuthenticated]);
 
     /** Effects to occur when section information changes */
     useEffect(() => {
@@ -96,9 +103,10 @@ export const Tutorial = ({ tutorial }) => {
     };
 
     /** Handles scrolling to the next proceeding section during a progress checkmark click */
-    const onProgressClick = (sectionId: number) => {
+    const onProgressClick = async (sectionId: number) => {
 
         const sectionIndexToUpdate = sectionInformation.findIndex((section) => section.id == sectionId);
+        const sectionToUpdate = sectionInformation[sectionIndexToUpdate];
         const nextIndex = sectionIndexToUpdate + 1;
 
         // Handles scrolling the page down to the next section
@@ -111,12 +119,23 @@ export const Tutorial = ({ tutorial }) => {
             // Scroll down to the next item
             const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'smooth' });
+        }        
+
+        // If the user is authenticated, let's mark this section complete/incomplete for them
+        if (isAuthenticated) {
+
+            // If the section is complete, it should be marked to false
+            // Otherwise, if it's not complete, it should be marked to true
+            const complete = (sectionToUpdate.sectionComplete) ? false : true;
+
+            const { isCompleted } = (await axios({
+                url: `/api/sections/${sectionId}`,
+                method: 'POST',
+                data: { complete }
+            })).data as SectionProgress;
         }
 
-        // Update the state that this section has been marked completed
-        const sectionToUpdate = sectionInformation[sectionIndexToUpdate];
         sectionToUpdate.sectionComplete = !sectionToUpdate.sectionComplete;
-
         setSectionInformation([...sectionInformation]);
     };
 
