@@ -1,4 +1,5 @@
-import { Client } from '../client';
+import { Client, } from '../client';
+import QueryHelpers from '../queryHelpers';
 import Planner from './planner';
 import { TutorialSectionService } from './tutorialSectionDatabaseService';
 
@@ -7,7 +8,7 @@ export class TutorialProgressManager {
     /** Registers the section this tutorial belongs to the user's Planner 
      * and marks this particular section as complete
      */
-    public static async setSectionComplete(userId: number, sectionId: number) {
+    public static async setSectionComplete(userId: number, sectionId: number): Promise<void> {
 
         // Get the tutorial id this section belongs to
         const tutorialId = await TutorialSectionService.retrieveAssociatedTutorial(sectionId);
@@ -32,7 +33,7 @@ export class TutorialProgressManager {
     }
 
     /** Marks this particular section as incomplete */
-    public static async setSectionIncomplete(sectionId: number) {
+    public static async setSectionIncomplete(sectionId: number): Promise<void> {
 
         // Mark the section as complete
         const query = `
@@ -47,7 +48,7 @@ export class TutorialProgressManager {
     }
 
     /** Registers section for progress tracking */
-    public static async registerSection(sectionId: number, userId: number) {
+    public static async registerSection(sectionId: number, userId: number): Promise<void> {
 
         const query = `
             INSERT INTO tutorial_sections_progress
@@ -60,7 +61,7 @@ export class TutorialProgressManager {
     }
 
     /** Unregisters section from progress tracking */
-    public static async unregisterSection(sectionId: number, userId: number) {
+    public static async unregisterSection(sectionId: number, userId: number): Promise<void> {
 
         const query = `
         DELETE FROM tutorial_sections_progress
@@ -69,5 +70,21 @@ export class TutorialProgressManager {
         const values = [sectionId, userId];
 
         await Client.executeQuery(query, values);
+    }
+
+    /** Retrieves the progress of this section */
+    public static async retrieveSectionProgress(sectionIds: number[], userId: number): Promise<{ sectionId: number, userId: number, isComplete: boolean }[]> {
+
+        const placeholder = QueryHelpers.expand(1, sectionIds.length);
+
+        const query = `
+        SELECT "sectionId", "userId", "isComplete"
+        FROM tutorial_sections_progress
+        WHERE "sectionId" IN ${placeholder} AND "userId" = ($${sectionIds.length + 1})  
+        `;
+        const values = [...sectionIds, userId];
+
+        const response = await Client.executeQuery(query, values);
+        return response.rows;
     }
 }
