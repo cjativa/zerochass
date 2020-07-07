@@ -1,7 +1,8 @@
 interface Props {
     sectionComplete: boolean,
     onProgressClick: any,
-    index: number
+    index: number,
+    sectionId: number
 }
 
 export const ProgressCheck = (props: Props) => {
@@ -23,10 +24,10 @@ export const ProgressCheck = (props: Props) => {
             break;
     }
 
-    const { onProgressClick, index } = props;
+    const { onProgressClick, index, sectionId } = props;
 
     return (
-        <span id="progress-span" className="fa-stack fa-2x" onClick={() => { onProgressClick(index) }}>
+        <span id="progress-span" className="fa-stack fa-2x" onClick={() => onProgressClick(sectionId)}>
             <i className={`fas fa-circle fa-stack-2x ${progressClass}-bg`}></i>
             <i className={`fas fa-check fa-stack-1x fa-inverse ${progressClass}-fg`} style={{ fontSize: '38px' }}></i>
         </span>

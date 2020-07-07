@@ -96,9 +96,10 @@ export const Tutorial = ({ tutorial }) => {
     };
 
     /** Handles scrolling to the next proceeding section during a progress checkmark click */
-    const onProgressClick = (index: number) => {
+    const onProgressClick = (sectionId: number) => {
 
-        const nextIndex = index + 1;
+        const sectionIndexToUpdate = sectionInformation.findIndex((section) => section.id == sectionId);
+        const nextIndex = sectionIndexToUpdate + 1;
 
         if (nextIndex !== sectionInformation.length) {
 
@@ -112,10 +113,10 @@ export const Tutorial = ({ tutorial }) => {
         }
 
         // Update the state that this section has been marked completed
-        const sections = [...sectionInformation];
-        sections[index].sectionComplete = !sections[index].sectionComplete;
+        const sectionToUpdate = sectionInformation[sectionIndexToUpdate];
+        sectionToUpdate.sectionComplete = !sectionToUpdate.sectionComplete;
 
-        setSectionInformation(sections);
+        setSectionInformation([...sectionInformation]);
     };
 
     /** Handles enrolling a user into the tutorial */
@@ -129,7 +130,7 @@ export const Tutorial = ({ tutorial }) => {
             url: '/api/planner/enroll',
             method: 'POST',
             data: { tutorialId: tutorial.id, shouldBeEnrolled }
-        })).data;
+        })).data as TutorialProgress;
 
         setIsTutorialRegistered(updatedRegistration);
     };
@@ -182,6 +183,7 @@ export const Tutorial = ({ tutorial }) => {
 
                         // Build the Progress Check component
                         const progressCheck = <ProgressCheck
+                            sectionId={section.id}
                             index={index}
                             onProgressClick={onProgressClick}
                             sectionComplete={sectionComplete}
