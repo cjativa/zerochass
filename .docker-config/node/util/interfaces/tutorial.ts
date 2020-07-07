@@ -5,6 +5,11 @@ export interface TutorialProgress {
     sectionProgress: any[]
 }
 
+export interface SectionProgress {
+    sectionId: number,
+    isCompleted: boolean
+}
+
 export interface TutorialSection {
     id: number,
     title: string,
