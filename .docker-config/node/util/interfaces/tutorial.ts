@@ -2,12 +2,13 @@ type TutorialColors = 'pink' | 'teal' | 'black' | 'white';
 
 export interface TutorialProgress {
     isTutorialRegistered: boolean,
-    sectionProgress: any[]
+    sectionProgress: SectionProgress[]
 }
 
 export interface SectionProgress {
+    userId?: number
     sectionId: number,
-    isCompleted: boolean
+    isComplete: boolean
 }
 
 export interface TutorialSection {

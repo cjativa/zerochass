@@ -27,7 +27,7 @@ export const Tutorial = ({ tutorial }) => {
 
     const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
 
-    console.log(`From tutorial, user is authenticated ${isAuthenticated}`);
+    console.log(sectionProgress);
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -41,7 +41,9 @@ export const Tutorial = ({ tutorial }) => {
         }
 
         // Retrieve information on the user's progress with this tutorial
-        if (isAuthenticated) retrieveTutorialProgress();
+        if (isAuthenticated) {
+            retrieveTutorialProgress();
+        }
 
     }, [isAuthenticated]);
 
@@ -119,7 +121,7 @@ export const Tutorial = ({ tutorial }) => {
             // Scroll down to the next item
             const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'smooth' });
-        }        
+        }
 
         // If the user is authenticated, let's mark this section complete/incomplete for them
         if (isAuthenticated) {
@@ -128,7 +130,7 @@ export const Tutorial = ({ tutorial }) => {
             // Otherwise, if it's not complete, it should be marked to true
             const complete = (sectionToUpdate.sectionComplete) ? false : true;
 
-            const { isCompleted } = (await axios({
+            const { isComplete } = (await axios({
                 url: `/api/sections/${sectionId}`,
                 method: 'POST',
                 data: { complete }
@@ -163,8 +165,20 @@ export const Tutorial = ({ tutorial }) => {
             method: 'GET'
         })).data as TutorialProgress;
 
+        // Use the section progress to update the progress of the tutorial sections
+        sectionProgress.forEach((sp) => {
+
+            // Find the corresponding section
+            const correspondingSection = sectionInformation.find((section) => section.id === sp.sectionId);
+
+            // If there's a correspond section, have it reflect the progress for the user
+            if (correspondingSection) {
+                correspondingSection.sectionComplete = sp.isComplete;
+            }
+        });
+
+        setSectionInformation([...sectionInformation]);
         setIsTutorialRegistered(isTutorialRegistered);
-        setSectionProgress(sectionProgress);
     };
 
     return (
