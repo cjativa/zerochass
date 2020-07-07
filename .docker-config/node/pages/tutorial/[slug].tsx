@@ -10,7 +10,7 @@ const TutorialPage = ({ siteTitle, tutorial }) => {
 
     const keywords = tags.map((tag) => tag.title).join();
     const descriptions = `${description1} ${description2}`;
-const a = null;
+
     return (
         <Layout pageTitle={tutorial.title}
             description={descriptions}
