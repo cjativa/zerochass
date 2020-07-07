@@ -22,14 +22,15 @@ const updateSectionProgress = async (request, response) => {
         body: { complete },
         userId
     } = request;
+    let sectionProgress;
 
     // If the section should be completed, mark it as complete
-    if (complete == true) await TutorialProgressManager.setSectionComplete(userId, sectionId);
+    if (complete == true)  sectionProgress = await TutorialProgressManager.setSectionComplete(userId, sectionId);
 
     // If the section should not be completed, mark it as not complete
-    if (complete == false) await TutorialProgressManager.setSectionIncomplete(sectionId);
+    if (complete == false) sectionProgress = await TutorialProgressManager.setSectionIncomplete(sectionId);
 
-    response.json(`Completed`);
+    response.json(sectionProgress);
 };
 
 export default handler;

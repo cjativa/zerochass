@@ -101,6 +101,7 @@ export const Tutorial = ({ tutorial }) => {
         const sectionIndexToUpdate = sectionInformation.findIndex((section) => section.id == sectionId);
         const nextIndex = sectionIndexToUpdate + 1;
 
+        // Handles scrolling the page down to the next section
         if (nextIndex !== sectionInformation.length) {
 
             // The offset on each scroll
