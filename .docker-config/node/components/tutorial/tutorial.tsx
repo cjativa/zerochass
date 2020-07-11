@@ -26,8 +26,7 @@ export const Tutorial = ({ tutorial }) => {
     const [sectionProgress, setSectionProgress] = useState([]);
 
     const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
-
-    console.log(sectionProgress);
+    const [showModal, setShowModal] = useState(false);
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -36,24 +35,18 @@ export const Tutorial = ({ tutorial }) => {
         generateSectionBarContent();
 
         // If this tutorial is part of a series, set up the next - prev links
-        if (tutorial.hasOwnProperty('parent')) {
-            setupTutorialSeries();
-        }
+        if (tutorial.hasOwnProperty('parent')) {  setupTutorialSeries(); }
 
         // Retrieve information on the user's progress with this tutorial
-        if (isAuthenticated) {
-            retrieveTutorialProgress();
-        }
+        if (isAuthenticated) { retrieveTutorialProgress();  }
 
     }, [isAuthenticated]);
 
     /** Effects to occur when section information changes */
     useEffect(() => {
 
-        // Add refs
+        // Add refs and set them
         const refs = sectionInformation.map((s, i) => sectionRefs[i] || createRef());
-
-        // Set the refs
         setSectionRefs(refs);
 
     }, [sectionInformation]);
@@ -109,21 +102,21 @@ export const Tutorial = ({ tutorial }) => {
 
         const sectionIndexToUpdate = sectionInformation.findIndex((section) => section.id == sectionId);
         const sectionToUpdate = sectionInformation[sectionIndexToUpdate];
-        const nextIndex = sectionIndexToUpdate + 1;
+        const nextSectionIndex = sectionIndexToUpdate + 1;
 
         // Handles scrolling the page down to the next section
-        if (nextIndex !== sectionInformation.length) {
+        if (nextSectionIndex !== sectionInformation.length) {
 
             // The offset on each scroll
             const yOffset = -80;
-            const element = sectionRefs[nextIndex].current;
+            const element = sectionRefs[nextSectionIndex].current;
 
             // Scroll down to the next item
             const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'smooth' });
         }
 
-        // If the user is authenticated, let's mark this section complete/incomplete for them
+        // If the user is authenticated, let's also mark this section complete/incomplete for them
         if (isAuthenticated) {
 
             // If the section is complete, it should be marked to false
@@ -226,7 +219,11 @@ export const Tutorial = ({ tutorial }) => {
                         // Return the composed Section component
                         return (
                             <div className="section-item" key={index} ref={sectionRefs[index]}>
-                                <TutorialSection content={section} key={index} slug={slug} progressCheck={progressCheck} />
+                                <TutorialSection
+                                    content={section}
+                                    key={index}
+                                    slug={slug}
+                                    progressCheck={progressCheck} />
                             </div>
                         );
                     })}
