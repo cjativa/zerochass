@@ -2,16 +2,14 @@ import { useState, useContext } from 'react';
 import Link from 'next/link';
 
 import logo from '../../assets/logo.svg';
-import { AuthenticationContext } from '../Layout';
-import { AuthenticationDialog } from './authenticationDialog';
+import { AuthenticationContext } from '../contexts';
 
 
 export const NavigationBar = (props) => {
 
-    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
+    const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
 
     const [mobileMenuExpanded, setMobileMenuExpanded] = useState(null);
-    const [showModal, setShowModal] = useState(null);
 
     const toggleMenu = (event) => {
         event.preventDefault();
@@ -24,10 +22,6 @@ export const NavigationBar = (props) => {
         if (event.target.id !== 'search-input') toggleMenu(event);
     };
 
-    const toggleModal = () => {
-        const updatedShowModal = !showModal;
-        setShowModal(updatedShowModal);
-    };
 
     const triggerLogout = async () => {
         await fetch('/api/logout');
@@ -86,15 +80,12 @@ export const NavigationBar = (props) => {
             {
                 !isAuthenticated &&
                 <div className={`main__links ${show}`} onClick={toggleMenu}>
-                    <button className="main__link" onClick={(e) => toggleModal()}>Login / Sign Up</button>
+                    <button className="main__link" onClick={(e) => toggleAuthenticationModal()}>Login / Sign Up</button>
                 </div>
             }
 
             {/* Overlay to show when menu is expanded */}
             {mobileMenuExpanded && <div className={`main__overlay ${show}`} onClick={toggleMenu} />}
-
-            {/** Show the authentication modal when necessary */}
-            {showModal && <AuthenticationDialog isOpen={showModal} onRequestClose={() => toggleModal()} />}
         </nav >
     )
 };

@@ -8,8 +8,7 @@ import { SectionsBar } from './sectionsBar';
 import { ShareBar } from './shareBar';
 import { ProgressCheck } from './progressCheck';
 import { TutorialProgress, SectionProgress } from '../../util/interfaces/tutorial';
-import { AuthenticationContext } from '../Layout';
-import { AuthenticationDialog } from '../shared/authenticationDialog';
+import { AuthenticationContext } from '../contexts';
 
 
 export const Tutorial = ({ tutorial }) => {
@@ -25,8 +24,8 @@ export const Tutorial = ({ tutorial }) => {
     const [isTutorialRegistered, setIsTutorialRegistered] = useState(null);
     const [sectionProgress, setSectionProgress] = useState([]);
 
-    const { isAuthenticated, profileImageUrl } = useContext(AuthenticationContext);
-    const [showModal, setShowModal] = useState(false);
+    const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
+   
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -35,10 +34,10 @@ export const Tutorial = ({ tutorial }) => {
         generateSectionBarContent();
 
         // If this tutorial is part of a series, set up the next - prev links
-        if (tutorial.hasOwnProperty('parent')) {  setupTutorialSeries(); }
+        if (tutorial.hasOwnProperty('parent')) { setupTutorialSeries(); }
 
         // Retrieve information on the user's progress with this tutorial
-        if (isAuthenticated) { retrieveTutorialProgress();  }
+        if (isAuthenticated) { retrieveTutorialProgress(); }
 
     }, [isAuthenticated]);
 
@@ -182,7 +181,10 @@ export const Tutorial = ({ tutorial }) => {
                 <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
 
                 {/** Display the tutorial actions */}
-                <ActionBar onEnrollClick={onEnrollClick} isTutorialRegistered={isTutorialRegistered} />
+                <ActionBar
+                    onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal}
+                    isTutorialRegistered={isTutorialRegistered}
+                />
             </div>
 
             {/** Body section containing the tutorial content and share bars, sections, and related tutorials */}
