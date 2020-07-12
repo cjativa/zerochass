@@ -1,6 +1,29 @@
+import { useState } from 'react';
 import Modal from 'react-modal';
 
-type modalType = 'LOGIN_MODAL' | 'SIGN_UP_MODAL';
+
+export const useAuthDialog = (): any => {
+
+    /** Control the status of the dialog */
+    const [isDialogOpen, setDialogOpen] = useState(false);
+
+    /** Toggle the current status of the dialog */
+    const toggle = () => setDialogOpen(!isDialogOpen); 
+
+    /** Render the dialog */
+    const dialog = () => {
+        return (
+            <AuthenticationDialog
+            isOpen={isDialogOpen}
+            onRequestClose={toggle}
+            />
+        )
+    }
+
+
+    return [isDialogOpen, setDialogOpen, toggle, dialog]
+}
+
 
 interface Props {
     isOpen: boolean,
@@ -44,7 +67,8 @@ const ModalContent = (props: ModalContentProps) => {
     let signUpClass = highlightClass;
 
     const onGitHubClick = () => {
-        window.location.href = `https://github.com/login/oauth/authorize?scope=read:user%20user:email&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
+        window.location.href =
+            `https://github.com/login/oauth/authorize?scope=read:user%20user:email&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
     };
 
     return (
