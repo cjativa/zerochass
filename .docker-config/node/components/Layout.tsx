@@ -5,8 +5,10 @@ import { parseCookies } from 'nookies';
 import { NavigationBar } from './shared/NavigationBar';
 import { InformationSection } from './landing/InformationSection';
 import { Footer } from './shared/Footer';
-import { CraftQL } from '../util/services/craftGQL';
-import { AllTutorialsQuery } from '../util/queries/tutorialsQuery';
+
+import { AuthenticationContext } from './contexts';
+import { useAuthDialog } from './shared/authenticationDialog';
+
 
 const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images/zerochass-rect.PNG';
 
@@ -20,16 +22,6 @@ interface LayoutProps {
     large?: boolean
 };
 
-interface AuthContext {
-    isAuthenticated: boolean,
-    profileImageUrl: string
-};
-
-
-export const AuthenticationContext: React.Context<AuthContext> = React.createContext({
-    isAuthenticated: null,
-    profileImageUrl: null
-});
 
 export const Layout = (props: LayoutProps) => {
 
@@ -40,25 +32,7 @@ export const Layout = (props: LayoutProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-    /** Sets the tutorial of the day */
-    useEffect(() => {
-
-        const fetchTutorialOfDay = async () => {
-            const tutorials = await CraftQL(AllTutorialsQuery());
-
-            const randomGenerator = () => {
-                let seed = new Date().getDate() + 5;
-                const x = Math.sin(seed++);
-                return (x - Math.floor(x)) * tutorials.length;
-            };
-
-            const randomNumber = Math.floor(randomGenerator());
-            const randomTutorial = tutorials[randomNumber];
-            setTutorial(randomTutorial);
-        };
-
-        /* fetchTutorialOfDay(); */
-    }, []);
+    const [isDialogOpen, setDialogOpen, toggle, AuthDialog] = useAuthDialog();
 
     /** Determines if a user is authenticated client-side */
     useEffect(() => {
@@ -72,6 +46,8 @@ export const Layout = (props: LayoutProps) => {
         }
 
     }, [isAuthenticated, profileImageUrl]);
+
+
 
     return (
         <>
@@ -104,10 +80,17 @@ export const Layout = (props: LayoutProps) => {
                 </script>
             </Head>
             <section className="layout">
-                <AuthenticationContext.Provider value={{ isAuthenticated, profileImageUrl }}>
+                <AuthenticationContext.Provider
+                    value={{ isAuthenticated, profileImageUrl, toggleAuthenticationModal: toggle }}>
+
+                    {/** Consumers of the context */}
                     <NavigationBar tutorial={tutorial} />
                     <div className="app__body">{children}</div>
                     <InformationSection />
+
+                    {/** Render the auth dialog  */}
+                    <AuthDialog />
+
                 </AuthenticationContext.Provider>
             </section>
             <Footer />
