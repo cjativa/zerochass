@@ -25,7 +25,7 @@ export const Tutorial = ({ tutorial }) => {
     const [sectionProgress, setSectionProgress] = useState([]);
 
     const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
-   
+
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -129,6 +129,9 @@ export const Tutorial = ({ tutorial }) => {
             })).data as SectionProgress;
         }
 
+        // Otherwise, toggle the auth modal
+        else { toggleAuthenticationModal() }
+
         sectionToUpdate.sectionComplete = !sectionToUpdate.sectionComplete;
         setSectionInformation([...sectionInformation]);
     };
@@ -182,6 +185,8 @@ export const Tutorial = ({ tutorial }) => {
 
                 {/** Display the tutorial actions */}
                 <ActionBar
+
+                    // If the user is authenticated - they can enroll, otherwise, display the auth modal
                     onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal}
                     isTutorialRegistered={isTutorialRegistered}
                 />
@@ -214,6 +219,8 @@ export const Tutorial = ({ tutorial }) => {
                         const progressCheck = <ProgressCheck
                             sectionId={section.id}
                             index={index}
+
+                            // If the user is authenticated - track progress, otherwise, display the auth modal
                             onProgressClick={onProgressClick}
                             sectionComplete={sectionComplete}
                         />;
