@@ -2,17 +2,17 @@ import slugify from 'slugify';
 import { nanoid } from 'nanoid';
 
 import { Client } from '../client';
-import { Tutorial } from '../../interfaces/tutorial';
+import { TutorialInterface } from '../../interfaces/tutorial';
 
 import { TagDatabaseService } from './tagDatabaseService';
 import { TutorialSectionService } from './tutorialSectionDatabaseService';
 
-export class TutorialDatabaseService {
+export class Tutorial {
 
-    tutorial: Tutorial;
+    tutorial: TutorialInterface;
     userId: number;
 
-    constructor(tutorial: Tutorial, userId: number) {
+    constructor(tutorial: TutorialInterface, userId: number) {
         this.tutorial = tutorial;
         this.userId = userId;
     }

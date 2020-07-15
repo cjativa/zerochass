@@ -1,7 +1,7 @@
 import { Layout } from '../../components/Layout';
 import { Write } from '../../components/write/write';
-import { Tutorial } from '../../util/interfaces/tutorial';
-import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
+import { TutorialInterface } from '../../util/interfaces/tutorial';
+import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
 
 const WritePage = ({ pageTitle, edit, tutorial }) => {
 
@@ -20,7 +20,7 @@ export const getServerSideProps = async (ctx) => {
     const { id } = ctx.params;
     const { userId } = ctx.req;
     const tutorialId = id && parseInt(id[0]);
-    const ts = new TutorialDatabaseService(null, userId)
+    const ts = new Tutorial(null, userId)
 
     const edit = tutorialId ? true : false;
     const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';

@@ -1,6 +1,6 @@
 import shortid from 'shortid';
 
-import { TutorialRequest, Tutorial } from '../interfaces/tutorial';
+import { TutorialRequest, TutorialInterface } from '../interfaces/tutorial';
 
 import { S3 } from '../aws';
 import { Config } from '../config';
@@ -8,13 +8,13 @@ import { Config } from '../config';
 class TutorialService {
 
     /** Prepares a tutorial by creating the payload that can be inserted into the database */
-    public static async prepareTutorial(tutorialRequest: TutorialRequest): Promise<Tutorial> {
+    public static async prepareTutorial(tutorialRequest: TutorialRequest): Promise<TutorialInterface> {
 
         // These fields require some transformation prior to being ready to be part of a tutorial
         const tutorial = { ...tutorialRequest, 
             featuredImage: '',
             tags: tutorialRequest.tags.map((tag) => tag.toLowerCase())
-         } as Tutorial;
+         } as TutorialInterface;
 
         // If we have a featured image, we need to upload it to S3 and get the upload
         // URL prior to inserting the URL to our database

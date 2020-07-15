@@ -3,7 +3,7 @@ import protectWithAuthentication from '../../util/middleware/protectWithAuthentc
 import TutorialService from '../../util/services/tutorialHelpers';
 
 import { TutorialRequest } from '../../util/interfaces/tutorial';
-import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
 
 const handler = async (request, response) => {
 
@@ -21,7 +21,7 @@ const retrieveTutorial = async (request, response) => {
     const { id } = request.params.slug;
     const { userId } = request;
 
-    const tds = new TutorialDatabaseService(null, userId);
+    const tds = new Tutorial(null, userId);
     const tutorial = await tds.retrieveTutorial(id, true);
 
     response.json(tutorial);
@@ -35,7 +35,7 @@ const createTutorial = async (request, response) => {
 
     const preparedTutorial = await TutorialService.prepareTutorial(tutorialRequest);
 
-    const tds = new TutorialDatabaseService(preparedTutorial, userId);
+    const tds = new Tutorial(preparedTutorial, userId);
     const id = await tds.createTutorial();
 
     response.json(id);
@@ -49,7 +49,7 @@ const updateTutorial = async (request, response) => {
 
     const preparedTutorial = await TutorialService.prepareTutorial(tutorialRequest);
 
-    const tds = new TutorialDatabaseService(preparedTutorial, userId);
+    const tds = new Tutorial(preparedTutorial, userId);
     const id = await tds.updateTutorial();
 
     response.json(id);

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Layout } from '../components/Layout';
 import TutorialService from '../util/services/tutorialHelpers';
-import { TutorialDatabaseService } from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../util/database/classes/tutorialDatabaseService';
 
 const Dashboard = ({ tutorials }) => {
 
@@ -88,7 +88,7 @@ export const getServerSideProps = async (ctx) => {
 
     const { userId } = ctx.req;
 
-    const tds = new TutorialDatabaseService(null, userId)
+    const tds = new Tutorial(null, userId)
     const tutorials = await tds.retrieveTutorials();
 
     return {

@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next'
 
 import { Layout } from '../../components/Layout'
-import { Tutorial } from '../../components/tutorial/tutorial'
-import { TutorialDatabaseService } from '../../util/database/classes/tutorialDatabaseService';
+import { Tutorial as TutorialComponent } from '../../components/tutorial/tutorial'
+import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
 
 const TutorialPage = ({ siteTitle, tutorial }) => {
 
@@ -19,7 +19,7 @@ const TutorialPage = ({ siteTitle, tutorial }) => {
             image={featuredImage}
             large={true}
         >
-            <Tutorial tutorial={tutorial} />
+            <TutorialComponent tutorial={tutorial} />
         </Layout>
     )
 }
@@ -27,7 +27,7 @@ const TutorialPage = ({ siteTitle, tutorial }) => {
 export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     const slug = ctx.params.slug as string;
 
-    const ts = new TutorialDatabaseService(null, null);
+    const ts = new Tutorial(null, null);
     const tutorial = await ts.retrieveTutorial(slug);
     const config = await import(`../../siteconfig.json`);
 

@@ -1,4 +1,4 @@
-import { TutorialDatabaseService } from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../util/database/classes/tutorialDatabaseService';
 import { Layout } from '../components/Layout';
 import { SiteBanner } from '../components/landing/SiteBanner';
 import { TutorialBannerList } from '../components/landing/TutorialBannerList';
@@ -19,7 +19,7 @@ const Index = ({ title, description, tutorials, keywords, ...props }) => {
 export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
   const params = (ctx.preview) ? ctx.previewData.params : null;
 
-  const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite(true);
+  const tutorials = await Tutorial.retrieveTutorialsForSite(true);
   const config = await import(`../siteconfig.json`);
 
   return {

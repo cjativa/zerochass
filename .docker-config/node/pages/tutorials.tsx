@@ -1,6 +1,6 @@
 import { Layout } from '../components/Layout';
 import { TutorialCard } from '../components/tutorials/TutorialCard';
-import { TutorialDatabaseService} from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial} from '../util/database/classes/tutorialDatabaseService';
 import { GetStaticProps } from 'next';
 
 const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
 
     const params = (ctx.preview) ? ctx.previewData.params : null;
 
-    const tutorials = await TutorialDatabaseService.retrieveTutorialsForSite();
+    const tutorials = await Tutorial.retrieveTutorialsForSite();
     const config = await import(`../siteconfig.json`);
 
     return {

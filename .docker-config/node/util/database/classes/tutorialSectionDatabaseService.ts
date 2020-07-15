@@ -1,11 +1,11 @@
 import { Client } from '../client';
-import { Tutorial } from '../../interfaces/tutorial';
+import { TutorialInterface } from '../../interfaces/tutorial';
 
 
 export class TutorialSectionService {
 
     /** Adds or updates the sections for a tutorial */
-    public static async addSections(tutorialId: number, tutorialSections: Tutorial['sections']) {
+    public static async addSections(tutorialId: number, tutorialSections: TutorialInterface['sections']) {
 
         const sectionRequests = tutorialSections.map((section) => {
             let query, values;
@@ -39,7 +39,7 @@ export class TutorialSectionService {
     };
 
     /** Deletes any sections that from the tutorial that exist in the database but were not sent along with an update */
-    public static async deleteSections(tutorialId: number, providedSections: Tutorial['sections']) {
+    public static async deleteSections(tutorialId: number, providedSections: TutorialInterface['sections']) {
 
         // Iterate through the sections we've been provided by the request
         const sectionsToDelete = providedSections.filter((providedSection) => providedSection.isDeleted);
@@ -58,7 +58,7 @@ export class TutorialSectionService {
     };
 
     /** Retrieve the sections for the tutorial */
-    public static async retrieveSectionsForTutorial(tutorialId: number): Promise<Tutorial['sections']> {
+    public static async retrieveSectionsForTutorial(tutorialId: number): Promise<TutorialInterface['sections']> {
 
         const query = `
         SELECT id, title, content

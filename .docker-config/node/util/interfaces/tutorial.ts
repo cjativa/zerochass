@@ -18,7 +18,7 @@ export interface TutorialSection {
     isDeleted?: boolean,
 };
 
-export interface Tutorial {
+export interface TutorialInterface {
     id: number,
 
     title: string,

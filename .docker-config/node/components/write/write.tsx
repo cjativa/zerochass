@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Tutorial, TutorialRequest } from '../../util/interfaces/tutorial';
+import { TutorialInterface, TutorialRequest } from '../../util/interfaces/tutorial';
 import { Main } from './main';
 import { Sidebar } from './sidebar';
 
@@ -21,7 +21,7 @@ const getMatchingColor = (color: string) => colorOptions.find((co) => co.value =
 
 interface Props {
     edit: boolean,
-    tutorial: Tutorial,
+    tutorial: TutorialInterface,
     id?: number
 }
 
@@ -73,7 +73,7 @@ export const Write = (props: Props) => {
         else { featuredImagePayload = featuredImage }
 
         // Set up the payload
-        const writeTutorialPayload: Tutorial | TutorialRequest = {
+        const writeTutorialPayload: TutorialInterface | TutorialRequest = {
             title,
             description1, description2,
             sections,
