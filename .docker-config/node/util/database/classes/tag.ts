@@ -1,6 +1,6 @@
 import { Client } from '../client';
 
-export class TagDatabaseService {
+export class Tag {
 
     /** Find tags given a search term */
     public static findMatchingTag = async (term: string) => {

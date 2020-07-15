@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { Client } from '../client';
 import { TutorialInterface } from '../../interfaces/tutorial';
 
-import { TagDatabaseService } from './tagDatabaseService';
+import { Tag } from './tag';
 import { TutorialSection } from './tutorialSection';
 
 export class Tutorial {
@@ -33,11 +33,11 @@ export class Tutorial {
         if (this.tutorial.tags.length > 0) {
 
             // Add the tags this tutorial is meant to be related with to the tag table
-            await TagDatabaseService.insertTags(this.tutorial.tags);
+            await Tag.insertTags(this.tutorial.tags);
 
             // Get the ids for the tags meant to be associated with this tutorial
-            const tagIdentifierList = await TagDatabaseService.retrieveTagIds(this.tutorial.tags);
-            await TagDatabaseService.createTagAssociations(this.tutorial.id, tagIdentifierList);
+            const tagIdentifierList = await Tag.retrieveTagIds(this.tutorial.tags);
+            await Tag.createTagAssociations(this.tutorial.id, tagIdentifierList);
         }
 
         return this.tutorial.id;
@@ -61,15 +61,15 @@ export class Tutorial {
         if (this.tutorial.tags.length > 0) {
 
             // Add the tags this tutorial is meant to be related with to the tag table
-            await TagDatabaseService.insertTags(this.tutorial.tags);
+            await Tag.insertTags(this.tutorial.tags);
 
             // Get the ids for the tags meant to be associated with this tutorial
-            const tagIdentifierList = (await TagDatabaseService.retrieveTagIds(this.tutorial.tags));
-            await TagDatabaseService.createTagAssociations(this.tutorial.id, tagIdentifierList);
+            const tagIdentifierList = (await Tag.retrieveTagIds(this.tutorial.tags));
+            await Tag.createTagAssociations(this.tutorial.id, tagIdentifierList);
 
             // Delete any tags no longer associated with the tutorial
             const tagList = tagIdentifierList.map((ti) => ti.tag);
-            await TagDatabaseService.deleteTagAssociations(this.tutorial.id, tagList);
+            await Tag.deleteTagAssociations(this.tutorial.id, tagList);
         }
 
         return this.tutorial.id;
@@ -83,7 +83,7 @@ export class Tutorial {
 
         const main = (forEditing) ? await this.getTutorialForEditing(id) : await this.getTutorial(id);
         const sections = await TutorialSection.retrieveSectionsForTutorial(id);
-        const tags = await TagDatabaseService.retrieveTagsForTutorial(id);
+        const tags = await Tag.retrieveTagsForTutorial(id);
 
         const tutorial = {
             ...main,
