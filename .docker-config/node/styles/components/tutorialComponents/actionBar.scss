@@ -11,7 +11,7 @@
         }
 
         &--right {
-            right: 3em;
+            right: 1em;
         }
 
         i.fa-circle {
@@ -19,6 +19,8 @@
         }
 
         &__btn {
+            font-size: 1.5em;
+
             &:hover {
                 cursor: pointer;
             }
@@ -76,5 +78,28 @@
                 }
             }
         }
+    }
+
+    @media (min-width: 640px) {
+    }
+    @media (min-width: 768px) {
+        .ta-bar {
+            position: absolute;
+            margin: auto;
+            width: fit-content;
+            bottom: -33px;
+
+            &--right {
+                right: 3em;
+            }
+
+            &__btn {
+                font-size: 2em;
+            }
+        }
+    }
+    @media (min-width: 1024px) {
+    }
+    @media (min-width: 1280px) {
     }
 }
