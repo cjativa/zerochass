@@ -35,12 +35,6 @@ export default class Planner {
 
         // Add this tutorial to the planner
         await this.insertTutorial(tutorialId, plannerId);
-
-        // Register all of its sections into the tutorial section progress table - COMMENTED OUT AS THERE IS THE CASE THAT NEW SECTIONS CAN BE ADDED TO A TUTORIAL
-        /* const sectionIds = await TutorialSectionService.retrieveSectionIds(tutorialId);
-        const registrations = sectionIds.map((sectionId) => TutorialProgressManager.registerSection(sectionId, userId));
-
-        await Promise.all(registrations); */
     }
 
     /** Unregisters this tutorial from a user's planner */
