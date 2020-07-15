@@ -16,7 +16,9 @@ export const Tutorial = ({ tutorial }) => {
 
     let previousEntry, nextEntry;
 
-    const { title, tags, featuredImage, color, sections, description1, description2, slug } = tutorial;
+    const { title, tags, featuredImage, color, sections, description1, description2, slug,
+        heading: authorHeading, profileImage: authorImage, name: authorName
+    } = tutorial;
 
     const [sectionRefs, setSectionRefs] = useState([]);
     const [sectionInformation, setSectionInformation] = useState([]);
@@ -24,8 +26,7 @@ export const Tutorial = ({ tutorial }) => {
     const [isTutorialRegistered, setIsTutorialRegistered] = useState(null);
     const [sectionProgress, setSectionProgress] = useState([]);
 
-    const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
-
+    const { isAuthenticated, toggleAuthenticationModal } = useContext(AuthenticationContext);
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -181,13 +182,12 @@ export const Tutorial = ({ tutorial }) => {
 
             {/* Header section containing the tutorial image and title */}
             <div className="tutorial-page__header">
-                <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} />
+                <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} authorHeading={authorHeading} authorImage={authorImage} authorName={authorName} />
 
                 {/** Display the tutorial actions */}
                 <ActionBar
+                    onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal} // If the user is authenticated - they can enroll, otherwise, display the auth modal
 
-                    // If the user is authenticated - they can enroll, otherwise, display the auth modal
-                    onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal}
                     isTutorialRegistered={isTutorialRegistered}
                 />
             </div>
