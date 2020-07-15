@@ -78,6 +78,7 @@ export class TutorialDatabaseService {
     /** Retrieves an existing tutorial in the database */
     public async retrieveTutorial(identifier: number | string, forEditing?: boolean) {
 
+        // Get the id - if the identifier is a number, then this is an id, otherwise it's the slug and we need to retrieve the id first
         const id = (typeof identifier === 'number') ? identifier : await this.getTutorialIdBySlug(identifier);
 
         const main = (forEditing) ? await this.getTutorialForEditing(id) : await this.getTutorial(id);
@@ -139,8 +140,13 @@ export class TutorialDatabaseService {
     private async getTutorial(id: number) {
 
         const query = `
-        SELECT t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id"
+        SELECT 
+            t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id",
+            u."heading", u."profileImage", u."name"
+
         FROM tutorials t
+        INNER JOIN user_information u 
+        ON u."id" = t."userId"
         WHERE t."id" = ($1)
         `;
         const values = [id];
