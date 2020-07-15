@@ -3,7 +3,7 @@ import protectWithAuthentication from '../../util/middleware/protectWithAuthentc
 import TutorialService from '../../util/services/tutorialHelpers';
 
 import { TutorialRequest } from '../../util/interfaces/tutorial';
-import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../../util/database/classes/tutorial';
 
 const handler = async (request, response) => {
 

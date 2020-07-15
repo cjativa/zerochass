@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 
 import { Layout } from '../../components/Layout'
 import { Tutorial as TutorialComponent } from '../../components/tutorial/tutorial'
-import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../../util/database/classes/tutorial';
 
 const TutorialPage = ({ siteTitle, tutorial }) => {
 

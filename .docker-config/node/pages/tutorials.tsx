@@ -1,6 +1,6 @@
 import { Layout } from '../components/Layout';
 import { TutorialCard } from '../components/tutorials/TutorialCard';
-import { Tutorial} from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial} from '../util/database/classes/tutorial';
 import { GetStaticProps } from 'next';
 
 const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {

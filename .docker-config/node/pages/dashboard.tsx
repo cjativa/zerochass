@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Layout } from '../components/Layout';
 import TutorialService from '../util/services/tutorialHelpers';
-import { Tutorial } from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../util/database/classes/tutorial';
 
 const Dashboard = ({ tutorials }) => {
 

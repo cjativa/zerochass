@@ -1,4 +1,4 @@
-import { Tutorial } from '../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../util/database/classes/tutorial';
 import { Layout } from '../components/Layout';
 import { SiteBanner } from '../components/landing/SiteBanner';
 import { TutorialBannerList } from '../components/landing/TutorialBannerList';

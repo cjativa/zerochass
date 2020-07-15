@@ -1,7 +1,7 @@
 import { Layout } from '../../components/Layout';
 import { Write } from '../../components/write/write';
 import { TutorialInterface } from '../../util/interfaces/tutorial';
-import { Tutorial } from '../../util/database/classes/tutorialDatabaseService';
+import { Tutorial } from '../../util/database/classes/tutorial';
 
 const WritePage = ({ pageTitle, edit, tutorial }) => {
 
