@@ -1,7 +1,7 @@
 
 export const ActionBar = (props) => {
 
-    const { onEnrollClick, isTutorialRegistered } = props;
+    const { onEnrollClick, isTutorialRegistered, codeUrl, liveUrl } = props;
     const enrolledStyle = (isTutorialRegistered) ? 'enrolled' : '';
 
     return (
@@ -9,10 +9,10 @@ export const ActionBar = (props) => {
 
             <div className="ta-bar ta-bar--center">
                 {/** Code icon */}
-                <span className="ta-bar__btn ta-bar__btn--code fa-stack fa-2x" >
+                {codeUrl && <span className="ta-bar__btn ta-bar__btn--code fa-stack fa-2x" >
                     <i className={`fas fa-circle fa-stack-2x`} />
                     <i className={`fas fa-code fa-stack-1x fa-inverse`} />
-                </span>
+                </span>}
 
                 {/** Comment icon */}
                 <span className="ta-bar__btn ta-bar__btn--comments fa-stack fa-2x" >

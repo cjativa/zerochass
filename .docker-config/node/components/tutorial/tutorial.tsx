@@ -16,7 +16,7 @@ export const Tutorial = ({ tutorial }) => {
 
     let previousEntry, nextEntry;
 
-    const { title, tags, featuredImage, color, sections, description1, description2, slug,
+    const { title, tags, featuredImage, color, sections, description1, description2, slug, codeUrl, liveUrl,
         heading: authorHeading, profileImage: authorImage, name: authorName
     } = tutorial;
 
@@ -187,8 +187,9 @@ export const Tutorial = ({ tutorial }) => {
                 {/** Display the tutorial actions */}
                 <ActionBar
                     onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal} // If the user is authenticated - they can enroll, otherwise, display the auth modal
-
                     isTutorialRegistered={isTutorialRegistered}
+                    codeUrl={codeUrl}
+                    liveUrl={liveUrl}
                 />
             </div>
 
