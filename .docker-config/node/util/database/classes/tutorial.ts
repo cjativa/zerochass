@@ -5,7 +5,7 @@ import { Client } from '../client';
 import { TutorialInterface } from '../../interfaces/tutorial';
 
 import { TagDatabaseService } from './tagDatabaseService';
-import { TutorialSectionService } from './tutorialSectionDatabaseService';
+import { TutorialSection } from './tutorialSection';
 
 export class Tutorial {
 
@@ -25,7 +25,7 @@ export class Tutorial {
 
         // If we have have sections for the tutorial, let's add them to the database
         if (this.tutorial.sections.length > 0) {
-            await TutorialSectionService.addSections(this.tutorial.id, this.tutorial.sections);
+            await TutorialSection.addSections(this.tutorial.id, this.tutorial.sections);
         }
 
         // If we have tags for the tutorial, let's add them to the database
@@ -52,8 +52,8 @@ export class Tutorial {
         // If we have have sections for the tutorial, let's add them to the database 
         // Any sections not sent back to us that DO exist in the database should be marked for deletion
         if (this.tutorial.sections.length > 0) {
-            await TutorialSectionService.addSections(this.tutorial.id, this.tutorial.sections);
-            await TutorialSectionService.deleteSections(this.tutorial.id, this.tutorial.sections);
+            await TutorialSection.addSections(this.tutorial.id, this.tutorial.sections);
+            await TutorialSection.deleteSections(this.tutorial.id, this.tutorial.sections);
         }
 
         // If we have tags for the tutorial, let's add them to the database
@@ -82,7 +82,7 @@ export class Tutorial {
         const id = (typeof identifier === 'number') ? identifier : await this.getTutorialIdBySlug(identifier);
 
         const main = (forEditing) ? await this.getTutorialForEditing(id) : await this.getTutorial(id);
-        const sections = await TutorialSectionService.retrieveSectionsForTutorial(id);
+        const sections = await TutorialSection.retrieveSectionsForTutorial(id);
         const tags = await TagDatabaseService.retrieveTagsForTutorial(id);
 
         const tutorial = {

@@ -1,6 +1,6 @@
 import protectWithAuthentication from '../../../util/middleware/protectWithAuthentcation';
 import Planner from '../../../util/database/classes/planner';
-import { TutorialSectionService } from '../../../util/database/classes/tutorialSectionDatabaseService';
+import { TutorialSection } from '../../../util/database/classes/tutorialSection';
 import { TutorialProgressManager } from '../../../util/database/classes/tutorialProgressManager';
 
 const handler = async (request, response) => {
@@ -30,7 +30,7 @@ const retrieveTutorialEnrollment = async (request, response) => {
     if (isTutorialRegistered) {
 
         // Retrieve the list of section ids and find the progress
-        const sectionIds = await TutorialSectionService.retrieveSectionIds(tutorialId);
+        const sectionIds = await TutorialSection.retrieveSectionIds(tutorialId);
         sectionProgress = await TutorialProgressManager.retrieveSectionProgress(sectionIds, userId);
     }
 

@@ -1,7 +1,7 @@
 import { Client, } from '../client';
 import QueryHelpers from '../queryHelpers';
 import Planner from './planner';
-import { TutorialSectionService } from './tutorialSectionDatabaseService';
+import { TutorialSection } from './tutorialSection';
 import { SectionProgress } from '../../interfaces/tutorial';
 
 export class TutorialProgressManager {
@@ -12,7 +12,7 @@ export class TutorialProgressManager {
     public static async setSectionComplete(userId: number, sectionId: number): Promise<SectionProgress> {
 
         // Get the tutorial id this section belongs to
-        const tutorialId = await TutorialSectionService.retrieveAssociatedTutorial(sectionId);
+        const tutorialId = await TutorialSection.retrieveAssociatedTutorial(sectionId);
 
         // Check if the tutorial the section belongs to is in the users planner
         const plannerId = await Planner.getPlannerId(userId);

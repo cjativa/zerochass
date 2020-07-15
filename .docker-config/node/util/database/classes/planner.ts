@@ -1,5 +1,5 @@
 import { Client } from '../client';
-import { TutorialSectionService } from './tutorialSectionDatabaseService';
+import { TutorialSection } from './tutorialSection';
 import { TutorialProgressManager } from './tutorialProgressManager';
 
 export default class Planner {
@@ -50,7 +50,7 @@ export default class Planner {
         await this.deleteTutorial(tutorialId, plannerId);
 
         // Unregister all of its sections from  the tutorial section progress table
-        const sectionIds = await TutorialSectionService.retrieveSectionIds(tutorialId);
+        const sectionIds = await TutorialSection.retrieveSectionIds(tutorialId);
         const unregistrations = sectionIds.map((sectionId) => TutorialProgressManager.unregisterSection(sectionId, userId));
 
         await Promise.all(unregistrations);

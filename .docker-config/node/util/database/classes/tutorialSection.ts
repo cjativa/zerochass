@@ -2,7 +2,7 @@ import { Client } from '../client';
 import { TutorialInterface } from '../../interfaces/tutorial';
 
 
-export class TutorialSectionService {
+export class TutorialSection {
 
     /** Adds or updates the sections for a tutorial */
     public static async addSections(tutorialId: number, tutorialSections: TutorialInterface['sections']) {
