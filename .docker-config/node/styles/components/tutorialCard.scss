@@ -1,10 +1,12 @@
 .tl-card {
-    height: 260px;
+    height: 380px;
     border-radius: 10px;
     overflow: hidden;
 
+    box-shadow: 2px 2px 7px 0px rgba(0,0,0,.23);
+
     display: grid;
-    grid-template-rows: 60% 40%;
+    grid-template-rows: 163px 1fr;
     grid-template-areas:
         "cardTop"
         "cardLower";
@@ -62,7 +64,7 @@
     }
 
     @media (min-width: 768px) {
-        height: 295px;
+        /* height: 295px; */
         width: 280px;
 
         &__bottom {
@@ -99,6 +101,6 @@
 
     @media (min-width: 1280px) {
         min-height: 310px;
-        width: 300px;
+        width: 290px;
     }
 }
