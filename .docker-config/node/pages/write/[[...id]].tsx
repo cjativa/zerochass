@@ -24,7 +24,7 @@ export const getServerSideProps = async (ctx) => {
 
     const edit = tutorialId ? true : false;
     const pageTitle = tutorialId ? 'Edit Tutorial' : 'New Tutorial';
-    const tutorial = (tutorialId) ? await ts.retrieveTutorial(tutorialId) : {};
+    const tutorial = (tutorialId) ? await ts.retrieveTutorial(tutorialId, true) : {};
 
     return {
         props: {

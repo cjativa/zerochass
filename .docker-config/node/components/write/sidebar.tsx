@@ -213,7 +213,7 @@ export const Sidebar = (props) => {
                             <span
                                 className="tag-item"
                                 key={index}>
-                                #{tag.tag}
+                                #{tag}
                                 <i
                                     onClick={() => onTagRemove(index)}
                                     className="x-btn fas fa-times" />
