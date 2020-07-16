@@ -83,7 +83,11 @@ export class Tutorial {
 
         const main = (forEditing) ? await this.getTutorialForEditing(id) : await this.getTutorial(id);
         const sections = await TutorialSection.retrieveSectionsForTutorial(id);
-        const tags = await Tag.retrieveTagsForTutorial(id);
+        let tags = await Tag.retrieveTagsForTutorial(id) as any; 
+
+        if (forEditing) {
+            tags = tags.map((tag) => tag.tag);
+        }
 
         const tutorial = {
             ...main,
@@ -93,6 +97,8 @@ export class Tutorial {
 
         return tutorial;
     };
+
+    /** Retrieves the information needed for displaying a tutorial card */
 
     /** Retrieves all existing tutorials written by the user for editing */
     public async retrieveTutorials() {
@@ -111,9 +117,14 @@ export class Tutorial {
     /** Retrieves tutorials for displaying on site */
     public static async retrieveTutorialsForSite(limit?: boolean) {
         let query = `
-        SELECT "title", "description1", "description2", "enabled", "id", "featuredImage", "color", "slug"
-        FROM tutorials
-        WHERE enabled = true
+        SELECT 
+            t."title", t."description1", t."description2", t."color", t."featuredImage", t."id", t."slug",
+            u."profileImage", u."name"
+
+        FROM tutorials t
+        INNER JOIN user_information u 
+        ON u."id" = t."userId"
+        WHERE t."enabled" = true
         `;
 
         if (limit) query += ` LIMIT 8`;
