@@ -1,21 +1,17 @@
 import Link from 'next/link';
 import { Layout } from '../components/Layout';
-
+import { Planner as PlannerComponent } from '../components/planner/planner';
 import { Tutorial } from '../util/database/classes/tutorial';
+import Planner from '../util/database/classes/planner';
 
-const Planner = ({ tutorials }) => {
+
+const PlannerPage = ({ tutorials }) => {
 
     const title = 'Planner';
 
     return (
         <Layout pageTitle={title}>
-            <div className="planner padded-page">
-                <div className="padded-page__content">
-                    <h1>Planner</h1>
-                    <p>Here's where you'll find tutorials you've started</p>
-
-                </div>
-            </div>
+            <PlannerComponent tutorials={tutorials}/>
         </Layout>
     )
 };
@@ -26,9 +22,7 @@ export const getServerSideProps = async (ctx) => {
     await protectPageWithAuthentication(ctx);
 
     const { userId } = ctx.req;
-
-    const tds = new Tutorial(null, userId)
-    const tutorials = await tds.retrieveTutorials();
+    const tutorials = await Planner.retrieveTutorials(userId);
 
     return {
         props: {
@@ -37,4 +31,4 @@ export const getServerSideProps = async (ctx) => {
     }
 };
 
-export default Planner;
+export default PlannerPage;
