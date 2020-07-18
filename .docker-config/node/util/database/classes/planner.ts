@@ -16,6 +16,28 @@ export default class Planner {
         await Client.executeQuery(query, values);
     }
 
+    /** Retrieve all tutorials belonging to this user */
+    public static async retrieveTutorials(userId: number) {
+
+        const query = `
+        SELECT t."title", t."description2", t."featuredImage", t."slug"
+        FROM tutorials t
+        WHERE t."id" IN 
+            (SELECT "tutorialId" 
+             FROM planner_detail
+             WHERE planner_detail."plannerId" = (
+                 SELECT "id"
+                 FROM planner
+                 WHERE planner."userId" = ($1)
+             )
+            )
+        `;
+        const values = [userId];
+
+        const rows = (await Client.executeQuery(query, values)).rows;
+        return rows;
+    }
+
     /** Get the id of the planner belonging to the user */
     public static async getPlannerId(userId: number): Promise<number> {
 
