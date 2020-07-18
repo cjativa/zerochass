@@ -1,0 +1,12 @@
+.planner {
+
+    &__tutorials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 4em;
+        grid-auto-rows: min-content;
+        row-gap: 2em;
+
+        margin: 1em 0;
+    }
+}
