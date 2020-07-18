@@ -152,7 +152,7 @@ export class Tutorial {
 
         const query = `
         SELECT 
-            t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id", t."codeUrl", t."liveUrl",
+            t."title", t."description1", t."description2", t."enabled", t."color", t."featuredImage", t."id", t."codeUrl", t."liveUrl", t."slug",
             u."heading", u."profileImage", u."name"
 
         FROM tutorials t
