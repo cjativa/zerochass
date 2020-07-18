@@ -31,11 +31,14 @@ export const TutorialCard = (props: TutorialCardProps) => {
                 {/** Display bottom of card */}
                 <div className={`tl-card__bottom`}>
                     <h1 className={titleClass}>{title}</h1>
-                    
-                    <div className="tl-card__author">
+
+                    {/** Show author image and name */}
+                    {authorImage && authorName && <div className="tl-card__author">
                         <img src={authorImage} className="tl-card__author-image" />
                         <span>{authorName}</span>
                     </div>
+                    }
+
                     <p className={subtitleClass}>{description2}</p>
                 </div>
             </a>
