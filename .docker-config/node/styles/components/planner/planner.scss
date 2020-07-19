@@ -1,12 +1,12 @@
 .planner {
     &__tutorials {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, min-content);
         column-gap: 1em;
-
         grid-auto-rows: min-content;
         row-gap: 2em;
 
+        justify-content: space-between;
         margin: 1em 0;
     }
 
@@ -14,7 +14,6 @@
     }
     @media (min-width: 768px) {
         &__tutorials {
-            grid-template-columns: repeat(2, 1fr);
             column-gap: 4em;
 
         }
