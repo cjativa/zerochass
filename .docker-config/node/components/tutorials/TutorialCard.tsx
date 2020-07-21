@@ -8,7 +8,8 @@ interface TutorialCardProps {
 export const TutorialCard = (props: TutorialCardProps) => {
 
     const { featuredImage, title, color, description2, slug,
-        profileImage: authorImage, name: authorName } = props.tutorial;
+        profileImage: authorImage, name: authorName,
+        totalSectionCount, completedSectionCount } = props.tutorial;
 
     let titleClass = 'tl-card__title';
     let subtitleClass = 'tl-card__subtitle';
@@ -33,10 +34,18 @@ export const TutorialCard = (props: TutorialCardProps) => {
                     <h1 className={titleClass}>{title}</h1>
 
                     {/** Show author image and name */}
-                    {authorImage && authorName && <div className="tl-card__author">
-                        <img src={authorImage} className="tl-card__author-image" />
-                        <span>{authorName}</span>
-                    </div>
+                    {authorImage && authorName &&
+                        <div className="tl-card__author">
+                            <img src={authorImage} className="tl-card__author-image" />
+                            <span>{authorName}</span>
+                        </div>
+                    }
+
+                    {/** Show tutorial section progress  */}
+                    {totalSectionCount && completedSectionCount &&
+                        <div className="tl-card__author">
+                            <span>{completedSectionCount} out of {totalSectionCount} sections complete</span>
+                        </div>
                     }
 
                     <p className={subtitleClass}>{description2}</p>
