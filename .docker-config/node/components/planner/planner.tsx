@@ -9,8 +9,11 @@ export const Planner = ({ tutorials }) => {
 
                 {/** Display the cards of enrolled tutorials */}
                 <div className="planner__tutorials">
-                    {tutorials.map((tutorial) =>
-                        <TutorialCard tutorial={tutorial} />
+                    {tutorials.map((tutorial, index) =>
+                        <TutorialCard
+                            tutorial={tutorial}
+                            key={`${tutorial.slug}__${index}`}
+                        />
                     )}
                 </div>
 
