@@ -20,17 +20,45 @@ export default class Planner {
     public static async retrieveTutorials(userId: number) {
 
         const query = `
-        SELECT t."title", t."description2", t."featuredImage", t."slug"
-        FROM tutorials t
-        WHERE t."id" IN 
-            (SELECT "tutorialId" 
-             FROM planner_detail
-             WHERE planner_detail."plannerId" = (
-                 SELECT "id"
-                 FROM planner
-                 WHERE planner."userId" = ($1)
-             )
+        SELECT 
+        t."title", 
+        t."description2", 
+        t."featuredImage", 
+        t."slug", 
+        COUNT(ts."tutorialId") as "totalSectionCount",
+        (
+            SELECT COUNT(tsp."sectionId") 
+            FROM tutorial_sections_progress tsp 
+            WHERE tsp."sectionId" in 
+            (
+                SELECT "id"
+                FROM tutorial_sections ts
+                WHERE 
+                    ts."tutorialId" = t."id"
+                    AND 
+                    tsp."isComplete" = true
             )
+        ) AS "completedSectionCount"
+        FROM tutorials t
+        INNER JOIN tutorial_sections ts
+        ON t."id" = ts."tutorialId"
+        WHERE t."id" IN 
+        (
+            SELECT "tutorialId" 
+            FROM planner_detail
+            WHERE planner_detail."plannerId" = 
+            (
+                SELECT "id"
+                FROM planner p
+                WHERE p."userId" = ($1)
+            )
+        )
+        GROUP BY
+            t."title", 
+            t."description2", 
+            t."featuredImage", 
+            t."slug", 
+            "completedSectionCount"     
         `;
         const values = [userId];
 
