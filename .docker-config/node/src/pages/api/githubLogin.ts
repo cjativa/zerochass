@@ -1,7 +1,5 @@
 import { Octokit } from '@octokit/rest';
-import { Endpoints } from "@octokit/types";
 import type { NextApiRequest, NextApiResponse } from 'next'
-
 
 import { SignUpInformation } from '../../../server/models/user/userSchema';
 import { UserService } from '../../../server/services/userService';

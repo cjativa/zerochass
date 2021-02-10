@@ -1,4 +1,4 @@
-import { AuthenticationService } from '../../../util/services/authenticationService';
+import { AuthenticationService } from '../../../server/api/services/authenticationService';
 
 export default async (request, response) => {
     response = AuthenticationService.logOut(request, response);
