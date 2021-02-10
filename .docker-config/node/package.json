@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ts-node server/app.ts",
+    "next-dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "build-sitemap": "node sitemap.js"
@@ -19,9 +20,12 @@
     "babel-plugin-prismjs": "^2.0.1",
     "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.16",
     "nanoid": "^3.1.10",
-    "next": "^9.4.4",
+    "next": "^9.5.0",
     "next-images": "^1.4.0",
     "nextjs-sitemap-generator": "^1.0.0",
     "nookies": "^2.3.0",
@@ -45,10 +49,13 @@
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
     "@types/node": "^13.13.5",
+    "@types/pg": "^7.14.4",
     "@types/prismjs": "^1.16.0",
     "@types/react": "^16.9.34",
     "dotenv-webpack": "^1.7.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.8.3"
   }
 }
