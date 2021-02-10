@@ -65,17 +65,18 @@ export class PlannerDAO {
     `,
     )
 
-    return tutorialsInPlanner;
+    return tutorialsInPlanner.rows;
   };
 
   /** Get the id of the planner belonging to the user */
   public static async getPlannerId(userId: number): Promise<number> {
-    const plannerId = await Knex('planner')
+    const plannerIdRes = await Knex('planner')
       .select('id')
       .from('planner')
       .where('userId', userId);
 
-    return plannerId.shift();
+    const { id } = plannerIdRes.shift();
+    return id;
   };
 
   /** Register this tutorial into the user's planner */
@@ -112,11 +113,16 @@ export class PlannerDAO {
 
   /** Check if the tutorial (by id) is already registered in the planner */
   public static async isTutorialRegistered(tutorialId: number, plannerId: number): Promise<boolean> {
-    const isTutorialAlreadyRegistered = await Knex('planner_detail')
-      .select(1)
+    const isTutorialAlreadyRegisteredRes = await Knex('planner_detail')
+      .select('*')
       .where('tutorialId', tutorialId)
       .andWhere('plannerId', plannerId);
 
-    return isTutorialAlreadyRegistered.shift();
+    const isTutorialAlreadyRegistered = (isTutorialAlreadyRegisteredRes.length > 0)
+      ? true
+      : false
+      ;
+
+    return isTutorialAlreadyRegistered;
   };
 };

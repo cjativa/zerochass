@@ -10,9 +10,9 @@ export class TutorialProgressDAO {
     // Get the id of the tutorial this section belongs to
     const tutorialIdRes = await Knex('tutorial_sections')
       .select('tutorialId')
-      .where({ sectionId: sectionId });
+      .where({ id: sectionId });
 
-    const tutorialId = tutorialIdRes.shift();
+    const {tutorialId} = tutorialIdRes.shift();
 
     // Check if the tutorial is already in the user's planner
     const plannerId = await PlannerDB.getPlannerId(userId);
@@ -33,12 +33,12 @@ export class TutorialProgressDAO {
           DO UPDATE
               SET 
               "isComplete" = true
-              WHERE EXCLUDED."sectionId" = ($1) AND EXCLUDED."userId" = ($2)
+              WHERE EXCLUDED."sectionId" = ${sectionId} AND EXCLUDED."userId" = ${userId}
 
           RETURNING "isComplete", "sectionId"
     `);
 
-    return sectionProgress;
+    return sectionProgress.rows.shift();
   };
 
   /** Marks this particular section as incomplete */

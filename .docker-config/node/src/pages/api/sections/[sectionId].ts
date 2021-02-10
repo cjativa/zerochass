@@ -1,41 +1,34 @@
-import { TutorialProgressManager } from '../../../../server/api/database/classes/tutorialProgressManager';
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { TutorialProgressDB } from '../../../../server/dataAccess/tutorialProgress/entity';
 import protectWithAuthentication from '../../../../server/api/middleware/protectWithAuthentcation';
 
+const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
-const handler = async (request, response) => {
-
-    const { method } = request;
-
-    try {
-        if (method === 'POST') await updateSectionProgress(request, response);
-
+    if (request.method.toLowerCase() === 'post') {
+        return await SectionService.handleUpdateSectionProgress(request, response);
     }
 
-    catch (error) {
-        console.log(`An error occurred performing a ${method} request on /section`, error);
-    }
 };
 
-/** Handles updating the progress of the section */
-const updateSectionProgress = async (request, response) => {
+class SectionService {
 
-    // Get the section id and whether the section should be complete for this user
-    let {
-        query: { sectionId },
-        body: { complete },
-        userId
-    } = request;
-    let sectionProgress;
+    /** Handles marking a section as complete */
+    public static async handleUpdateSectionProgress(request: any, response: NextApiResponse) {
 
-    sectionId = parseInt(sectionId);
+        // Get the section id and whether the section should be complete for this user
+        let sectionId = parseInt(request.query.sectionId);
+        let complete = request.body.complete as boolean;
+        const { userId } = request;
 
-    // If the section should be completed, mark it as complete
-    if (complete == true)  sectionProgress = await TutorialProgressManager.setSectionComplete(userId, sectionId);
+        // The section should be marked as complete
+        const sectionProgress = (complete)
+            ? await TutorialProgressDB.setSectionComplete(userId, sectionId)
+            : await TutorialProgressDB.setSectionIncomplete(sectionId, userId)
+            ;
 
-    // If the section should not be completed, mark it as not complete
-    if (complete == false) sectionProgress = await TutorialProgressManager.setSectionIncomplete(sectionId, userId);
-
-    response.json(sectionProgress);
+        response.json(sectionProgress);
+    };
 };
 
 export default protectWithAuthentication(handler);
