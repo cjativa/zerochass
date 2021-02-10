@@ -74,7 +74,7 @@ export class TutorialProgressDAO {
 
     const sectionsProgressRes = await Knex('tutorial_sections_progress')
       .select('sectionId', 'userId', 'isComplete')
-      .whereIn('sectionIds', sectionIds)
+      .whereIn('sectionId', sectionIds)
       .andWhere({ userId });
 
     return sectionsProgressRes;
