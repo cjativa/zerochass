@@ -35,10 +35,14 @@ export const Tutorial = ({ tutorial }) => {
         generateSectionBarContent();
 
         // If this tutorial is part of a series, set up the next - prev links
-        if (tutorial.hasOwnProperty('parent')) { setupTutorialSeries(); }
+        if (tutorial.hasOwnProperty('parent')) {
+            setupTutorialSeries();
+        }
 
         // Retrieve information on the user's progress with this tutorial
-        if (isAuthenticated) { retrieveTutorialProgress(); }
+        if (isAuthenticated) {
+            retrieveTutorialProgress();
+        }
 
     }, [isAuthenticated]);
 
