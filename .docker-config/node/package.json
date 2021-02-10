@@ -16,7 +16,7 @@
     "@octokit/rest": "^17.9.2",
     "@types/jsonwebtoken": "^8.5.0",
     "aws-sdk": "^2.696.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-prismjs": "^2.0.1",
     "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
