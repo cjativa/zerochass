@@ -1,6 +1,7 @@
 import { Layout } from "../../components/Layout";
 import { Write } from "../../components/write/write";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
+import { TutorialSectionDB } from '../../../server/dataAccess/tutorialSection/entity';
 
 const WritePage = ({ pageTitle, edit, tutorial }) => {
   return (
@@ -31,7 +32,18 @@ export const getServerSideProps = async (ctx) => {
 
   if (edit) {
     pageTitle = "Edit Tutorial";
-    tutorial = await TutorialDB.getTutorialForEditing(userId, ctx.params.id[0]);
+
+    // Fetch the whole tutorial
+    const tutorialId = ctx.params.id[0];
+    const tutorialMain = (await TutorialDB.getTutorialForEditing(userId, tutorialId)).shift();
+    const sections = await TutorialSectionDB.listTutorialSections(tutorialId);
+    const tags = await TutorialDB.getTags(tutorialId);
+
+    tutorial = {
+      ...tutorialMain,
+      tags,
+      sections
+    };
   }
 
 
