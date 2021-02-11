@@ -4,6 +4,7 @@ import { Layout } from "../../components/Layout";
 import { Tutorial } from "../../components/tutorial/tutorial";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from "../../../server/dataAccess/tutorialSection/entity";
+import { PlannerDB } from '../../../server/dataAccess/planner/entity';
 
 const TutorialPage = ({ tutorial }) => {
   const { tags, description1, description2, featuredImage, slug } = tutorial;
@@ -38,6 +39,8 @@ export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     tags,
     sections
   };
+
+  const totalRegisteredCount = await PlannerDB.getRegisteredCount(tutorialMain.id);
 
   return {
     props: {

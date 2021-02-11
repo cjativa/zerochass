@@ -84,7 +84,7 @@ export class PlannerDAO {
     const registeredTutorial = await Knex('planner_detail')
       .insert({
         plannerId: plannerId,
-        tutotrialId: tutorialId,
+        tutorialId: tutorialId,
       })
       .returning('*');
 
@@ -92,7 +92,7 @@ export class PlannerDAO {
   };
 
   /** Unregisters this tutorial from a user's planner */
-  public static async unregisterTutorial(tutorialId: number, plannerId: number, userId: number): Promise<void> {
+  public static async unregisterTutorial(tutorialId: number, plannerId: number, userId: number) {
 
     // Remove this tutorial from the planner
     await Knex('planner_detail')
@@ -124,5 +124,16 @@ export class PlannerDAO {
       ;
 
     return isTutorialAlreadyRegistered;
+  };
+
+  /** Returns the number of planners that have registered this tutorial */
+  public static async getRegisteredCount(tutorialId: number): Promise<number> {
+    const totalRegisteredCountRes = await Knex('planner_detail')
+      .count('plannerId')
+      .where('tutorialId', tutorialId)
+
+    const count = parseInt(totalRegisteredCountRes.shift().count.toString());
+
+    return count;
   };
 };
