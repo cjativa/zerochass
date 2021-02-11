@@ -8,8 +8,8 @@ export const SiteBanner = () => {
     const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
 
     const WriteButton = (isAuthenticated)
-        ? <Link href="/write"><a className="btn btn--primary btn--sb">WRITE YOUR OWN</a></Link>
-        : <button onClick={() => toggleAuthenticationModal()} className="btn btn--primary btn--sb">WRITE YOUR OWN</button>;
+        ? <Link href="/write"><a className="btn btn--primary btn--sb">Start writing</a></Link>
+        : <button onClick={() => toggleAuthenticationModal()} className="btn btn--primary btn--sb">Start writing</button>;
 
 
     return (
@@ -18,13 +18,13 @@ export const SiteBanner = () => {
 
                 {/** Banner Heading */}
                 <div className="heading-container">
-                    <p className="header">learn. code. and innovate</p>
+                    <p className="header">learn. code. and show others how</p>
                     <p className="subheader">practical and goal-oriented resources</p>
                 </div>
 
                 {/** Banner Buttons */}
                 <div className="button-container">
-                    <Link href="/tutorials"><a className="btn btn--secondary btn--sb">BROWSE TUTORIALS</a></Link>
+                    <Link href="/tutorials"><a className="btn btn--secondary btn--sb">Browse and read</a></Link>
                     {WriteButton}
                 </div>
 
