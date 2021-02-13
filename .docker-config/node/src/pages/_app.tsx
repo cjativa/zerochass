@@ -14,6 +14,9 @@ import 'prismjs/components/prism-scss.min.js';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'react-markdown-editor-lite/lib/index.css';
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "shards-ui/dist/css/shards.min.css"
+
 
 function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />
