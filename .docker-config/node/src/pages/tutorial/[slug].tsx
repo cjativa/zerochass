@@ -5,13 +5,15 @@ import { Tutorial } from "../../components/tutorial/tutorial";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from "../../../server/dataAccess/tutorialSection/entity";
 import { PlannerDB } from '../../../server/dataAccess/planner/entity';
+import { UserDB } from '../../../server/dataAccess/user/entity';
 
 export interface TutorialMetrics {
   totalRegisteredCount: number,
-  totalComments: number,
+  totalComments?: number,
 };
 
-const TutorialPage = ({ tutorial }) => {
+
+const TutorialPage = ({ tutorial, user  }) => {
   const { tags, description1, description2, featuredImage, slug } = tutorial;
 
   const keywords = tags.map((tag) => tag.title).join();
@@ -26,7 +28,10 @@ const TutorialPage = ({ tutorial }) => {
       image={featuredImage}
       large={true}
     >
-      <Tutorial tutorial={tutorial} />
+      <Tutorial
+        tutorial={tutorial}
+        author={user}
+      />
     </Layout>
   );
 };
@@ -45,16 +50,18 @@ export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     sections
   };
 
-  const totalRegisteredCount = await PlannerDB.getRegisteredCount(tutorialMain.id);
+  const user = await UserDB.getUserInformation(tutorialMain.userId);
 
   const tutorialMetrics = {
-
+    tutorialRegisteredCount: await PlannerDB.getRegisteredCount(tutorialMain.id),
+    // totalComments: await  
   };
 
   return {
     props: {
       siteTitle: config.title,
       tutorial,
+      user
     },
   };
 };

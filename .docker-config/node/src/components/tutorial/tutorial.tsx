@@ -9,9 +9,9 @@ import { ShareBar } from './shareBar';
 import { ProgressCheck } from './progressCheck';
 import { TutorialProgress, SectionProgress } from '../../../server/api/interfaces/tutorial';
 import { AuthenticationContext } from '../contexts';
+import { ProfileCard } from '../profileCard/profileCard';
 
-
-export const Tutorial = ({ tutorial }) => {
+export const Tutorial = ({ tutorial, author }) => {
     if (!tutorial) return <></>
 
     let previousEntry, nextEntry;
@@ -183,6 +183,13 @@ export const Tutorial = ({ tutorial }) => {
 
     return (
         <article className="tutorial-page">
+
+            <ProfileCard
+                name={author.name}
+                blurb={author.heading}
+                profileImageUrl={author.profileImage}
+                username={''}
+            />
 
             {/* Header section containing the tutorial image and title */}
             <div className="tutorial-page__header">
