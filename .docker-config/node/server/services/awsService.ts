@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import Config from '../../utils/config';
+import Config from '../utils/config';
 
 // Set the region 
 AWS.config.update({ region: Config.awsRegion });

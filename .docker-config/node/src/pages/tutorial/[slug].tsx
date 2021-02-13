@@ -6,6 +6,11 @@ import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from "../../../server/dataAccess/tutorialSection/entity";
 import { PlannerDB } from '../../../server/dataAccess/planner/entity';
 
+export interface TutorialMetrics {
+  totalRegisteredCount: number,
+  totalComments: number,
+};
+
 const TutorialPage = ({ tutorial }) => {
   const { tags, description1, description2, featuredImage, slug } = tutorial;
 
@@ -41,6 +46,10 @@ export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
   };
 
   const totalRegisteredCount = await PlannerDB.getRegisteredCount(tutorialMain.id);
+
+  const tutorialMetrics = {
+
+  };
 
   return {
     props: {

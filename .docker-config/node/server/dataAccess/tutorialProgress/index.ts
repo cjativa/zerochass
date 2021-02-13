@@ -53,7 +53,7 @@ export class TutorialProgressDAO {
       DO UPDATE
           SET 
           "isComplete" = false
-          WHERE EXCLUDED."sectionId" = ($1) AND EXCLUDED."userId" = ($2)
+          WHERE EXCLUDED."sectionId" = ${sectionId} AND EXCLUDED."userId" = ${userId}
 
       RETURNING "isComplete", "sectionId"
       `);
