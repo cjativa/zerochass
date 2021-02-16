@@ -15,11 +15,20 @@ html {
   overflow-y: scroll;
 }
 
-body {
-  // background-color: $tutorial_page_background;
-  color: #ffffff;
-  font-family: "Nunito";
+h1,
+h2,
+button,
+a {
+  color: unset;
+}
 
+h1,
+h2,
+p,
+body,
+span {
+  // background-color: $tutorial_page_background;
+  font-family: "Nunito" !important;
   position: relative;
 }
 
@@ -29,7 +38,11 @@ li {
 
 a {
   text-decoration: none;
-  color: inherit;
+
+  &:hover,
+  &:active {
+    text-decoration: none !important;
+  }
 }
 
 .black {
@@ -65,8 +78,6 @@ button:hover {
 }
 
 @import "./imports.scss";
-
-
 
 /** Breakpoints set at
  @media (min-width: 640px) {}

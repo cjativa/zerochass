@@ -53,3 +53,8 @@
 @import "./components/dashboard/dashboard.scss";
 @import "./components/planner/planner.scss";
 @import "./components/profileCard/profileCard.scss";
+
+// Importing component-based styles
+@import "../components/shared/userSnippet/userSnippet.scss";
+@import "../components/shared/tutorialSnippet/tutorialSnippet.scss";
+@import "../components/shared/tagItem/tagItem.scss";
