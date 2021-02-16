@@ -1,0 +1,17 @@
+.tutorial-snippet {
+    &__bottom {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    &__tags {
+        display: grid;
+        grid-auto-flow: column;
+        column-gap: 0.1em;
+
+        align-self: flex-end;
+        justify-self: end;
+    }
+}
