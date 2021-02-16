@@ -1,23 +1,37 @@
 import { TutorialCard } from '../tutorials/TutorialCard';
+import { PaddedPage } from '../custom/paddedPage';
 
 export const Planner = ({ tutorials }) => {
     return (
-        <div className="planner padded-page">
-            <div className="padded-page__content">
-                <h1>Planner</h1>
-                <p>Here's where you'll find tutorials you've started</p>
+        <PaddedPage
+            heading="Planner"
+            subHeading="Here's where you'll find tutorials you've worked on."
+        >
+            <div className="planner">
 
-                {/** Display the cards of enrolled tutorials */}
-                <div className="planner__tutorials">
-                    {tutorials.map((tutorial, index) =>
-                        <TutorialCard
-                            tutorial={tutorial}
-                            key={`${tutorial.slug}__${index}`}
-                        />
-                    )}
+                {/** Tutorials in-progress */}
+                <div className="planner__section">
+                    <h4>In-Progress</h4>
+                    <div className="planner__tutorials">
+                        {
+                            tutorials.map((tutorial, index) =>
+                                <TutorialCard
+                                    tutorial={tutorial}
+                                    key={`${tutorial.slug}__${index}`}
+                                />
+                            )
+                        }
+                    </div>
+                </div>
+
+                {/** Tutorials that have been completed */}
+                <div className="planner__section">
+                    <h4>Complete</h4>
+                    <p>You haven't completed a tutorial yet!</p>
                 </div>
 
             </div>
-        </div>
+        </PaddedPage >
     )
 };
+

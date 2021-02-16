@@ -5,15 +5,22 @@
 
         th {
             text-align: left;
-            padding: 10px 0px;
             border-bottom: 1px solid #e3e5e8;
         }
 
         td {
-            padding: 10px 0px;
             border-bottom: 1px solid #deeaf6;
             font-size: 15px;
         }
+
+        th,
+        td {
+            padding: 10px 20px;
+        }
+    }
+
+    &__row {
+        
     }
 
     .circle {
