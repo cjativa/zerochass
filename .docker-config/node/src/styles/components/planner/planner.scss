@@ -1,4 +1,9 @@
 .planner {
+
+    &__section {
+        margin-bottom: 2em;
+    }
+
     &__tutorials {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
