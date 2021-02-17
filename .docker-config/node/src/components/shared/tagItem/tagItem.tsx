@@ -6,7 +6,7 @@ interface ITagItemProps {
 
 export const TagItem = ({ tagId, tagName }: ITagItemProps) => {
     return (
-        <div className="tag">
+        <div className="tag-item">
             {`#${tagName}`}
         </div>
     );

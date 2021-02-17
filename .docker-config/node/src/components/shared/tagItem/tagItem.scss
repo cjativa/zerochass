@@ -1,12 +1,12 @@
-.tag {
-    background: rgba(240, 248, 255, 0.41);
+.tag-item {
+    background: rgba(212, 214, 216, 0.664);
     width: fit-content;
 
     padding: 5px 10px;
     border-radius: 4px;
 
     &:hover {
-        background: rgba(240, 248, 255, 0.664);
+        background: rgb(188 188 188 / 66%);
         cursor: pointer;
     }
 }
