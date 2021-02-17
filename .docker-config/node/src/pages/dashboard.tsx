@@ -20,7 +20,19 @@ export const getServerSideProps = async (ctx) => {
   ).default;
   await protectPageWithAuthentication(ctx);
 
-  const tutorials = await TutorialDB.getTutorialForEditing(ctx.req.userId);
+  const fetchedTutorials = await TutorialDB.getTutorialForEditing(ctx.req.userId);
+
+  // Set up promises for fetching the tags
+  const tagPromises = fetchedTutorials.map((tutorial) => TutorialDB.getTags(tutorial.id));
+  const tagResults = await Promise.all(tagPromises);
+
+  // Store them into each tutorial
+  const tutorials = fetchedTutorials.map((tutorial, index) => {
+    return {
+      ...tutorial,
+      tags: tagResults[index],
+    };
+  });
 
   return {
     props: {

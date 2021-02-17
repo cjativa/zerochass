@@ -20,7 +20,7 @@
     }
 
     &__row {
-        
+        height: max-content
     }
 
     .circle {
@@ -65,5 +65,13 @@
 
     &__row-color {
         text-transform: capitalize;
+    }
+
+    &__row-tags {
+        display: grid;
+        grid-template-columns: repeat(2, min-content);
+
+        column-gap: 0.5em;
+        row-gap: 0.25em;
     }
 }
