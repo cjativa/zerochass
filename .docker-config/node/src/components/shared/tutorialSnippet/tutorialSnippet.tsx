@@ -13,10 +13,10 @@ interface ITutorialSnippetProps {
 };
 
 export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
-    console.log(tutorial);
+
     return (
         <div className="tutorial-snippet">
-            <Card>
+            <Card className="tutorial-snippet__card">
                 <CardImg src={tutorial.featuredImage} />
                 <CardBody>
 

@@ -1,17 +1,25 @@
 .tutorial-snippet {
+    width: 95vw;
+
+    &__card {
+        height: 100%;
+    }
+
     &__bottom {
         display: grid;
-        grid-template-columns: min-content 1fr;
-
-        justify-content: space-between;
-        align-items: flex-end;
+        grid-template-rows: max-content max-content;
     }
     &__tags {
         display: grid;
         grid-auto-flow: column;
-        column-gap: 0.1em;
+        column-gap: 0.5em;
 
         align-self: flex-end;
         justify-self: end;
+    }
+
+    @include for-size(tablet-landscape-up) {
+        width: 350px;
+        height: 480px;
     }
 }
