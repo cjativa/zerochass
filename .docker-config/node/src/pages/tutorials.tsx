@@ -1,7 +1,7 @@
 import { Layout } from "../components/Layout";
-import { TutorialCard } from "../components/tutorials/TutorialCard";
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
 import { GetStaticProps } from "next";
+import { TutorialList } from '../components/tutorialList/tutorialList';
 
 const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
   return (
@@ -12,14 +12,9 @@ const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
         slug="tutorials"
         keywords={keywords}
       >
-        <div className="tutorial-list">
-          <div className="body">
-            {tutorials &&
-              tutorials.map((tutorial, index) => {
-                return <TutorialCard key={index} tutorial={tutorial} />;
-              })}
-          </div>
-        </div>
+        <TutorialList
+          tutorials={tutorials}
+        />
       </Layout>
     </>
   );
@@ -28,9 +23,23 @@ const Tutorials = ({ title, description, tutorials, keywords, ...props }) => {
 export default Tutorials;
 
 export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
-  const params = ctx.preview ? ctx.previewData.params : null;
 
-  const tutorials = await TutorialDB.getSiteTutorials();
+  // Fetch the tutorials
+  const fetchedTutorials = await TutorialDB.getSiteTutorials();
+
+  // Set up promises for fetching the tags
+  const tagPromises = fetchedTutorials.map((tutorial) => TutorialDB.getTags(tutorial.id));
+  const tagResults = await Promise.all(tagPromises);
+
+  // Store them into each tutorial
+  const tutorials = fetchedTutorials.map((tutorial, index) => {
+    return {
+      ...tutorial,
+      tags: tagResults[index],
+    };
+  });
+
+
   const config = await import(`../../siteconfig.json`);
 
   return {
