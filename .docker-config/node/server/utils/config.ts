@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 const Config = {
     craftURL: process.env.NEXT_PUBLIC_CRAFT_CMS_URL,
 
