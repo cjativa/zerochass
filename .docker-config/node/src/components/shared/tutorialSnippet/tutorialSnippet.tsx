@@ -6,6 +6,7 @@ import {
 } from "shards-react";
 import { UserSnip } from "../userSnippet/userSnippet";
 import { TagItem } from "../tagItem/tagItem";
+import Link from "next/link";
 
 interface ITutorialSnippetProps {
     tutorial: any,
@@ -21,7 +22,11 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
                 <CardBody>
 
                     {/** Title and short description */}
-                    <CardTitle>{tutorial.title}</CardTitle>
+                    <CardTitle>
+                        <Link href={`/tutorial/${tutorial.slug}`}>
+                            <a> {tutorial.title} </a>
+                        </Link>
+                    </CardTitle>
                     <p>{tutorial.description2}</p>
 
                     {/** Bottom half of the tutorial card */}

@@ -1,6 +1,10 @@
 .tutorial-snippet {
     width: 95vw;
 
+    a:hover {
+        color: initial;
+    }
+
     &__card {
         height: 100%;
     }
