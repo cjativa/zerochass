@@ -1,3 +1,5 @@
+import { TagItem } from '../shared/tagItem/tagItem';
+
 export const TutorialHeader = (props) => {
     const { title, tags, featuredImage, color, authorHeading, authorImage, authorName } = props;
 
@@ -16,14 +18,18 @@ export const TutorialHeader = (props) => {
                     <img className="featured-image" src={featuredImage} />}
             </div>
 
-            {/** Display the available tags */}
-            <ul className="tutorial-header__tags">
-                {tags && tags.map((tag, index) =>
-                    <li className="tutorial-header__tag" key={index} >
-                        {`#${tag.tag}`}
-                    </li>
-                )}
-            </ul>
+            {/** Display the available tags - only when tags are available */}
+            {tags.length > 0 &&
+                <ul className="tutorial-header__tags">
+                    {tags.map((tag, index) =>
+                        <TagItem
+                            tagId={tag.id}
+                            tagName={tag.tag}
+                            key={`${index}__${tag.id}`}
+                        />
+                    )}
+                </ul>
+            }
 
             <h1 className="tutorial-header__title">{title}</h1>
         </header>
