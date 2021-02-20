@@ -184,20 +184,32 @@ export const Tutorial = ({ tutorial, author }) => {
     return (
         <article className="tutorial-page">
 
-            <ProfileCard
+            {/* <ProfileCard
                 name={author.name}
                 blurb={author.heading}
                 profileImageUrl={author.profileImage}
                 username={''}
-            />
+            /> */}
 
             {/* Header section containing the tutorial image and title */}
             <div className="tutorial-page__header">
-                <TutorialHeader title={title} tags={tags} featuredImage={featuredImage} color={color} authorHeading={authorHeading} authorImage={authorImage} authorName={authorName} />
+                <TutorialHeader
+                    title={title}
+                    tags={tags}
+                    featuredImage={featuredImage}
+                    color={color}
+                    authorHeading={authorHeading}
+                    authorImage={authorImage}
+                    authorName={authorName}
+                />
 
                 {/** Display the tutorial actions */}
                 <ActionBar
-                    onEnrollClick={(isAuthenticated) ? onEnrollClick : toggleAuthenticationModal} // If the user is authenticated - they can enroll, otherwise, display the auth modal
+                    onEnrollClick={(isAuthenticated)
+                        // If the user is authenticated, enroll them
+                        ? onEnrollClick
+                        // Otherwise, display the auth modal
+                        : toggleAuthenticationModal}
                     isTutorialRegistered={isTutorialRegistered}
                     codeUrl={codeUrl}
                     liveUrl={liveUrl}
@@ -213,7 +225,10 @@ export const Tutorial = ({ tutorial, author }) => {
                     <SectionsBar sectionInformation={sectionInformation} />
 
                     {/** Display the share bar */}
-                    <ShareBar tutorialTitle={title} slug={slug} />
+                    <ShareBar
+                        tutorialTitle={title}
+                        slug={slug}
+                    />
                 </div>
 
                 {/* Display the content sections */}
