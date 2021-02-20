@@ -9,16 +9,16 @@
         height: 100%;
     }
 
-    &__top, &__bottom {
-        &:hover, &:active {
-            cursor: default;
-        }
+    &__card-img {
+        height: 100%;
+        width: 100%;
     }
 
     &__bottom {
         display: grid;
         grid-template-rows: max-content max-content;
     }
+
     &__tags {
         display: grid;
         grid-auto-flow: column;

@@ -1,6 +1,7 @@
 import {
     Card,
     CardImg,
+    CardLink,
     CardBody,
     CardTitle
 } from "shards-react";
@@ -21,7 +22,12 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
         <div className="tutorial-snippet">
             <Card className="tutorial-snippet__card">
                 <Link href={tutorialLink}>
-                    <CardImg src={tutorial.featuredImage} />
+                    <a>
+                        <CardImg
+                            src={tutorial.featuredImage}
+                            className="tutorial-snippet__card-img"
+                        />
+                    </a>
                 </Link>
                 <CardBody>
 
@@ -60,6 +66,6 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
 
                 </CardBody>
             </Card>
-        </div>
+        </div >
     );
 };
