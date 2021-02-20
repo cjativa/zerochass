@@ -15,7 +15,7 @@
 
         th,
         td {
-            padding: 10px 20px;
+            padding: 1em 2em;
         }
     }
 
@@ -67,11 +67,8 @@
         text-transform: capitalize;
     }
 
-    &__row-tags {
-        display: grid;
-        grid-template-columns: repeat(2, min-content);
-
-        column-gap: 0.5em;
-        row-gap: 0.25em;
+    &__row-tags-inner {
+        display: flex;
+        flex-wrap: wrap;
     }
 }

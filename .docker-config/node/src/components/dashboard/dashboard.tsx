@@ -58,12 +58,16 @@ export const WrittenTutorialsDashboard = ({ tutorials }) => {
 
                                         {/** Tags */}
                                         <td className="dashboard__row-tags">
-                                            {tutorial.tags.map((tag) =>
-                                                <TagItem
-                                                    tagId={tag.id}
-                                                    tagName={tag.tag}
-                                                />
-                                            )}
+                                            <div className="dashboard__row-tags-inner" >
+                                                {tutorial.tags.map((tag) =>
+                                                    <TagItem
+                                                        tagId={tag.id}
+                                                        tagName={tag.tag}
+                                                        useMargin={true}
+                                                    />
+
+                                                )}
+                                            </div>
                                         </td>
 
                                         {/** Slug Url */}
