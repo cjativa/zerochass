@@ -9,6 +9,12 @@
         height: 100%;
     }
 
+    &__top, &__bottom {
+        &:hover, &:active {
+            cursor: default;
+        }
+    }
+
     &__bottom {
         display: grid;
         grid-template-rows: max-content max-content;

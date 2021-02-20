@@ -15,19 +15,25 @@ interface ITutorialSnippetProps {
 
 export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
 
+    const tutorialLink = `/tutorial/${tutorial.slug}`;
+
     return (
         <div className="tutorial-snippet">
             <Card className="tutorial-snippet__card">
-                <CardImg src={tutorial.featuredImage} />
+                <Link href={tutorialLink}>
+                    <CardImg src={tutorial.featuredImage} />
+                </Link>
                 <CardBody>
 
                     {/** Title and short description */}
-                    <CardTitle>
-                        <Link href={`/tutorial/${tutorial.slug}`}>
-                            <a> {tutorial.title} </a>
-                        </Link>
-                    </CardTitle>
-                    <p>{tutorial.description2}</p>
+                    <div className="tutorial-snipper__top">
+                        <CardTitle>
+                            <Link href={tutorialLink}>
+                                <a> {tutorial.title} </a>
+                            </Link>
+                        </CardTitle>
+                        <p>{tutorial.description2}</p>
+                    </div>
 
                     {/** Bottom half of the tutorial card */}
                     <div className="tutorial-snippet__bottom">
