@@ -8,7 +8,7 @@
   grid-template-rows: repeat(2, min-content);
   row-gap: 0.5em;
 
-  height: 360px;
+  height: 325px;
   padding: 1em 1em 0 1em;
 
   justify-content: center;
@@ -51,6 +51,7 @@
   }
 
   @media (min-width: 768px) {
+    height: 360px;
     grid-template-areas:
       ". image tags"
       "title title title";
