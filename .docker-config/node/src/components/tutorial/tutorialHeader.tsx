@@ -6,12 +6,6 @@ export const TutorialHeader = (props) => {
     return (
         <header className={`tutorial-header ${color.toLowerCase()}`}>
 
-            {/** Display information about the author */}
-            <div className="tutorial-header__author">
-                <img src={authorImage} className="tutorial-header__author-image" />
-                <span>{authorName}</span>
-            </div>
-
             {/** Display the tutorial featured image */}
             <div className="tutorial-header__image">
                 {featuredImage.length > 0 &&
