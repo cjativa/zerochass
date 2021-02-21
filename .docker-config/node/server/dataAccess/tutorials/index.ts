@@ -96,10 +96,13 @@ export class TutorialDAO {
         t."id", 
         t."slug",
         u."profileImage", 
-        u."name"
+        u."name",
+        uai."username"
         FROM tutorials t
         INNER JOIN user_information u 
         ON u."id" = t."userId"
+        INNER JOIN user_account_information uai
+        on uai."userId" = t."userId"
         WHERE t."enabled" = true
         `
         );
