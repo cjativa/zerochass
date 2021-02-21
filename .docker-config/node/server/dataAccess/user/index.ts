@@ -37,10 +37,10 @@ export class UserDAO {
   };
 
   public static async getUserInformation(userId: number): Promise<IUser> {
-    const users = await Knex
-      .from('user_information')
-      .select('*')
-      .where('id', userId);
+    const users = await Knex('user_information')
+      .join('user_account_information', { 'user_information.id': 'user_account_information.userId' })
+      .select('heading', 'about', 'name', 'website', 'profileImage', 'username')
+      .where('user_information.id', userId);
 
     return users.shift();
   };
@@ -57,6 +57,6 @@ export class UserDAO {
       })
       .returning('*');
 
-      return users.shift();
+    return users.shift();
   };
 };
