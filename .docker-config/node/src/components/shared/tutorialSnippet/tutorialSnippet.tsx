@@ -48,7 +48,7 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
                         <UserSnip
                             profileImageUrl={tutorial.profileImage}
                             name={tutorial.name}
-                            username={"cjativa"}
+                            username={tutorial.username}
                         />
 
                         {/** Tutorial tags */}
