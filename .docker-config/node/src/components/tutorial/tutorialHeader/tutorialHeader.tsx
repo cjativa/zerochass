@@ -1,7 +1,8 @@
-import { TagItem } from '../shared/tagItem/tagItem';
+import { TagItem } from '../../shared/tagItem/tagItem';
+import { UserSnip } from '../../shared/userSnippet/userSnippet';
 
 export const TutorialHeader = (props) => {
-    const { title, tags, featuredImage, color, authorHeading, authorImage, authorName } = props;
+    const { title, tags, featuredImage, color, author } = props;
 
     return (
         <header className={`tutorial-header ${color.toLowerCase()}`}>

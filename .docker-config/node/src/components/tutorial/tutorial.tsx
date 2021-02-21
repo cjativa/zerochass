@@ -1,7 +1,7 @@
 import { useEffect, useState, createRef, useContext } from 'react';
 import axios from 'axios';
 import slugify from '../../constants/slugify';
-import { TutorialHeader } from './tutorialHeader';
+import { TutorialHeader } from './tutorialHeader/tutorialHeader';
 import { ActionBar } from './actionBar';
 import { TutorialSection } from './tutorialSection';
 import { SectionsBar } from './sectionsBar';
@@ -9,7 +9,7 @@ import { ShareBar } from './shareBar';
 import { ProgressCheck } from './progressCheck';
 import { TutorialProgress, SectionProgress } from '../../../server/api/interfaces/tutorial';
 import { AuthenticationContext } from '../contexts';
-import { ProfileCard } from '../profileCard/profileCard';
+import { UserSnip } from '../shared/userSnippet/userSnippet';
 
 export const Tutorial = ({ tutorial, author }) => {
     if (!tutorial) return <></>
@@ -17,7 +17,6 @@ export const Tutorial = ({ tutorial, author }) => {
     let previousEntry, nextEntry;
 
     const { title, tags, featuredImage, color, sections, description1, description2, slug, codeUrl, liveUrl,
-        heading: authorHeading, profileImage: authorImage, name: authorName
     } = tutorial;
 
     const [sectionRefs, setSectionRefs] = useState([]);
@@ -198,9 +197,7 @@ export const Tutorial = ({ tutorial, author }) => {
                     tags={tags}
                     featuredImage={featuredImage}
                     color={color}
-                    authorHeading={authorHeading}
-                    authorImage={authorImage}
-                    authorName={authorName}
+                    author={author}
                 />
 
                 {/** Display the tutorial actions */}
@@ -221,6 +218,14 @@ export const Tutorial = ({ tutorial, author }) => {
 
                 {/** Display the side bar */}
                 <div className="side-bar-column">
+
+                    {/** Display the author snippet */}
+                    <UserSnip
+                        username={author.username}
+                        name={author.name}
+                        profileImageUrl={author.profileImage}
+                    />
+
                     {/* Display the content bar */}
                     <SectionsBar sectionInformation={sectionInformation} />
 
