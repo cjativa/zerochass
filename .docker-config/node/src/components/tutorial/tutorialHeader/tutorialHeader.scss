@@ -1,7 +1,7 @@
 .tutorial-header {
   display: grid;
   grid-template-areas:
-    ". image ."
+    ". image tags"
     "title title title";
 
   grid-template-columns: 1fr 230px 1fr;
@@ -24,6 +24,7 @@
   &__image {
     grid-area: image;
     text-align: center;
+    grid-column: 2/4;
 
     .featured-image {
       width: 210px;
@@ -31,6 +32,19 @@
       object-fit: cover;
       border-radius: 50%;
     }
+  }
+
+  &__tags {
+    grid-area: tags;
+
+    display: grid;
+    grid-auto-rows: min-content;
+    row-gap: 3px;
+    justify-content: end;
+    justify-items: end;
+
+    text-align: right;
+    font-size: 16px;
   }
 
   @media (min-width: 640px) {
@@ -48,23 +62,11 @@
     }
 
     &__image {
+      grid-column: 2;
       .featured-image {
         width: 230px;
         height: 230px;
       }
-    }
-
-    &__tags {
-      grid-area: tags;
-
-      display: grid;
-      grid-auto-rows: min-content;
-      row-gap: 3px;
-      justify-content: end;
-      justify-items: end;
-
-      text-align: right;
-      font-size: 16px;
     }
   }
 
