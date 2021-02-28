@@ -20,13 +20,15 @@
 
 // Tutorial Component Styles
 @import "./components/tutorialComponents/tutorialPage.scss";
-@import "./components/tutorialComponents/actionBar.scss";
 @import "../components/tutorial/tutorialHeader/tutorialHeader.scss";
 @import "./components/tutorialComponents/section.scss";
 @import "./components/tutorialComponents/progressCheck.scss";
-@import "./components/tutorialComponents/contentBar.scss";
-@import "./components/tutorialComponents/shareBar.scss";
 @import "./components/tutorialComponents/relatedNavigator.scss";
+@import "../components/tutorial/colorBox/colorBox.scss";
+@import "../components/tutorial/shareBar/shareBar.scss";
+@import "../components/tutorial/sectionBar/sectionBar.scss";
+@import "../components/tutorial/shareBar/actionBar.scss";
+
 
 // Dialog Component Styles
 @import "./components/dialogComponents/baseDialog.scss";
@@ -56,5 +58,6 @@
 @import "../components/shared/userSnippet/userSnippet.scss";
 @import "../components/shared/tutorialSnippet/tutorialSnippet.scss";
 @import "../components/shared/tagItem/tagItem.scss";
+@import "../components/shared/navigationBar/navigationBar.scss";
 @import "../components/tutorialList/tutorialList.scss";
 @import "../components/dashboard/dashboard.scss"

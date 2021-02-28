@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { ShareButtons } from '../shared/ShareButtons';
+import { ColorBox } from '../colorBox/colorBox';
+import { ShareButtons } from '../../shared/ShareButtons';
 
 interface Props {
     tutorialTitle: string,
@@ -38,9 +39,10 @@ export const ShareBar = (props: Props) => {
     }
 
     return (
-        <div className="tutorial-share-bar">
-            <div className="share-box">
-                <span className="box-title">Share</span>
+        <ColorBox 
+        title="Share"
+        >
+            <div className="tutorial-share-bar">
                 <span className="box-subtitle">Motivate your friends!</span>
                 <textarea className="box-text-area"
                     rows={6}
@@ -55,6 +57,6 @@ export const ShareBar = (props: Props) => {
                 {/** Share buttons for sharing the tutorial */}
                 <ShareButtons link={`tutorial/${slug}`} title={tutorialTitle} text={taText} />
             </div>
-        </div>
-    )
+        </ColorBox>
+    );
 };
