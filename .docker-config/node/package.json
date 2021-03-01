@@ -30,7 +30,7 @@
     "nextjs-sitemap-generator": "^1.0.0",
     "nookies": "^2.3.0",
     "pg": "^8.2.1",
-    "prismjs": "^1.20.0",
+    "prismjs": "^1.23.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-images-uploader": "^1.2.0-rc1",
