@@ -12,7 +12,12 @@ const colors = ['black', 'pink', 'white', 'teal'];
 
 export const TutorialBannerList = (props: any) => {
     const [sorted, setSorted] = useState([]);
+    const { tutorials } = props;
 
+    useEffect(() => {
+        setSorted(generateFourColor(tutorials));
+    }, []);
+    
     const byColor = (a: any, b: any): number => {
 
         const colorA = a.color;
@@ -50,12 +55,6 @@ export const TutorialBannerList = (props: any) => {
 
         return black && pink && teal && white;
     }
-
-    const { tutorials } = props;
-
-    useEffect(() => {
-        setSorted(generateFourColor(tutorials));
-    }, []);
 
     return (
         <div className="content-list">

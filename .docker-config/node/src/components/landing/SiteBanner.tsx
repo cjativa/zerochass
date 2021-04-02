@@ -14,31 +14,22 @@ export const SiteBanner = () => {
 
     return (
         <div className="site-banner">
-            <div className="content">
+            <div className="site-banner__inner">
 
                 {/** Banner Heading */}
-                <div className="heading-container">
-                    <p className="header">learn. code. and show others how</p>
-                    <p className="subheader">practical and goal-oriented resources</p>
+                <div className="site-banner__header">
+                    <p className="sb-header">learn. build. and write</p>
+                    <p className="sb-subheader">practical and goal-oriented resources for all by all</p>
                 </div>
 
                 {/** Banner Buttons */}
-                <div className="button-container">
-                    <Link href="/tutorials"><a className="btn btn--secondary btn--sb">Browse and read</a></Link>
+                <div className="site-banner__buttons">
+                    <Link href="/tutorials">
+                        <a className="btn btn--secondary btn--sb">Browse and read</a>
+                    </Link>
                     {WriteButton}
                 </div>
 
-                {/** Featured tutorial for mobile */}
-                {/* <li className="featured">
-                    <div className={`main__link feat`}>
-                        {tutorial &&
-                            <div className="featured-container">
-                                <TutorialCard tutorial={tutorial} large />
-                                <p className="featured-container__text">Tutorial of the day</p>
-                            </div>
-                        }
-                    </div>
-                </li> */}
             </div>
         </div>
     )
