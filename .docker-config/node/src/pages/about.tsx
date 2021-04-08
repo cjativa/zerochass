@@ -1,15 +1,18 @@
 import ReactMarkdown from 'react-markdown';
 
-import { Layout } from '../components/layout';
-import { CraftQL } from '../util/services/craftGQL';
-import { singlesQuery } from '../util/queries/singlesQuery';
+import { Layout } from '../features/layout/layout';
 
 const About = ({ title, slug, entryContent, description, keywords }) => {
 
     let fullKeywords = ['company', 'contact', 'information', ...keywords].join();
 
     return (
-        <Layout pageTitle={title} description={description} keywords={fullKeywords} slug={slug}>
+        <Layout
+            pageTitle={title}
+            description={description}
+            keywords={fullKeywords}
+            slug={slug}
+        >
             <div className="about single-page">
                 {entryContent &&
                     <div className="body">
@@ -29,8 +32,7 @@ const About = ({ title, slug, entryContent, description, keywords }) => {
 };
 
 export async function getStaticProps() {
-    const about = (await CraftQL(singlesQuery('about')))[0];
-    let { slug, entryContent, description } = about;
+    let { slug, entryContent, description } = {};
     description = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();

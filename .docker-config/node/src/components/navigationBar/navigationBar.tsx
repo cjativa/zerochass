@@ -51,7 +51,10 @@ export const NavigationBar = () => {
             <Collapse open={menuOpen} navbar>
                 <Nav navbar>
                     <NavItem>
-                        <NavLink className="nb-2__link" href="/tutorials">
+                        <NavLink
+                            className="nb-2__link"
+                            href="/tutorials"
+                        >
                             More
                         </NavLink>
                     </NavItem>
@@ -74,8 +77,30 @@ export const NavigationBar = () => {
                 {/** Only show the user dropdown when authenticated */}
                 {
                     isAuthenticated &&
-                    <Nav navbar className="ml-auto">
+                    <Nav navbar className="ml-auto align-items-center">
+
+                        {/** Button link to the writing page */}
+                        <NavItem>
+                            <NavLink
+                                className="nb-2__link"
+                                href="/write"
+                            >
+                                Write
+                            </NavLink>
+                        </NavItem>
+
+                        {/** Button link to the dashboard page */}
+                        <NavItem>
+                            <NavLink
+                                className="nb-2__link"
+                                href="/dashboard"
+                            >
+                                Dashboard
+                            </NavLink>
+                        </NavItem>
+
                         <Dropdown
+                            className="ml-4"
                             open={userDropdownOpen}
                             toggle={toggleUserDropdown}
                         >
