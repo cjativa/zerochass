@@ -113,11 +113,6 @@ export const NavigationBar = () => {
 
                             <DropdownMenu className="left">
                                 <DropdownItem>
-                                    <Link href="/dashboard">
-                                        <a className="main__link">Dashboard</a>
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
                                     <Link href="/planner">
                                         <a className="main__link">Planner</a>
                                     </Link>

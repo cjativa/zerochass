@@ -46,7 +46,7 @@ export const SiteBanner = () => {
                                 style={'primary'}
                                 onClick={toggleAuthenticationModal}
                             >
-                                Start writing
+                                Start writing!
                         </Button>
                     }
                 </div>
