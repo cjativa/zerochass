@@ -1,5 +1,4 @@
 import { TagItem } from '../../../components/tagItem/tagItem';
-import { UserSnip } from '../../../components/userSnippet/userSnippet';
 
 export const TutorialHeader = (props) => {
     const { title, tags, featuredImage, color, author } = props;
