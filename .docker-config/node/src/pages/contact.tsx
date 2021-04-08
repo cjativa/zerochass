@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 
-import { Layout } from '../components/Layout';
+import { Layout } from '../components/layout';
 import { CraftQL } from '../util/services/craftGQL';
 import { singlesQuery } from '../util/queries/singlesQuery';
 

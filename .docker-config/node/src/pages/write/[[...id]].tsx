@@ -1,5 +1,5 @@
-import { Layout } from "../../components/Layout";
-import { Write } from "../../components/write/write";
+import { Layout } from "../../components/layout";
+import { Write } from "../../features/write/write";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from '../../../server/dataAccess/tutorialSection/entity';
 

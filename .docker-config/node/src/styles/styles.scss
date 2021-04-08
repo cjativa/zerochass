@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./theme.scss";
 
 h1,
 h2,
@@ -70,7 +71,6 @@ button:hover {
 }
 
 .app__body {
-  padding-top: $navigationBarHeight;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

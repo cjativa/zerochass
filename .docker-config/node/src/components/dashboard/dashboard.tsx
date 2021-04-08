@@ -1,10 +1,11 @@
 import React from "react";
-import { Card } from "shards-react"; import Link from "next/link";
+import { Card } from "../button/node_modules/shards-react"; 
+import Link from "next/link";
 
-import { PaddedPage } from '../custom/paddedPage';
-import { TagItem } from '../shared/tagItem/tagItem';
+import { PaddedPage } from '../paddedPage/paddedPage';
+import { TagItem } from '../tagItem/tagItem';
 
-export const WrittenTutorialsDashboard = ({ tutorials }) => {
+export const Dashboard = ({ tutorials }) => {
 
     return (
         <PaddedPage

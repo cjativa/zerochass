@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 
-import { Layout } from "../../components/Layout";
+import { Layout } from "../../components/layout";
 import { Tutorial } from "../../components/tutorial/tutorial";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from "../../../server/dataAccess/tutorialSection/entity";

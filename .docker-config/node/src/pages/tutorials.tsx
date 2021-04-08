@@ -1,4 +1,4 @@
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/layout";
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
 import { GetStaticProps } from "next";
 import { TutorialList } from '../components/tutorialList/tutorialList';

@@ -1,5 +1,5 @@
-import { Layout } from "../components/Layout";
-import { Planner } from "../components/planner/planner";
+import { Layout } from "../components/layout";
+import { Planner } from "../features/planner/planner";
 import { PlannerDB } from "../../server/dataAccess/planner/entity";
 
 const PlannerPage = ({ tutorials }) => {

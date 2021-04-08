@@ -1,0 +1,28 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$theme-colors: (
+    primary: $mainPink,
+    secondary: $mainOffWhite,
+    ternary: $mainLightGrey,
+    success: #ffffff,
+    info: #64c3d2,
+    warning: #f5e74a,
+    danger: #820410,
+);
+
+@import "bootstrap/scss/bootstrap";
+
+
+a {
+    color: unset;
+
+    &:hover, &:active {
+        color: unset;
+    }
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}

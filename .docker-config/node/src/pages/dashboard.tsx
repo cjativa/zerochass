@@ -1,13 +1,13 @@
-import { Layout } from "../components/Layout";
-import { WrittenTutorialsDashboard } from "../components/dashboard/dashboard";
+import { Layout } from "../components/layout";
+import { Dashboard } from "../components/dashboard/dashboard";
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
 
-const Dashboard = ({ tutorials }) => {
+const DashboardPage = ({ tutorials }) => {
   const title = "Dashboard";
 
   return (
     <Layout pageTitle={title}>
-      <WrittenTutorialsDashboard
+      <Dashboard
         tutorials={tutorials}
       />
     </Layout>
@@ -41,4 +41,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default Dashboard;
+export default DashboardPage;

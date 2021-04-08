@@ -1,9 +1,8 @@
 import { GetStaticProps } from "next";
 
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
-import { Layout } from "../components/Layout";
-import { SiteBanner } from "../components/landing/SiteBanner";
-import { TutorialBannerList } from "../components/landing/TutorialBannerList";
+import { Layout } from "../features/layout/layout";
+import { Landing } from '../features/landing/landing';
 
 const Index = ({ title, description, tutorials, keywords, ...props }) => {
   const pageTitle = `Home`;
@@ -15,8 +14,9 @@ const Index = ({ title, description, tutorials, keywords, ...props }) => {
       keywords={keywords}
       slug=""
     >
-      <SiteBanner />
-      <TutorialBannerList tutorials={tutorials} />
+      <Landing
+        tutorials={tutorials}
+      />
     </Layout>
   );
 };
