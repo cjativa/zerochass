@@ -1,4 +1,4 @@
-import { TutorialSnip } from "../shared/tutorialSnippet/tutorialSnippet";
+import { TutorialSnip } from "../tutorialSnippet/tutorialSnippet";
 
 export const TutorialList = ({ tutorials }) => {
     return (

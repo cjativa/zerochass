@@ -4,7 +4,7 @@ import {
     CardLink,
     CardBody,
     CardTitle
-} from "../../button/node_modules/shards-react";
+} from "shards-react";
 import { UserSnip } from "../userSnippet/userSnippet";
 import { TagItem } from "../tagItem/tagItem";
 import Link from "next/link";
