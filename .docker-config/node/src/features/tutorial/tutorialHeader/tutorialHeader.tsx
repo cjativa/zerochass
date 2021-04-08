@@ -1,5 +1,5 @@
-import { TagItem } from '../../shared/tagItem/tagItem';
-import { UserSnip } from '../../shared/userSnippet/userSnippet';
+import { TagItem } from '../../../components/tagItem/tagItem';
+import { UserSnip } from '../../../components/userSnippet/userSnippet';
 
 export const TutorialHeader = (props) => {
     const { title, tags, featuredImage, color, author } = props;

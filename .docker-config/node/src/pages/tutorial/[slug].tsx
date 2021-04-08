@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 
-import { Layout } from "../../components/layout";
-import { Tutorial } from "../../components/tutorial/tutorial";
+import { Layout } from "../../features/layout/layout";
+import { Tutorial } from "../../features/tutorial/tutorial";
 import { TutorialDB } from "../../../server/dataAccess/tutorials/entity";
 import { TutorialSectionDB } from "../../../server/dataAccess/tutorialSection/entity";
 import { PlannerDB } from '../../../server/dataAccess/planner/entity';
@@ -13,7 +13,7 @@ export interface TutorialMetrics {
 };
 
 
-const TutorialPage = ({ tutorial, user  }) => {
+const TutorialPage = ({ tutorial, author }) => {
   const { tags, description1, description2, featuredImage, slug } = tutorial;
 
   const keywords = tags.map((tag) => tag.title).join();
@@ -30,7 +30,7 @@ const TutorialPage = ({ tutorial, user  }) => {
     >
       <Tutorial
         tutorial={tutorial}
-        author={user}
+        author={author}
       />
     </Layout>
   );
@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     sections
   };
 
-  const user = await UserDB.getUserInformation(tutorialMain.userId);
+  const author = await UserDB.getUserInformation(tutorialMain.userId);
 
   const tutorialMetrics = {
     tutorialRegisteredCount: await PlannerDB.getRegisteredCount(tutorialMain.id),
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ ...ctx }) => {
     props: {
       siteTitle: config.title,
       tutorial,
-      user
+      author
     },
   };
 };

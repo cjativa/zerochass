@@ -2,14 +2,14 @@ import { useEffect, useState, createRef, useContext } from 'react';
 import axios from 'axios';
 import slugify from '../../constants/slugify';
 import { TutorialHeader } from './tutorialHeader/tutorialHeader';
-import { ActionBar } from './shareBar/actionBar';
+import { ActionBar } from './actionBar/actionBar';
 import { TutorialSection } from './tutorialSection/tutorialSection';
 import { SectionBar } from './sectionBar/sectionBar';
 import { ShareBar } from './shareBar/shareBar';
 import { ProgressCheck } from './progressCheck/progressCheck';
 import { TutorialProgress, SectionProgress } from '../../../server/api/interfaces/tutorial';
-import { AuthenticationContext } from '../contexts';
-import { UserSnip } from '../shared/userSnippet/userSnippet';
+import { AuthenticationContext } from '../../components/contexts';
+import { UserSnip } from '../../components/userSnippet/userSnippet';
 import { ColorBox } from './colorBox/colorBox';
 
 export const Tutorial = ({ tutorial, author }) => {

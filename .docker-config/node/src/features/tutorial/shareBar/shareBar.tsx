@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ColorBox } from '../colorBox/colorBox';
-import { ShareButtons } from '../../shared/ShareButtons';
+import { ShareButtons } from '../../../components/shareButtons/shareButtons';
 
 interface Props {
     tutorialTitle: string,
