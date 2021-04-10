@@ -1,4 +1,4 @@
-import { Layout } from "../components/layout";
+import { Layout } from "../features/layout/layout";
 import { Dashboard } from "../components/dashboard/dashboard";
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
 

@@ -1,8 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 
-import { Layout } from '../components/layout';
-import { CraftQL } from '../util/services/craftGQL';
-import { singlesQuery } from '../util/queries/singlesQuery';
+import { Layout } from '../features/layout/layout';
 
 const Contact = ({ title, slug, entryContent, description, keywords }) => {
 
@@ -29,21 +27,19 @@ const Contact = ({ title, slug, entryContent, description, keywords }) => {
 };
 
 export async function getStaticProps() {
-    const contact = (await CraftQL(singlesQuery('contact')))[0];
-    let { slug, entryContent, description } = contact;
 
-    description = entryContent && entryContent.map((e, i) => {
+ /*    description = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
     }).join(' ').trim();
-
+ */
     const config = await import(`../../siteconfig.json`);
 
     return {
         props: {
             title: 'Contact',
-            slug,
-            entryContent,
-            description,
+            slug: '',
+            entryContent: '',
+            description: '',
             keywords: config.default.keywords
         },
     }

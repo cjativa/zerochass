@@ -7,7 +7,7 @@ import {
     CardBody,
     CardFooter,
     Button
-} from "../dashboard/node_modules/shards-react";
+} from "shards-react";
 
 export interface IProfileCardProps {
     name: string,

@@ -1,4 +1,4 @@
-import { TutorialCard } from '../tutorialList/tutorialCard';
+import { TutorialCard } from '../../components/tutorialCard/tutorialCard';
 import { PaddedPage } from '../../components/paddedPage/paddedPage';
 
 export const Planner = ({ tutorials }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../button/node_modules/shards-react"; 
+import { Card } from "shards-react"; 
 import Link from "next/link";
 
 import { PaddedPage } from '../paddedPage/paddedPage';

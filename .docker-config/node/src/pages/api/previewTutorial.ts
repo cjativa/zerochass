@@ -1,5 +1,3 @@
-import { CraftQL } from '../../util/services/craftGQL';
-import { TutorialSingleQuery } from '../../util/queries/tutorialQuery';
 
 export default async (request, response) => {
 
@@ -7,7 +5,7 @@ export default async (request, response) => {
 
     // Check the secret and next parameters
     // This secret should only be known to this API route and the CMS
-    if (!xCraftLivePreview || !slug || !token) {
+    /* if (!xCraftLivePreview || !slug || !token) {
         return response.status(401).json({ message: 'Invalid token' });
     }
 
@@ -26,7 +24,7 @@ export default async (request, response) => {
     }
 
     // Enable Preview Mode by setting the cookies
-    response.setPreviewData({ params });
+    response.setPreviewData({ params }); */
 
     // Redirect to the path from the fetched post
     // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities

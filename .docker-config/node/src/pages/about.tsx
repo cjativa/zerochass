@@ -32,19 +32,19 @@ const About = ({ title, slug, entryContent, description, keywords }) => {
 };
 
 export async function getStaticProps() {
-    let { slug, entryContent, description } = {};
+    /* let { slug, entryContent, description } = { slug: '', };
     description = entryContent && entryContent.map((e, i) => {
         if (i == 0) return `${e.sectionTitle} ${e.sectionContent}`.replace(/<[^>]*>/g, '')
-    }).join(' ').trim();
+    }).join(' ').trim(); */
 
     const config = await import(`../../siteconfig.json`);
 
     return {
         props: {
             title: 'About',
-            slug,
-            entryContent,
-            description,
+            slug: '',
+            entryContent: '',
+            description: '',
             keywords: config.default.keywords
         },
     }

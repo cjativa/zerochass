@@ -12,8 +12,7 @@ export const TutorialHeader = (props) => {
                     <img className="featured-image" src={featuredImage} />}
             </div>
 
-            {/** Display the available tags - only when tags are available */}
-            {tags.length > 0 &&
+            {/** Display the available tags */}
                 <ul className="tutorial-header__tags">
                     {tags.map((tag, index) =>
                         <TagItem
@@ -23,7 +22,6 @@ export const TutorialHeader = (props) => {
                         />
                     )}
                 </ul>
-            }
 
             <h1 className="tutorial-header__title">{title}</h1>
         </header>

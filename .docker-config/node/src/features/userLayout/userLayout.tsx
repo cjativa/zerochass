@@ -2,12 +2,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Card } from 'shards-react';
 
-import { Layout } from '../../components/layout';
+import { Layout } from '../layout/layout';
 import logo from '../../assets/logo.svg';
 
 import { Profile } from './profile/profile';
 import { Account } from './account/account';
-import { Component } from 'react';
 
 export const UserLayout = () => {
     const pathname = useRouter().pathname.substring(1);

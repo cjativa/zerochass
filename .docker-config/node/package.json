@@ -6,7 +6,7 @@
     "dev": "ts-node server/app.ts",
     "next-dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "build-sitemap": "node sitemap.js"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { Layout } from "../components/layout";
+import { Layout } from "../features/layout/layout";
 import { Planner } from "../features/planner/planner";
 import { PlannerDB } from "../../server/dataAccess/planner/entity";
 

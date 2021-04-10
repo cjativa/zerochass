@@ -32,3 +32,7 @@ yarn-error.log*
 .env
 .rebuilt
 public/sitemap.xml
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
