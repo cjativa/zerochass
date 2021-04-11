@@ -15,10 +15,13 @@ export const AuthenticationModal = ({ modalType, isOpen, onRequestClose, }: IAut
 
     let loginClass = highlightClass;
     let signUpClass = highlightClass;
-    console.log('isOpen auth', isOpen)
 
     const onGitHubClick = () => {
         window.location.href = GITHUB_AUTHENTICATION_LINK;
+    };
+
+    const handleModalClose = () => {
+        onRequestClose();
     };
 
     return (
@@ -27,7 +30,7 @@ export const AuthenticationModal = ({ modalType, isOpen, onRequestClose, }: IAut
             onRequestClose={onRequestClose}
         >
             <div className="modal-content">
-                <i className={`fas fa-times`} onClick={() => ''/* onRequestClose() */} />
+                <i className={`fas fa-times`} onClick={handleModalClose} />
                 <div className="modal-content__inner">
                     <p className="modal-content__title">
                         <span className={loginClass}>Sign In</span>
