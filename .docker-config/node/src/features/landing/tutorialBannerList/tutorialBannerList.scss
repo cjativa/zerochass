@@ -32,7 +32,8 @@
     padding: 25px 25px;
     box-sizing: border-box;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       color: inherit;
     }
   }
@@ -69,7 +70,6 @@
   @media (min-width: 640px) {
   }
   @media (min-width: 768px) {
-
     height: 285px;
 
     &__link {
@@ -83,7 +83,6 @@
     }
   }
   @media (min-width: 1024px) {
-
     height: 255px;
 
     border-radius: $tutorialBannerRadius;
@@ -94,7 +93,7 @@
 
       &__description {
         font-size: 16px;
-        width: 75%
+        width: 75%;
       }
     }
 
