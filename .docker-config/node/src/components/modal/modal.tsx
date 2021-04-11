@@ -25,7 +25,6 @@ export const Modal = ({ isOpen, onRequestClose, children }: IModalProps) => {
             contentLabel="Example Modal"
             className="modal-content"
         >
-            <p>HELLLLLLL</p>
             {children}
         </ReactModal>
     );

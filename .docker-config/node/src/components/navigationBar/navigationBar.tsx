@@ -17,6 +17,7 @@ import Link from 'next/link';
 import logo from '../../assets/logo.svg';
 import { UserSnip } from '../userSnippet/userSnippet';
 import { AuthenticationContext } from '../contexts';
+import { useLogout } from '../../hooks/useLogout';
 
 
 export const NavigationBar = () => {
@@ -25,6 +26,8 @@ export const NavigationBar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+    const { performLogout } = useLogout();
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -36,6 +39,10 @@ export const NavigationBar = () => {
 
     const toggleUserDropdown = () => {
         setUserDropdownOpen(!userDropdownOpen);
+    };
+
+    const handleLogout = async () => {
+        await performLogout();
     };
 
     return (
@@ -126,6 +133,14 @@ export const NavigationBar = () => {
                                     <Link href="/account">
                                         <a className="main__link">Account</a>
                                     </Link>
+                                </DropdownItem>
+
+                                <hr />
+
+                                <DropdownItem
+                                    onClick={handleLogout}
+                                >
+                                    Log out
                                 </DropdownItem>
 
                             </DropdownMenu>
