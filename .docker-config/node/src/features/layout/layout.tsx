@@ -5,9 +5,8 @@ import { parseCookies } from 'nookies';
 import { NavigationBar } from '../../components/navigationBar/navigationBar';
 import { InformationSection } from '../../components/informationSection/informationSection';
 import { Footer } from '../../components/footer/footer';
-
 import { AuthenticationContext } from '../../components/contexts';
-// import { useAuthDialog } from './shared/authenticationDialog';
+import { useAuthenticationModal } from '../../hooks/useAuthenticationModal';
 
 
 const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images/zerochass-rect.PNG';
@@ -32,7 +31,7 @@ export const Layout = (props: LayoutProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-    // const [isDialogOpen, setDialogOpen, toggle, AuthDialog] = useAuthDialog();
+    const { toggleAuthenticationModal, AuthModal }= useAuthenticationModal();
 
     /** Determines if a user is authenticated client-side */
     useEffect(() => {
@@ -46,8 +45,6 @@ export const Layout = (props: LayoutProps) => {
         }
 
     }, [isAuthenticated, profileImageUrl]);
-
-    const toggle = () => ''
 
     return (
         <>
@@ -81,17 +78,19 @@ export const Layout = (props: LayoutProps) => {
             </Head>
             <section className="layout">
                 <AuthenticationContext.Provider
-                    value={{ isAuthenticated, profileImageUrl, toggleAuthenticationModal: toggle }}>
+                    value={{ isAuthenticated, profileImageUrl, toggleAuthenticationModal }}>
 
-                    {/** Consumers of the context */}
                     <NavigationBar />
-                    <div className="app__body">
+                    <div
+                        className="app__body"
+                    >
                         {children}
                     </div>
+
                     <InformationSection />
 
                     {/** Render the auth dialog  */}
-                    {/* <AuthDialog /> */}
+                    <AuthModal />
 
                 </AuthenticationContext.Provider>
             </section>

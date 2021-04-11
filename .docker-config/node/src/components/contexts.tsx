@@ -4,7 +4,7 @@ interface AuthContext {
     isAuthenticated: boolean,
     profileImageUrl: string,
 
-    toggleAuthenticationModal: any
+    toggleAuthenticationModal: () => void,
 };
 
 export const AuthenticationContext: React.Context<AuthContext> = React.createContext({

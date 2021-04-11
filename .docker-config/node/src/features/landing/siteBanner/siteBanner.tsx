@@ -5,8 +5,7 @@ import { AuthenticationContext } from '../../../components/contexts';
 
 export const SiteBanner = () => {
 
-    const { isAuthenticated, profileImageUrl, toggleAuthenticationModal } = useContext(AuthenticationContext);
-
+    const { isAuthenticated, toggleAuthenticationModal } = useContext(AuthenticationContext);
 
     return (
         <div className="site-banner">
