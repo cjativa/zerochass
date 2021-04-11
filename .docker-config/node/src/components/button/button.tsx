@@ -16,7 +16,9 @@ interface IButtonProps {
 export const Button = ({ style, onClick, asLink, path, className, disabled, children }: IButtonProps) => {
 
     const handleOnClick = () => {
-        onClick();
+        if (onClick) {
+            onClick();
+        }
     };
 
 

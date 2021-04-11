@@ -87,7 +87,7 @@ export const NavigationBar = () => {
                     <Nav navbar className="ml-auto align-items-center">
 
                         {/** Button link to the writing page */}
-                        <NavItem>
+                        <NavItem className="mr-auto">
                             <NavLink
                                 className="nb-2__link"
                                 href="/write"
@@ -97,7 +97,7 @@ export const NavigationBar = () => {
                         </NavItem>
 
                         {/** Button link to the dashboard page */}
-                        <NavItem>
+                        <NavItem className="mr-auto">
                             <NavLink
                                 className="nb-2__link"
                                 href="/dashboard"
@@ -107,7 +107,7 @@ export const NavigationBar = () => {
                         </NavItem>
 
                         <Dropdown
-                            className="ml-4"
+                            className="mr-auto ml-md-4"
                             open={userDropdownOpen}
                             toggle={toggleUserDropdown}
                         >
