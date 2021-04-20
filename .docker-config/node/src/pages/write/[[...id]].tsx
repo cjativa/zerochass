@@ -34,7 +34,7 @@ export const getServerSideProps = async (ctx) => {
     const tutorialId = ctx.params.id[0];
     const tutorialMain = (await TutorialDB.getTutorialForEditing(userId, tutorialId)).shift();
     const sections = await TutorialSectionDB.listTutorialSections(tutorialId);
-    const tags = await TutorialDB.getTags(tutorialId);
+    const tags = (await TutorialDB.getTags(tutorialId)).map((tag) => tag.tag);
 
     tutorial = {
       ...tutorialMain,

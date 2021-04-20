@@ -88,8 +88,8 @@ export const Sidebar = (props) => {
         }
     };
 
-    const onMatchingTagClick = (matchingTag: string) => {
-        setIntoTags(matchingTag);
+    const onMatchingTagClick = (matchingTag) => {
+        setIntoTags(matchingTag.tag);
     };
 
     const setIntoTags = (value: string) => {
@@ -215,10 +215,9 @@ export const Sidebar = (props) => {
                         {console.log(tags)}
                         {tags.map((tag, index) =>
                             <TagItem
-                                tagId={tag.id}
-                                tagName={tag.tag}
+                                tagName={tag}
                                 removable={true}
-                                onRemoveClick={() => onTagRemove(index)}
+                                onRemoveClick={() => onTagRemove(tag)}
                             />
                         )}
                     </div>
@@ -231,7 +230,7 @@ export const Sidebar = (props) => {
                                     className="f-tag-item"
                                     key={index}
                                     onClick={() => onMatchingTagClick(matchingTag)} >
-                                    {matchingTag}
+                                    {matchingTag.tag}
                                 </div>
                             )}
                         </div>

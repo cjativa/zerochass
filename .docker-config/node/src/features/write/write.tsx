@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import { TutorialInterface, TutorialRequest } from '../../../server/api/interfaces/tutorial';
 import { Main } from './main/main';
@@ -87,8 +86,6 @@ export const Write = (props: Props) => {
             liveUrl,
             codeUrl,
         };
-
-        console.log('saving');
 
         // If we have an id, this is an update, otherwise it's a create
         const method = (tutorial.id) ? 'PUT' : 'POST';

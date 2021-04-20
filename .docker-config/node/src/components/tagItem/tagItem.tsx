@@ -1,6 +1,6 @@
 
 interface ITagItemProps {
-    tagId: number | string,
+    tagId?: number | string,
     tagName: string,
     useMargin?: boolean,
 
