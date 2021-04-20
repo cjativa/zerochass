@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Input as ShardInput } from "shards-react";
+import { FormInput as ShardInput } from "shards-react";
 
 interface IInputProps {
     type: 'text' | 'email' | 'password' | 'phoneNumber',

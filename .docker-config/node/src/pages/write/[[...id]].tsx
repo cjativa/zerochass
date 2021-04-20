@@ -21,14 +21,11 @@ export const getServerSideProps = async (ctx) => {
   let tutorial = {};
   let pageTitle = 'New Tutorial';
 
-
-
   // If there's a id present in the url, then we're editing an existing
   // tutorial rather than creating a new one
   const edit = (ctx.params.id)
     ? true
-    : false
-    ;
+    : false.toString();
 
   if (edit) {
     pageTitle = "Edit Tutorial";

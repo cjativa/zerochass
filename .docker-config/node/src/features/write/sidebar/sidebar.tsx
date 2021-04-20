@@ -3,6 +3,8 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import ReactSwitch from 'react-switch';
 
+import { TagItem } from '../../../components/tagItem/tagItem';
+
 const ReactSelect = dynamic(() => import('react-select')
     .then((mod) => mod.default), { ssr: false }) as any;
 
@@ -46,15 +48,15 @@ export const Sidebar = (props) => {
 
             const foundMatchingTags = data.reduce((acc, matchingTag) => {
 
-                // Find if this matching tag is already used by this tutorial
+                // Check if this tag is already used by this tutorial
+                // and if not, let's show it in the matching tags
                 const isMatchingTagUsed = tags.some((tag) => tag === matchingTag.tag);
-
-                // If we don't already use this tag, let's display it
-                if (isMatchingTagUsed == false) acc.push(matchingTag.tag);
-
+                if (isMatchingTagUsed == false) {
+                    acc.push(matchingTag);
+                }
                 return acc;
             }, []);
-
+            console.log('Hello');
             setMatchingTags(foundMatchingTags);
         };
 
@@ -210,16 +212,15 @@ export const Sidebar = (props) => {
 
                     {/** List of tags for this tutorial */}
                     <div className="write__taglist">
+                        {console.log(tags)}
                         {tags.map((tag, index) =>
-                            <span
-                                className="tag-item"
-                                key={index}>
-                                #{tag.tag}
-                                <i
-                                    onClick={() => onTagRemove(index)}
-                                    className="x-btn fas fa-times" />
-                            </span>)
-                        }
+                            <TagItem
+                                tagId={tag.id}
+                                tagName={tag.tag}
+                                removable={true}
+                                onRemoveClick={() => onTagRemove(index)}
+                            />
+                        )}
                     </div>
 
                     {/** List of matching tags for the entered tag term */}
@@ -231,11 +232,10 @@ export const Sidebar = (props) => {
                                     key={index}
                                     onClick={() => onMatchingTagClick(matchingTag)} >
                                     {matchingTag}
-                                </div>)
-                            }
+                                </div>
+                            )}
                         </div>
                     }
-
                 </div>
             </div>
         </div >

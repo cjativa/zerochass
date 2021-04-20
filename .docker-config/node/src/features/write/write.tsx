@@ -4,6 +4,7 @@ import axios from 'axios';
 import { TutorialInterface, TutorialRequest } from '../../../server/api/interfaces/tutorial';
 import { Main } from './main/main';
 import { Sidebar } from './sidebar/sidebar';
+import { useAxios } from '../../hooks/useAxios';
 
 export const WriteSaveContext = React.createContext({
     saveOccurred: null,
@@ -28,6 +29,7 @@ interface Props {
 export const Write = (props: Props) => {
 
     const { edit, tutorial } = props;
+    const { performRequest, requestInProgress, responseData } = useAxios();
 
     // State variables and controls for Main component
     const [title, setTitle] = useState(tutorial.title || '');
@@ -63,7 +65,7 @@ export const Write = (props: Props) => {
                 reader.addEventListener('load', (event) => {
                     featuredImagePayload = { dataUrl: '' }
                     featuredImagePayload.dataUrl = event.target.result;
-                    resolve();
+                    resolve('');
                 });
 
                 reader.readAsDataURL(featuredImage);
@@ -81,12 +83,20 @@ export const Write = (props: Props) => {
             color,
             featuredImage: featuredImagePayload,
             enabled,
-            id: tutorial.id
+            id: tutorial.id,
+            liveUrl,
+            codeUrl,
         };
+
+        console.log('saving');
 
         // If we have an id, this is an update, otherwise it's a create
         const method = (tutorial.id) ? 'PUT' : 'POST';
-        await axios('/api/write', { data: writeTutorialPayload, method });
+        await performRequest({
+            endpoint: 'write',
+            method,
+            payload: writeTutorialPayload,
+        });
 
         setSaveOccurred(true);
     };

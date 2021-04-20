@@ -21,14 +21,45 @@ export class TutorialDAO {
         return tutorials.shift();
     };
 
-    public static async addTutorial(tutorialData): Promise<any> {
-        const tutorial = makeTutorial(tutorialData);
+    public static async addTutorial(props: ITutorial, userId: string): Promise<any> {
+        // const tutorial = makeTutorial(tutorialData);
 
         const addedTutorial = await Knex('tutorials')
-            .insert(tutorial)
+            .insert({
+                title: props.title,
+                color: props.color,
+                description1: props.description1,
+                description2: props.description2,
+                enabled: props.enabled,
+                featuredImage: props.featuredImage,
+                codeUrl: props.codeUrl,
+                liveUrl: props.liveUrl,
+                slug: props.slug,
+                userId: userId,
+            })
             .returning('*');
 
         return addedTutorial.shift();
+    };
+
+    public static async updateTutorial(props: ITutorial, userId: string) {
+        const updatedTutorial = await Knex('tutorials')
+            .where({ 'id': props.id })
+            .update({
+                title: props.title,
+                color: props.color,
+                description1: props.description1,
+                description2: props.description2,
+                enabled: props.enabled,
+                featuredImage: props.featuredImage,
+                codeUrl: props.codeUrl,
+                liveUrl: props.liveUrl,
+                slug: props.slug,
+                userId: userId,
+            })
+            .returning('*');
+
+        return updatedTutorial.shift();
     };
 
     public static async deleteTutorial(id: string | number): Promise<any> {
@@ -65,7 +96,16 @@ export class TutorialDAO {
         // as the user is trying to edit it
         if (tutorialId) {
             const editableTutorial = await Knex('tutorials')
-                .select('title', 'description1', 'description2', 'enabled', 'color', 'featuredImage', 'id')
+                .select(
+                    'title',
+                    'description1',
+                    'description2',
+                    'enabled',
+                    'color',
+                    'featuredImage',
+                    'liveUrl',
+                    'codeUrl',
+                    'id')
                 .where({
                     id: tutorialId,
                     userId: userId

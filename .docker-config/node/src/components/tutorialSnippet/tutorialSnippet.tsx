@@ -58,6 +58,7 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
                                     <TagItem
                                         tagId={tag.id}
                                         tagName={tag.tag}
+                                        key={tag.id}
                                     />
                                 )}
                             </div>

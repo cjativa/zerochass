@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Launch Program",
+      "name": "Attach Program",
       "skipFiles": [
         "<node_internals>/**"
       ],
@@ -16,6 +16,20 @@
       "name": "Next: Chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": [
+        "dev"
+      ],
+      "env": {
+        "NODE_OPTIONS": "--inspect"
+      },
+      "port": 9229,
+      "sourceMaps": true,
     }
   ]
 }

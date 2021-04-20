@@ -5,7 +5,7 @@ module.exports = withImages({
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         return config;
     },
-    experimental: { optionalCatchAll: true }
+    // experimental: { optionalCatchAll: true }
 });
 
 

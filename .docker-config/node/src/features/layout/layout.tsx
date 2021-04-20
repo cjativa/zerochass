@@ -8,7 +8,6 @@ import { Footer } from '../../components/footer/footer';
 import { AuthenticationContext } from '../../components/contexts';
 import { useAuthenticationModal } from '../../hooks/useAuthenticationModal';
 
-
 const defaultImage = 'https://s3.us-east-1.amazonaws.com/zerochass-assets/images/zerochass-rect.PNG';
 
 interface LayoutProps {

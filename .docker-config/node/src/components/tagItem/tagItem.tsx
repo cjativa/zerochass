@@ -3,9 +3,12 @@ interface ITagItemProps {
     tagId: number | string,
     tagName: string,
     useMargin?: boolean,
+
+    removable?: true,
+    onRemoveClick?: () => void,
 };
 
-export const TagItem = ({ tagId, tagName, useMargin }: ITagItemProps) => {
+export const TagItem = ({ tagId, tagName, useMargin, removable, onRemoveClick }: ITagItemProps) => {
 
     let className = "tag-item";
 
@@ -18,6 +21,14 @@ export const TagItem = ({ tagId, tagName, useMargin }: ITagItemProps) => {
     return (
         <div className={className}>
             {`#${tagName}`}
+
+            {/** Display the "x" icon when removable */}
+            {removable &&
+                <i
+                    onClick={onRemoveClick}
+                    className="x-btn fas fa-times"
+                />
+            }
         </div>
     );
 };

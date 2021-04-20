@@ -49,7 +49,7 @@ class WriteService {
         const { userId } = request;
 
         const preparedTutorial = await WriteService.prepareTutorial(tutorialRequest);
-        const tutorial = await TutorialDB.addTutorial(preparedTutorial);
+        const tutorial = await TutorialDB.addTutorial(preparedTutorial, userId);
 
         response.json(tutorial.id);
     };
@@ -62,11 +62,9 @@ class WriteService {
         const { userId } = request;
 
         const preparedTutorial = await WriteService.prepareTutorial(tutorialRequest);
+        const updatedTutorial = await TutorialDB.updateTutorial(preparedTutorial, userId);
 
-        // const tds = new Tutorial(preparedTutorial, userId);
-        // const id = await tds.updateTutorial();
-
-        response.json(userId);
+        response.json({ ...updatedTutorial });
     };
 
     /** Uploads a featured image for the tutorial */
