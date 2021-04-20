@@ -1,6 +1,7 @@
 import { Knex } from '../../database/knex';
 import { makeTutorial } from '../../models/tutorial/index';
 import { ITutorial } from '../../models/tutorial/tutorialSchema';
+import { TagDB } from '../tag/entity';
 
 export class TutorialDAO {
 
@@ -39,10 +40,17 @@ export class TutorialDAO {
             })
             .returning('*');
 
+        // If there's tags to associate
+        if (props.tags.length > 0) {
+            await TagDB.relateWithTutorial(props.tags, props.id);
+        }
+
         return addedTutorial.shift();
     };
 
     public static async updateTutorial(props: ITutorial, userId: string) {
+
+        // Update the main tutorial information
         const updatedTutorial = await Knex('tutorials')
             .where({ 'id': props.id })
             .update({
@@ -58,6 +66,11 @@ export class TutorialDAO {
                 userId: userId,
             })
             .returning('*');
+
+        // If there's tags to associate
+        if (props.tags.length > 0) {
+            await TagDB.relateWithTutorial(props.tags, props.id);
+        }
 
         return updatedTutorial.shift();
     };

@@ -2,6 +2,7 @@ import Joi from 'joi';
 
 export interface ITutorial {
     id?: number,
+
     title: string,
     description1: string,
     description2: string,
@@ -12,6 +13,8 @@ export interface ITutorial {
     slug: string,
     codeUrl: string,
     liveUrl: string,
+
+    tags: string[],
 }
 
 export const TutorialSchema = Joi.object().keys({
