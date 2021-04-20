@@ -2,15 +2,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "attach",
-      "name": "Attach Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "port": 9229
-    },
-    {
       "type": "chrome",
       "request": "launch",
       "name": "Next: Chrome",
@@ -26,10 +17,18 @@
         "dev"
       ],
       "env": {
-        "NODE_OPTIONS": "--inspect"
+        "NODE_OPTIONS": "--inspect=127.0.0.1:3003"
       },
-      "port": 9229,
       "sourceMaps": true,
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "port": 9229
     }
   ]
 }
