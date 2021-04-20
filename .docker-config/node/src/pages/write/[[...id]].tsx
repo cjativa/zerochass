@@ -25,7 +25,7 @@ export const getServerSideProps = async (ctx) => {
   // tutorial rather than creating a new one
   const edit = (ctx.params.id)
     ? true
-    : false.toString();
+    : false;
 
   if (edit) {
     pageTitle = "Edit Tutorial";
