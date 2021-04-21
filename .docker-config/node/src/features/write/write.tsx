@@ -135,8 +135,6 @@ export const Write = (props: Props) => {
         validateTutorial();
         const tutorialPassValidation = (tutorialErrorsExist === false);
 
-        console.log('Passes validation', tutorialPassValidation);
-
         // Only allow tutorial to be saved when validation passes
         if (tutorialPassValidation) {
 
