@@ -16,7 +16,7 @@ export const Section = (props) => {
     const [sectionContent, setSectionContent] = useState(content);
     const [collapsed, setCollapsed] = useState(initialCollapse);
 
-    const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);
+    const { sectionUpdate } = useContext(WriteSaveContext);
 
     /** When the title or content changes locally, we'll need to update
      * it in the central parent */
@@ -50,7 +50,6 @@ export const Section = (props) => {
                         className="x-btn fas fa-times" />
                 </span>
             </span>
-            {console.log(sectionTitle)}
             {!collapsed &&
                 <div className="section__body block">
 
