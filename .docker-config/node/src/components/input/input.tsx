@@ -9,12 +9,11 @@ interface IInputProps {
     onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
     className?: string,
     valid?: boolean,
-    invalid?: boolean,
     invalidText?: string,
     placeholder?: string,
 };
 
-export const Input = ({ value, className, type, onChange, valid, invalid, invalidText, placeholder, onKeyDown }: IInputProps) => {
+export const Input = ({ value, className, type, onChange, valid, invalidText, placeholder, onKeyDown }: IInputProps) => {
 
     let inputClassString = `input`;
 
@@ -30,7 +29,6 @@ export const Input = ({ value, className, type, onChange, valid, invalid, invali
                 className={inputClassString}
                 type={type}
                 valid={valid}
-                invalid={invalid}
                 placeholder={placeholder}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
@@ -38,8 +36,10 @@ export const Input = ({ value, className, type, onChange, valid, invalid, invali
             />
 
             {/** Display error text if it has been provided */}
-            {invalid && invalidText &&
-                <span>
+            {invalidText && invalidText.length > 0 &&
+                <span
+                    className="input--error"
+                >
                     {invalidText}
                 </span>
             }

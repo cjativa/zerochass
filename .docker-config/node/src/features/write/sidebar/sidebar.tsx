@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import ReactSwitch from 'react-switch';
 
+import { WriteSaveContext } from '../write';
 import { Button } from '../../../components/button/button';
 import { FormField } from '../../../components/formField/formField';
 import { Input } from '../../../components/input/input';
@@ -32,6 +33,8 @@ export const Sidebar = (props) => {
     const [matchingTags, setMatchingTags] = useState([]);
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
     const [displayedColor, setDisplayedColor] = useState(null);
+
+    const { tutorialValidation } = useContext(WriteSaveContext);
 
     useEffect(() => {
         // If we've got a featured image that's a string -- it's a url we can preview
@@ -63,9 +66,7 @@ export const Sidebar = (props) => {
 
         if (tag.length > 1) {
             fetchMatchingTags();
-        }
-
-        if (tag.length == 0) {
+        } else if (tag.length == 0) {
             setMatchingTags([]);
         }
 
@@ -129,7 +130,12 @@ export const Sidebar = (props) => {
                 <div className="form-field">
                     <label className="form-field__label">Featured Image</label>
                     {!featuredImage && <label className="file-container">
-                        <input type="file" className="file-hide" onChange={fileChangedHandler} accept="jpg, .jpeg, .png" />
+                        <input
+                            type="file"
+                            className="file-hide"
+                            onChange={fileChangedHandler}
+                            accept="jpg, .jpeg, .png"
+                        />
                         <i className="fas fa-image upload" />
                     </label>
                     }
@@ -143,9 +149,10 @@ export const Sidebar = (props) => {
                 </div>
 
                 {/** Color */}
-                <div className="form-field">
-                    <label className="form-field__label">Color</label>
-                    <span className="form-field__hint">Set a color for your post header</span>
+                <FormField
+                    labelText={'Color'}
+                    helperText={'Set a color for your post header'}
+                >
                     <ReactSelect
                         id={"react-select"}
                         value={displayedColor}
@@ -153,7 +160,7 @@ export const Sidebar = (props) => {
                         options={colorOptions}
                         className="slim"
                     />
-                </div>
+                </FormField>
             </div>
 
             <div className="write__sidebar write__sidebar-bottom outline block">
@@ -217,6 +224,7 @@ export const Sidebar = (props) => {
 
                 {/** Tags */}
                 <div className="write__tags">
+                    {console.log(tutorialValidation.tagsError)}
                     <FormField
                         labelText={'Tags'}
                         helperText={'Add up to 4 tags related to your post'}
@@ -227,12 +235,12 @@ export const Sidebar = (props) => {
                             value={tag}
                             onChange={(e) => setTag(e.target.value)}
                             onKeyDown={(e) => onTagsKeyDown(e)}
+                            invalidText={tutorialValidation.tagsError}
                         />
                     </FormField>
 
                     {/** List of tags for this tutorial */}
                     <div className="write__taglist">
-                        {console.log(tags)}
                         {tags.map((tag, index) =>
                             <TagItem
                                 tagName={tag}

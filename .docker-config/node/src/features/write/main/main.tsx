@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Section } from '../section/section';
 
+import { WriteSaveContext } from '../write';
 import { Button } from '../../../components/button/button';
 import { FormField } from '../../../components/formField/formField';
 import { Input } from '../../../components/input/input';
@@ -14,8 +15,18 @@ export const Main = (props) => {
 
     const headingText = edit ? 'Edit tutorial' : 'Create a new tutorial post';
 
+    const { tutorialValidation } = useContext(WriteSaveContext);
+
+
     const addToSections = () => {
-        setSections([...sections, { tempKey: Date.now(), title: '', content: '', collapsed: false }]);
+        setSections([
+            ...sections,
+            {
+                tempKey: Date.now(),
+                title: '',
+                content: '',
+                collapsed: false,
+            }]);
     };
 
     const removeSection = (index) => {
@@ -50,6 +61,7 @@ export const Main = (props) => {
                     placeholder={'Add a title for your post here'}
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
+                    invalidText={tutorialValidation.titleError}
                 />
             </FormField>
 
@@ -68,6 +80,7 @@ export const Main = (props) => {
                             placeholder={'Describe the topic of your tutorial here'}
                             onChange={(e) => setDescription1(e.target.value)}
                             value={description1}
+                            invalidText={tutorialValidation.description1Error}
                         />
                     </FormField>
 
@@ -80,6 +93,7 @@ export const Main = (props) => {
                             placeholder={'Motivate others to follow along!'}
                             onChange={(e) => setDescription2(e.target.value)}
                             value={description2}
+                            invalidText={tutorialValidation.description2Error}
                         />
                     </FormField>
                 </div>
