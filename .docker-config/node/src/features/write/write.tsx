@@ -48,7 +48,12 @@ export const Write = (props: Props) => {
 
     /** Handles updating the list of sections */
     const sectionUpdate = (index: number, id: number, title: string, content: string, tempKey: number) => {
-        sections[index] = { id, title, content, tempKey };
+        sections[index] = {
+            id,
+            title,
+            content,
+            tempKey,
+        };
         setSections(sections);
     };
 
@@ -56,6 +61,7 @@ export const Write = (props: Props) => {
     const onSave = async () => {
 
         let featuredImagePayload = '' as any;
+        sections.forEach((section) => delete section.tempKey);
 
         // If there's a featured image, convert it to data url
         if (featuredImage && typeof featuredImage !== 'string') {
@@ -71,7 +77,9 @@ export const Write = (props: Props) => {
             });
         }
 
-        else { featuredImagePayload = featuredImage }
+        else {
+            featuredImagePayload = featuredImage
+        }
 
         // Set up the payload
         const writeTutorialPayload: TutorialInterface | TutorialRequest = {

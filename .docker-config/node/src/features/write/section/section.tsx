@@ -9,19 +9,18 @@ export const Section = (props) => {
     const { index, removeSection, id, title, content, tempKey } = props;
     const initialCollapse = props.collapsed != undefined ? props.collapsed : true;
 
-    const [sectionTitle, setSectionTitle] = useState('');
-    const [sectionContent, setSectionContent] = useState('');
+    const [sectionTitle, setSectionTitle] = useState(title);
+    const [sectionContent, setSectionContent] = useState(content);
     const [collapsed, setCollapsed] = useState(initialCollapse);
-
 
     const { saveOccurred, sectionUpdate } = useContext(WriteSaveContext);
 
-    const handleEditorChange = ({ html, text }) => {
+    /** When the title or content changes locally, we'll need to update
+     * it in the central parent */
+    useEffect(() => {
+        sectionUpdate(index, id, sectionTitle, sectionContent, tempKey);
 
-        if (id) sectionUpdate(index, id, sectionTitle, text);
-
-        else sectionUpdate(index, id, sectionTitle, text, tempKey);
-    };
+    }, [sectionTitle, sectionContent]);
 
     const handleImageUpload = (file: File): Promise<string> => {
         return new Promise(resolve => {
@@ -33,14 +32,6 @@ export const Section = (props) => {
             reader.readAsDataURL(file);
         });
     };
-
-    useEffect(() => {
-        if (title && content) {
-            setSectionTitle(title);
-            setSectionContent(content);
-        }
-    }, []);
-
 
     return (
         <div className="section outline">
@@ -71,10 +62,10 @@ export const Section = (props) => {
                     <div className="form-field">
                         <label className="form-field__label">Content</label>
                         <MdEditor
-                            value={sectionContent}
+                            defaultValue={sectionContent}
                             style={{ height: "500px" }}
                             view={{ menu: true, md: true, html: false }}
-                            onChange={handleEditorChange}
+                            onChange={({ text }) => setSectionContent(text)}
                             onImageUpload={handleImageUpload}
                         />
                     </div>

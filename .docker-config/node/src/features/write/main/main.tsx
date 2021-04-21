@@ -18,13 +18,17 @@ export const Main = (props) => {
 
         // Check if the section to remove has an assigned id -- which means it's in the database
         const section = sections[index];
-        let updatedSections = [ ... sections];
+        let updatedSections = [...sections];
 
         // Mark for deletion if it has an id
-        if (section.id) {  updatedSections[index]['isDeleted'] = true;  }
+        if (section.id) {
+            updatedSections[index]['isDeleted'] = true;
+        }
 
         // Otherwise, it's not in the database so we can just remove it
-        else { updatedSections = updatedSections.filter((el, elIndex) => elIndex !== index);  }
+        else {
+            updatedSections = updatedSections.filter((el, elIndex) => elIndex !== index);
+        }
 
         setSections([...updatedSections]);
     };
@@ -76,25 +80,25 @@ export const Main = (props) => {
             <div className="form-field">
                 <label className="form-field__label">Content</label>
                 {sections
-                .filter((sectionElement) => !sectionElement.isDeleted)
-                .map((sectionElement, index) => {
+                    .filter((sectionElement) => !sectionElement.isDeleted)
+                    .map((sectionElement, index) => {
 
-                    if (!sectionElement.isDeleted) {
-                        const { tempKey, title, content, id, collapsed } = sectionElement;
+                        if (!sectionElement.isDeleted) {
+                            const { tempKey, title, content, id, collapsed } = sectionElement;
 
-                        return <Section
-                            key={(id) ? id : tempKey}
-                            tempKey={tempKey}
-                            id={id}
-                            index={index}
-                            title={title}
-                            content={content}
-                            removeSection={removeSection}
-                            collapsed={collapsed}
-                        />
+                            return <Section
+                                key={(id) ? id : tempKey}
+                                tempKey={tempKey}
+                                id={id}
+                                index={index}
+                                title={title}
+                                content={content}
+                                removeSection={removeSection}
+                                collapsed={collapsed}
+                            />
+                        }
                     }
-                }
-                )}
+                    )}
             </div>
 
 
