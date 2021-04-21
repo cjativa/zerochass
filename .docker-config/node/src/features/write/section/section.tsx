@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import dynamic from 'next/dynamic';
 
+import { FormField } from '../../../components/formField/formField';
+import { Input } from '../../../components/input/input';
+
 import { WriteSaveContext } from '../write';
 const MdEditor = dynamic(() => import('react-markdown-editor-lite').then((mod) => mod.default), { ssr: false }) as any;
 
@@ -37,7 +40,9 @@ export const Section = (props) => {
         <div className="section outline">
             <span
                 className="section__title"
-                onClick={(e) => setCollapsed(!collapsed)}>Section{(sectionTitle.length > 0) ? ': ' : ''}
+                onClick={(e) => setCollapsed(!collapsed)}
+            >
+                Section{(sectionTitle.length > 0) ? ': ' : ''}
                 {sectionTitle}
                 <span className="x-btn-cont">
                     <i
@@ -50,13 +55,16 @@ export const Section = (props) => {
                 <div className="section__body block">
 
                     {/** Section Title */}
-                    <div className="form-field">
-                        <label className="form-field__label">Title</label>
-                        <input className="form-field__input slim"
-                            type="text"
+                    <FormField
+                        labelText={'Title'}
+                    >
+                        <Input
+                            type={'text'}
+                            placeholder={'Describe the topic of your tutorial here'}
+                            onChange={(e) => setSectionTitle(e.target.value)}
                             value={sectionTitle}
-                            onChange={(e) => setSectionTitle(e.target.value)} />
-                    </div>
+                        />
+                    </FormField>
 
                     {/** Section Content */}
                     <div className="form-field">

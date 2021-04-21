@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Section } from '../section/section';
 
+import { Button } from '../../../components/button/button';
+import { FormField } from '../../../components/formField/formField';
+import { Input } from '../../../components/input/input';
+
 export const Main = (props) => {
 
     const { title, description1, description2, sections,
@@ -38,41 +42,46 @@ export const Main = (props) => {
             <h1>{headingText}</h1>
 
             {/** Title input */}
-            <div className="form-field">
-                <label className="form-field__label">Title</label>
-                <input
-                    className="form-field__input form-field--blue slim"
-                    type="text" value={title}
-                    onChange={(e) => setTitle(e.target.value)} />
-            </div>
+            <FormField
+                labelText={'Title'}
+            >
+                <Input
+                    type={'text'}
+                    placeholder={'Describe the topic of your tutorial here'}
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                />
+            </FormField>
 
             {/** Description input */}
             <div className="description-block block outline">
                 <label className="form-field__label">Description</label>
 
                 <div className="description__lines">
+
                     {/** Description 1 */}
-                    <div className="form-field">
-                        <label className="form-field__label">First Line</label>
-                        <input
-                            className="form-field__input form-field--blue slim"
-                            placeholder="Describe the topic of your tutorial here"
-                            type="text" value={description1}
+                    <FormField
+                        labelText={'First Line'}
+                    >
+                        <Input
+                            type={'text'}
+                            placeholder={'Describe the topic of your tutorial here'}
                             onChange={(e) => setDescription1(e.target.value)}
+                            value={description1}
                         />
-                    </div>
+                    </FormField>
 
                     {/** Description 2 */}
-                    <div className="form-field">
-                        <label className="form-field__label">Second Line</label>
-                        <input
-                            className="form-field__input form-field--blue slim"
-                            placeholder="Motivate others to follow along!"
-                            type="text"
-                            value={description2}
+                    <FormField
+                        labelText={'Second Line'}
+                    >
+                        <Input
+                            type={'text'}
+                            placeholder={'Motivate others to follow along!'}
                             onChange={(e) => setDescription2(e.target.value)}
+                            value={description2}
                         />
-                    </div>
+                    </FormField>
                 </div>
             </div>
 
@@ -86,16 +95,18 @@ export const Main = (props) => {
                         if (!sectionElement.isDeleted) {
                             const { tempKey, title, content, id, collapsed } = sectionElement;
 
-                            return <Section
-                                key={(id) ? id : tempKey}
-                                tempKey={tempKey}
-                                id={id}
-                                index={index}
-                                title={title}
-                                content={content}
-                                removeSection={removeSection}
-                                collapsed={collapsed}
-                            />
+                            return (
+                                <Section
+                                    key={(id) ? id : tempKey}
+                                    tempKey={tempKey}
+                                    id={id}
+                                    index={index}
+                                    title={title}
+                                    content={content}
+                                    removeSection={removeSection}
+                                    collapsed={collapsed}
+                                />
+                            );
                         }
                     }
                     )}
@@ -104,11 +115,12 @@ export const Main = (props) => {
 
             {/** Add Content Block */}
             <div>
-                <button
-                    className="btn btn--secondary btn--slim"
-                    onClick={() => addToSections()}>
+                <Button
+                    style={'secondary'}
+                    onClick={() => addToSections()}
+                >
                     Add Section
-                </button>
+                </Button>
             </div>
         </div >
     )
