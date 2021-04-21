@@ -32,7 +32,7 @@
     &__button,
     &__select {
         border: none;
-        padding: 12px;
+        /* padding: 12px; */
         border-radius: 4px;
 
         &.slim {
@@ -47,7 +47,7 @@
     &__ta,
     &__input,
     &__select {
-        border: $solidGrayBorder;
+        /* border: $solidGrayBorder; */
 
         &:active,
         &:visited,
