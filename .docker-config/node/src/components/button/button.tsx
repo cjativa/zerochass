@@ -21,7 +21,6 @@ export const Button = ({ style, onClick, asLink, path, className, disabled, chil
         }
     };
 
-
     let classString = `btn btn--${style}`;
 
     // Append the custom class name
