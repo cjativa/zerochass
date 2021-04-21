@@ -224,7 +224,6 @@ export const Sidebar = (props) => {
 
                 {/** Tags */}
                 <div className="write__tags">
-                    {console.log(tutorialValidation.tagsError)}
                     <FormField
                         labelText={'Tags'}
                         helperText={'Add up to 4 tags related to your post'}
