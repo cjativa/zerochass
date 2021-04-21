@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent } from 'react';
 import { FormInput as ShardInput } from "shards-react";
 
 interface IInputProps {
@@ -6,6 +6,7 @@ interface IInputProps {
     value: string,
     onChange: (event: ChangeEvent<HTMLInputElement>) => void,
 
+    onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
     className?: string,
     valid?: boolean,
     invalid?: boolean,
@@ -13,7 +14,7 @@ interface IInputProps {
     placeholder?: string,
 };
 
-export const Input = ({ className, type, onChange, valid, invalid, invalidText, placeholder }: IInputProps) => {
+export const Input = ({ className, type, onChange, valid, invalid, invalidText, placeholder, onKeyDown }: IInputProps) => {
 
     let inputClassString = `input`;
 
@@ -22,7 +23,9 @@ export const Input = ({ className, type, onChange, valid, invalid, invalidText, 
     }
 
     return (
-        <div className={inputClassString}>
+        <div
+            className={inputClassString
+            }>
             <ShardInput
                 className={inputClassString}
                 type={type}
@@ -30,6 +33,8 @@ export const Input = ({ className, type, onChange, valid, invalid, invalidText, 
                 invalid={invalid}
                 placeholder={placeholder}
                 onChange={onChange}
+                onKeyDown={onKeyDown}
+
             />
 
             {/** Display error text if it has been provided */}

@@ -3,6 +3,9 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import ReactSwitch from 'react-switch';
 
+import { Button } from '../../../components/button/button';
+import { FormField } from '../../../components/formField/formField';
+import { Input } from '../../../components/input/input';
 import { TagItem } from '../../../components/tagItem/tagItem';
 
 const ReactSelect = dynamic(() => import('react-select')
@@ -45,7 +48,6 @@ export const Sidebar = (props) => {
     useEffect(() => {
         const fetchMatchingTags = async () => {
             const { data } = await axios.get('/api/tags', { params: { tag } });
-
             const foundMatchingTags = data.reduce((acc, matchingTag) => {
 
                 // Check if this tag is already used by this tutorial
@@ -56,13 +58,16 @@ export const Sidebar = (props) => {
                 }
                 return acc;
             }, []);
-            console.log('Hello');
             setMatchingTags(foundMatchingTags);
         };
 
-        if (tag.length > 1) fetchMatchingTags();
+        if (tag.length > 1) {
+            fetchMatchingTags();
+        }
 
-        if (tag.length == 0) setMatchingTags([]);
+        if (tag.length == 0) {
+            setMatchingTags([]);
+        }
 
     }, [tag]);
 
@@ -152,10 +157,21 @@ export const Sidebar = (props) => {
             </div>
 
             <div className="write__sidebar write__sidebar-bottom outline block">
+
                 {/** Action buttons */}
                 <div className="write__actions">
-                    <button className="btn btn--secondary btn--slim">Preview</button>
-                    <button onClick={() => onSave()} className="btn btn--primary btn--slim">Save</button>
+                    <Button
+                        style={'secondary'}
+                        onClick={() => console.log('Preview')}
+                    >
+                        Preview
+                    </Button>
+                    <Button
+                        style={'primary'}
+                        onClick={onSave}
+                    >
+                        Save
+                    </Button>
                 </div>
 
                 {/** Enablement switch */}
@@ -174,41 +190,45 @@ export const Sidebar = (props) => {
             <div className="write__sidebar write__sidebar--middle outline block">
 
                 {/** Code Repository URL */}
-                <div className="form-field">
-                    <label className="form-field__label">Code Repository</label>
-                    <span className="form-field__hint">Have a repo? Link it here</span>
-                    <input className="form-field__input form-field--blue slim pl"
-                        type="text"
-                        value={codeUrl}
+                <FormField
+                    labelText={'Code Repository'}
+                    helperText={'Have a repo? Link it here'}
+                >
+                    <Input
+                        type={'text'}
+                        placeholder={'Github, BitBucket, GitLab, etc.'}
                         onChange={(e) => setCodeUrl(e.target.value)}
-                        placeholder="Github, BitBucket, GitLab, etc."
+                        value={codeUrl}
                     />
-                </div>
+                </FormField>
 
                 {/** Live URL */}
-                <div className="form-field">
-                    <label className="form-field__label">Live Site</label>
-                    <span className="form-field__hint">You can link a demo site here</span>
-                    <input className="form-field__input form-field--blue slim pl"
-                        type="text"
-                        value={liveUrl}
+                <FormField
+                    labelText={'Live Site'}
+                    helperText={'You can link a demo site here'}
+                >
+                    <Input
+                        type={'text'}
+                        placeholder={'CodePen, StackBlitz, etc.'}
                         onChange={(e) => setLiveUrl(e.target.value)}
-                        placeholder="CodePen, StackBlitz, etc."
+                        value={liveUrl}
                     />
-                </div>
+                </FormField>
 
                 {/** Tags */}
                 <div className="write__tags">
-                    <div className="form-field">
-                        <label className="form-field__label">Tags</label>
-                        <span className="form-field__hint">Add up to 4 tags related to your post</span>
-                        <input className="form-field__input form-field--blue slim"
-                            type="text"
+                    <FormField
+                        labelText={'Tags'}
+                        helperText={'Add up to 4 tags related to your post'}
+                    >
+                        <Input
+                            type={'text'}
+                            placeholder={'HTML, JavaScript, CSS, etc.'}
                             value={tag}
                             onChange={(e) => setTag(e.target.value)}
                             onKeyDown={(e) => onTagsKeyDown(e)}
                         />
-                    </div>
+                    </FormField>
 
                     {/** List of tags for this tutorial */}
                     <div className="write__taglist">
