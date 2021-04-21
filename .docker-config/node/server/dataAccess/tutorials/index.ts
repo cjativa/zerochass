@@ -25,8 +25,6 @@ export class TutorialDAO {
     };
 
     public static async addTutorial(props: ITutorial, userId: string): Promise<any> {
-        // const tutorial = makeTutorial(tutorialData);
-
         const addedTutorial = await Knex('tutorials')
             .insert({
                 title: props.title,
@@ -45,6 +43,11 @@ export class TutorialDAO {
         // If there's tags to associate
         if (props.tags.length > 0) {
             await TagDB.relateWithTutorial(props.tags, props.id);
+        }
+
+        // If there's sections to write
+        if (props.sections.length > 0) {
+            await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, props.id);
         }
 
         return addedTutorial.shift();
