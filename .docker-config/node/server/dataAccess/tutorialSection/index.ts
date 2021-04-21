@@ -4,6 +4,30 @@ import { ITutorialSection } from '../../models/tutorialSection/tutorialSectionSc
 
 export class TutorialSectionDAO {
 
+    private static getSeparateSections(tutorialSections: ITutorialSection[]) {
+
+        const sectionsToAdd: ITutorialSection[] = [];
+        const sectionsToUpdate: ITutorialSection[] = [];
+
+        tutorialSections.forEach((tutorialSection) => {
+
+            // If there's an id then the section needs to be updated
+            if (tutorialSection.hasOwnProperty('id')) {
+                sectionsToUpdate.push(tutorialSection)
+            }
+
+            // Otherwise, no id means it needs to be added
+            else {
+                sectionsToAdd.push(tutorialSection);
+            }
+        });
+
+        return {
+            sectionsToAdd,
+            sectionsToUpdate,
+        };
+    };
+
     /** something */
     public static async listTutorialSections(tutorialId: number): Promise<ITutorialSection[]> {
         return await Knex
@@ -12,14 +36,37 @@ export class TutorialSectionDAO {
             .where('tutorialId', tutorialId)
     };
 
-    public static async addTutorialSection(tutorialSectionData): Promise<ITutorialSection> {
-        const tutorialSection = makeTutorialSection(tutorialSectionData);
+    public static async addOrUpdateTutorialSection(tutorialSections: ITutorialSection[], tutorialId: string | number): Promise<ITutorialSection[]> {
+        const { sectionsToAdd, sectionsToUpdate } = TutorialSectionDAO.getSeparateSections(tutorialSections);
+        let addedSections: ITutorialSection[] = [];
+        let updatedSections: ITutorialSection[] = [];
 
-        const addedTutorial = await Knex('tutorial_sections')
-            .insert(tutorialSection)
-            .returning('*');
+        const sectionsWithId = sectionsToAdd.map((section) => {
+            return {
+                ...section,
+                tutorialId,
+            };
+        });
 
-        return addedTutorial.shift();
+        if (sectionsToAdd.length > 0) {
+            const addedSections = await Knex('tutorial_sections')
+                .insert(sectionsWithId)
+                .returning('*');
+            addedSections.push(...addedSections);
+        }
+
+        if (sectionsToUpdate.length > 0) {
+            for (let i = 0; i < sectionsToUpdate.length; i++) {
+                const section = sectionsToUpdate[i];
+                const updatedSection = await Knex('tutorial_sections')
+                    .update(section)
+                    .where({ 'id': section.id, 'tutorialId': tutorialId })
+                    .returning('*');
+                updatedSections.push(...updatedSection);
+            }
+        }
+
+        return [...addedSections, ...updatedSections];
     };
 
     public static async deleteTutorialSection(id: string | number): Promise<any> {

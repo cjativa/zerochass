@@ -1,7 +1,9 @@
 import { Knex } from '../../database/knex';
 import { makeTutorial } from '../../models/tutorial/index';
 import { ITutorial } from '../../models/tutorial/tutorialSchema';
+
 import { TagDB } from '../tag/entity';
+import { TutorialSectionDB } from '../tutorialSection/entity';
 
 export class TutorialDAO {
 
@@ -70,6 +72,11 @@ export class TutorialDAO {
         // If there's tags to associate
         if (props.tags.length > 0) {
             await TagDB.relateWithTutorial(props.tags, props.id);
+        }
+
+        // If there's sections to write
+        if (props.sections.length > 0) {
+            await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, props.id);
         }
 
         return updatedTutorial.shift();

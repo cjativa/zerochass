@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+import { ITutorialSection } from '../tutorialSection/tutorialSectionSchema';
 export interface ITutorial {
     id?: number,
 
@@ -15,6 +15,7 @@ export interface ITutorial {
     liveUrl: string,
 
     tags: string[],
+    sections: ITutorialSection[],
 }
 
 export const TutorialSchema = Joi.object().keys({
