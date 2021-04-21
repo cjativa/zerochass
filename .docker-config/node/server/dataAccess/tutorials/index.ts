@@ -1,5 +1,4 @@
 import { Knex } from '../../database/knex';
-import { makeTutorial } from '../../models/tutorial/index';
 import { ITutorial } from '../../models/tutorial/tutorialSchema';
 
 import { TagDB } from '../tag/entity';
@@ -7,7 +6,6 @@ import { TutorialSectionDB } from '../tutorialSection/entity';
 
 export class TutorialDAO {
 
-    /** something */
     public static async listTutorials(): Promise<ITutorial[]> {
         return await Knex
             .select('*')
@@ -25,7 +23,7 @@ export class TutorialDAO {
     };
 
     public static async addTutorial(props: ITutorial, userId: string): Promise<any> {
-        const addedTutorial = await Knex('tutorials')
+        const addedTutorials = await Knex('tutorials')
             .insert({
                 title: props.title,
                 color: props.color,
@@ -39,18 +37,19 @@ export class TutorialDAO {
                 userId: userId,
             })
             .returning('*');
+        const addedTutorial = addedTutorials.shift();
 
         // If there's tags to associate
         if (props.tags.length > 0) {
-            await TagDB.relateWithTutorial(props.tags, props.id);
+            await TagDB.relateWithTutorial(props.tags, addedTutorial.id);
         }
 
         // If there's sections to write
         if (props.sections.length > 0) {
-            await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, props.id);
+            await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, addedTutorial.id);
         }
 
-        return addedTutorial.shift();
+        return addedTutorial;
     };
 
     public static async updateTutorial(props: ITutorial, userId: string) {
@@ -73,9 +72,7 @@ export class TutorialDAO {
             .returning('*');
 
         // If there's tags to associate
-        if (props.tags.length > 0) {
-            await TagDB.relateWithTutorial(props.tags, props.id);
-        }
+        await TagDB.relateWithTutorial(props.tags, props.id);
 
         // If there's sections to write
         if (props.sections.length > 0) {

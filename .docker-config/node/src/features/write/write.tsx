@@ -59,7 +59,6 @@ export const Write = (props: Props) => {
         tagsError: '',
         featuredImageError: '',
     });
-    const [tutorialErrorsExist, setTutorialErrorsExist] = useState(false);
     const [saveOccurred, setSaveOccurred] = useState(null);
 
     /** Handles updating the list of sections */
@@ -84,6 +83,7 @@ export const Write = (props: Props) => {
             featuredImageError: '',
         };
 
+        // Validation only runs when the tutorial is set to enabled
         if (enabled) {
             if (title.trim().length === 0) {
                 tutorialValidationErrors = {
@@ -125,18 +125,22 @@ export const Write = (props: Props) => {
             }
         }
 
+        const tutorialIsValid = !Object
+            .values(tutorialValidationErrors)
+            .some((error) => error.length > 0);
         setTutorialValidation(tutorialValidationErrors);
+
+        return tutorialIsValid;
     };
 
     /** When a save occurs */
     const onSave = async () => {
 
         // Validation check must pass when tutorial is to be enabled
-        validateTutorial();
-        const tutorialPassValidation = (tutorialErrorsExist === false);
+        const tutorialIsValid = validateTutorial();
 
         // Only allow tutorial to be saved when validation passes
-        if (tutorialPassValidation) {
+        if (tutorialIsValid) {
 
             let featuredImagePayload = '' as any;
             sections.forEach((section) => delete section.tempKey);
@@ -192,13 +196,6 @@ export const Write = (props: Props) => {
             setSaveOccurred(false);
         }
     }, [saveOccurred]);
-
-    useEffect(() => {
-        const tutorialErrorsExist = Object
-            .values(tutorialValidation)
-            .some((error) => error.length > 0);
-        setTutorialErrorsExist(tutorialErrorsExist);
-    }, [tutorialValidation]);
 
     return (
         <div className="write">
