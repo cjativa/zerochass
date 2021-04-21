@@ -47,7 +47,7 @@ export const Main = (props) => {
             >
                 <Input
                     type={'text'}
-                    placeholder={'Describe the topic of your tutorial here'}
+                    placeholder={'Add a title for your post here'}
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />

@@ -50,7 +50,7 @@ export const Section = (props) => {
                         className="x-btn fas fa-times" />
                 </span>
             </span>
-
+            {console.log(sectionTitle)}
             {!collapsed &&
                 <div className="section__body block">
 
@@ -60,15 +60,15 @@ export const Section = (props) => {
                     >
                         <Input
                             type={'text'}
-                            placeholder={'Describe the topic of your tutorial here'}
                             onChange={(e) => setSectionTitle(e.target.value)}
                             value={sectionTitle}
                         />
                     </FormField>
 
                     {/** Section Content */}
-                    <div className="form-field">
-                        <label className="form-field__label">Content</label>
+                    <FormField
+                        labelText={'Content'}
+                    >
                         <MdEditor
                             defaultValue={sectionContent}
                             style={{ height: "500px" }}
@@ -76,7 +76,7 @@ export const Section = (props) => {
                             onChange={({ text }) => setSectionContent(text)}
                             onImageUpload={handleImageUpload}
                         />
-                    </div>
+                    </FormField>
                 </div>
             }
         </div>

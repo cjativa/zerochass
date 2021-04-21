@@ -14,7 +14,7 @@ interface IInputProps {
     placeholder?: string,
 };
 
-export const Input = ({ className, type, onChange, valid, invalid, invalidText, placeholder, onKeyDown }: IInputProps) => {
+export const Input = ({ value, className, type, onChange, valid, invalid, invalidText, placeholder, onKeyDown }: IInputProps) => {
 
     let inputClassString = `input`;
 
@@ -34,7 +34,7 @@ export const Input = ({ className, type, onChange, valid, invalid, invalidText, 
                 placeholder={placeholder}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
-
+                value={value}
             />
 
             {/** Display error text if it has been provided */}
