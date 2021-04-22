@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios, { Method } from 'axios';
 
 interface IHookReturn {
-    performRequest: (props: IPerformRequestProps) => Promise<void>,
+    performRequest: (props: IPerformRequestProps) => Promise<any>,
     responseData: any,
     requestInProgress: boolean,
 };
@@ -23,10 +23,10 @@ export const useAxios = (): IHookReturn => {
     const [requestInProgress, setRequestInProgress] = useState(false);
     const [responseData, setResponseData] = useState();
 
-
-    const performRequest = async ({ endpoint, method, params, payload, onSuccess, onError }: IPerformRequestProps) => {
+    const performRequest = async ({ endpoint, method, params, payload, onSuccess, onError }: IPerformRequestProps): Promise<any> => {
         const fullEndpoint = `/api/${endpoint}/`;
         setRequestInProgress(true);
+        let response; 
 
         try {
             const { data } = await axios({
@@ -36,6 +36,7 @@ export const useAxios = (): IHookReturn => {
                 params,
             });
 
+            response = data;
             setResponseData(data);
 
             if (onSuccess) {
@@ -53,6 +54,7 @@ export const useAxios = (): IHookReturn => {
 
         finally {
             setRequestInProgress(false);
+            return response;
         }
     };
 

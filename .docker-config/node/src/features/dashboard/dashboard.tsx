@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "shards-react";
 import Link from "next/link";
 
 import { PaddedPage } from '../../components/paddedPage/paddedPage';
 import { TagItem } from '../../components/tagItem/tagItem';
+import { Button } from '../../components/button/button';
+import { useAxios } from '../../hooks/useAxios';
 
 export const Dashboard = ({ tutorials }) => {
+
+    const [dashboardTutorials, setDashboardTutorials] = useState(tutorials);
+    const { performRequest, requestInProgress, responseData } = useAxios();
+
+    const handleDeleteClick = async (tutorial: any) => {
+        await performRequest({
+            endpoint: 'write',
+            method: 'DELETE',
+            payload: { id: tutorial.id },
+        });
+
+        const refreshedTutorials = await performRequest({
+            endpoint: 'write',
+            method: 'GET'
+        });
+
+        setDashboardTutorials(refreshedTutorials);
+    };
 
     return (
         <PaddedPage
@@ -24,11 +44,12 @@ export const Dashboard = ({ tutorials }) => {
                                 <th>Featured Image</th>
                                 <th>Tags</th>
                                 <th>Slug</th>
+                                <th></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {tutorials.map((tutorial, index) => {
+                            {dashboardTutorials.map((tutorial, index) => {
                                 return (
                                     <tr
                                         className="dashboard__row"
@@ -75,6 +96,16 @@ export const Dashboard = ({ tutorials }) => {
                                         {/** Slug Url */}
                                         <td>
                                             <p className="dashboard__row-slug">{tutorial.slug}</p>
+                                        </td>
+
+                                        {/** Deletion action */}
+                                        <td>
+                                            <Button
+                                                style={'danger'}
+                                                onClick={() => handleDeleteClick(tutorial)}
+                                            >
+                                                Delete
+                                            </Button>
                                         </td>
                                     </tr>
                                 );
