@@ -82,18 +82,52 @@ export class TutorialDAO {
         return updatedTutorial.shift();
     };
 
-    public static async deleteTutorial(id: string | number): Promise<any> {
+    /** Deletes tutorial with the given tutorial id belonging to the specified user id */
+    public static async deleteTutorial(tutorialId: string | number, userId: string | number): Promise<any> {
+
+        // Delete this tutorial from any user planner
+        await Knex('planner_detail')
+            .delete()
+            .where({ tutorialId });
+
+        // Delete section progress for any section belonging to this tutorial
+        await Knex.raw(`
+        DELETE
+        FROM
+            tutorial_sections_progress
+        WHERE
+            "sectionId" in (
+                SELECT id
+                FROM
+                    tutorial_sections
+                WHERE
+                    "tutorialId" = '${tutorialId}'
+            )
+        `);
+
+        // Delete sections belonging to this tutorial
+        await Knex('tutorial_sections')
+            .delete()
+            .where({ tutorialId });
+
+        // Delete tags associated to this tutorial
+        await Knex('tutorial_tag_relations')
+            .delete()
+            .where({ tutorialId });
+
+        // Delete this tutorial
         const response = await Knex('tutorials')
-            .where('id', id)
+            .where('id', tutorialId)
             .del();
 
         if (response == 1) {
             return {
-                id,
-                status: 'success'
-            }
+                id: tutorialId,
+            };
         }
-        return { status: 'fail' }
+
+        // Otherwise, unable to delete tutorial so raise error
+        throw Error(`Unable to delete tutorial with ID ${tutorialId}`);
     };
 
     /** Returns the tags associated with a specific tutorial */
@@ -140,6 +174,15 @@ export class TutorialDAO {
             .where({
                 userId: userId
             });
+
+        // Set up promises for fetching the tags
+        const tagPromises = editableTutorials.map((tutorial) => TutorialDAO.getTags(tutorial.id));
+        const tagResults = await Promise.all(tagPromises);
+
+        // Set the tags into each
+        editableTutorials.forEach((editableTutorial, index) => {
+            editableTutorial['tags'] = tagResults[index];
+        });
 
         return editableTutorials;
     };

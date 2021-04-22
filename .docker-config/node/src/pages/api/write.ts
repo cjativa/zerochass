@@ -22,22 +22,38 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     if (method === 'put') {
         return WriteService.updateTutorial(request, response);
     }
+
+    if (method === 'delete') {
+        return WriteService.deleteTutorial(request, response);
+    }
 };
 
 class WriteService {
 
     /** Handles retrieving a tutorial for editing */
     public static async retrieveTutorial(request: any, response: NextApiResponse) {
-
-        // Get the tutorial
         const { id } = request.query
         const { userId } = request;
 
-        const tutorialForEditing = await TutorialDB.getTutorialForEditing(userId, id);
+        // If there's an id, then we fetch a single tutorial
+        if (id) {
+            const tutorial = await TutorialDB.getTutorialForEditing(userId, id);
+            response
+                .status(200)
+                .json({
+                    ...tutorial,
+                });
+        }
 
-        response.json({
-            tutorial: tutorialForEditing
-        });
+        // Otherwise, it's a request to fetch all editable tutorials
+        else {
+            const tutorials = await TutorialDB.getTutorialForEditing(userId);
+            response
+                .status(200)
+                .json([
+                    ...tutorials
+                ]);
+        }
     };
 
 
@@ -67,6 +83,28 @@ class WriteService {
         response.json({ ...updatedTutorial });
     };
 
+    public static async deleteTutorial(request: any, response: NextApiResponse) {
+
+        // Get id of tutorial to delete
+        const { id } = request.body;
+        const { userId } = request;
+
+        try {
+            await TutorialDB.deleteTutorial(id, userId);
+            response
+                .status(200)
+                .json(`Tutorial with ID ${id} deleted`);
+        }
+
+        // Handle errors with deleting
+        catch (error) {
+            console.log(`An error occurred deleting tutorial with ID ${id}`, error);
+            response
+                .status(400)
+                .json(`Unable to delete tutorial`);
+        }
+    };
+
     /** Uploads a featured image for the tutorial */
     private static uploadFeaturedImage = async (featuredImageDataUrl: string): Promise<string> => {
 
@@ -88,7 +126,7 @@ class WriteService {
     };
 
     /** Prepares a tutorial by creating the payload that can be inserted into the database */
-    public static async prepareTutorial(tutorialRequest: TutorialRequest): Promise<any> {
+    private static async prepareTutorial(tutorialRequest: TutorialRequest): Promise<any> {
 
         // These fields require some transformation prior to being ready to be part of a tutorial
         const tutorial = {
@@ -107,7 +145,7 @@ class WriteService {
         else { tutorial.featuredImage = tutorialRequest.featuredImage; }
 
         return tutorial;
-    }
+    };
 }
 
 export default protectWithAuthentication(handler);
