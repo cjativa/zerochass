@@ -5,8 +5,13 @@ import { TutorialSectionDB } from '../../../server/dataAccess/tutorialSection/en
 
 const WritePage = ({ pageTitle, edit, tutorial }) => {
   return (
-    <Layout pageTitle={pageTitle}>
-      <Write edit={edit} tutorial={tutorial} />
+    <Layout
+      pageTitle={pageTitle}
+    >
+      <Write
+        edit={edit}
+        tutorial={tutorial}
+      />
     </Layout>
   );
 };
