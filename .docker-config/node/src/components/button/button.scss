@@ -13,4 +13,14 @@
         background-color: $mainOffWhite !important;
         color: $mainBlack !important;
     }
+
+    &__status {
+        &--success {
+            color: $success;
+        }
+
+        &--fail {
+            color: $error;
+        }
+    }
 }

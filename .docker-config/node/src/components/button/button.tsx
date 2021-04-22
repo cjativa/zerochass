@@ -10,10 +10,15 @@ interface IButtonProps {
     className?: string,
     onClick?: () => void,
     asLink?: boolean,
-    path?: string
+    path?: string,
+
+    actionSuccess?: null | boolean,
+    actionSuccessText?: string,
+    actionFailureText?: string,
 };
 
-export const Button = ({ style, onClick, asLink, path, className, disabled, children }: IButtonProps) => {
+export const Button = ({ style, onClick, asLink, path, className, disabled, children, actionSuccess,
+    actionSuccessText, actionFailureText }: IButtonProps) => {
 
     const handleOnClick = () => {
         if (onClick) {
@@ -40,12 +45,29 @@ export const Button = ({ style, onClick, asLink, path, className, disabled, chil
 
     // Otherwise, return normal button
     return (
-        <ShardButton
-            onClick={handleOnClick}
-            disabled={disabled}
-            theme={style}
-        >
-            {children}
-        </ShardButton>
+        <div className="button">
+            <ShardButton
+                onClick={handleOnClick}
+                disabled={disabled}
+                theme={style}
+            >
+                {children}
+            </ShardButton>
+
+            {/** Display text during success of an action */}
+            {actionSuccess && actionSuccessText &&
+                <span className="button__status--success">
+                    {actionSuccessText}
+                </span>
+            }
+
+            {/** Display text during failure of an action */}
+            {(actionSuccess === false) && actionFailureText &&
+                <span className="button__status--fail">
+                    {actionFailureText}
+                </span>
+            }
+        </div>
+
     );
 };
