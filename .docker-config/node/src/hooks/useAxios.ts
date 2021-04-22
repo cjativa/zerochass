@@ -5,6 +5,7 @@ interface IHookReturn {
     performRequest: (props: IPerformRequestProps) => Promise<any>,
     responseData: any,
     requestInProgress: boolean,
+    requestSuccess: null | boolean,
 };
 
 interface IPerformRequestProps {
@@ -21,12 +22,24 @@ interface IPerformRequestProps {
 export const useAxios = (): IHookReturn => {
 
     const [requestInProgress, setRequestInProgress] = useState(false);
+    const [requestSuccess, setRequestSuccess] = useState<null | boolean>(null);
     const [responseData, setResponseData] = useState();
+
+    useEffect(() => {
+
+        // Reset the `requestSuccessful` flag after 1.5 seconds
+        if (requestSuccess !== null) {
+            setTimeout(() => {
+                setRequestSuccess(null);
+            }, 1500);
+        }
+
+    }, [requestSuccess]);
 
     const performRequest = async ({ endpoint, method, params, payload, onSuccess, onError }: IPerformRequestProps): Promise<any> => {
         const fullEndpoint = `/api/${endpoint}/`;
         setRequestInProgress(true);
-        let response; 
+        let response;
 
         try {
             const { data } = await axios({
@@ -38,6 +51,7 @@ export const useAxios = (): IHookReturn => {
 
             response = data;
             setResponseData(data);
+            setRequestSuccess(true);
 
             if (onSuccess) {
                 onSuccess(data);
@@ -46,6 +60,7 @@ export const useAxios = (): IHookReturn => {
 
         catch (error) {
             console.log(`An error occurred sending a ${method} request to the endpoint ${fullEndpoint}`, error);
+            setRequestSuccess(false);
 
             if (onError) {
                 onError(error);
@@ -62,5 +77,6 @@ export const useAxios = (): IHookReturn => {
         performRequest,
         responseData,
         requestInProgress,
+        requestSuccess,
     };
 };
