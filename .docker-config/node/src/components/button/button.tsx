@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button as ShardButton } from "shards-react";
 
 interface IButtonProps {
-    style: 'primary' | 'secondary',
+    style: 'primary' | 'secondary' | 'danger',
 
     children?: ReactNode,
     disabled?: boolean,
@@ -21,20 +21,13 @@ export const Button = ({ style, onClick, asLink, path, className, disabled, chil
         }
     };
 
-    let classString = `btn btn--${style}`;
-
-    // Append the custom class name
-    if (className) {
-        classString += ` ${className}`
-    }
-
     // Construct the link button
     if (asLink) {
         return (
             <ShardButton
                 onClick={handleOnClick}
                 disabled={disabled}
-                className={classString}
+                theme={style}
             >
                 <Link href={`/${path}`}>
                     <a>
@@ -50,7 +43,7 @@ export const Button = ({ style, onClick, asLink, path, className, disabled, chil
         <ShardButton
             onClick={handleOnClick}
             disabled={disabled}
-            className={classString}
+            theme={style}
         >
             {children}
         </ShardButton>
