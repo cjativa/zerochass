@@ -23,6 +23,12 @@
 
 &__actions {
     display: grid;
+    grid-template-rows: 1fr max-content;
+    row-gap: 5px;
+}
+
+&__buttons {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1em;
     width: max-content;

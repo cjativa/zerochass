@@ -8,6 +8,7 @@ import { Button } from '../../../components/button/button';
 import { FormField } from '../../../components/formField/formField';
 import { Input } from '../../../components/input/input';
 import { TagItem } from '../../../components/tagItem/tagItem';
+import { Fader } from '../../../components/fader/fader';
 
 const ReactSelect = dynamic(() => import('react-select')
     .then((mod) => mod.default), { ssr: false }) as any;
@@ -34,7 +35,7 @@ export const Sidebar = (props) => {
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
     const [displayedColor, setDisplayedColor] = useState(null);
 
-    const { tutorialValidation } = useContext(WriteSaveContext);
+    const { tutorialValidation, saveSuccessful } = useContext(WriteSaveContext);
 
     useEffect(() => {
         // If we've got a featured image that's a string -- it's a url we can preview
@@ -167,18 +168,26 @@ export const Sidebar = (props) => {
 
                 {/** Action buttons */}
                 <div className="write__actions">
-                    <Button
-                        style={'secondary'}
-                        onClick={() => console.log('Preview')}
-                    >
-                        Preview
+                    <div className="write__buttons">
+                        <Button
+                            style={'secondary'}
+                            onClick={() => console.log('Preview')}
+                        >
+                            Preview
                     </Button>
-                    <Button
-                        style={'primary'}
-                        onClick={onSave}
-                    >
-                        Save
+                        <Button
+                            style={'primary'}
+                            onClick={onSave}
+                        >
+                            Save
                     </Button>
+                    </div>
+                    <Fader
+                        showIn={saveSuccessful === true || saveSuccessful === false}
+                        isSuccess={saveSuccessful}
+                        successText={'Post was successfully saved'}
+                        errorText={'Post could not be saved'}
+                    />
                 </div>
 
                 {/** Enablement switch */}
