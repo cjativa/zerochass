@@ -35,7 +35,7 @@ export const Sidebar = (props) => {
     const [previewFileUrl, setPreviewFileUrl] = useState(null);
     const [displayedColor, setDisplayedColor] = useState(null);
 
-    const { tutorialValidation, saveSuccessful } = useContext(WriteSaveContext);
+    const { tutorialValidation, saveSuccessful, saveInProgress } = useContext(WriteSaveContext);
 
     useEffect(() => {
         // If we've got a featured image that's a string -- it's a url we can preview
@@ -178,6 +178,7 @@ export const Sidebar = (props) => {
                         <Button
                             style={'primary'}
                             onClick={onSave}
+                            disabled={saveInProgress}
                         >
                             Save
                     </Button>

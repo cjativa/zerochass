@@ -17,6 +17,7 @@ export const WriteSaveContext = React.createContext({
         featuredImageError: '',
     },
     saveSuccessful: null,
+    saveInProgress: null,
 });
 
 const colorOptions = [
@@ -36,7 +37,7 @@ interface Props {
 
 export const Write = (props: Props) => {
     const { edit, tutorial } = props;
-    const { performRequest, requestSuccess: saveSuccessful } = useAxios();
+    const { performRequest, requestSuccess, requestInProgress } = useAxios();
 
     // State variables and controls for Main component
     const [title, setTitle] = useState(tutorial.title || '');
@@ -202,7 +203,13 @@ export const Write = (props: Props) => {
         <div className="write">
             <div className="write__body">
 
-                <WriteSaveContext.Provider value={{ saveOccurred, sectionUpdate, tutorialValidation, saveSuccessful }}>
+                <WriteSaveContext.Provider value={{
+                    saveOccurred,
+                    sectionUpdate, 
+                    tutorialValidation, 
+                    saveSuccessful: requestSuccess, 
+                    saveInProgress: requestInProgress,
+                }}>
                     <Main
                         edit={edit}
                         setTitle={setTitle} title={title}
