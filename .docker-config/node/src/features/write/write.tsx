@@ -181,11 +181,17 @@ export const Write = (props: Props) => {
 
             // If we have an id, this is an update, otherwise it's a create
             const method = (tutorial.id) ? 'PUT' : 'POST';
-            await performRequest({
+            const createdTutorialId = await performRequest({
                 endpoint: 'write',
                 method,
                 payload: writeTutorialPayload,
             });
+
+            // If this was a new tutorial
+            // redirect to the created tutorial
+            if (!tutorial.id && createdTutorialId) {
+                window.location.href = `/write/${createdTutorialId}`;
+            }
 
             setSaveOccurred(true);
         }
