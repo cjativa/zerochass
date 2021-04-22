@@ -2,8 +2,8 @@ import React from "react";
 import { Card } from "shards-react";
 import Link from "next/link";
 
-import { PaddedPage } from '../paddedPage/paddedPage';
-import { TagItem } from '../tagItem/tagItem';
+import { PaddedPage } from '../../components/paddedPage/paddedPage';
+import { TagItem } from '../../components/tagItem/tagItem';
 
 export const Dashboard = ({ tutorials }) => {
 

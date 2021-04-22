@@ -1,5 +1,5 @@
 import { Layout } from "../features/layout/layout";
-import { Dashboard } from "../components/dashboard/dashboard";
+import { Dashboard } from "../features/dashboard/dashboard";
 import { TutorialDB } from "../../server/dataAccess/tutorials/entity";
 
 const DashboardPage = ({ tutorials }) => {
