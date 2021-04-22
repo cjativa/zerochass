@@ -242,6 +242,7 @@ export const Sidebar = (props) => {
                     <div className="write__taglist">
                         {tags.map((tag, index) =>
                             <TagItem
+                                key={index}
                                 tagName={tag}
                                 removable={true}
                                 onRemoveClick={() => onTagRemove(tag)}

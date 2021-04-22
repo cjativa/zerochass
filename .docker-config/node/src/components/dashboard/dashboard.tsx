@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "shards-react"; 
+import { Card } from "shards-react";
 import Link from "next/link";
 
 import { PaddedPage } from '../paddedPage/paddedPage';
@@ -53,15 +53,16 @@ export const Dashboard = ({ tutorials }) => {
                                                     src={tutorial.featuredImage}
                                                 />
                                             ) : (
-                                                    <i className="dashboard__row-fi fas fa-image " />
-                                                )}
+                                                <i className="dashboard__row-fi fas fa-image " />
+                                            )}
                                         </td>
 
                                         {/** Tags */}
                                         <td className="dashboard__row-tags">
                                             <div className="dashboard__row-tags-inner" >
-                                                {tutorial.tags.map((tag) =>
+                                                {tutorial.tags.map((tag, index) =>
                                                     <TagItem
+                                                        key={index}
                                                         tagId={tag.id}
                                                         tagName={tag.tag}
                                                         useMargin={true}
