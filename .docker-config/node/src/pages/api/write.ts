@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid'
 
+import Slugify from '../../constants/slugify';
 import protectWithAuthentication from '../../../server/api/middleware/protectWithAuthentcation';
 import { TutorialDB } from '../../../server/dataAccess/tutorials/entity';
 import { TutorialRequest } from '../../../server/api/interfaces/tutorial';
@@ -65,6 +66,7 @@ class WriteService {
         const { userId } = request;
 
         const preparedTutorial = await WriteService.prepareTutorial(tutorialRequest);
+        preparedTutorial['slug'] = `${Slugify(preparedTutorial.title)}--${nanoid(5)}`
         const tutorial = await TutorialDB.addTutorial(preparedTutorial, userId);
 
         response.json(tutorial.id);
@@ -113,7 +115,7 @@ class WriteService {
 
         const params = {
             Bucket: `${Config.awsBucket}/featured-images`,
-            Key: `${shortid.generate()}.png`,
+            Key: `${nanoid()}.png`,
             Body: base64,
             ACL: 'public-read',
             ContentEncoding: 'base64',
