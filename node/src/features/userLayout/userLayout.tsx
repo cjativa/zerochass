@@ -27,7 +27,9 @@ export const UserLayout = () => {
     const SelectedPage = userPages.find((page) => page.slug.includes(pathname)) || userPages[0];
 
     return (
-        <Layout pageTitle={SelectedPage.title}>
+        <Layout
+            pageTitle={SelectedPage.title}
+        >
             <div className="user-layout">
                 <div className="user-layout__container">
 
@@ -59,7 +61,7 @@ export const UserLayout = () => {
                             <p className="user-layout__subtitle">{SelectedPage.subtitle}</p>
                         </div>
                         <div className="user-layout__body">
-                            <SelectedPage.component/>
+                            <SelectedPage.component />
                         </div>
                     </div>
 

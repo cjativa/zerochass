@@ -30,7 +30,7 @@ export const Layout = (props: LayoutProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-    const { toggleAuthenticationModal, AuthModal }= useAuthenticationModal();
+    const { toggleAuthenticationModal, AuthModal } = useAuthenticationModal();
 
     /** Determines if a user is authenticated client-side */
     useEffect(() => {
@@ -77,12 +77,11 @@ export const Layout = (props: LayoutProps) => {
             </Head>
             <section className="layout">
                 <AuthenticationContext.Provider
-                    value={{ isAuthenticated, profileImageUrl, toggleAuthenticationModal }}>
+                    value={{ isAuthenticated, profileImageUrl, toggleAuthenticationModal }}
+                >
 
                     <NavigationBar />
-                    <div
-                        className="app__body"
-                    >
+                    <div className="app__body">
                         {children}
                     </div>
 
