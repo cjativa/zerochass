@@ -1,7 +1,9 @@
 import { UserLayout } from '../features/userLayout/userLayout';
 
-export default () => {
+const AccountPage = () => {
     return (
         <UserLayout />
     );
-}
+};
+
+export default AccountPage;
