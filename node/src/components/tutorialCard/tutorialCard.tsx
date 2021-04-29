@@ -25,7 +25,10 @@ export const TutorialCard = (props: TutorialCardProps) => {
 
                 {/** Display featured image */}
                 <div className={`tl-card__top ${color}`}  >
-                    <img className="tl-card__image" src={featuredImage} />
+                    <img
+                        className="tl-card__image"
+                        src={featuredImage}
+                    />
                     <div className="tl-card__layer" />
                 </div>
 
