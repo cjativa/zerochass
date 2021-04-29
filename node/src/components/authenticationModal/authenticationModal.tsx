@@ -51,9 +51,9 @@ export const AuthenticationModal = ({ modalType, isOpen, onRequestClose, }: IAut
                             Log in with GitHub
                     </button>
                         <button
-                            className="modal-content__sign-in"
+                            className="modal-content__sign-in disabled"
                         >
-                            Log in with Twitter
+                            Log in with Twitter — coming soon!
                     </button>
                     </div>
                 </div>
