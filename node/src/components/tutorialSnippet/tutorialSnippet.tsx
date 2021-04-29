@@ -26,6 +26,7 @@ export const TutorialSnip = ({ tutorial }: ITutorialSnippetProps) => {
                         <CardImg
                             src={tutorial.featuredImage}
                             className="tutorial-snippet__card-img"
+                            height
                         />
                     </a>
                 </Link>
