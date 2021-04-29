@@ -1,5 +1,7 @@
 import { Knex } from '../../database/knex';
 import { IUser, SignUpInformation, UserProfileInformation } from '../../models/user/userSchema';
+import { TutorialSectionDAO } from '../tutorialSection';
+import { TutorialProgressDAO } from '../tutorialProgress'
 
 export class PlannerDAO {
 
@@ -102,12 +104,12 @@ export class PlannerDAO {
       })
       .delete();
 
-    /* // Unregister all of its sections from  the tutorial section progress table
-    const sectionIds = await TutorialSection.retrieveSectionIds(tutorialId);
+    // Unregister all of its sections from  the tutorial section progress table
+    const sectionIds = await TutorialSectionDAO.listTutorialSectionIds(tutorialId);
     const unregistrations = sectionIds.map((sectionId) =>
-      TutorialProgressManager.unregisterSection(sectionId, userId));
+      TutorialProgressDAO.unregisterSection(sectionId, userId));
 
-    await Promise.all(unregistrations); */
+    await Promise.all(unregistrations);
   };
 
 
