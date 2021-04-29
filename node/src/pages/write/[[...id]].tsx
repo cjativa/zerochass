@@ -38,8 +38,13 @@ export const getServerSideProps = async (ctx) => {
     // Fetch the whole tutorial
     const tutorialId = ctx.params.id[0];
     const tutorialMain = (await TutorialDB.getTutorialForEditing(userId, tutorialId)).shift();
-    const sections = await TutorialSectionDB.listTutorialSections(tutorialId);
-    const tags = (await TutorialDB.getTags(tutorialId)).map((tag) => tag.tag);
+
+    let tags = [];
+    let sections = [];
+    if (tutorialMain) {
+      sections = await TutorialSectionDB.listTutorialSections(tutorialId);
+      tags = (await TutorialDB.getTags(tutorialId)).map((tag) => tag.tag);
+    }
 
     tutorial = {
       ...tutorialMain,

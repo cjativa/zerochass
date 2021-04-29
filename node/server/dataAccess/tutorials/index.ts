@@ -56,7 +56,7 @@ export class TutorialDAO {
 
         // Update the main tutorial information
         const updatedTutorial = await Knex('tutorials')
-            .where({ 'id': props.id })
+            .where({ 'id': props.id, 'userId': userId })
             .update({
                 title: props.title,
                 color: props.color,
