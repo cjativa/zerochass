@@ -19,7 +19,7 @@ export class UserDAO {
         name: userData.name,
         uid: userData.uid,
         profileImage: userData.profileImageUrl,
-        auth_profile: providerId
+        auth_provider: providerId
       })
       .returning('*');
 
