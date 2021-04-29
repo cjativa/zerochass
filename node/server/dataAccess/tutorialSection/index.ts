@@ -4,10 +4,24 @@ import { ITutorialSection } from '../../models/tutorialSection/tutorialSectionSc
 
 export class TutorialSectionDAO {
 
-    private static getSeparateSections(tutorialSections: ITutorialSection[]) {
+    private static async getSeparateSections(tutorialSections: ITutorialSection[], tutorialId: number | string) {
 
         const sectionsToAdd: ITutorialSection[] = [];
         const sectionsToUpdate: ITutorialSection[] = [];
+        const sectionsToDelete: number[] = [];
+
+        // Compare the incoming tutorial sections with what's on file for this tutorial
+        const existingSectionIds = await TutorialSectionDAO.listTutorialSectionIds(tutorialId);
+        const providedSectionIds = tutorialSections
+            .filter((section) => section.hasOwnProperty('id'))
+            .map((section) => section.id);
+
+        // The section id's to delete are the ones that exist in the database
+        // but are no longer being provided in the request - i.e. these need to be removed
+        const sectionIdsToDelete = existingSectionIds
+            .filter((existingSectionId) => !providedSectionIds.includes(parseInt(existingSectionId.toString())));
+
+        sectionsToDelete.push(...sectionIdsToDelete);
 
         tutorialSections.forEach((tutorialSection) => {
 
@@ -25,6 +39,7 @@ export class TutorialSectionDAO {
         return {
             sectionsToAdd,
             sectionsToUpdate,
+            sectionsToDelete,
         };
     };
 
@@ -37,7 +52,7 @@ export class TutorialSectionDAO {
     };
 
     public static async addOrUpdateTutorialSection(tutorialSections: ITutorialSection[], tutorialId: string | number): Promise<ITutorialSection[]> {
-        const { sectionsToAdd, sectionsToUpdate } = TutorialSectionDAO.getSeparateSections(tutorialSections);
+        const { sectionsToAdd, sectionsToUpdate, sectionsToDelete } = await TutorialSectionDAO.getSeparateSections(tutorialSections, tutorialId);
         let addedSections: ITutorialSection[] = [];
         let updatedSections: ITutorialSection[] = [];
 
@@ -66,6 +81,10 @@ export class TutorialSectionDAO {
             }
         }
 
+        if (sectionsToDelete.length > 0) {
+            await TutorialSectionDAO.deleteSections(tutorialId, sectionsToDelete);
+        }
+
         return [...addedSections, ...updatedSections];
     };
 
@@ -81,7 +100,7 @@ export class TutorialSectionDAO {
         return false;
     };
 
-    public static async listTutorialSectionIds(tutorialId: number): Promise<number[]> {
+    public static async listTutorialSectionIds(tutorialId: number | string): Promise<number[]> {
         const sectionIdsRes = await Knex
             .select('id')
             .from('tutorial_sections')
@@ -89,6 +108,20 @@ export class TutorialSectionDAO {
 
         const sectionIds = sectionIdsRes.map((el) => el.id);
         return sectionIds;
+    };
+
+    public static async deleteSections(tutorialId: number | string, sectionIds: string[] | number[]) {
+
+        // Delete these sections from the tutorial progress table
+        await Knex('tutorial_sections_progress')
+            .delete()
+            .whereIn('sectionId', sectionIds);
+
+        // Delete the tutorial sections
+        await Knex('tutorial_sections')
+            .delete()
+            .whereIn('id', sectionIds)
+            .andWhere({ tutorialId });
     };
 };
 
@@ -132,21 +165,5 @@ public static async addSections(tutorialId: number, tutorialSections: TutorialIn
 };
 
 /** Deletes any sections that from the tutorial that exist in the database but were not sent along with an update */
-/* public static async deleteSections(tutorialId: number, providedSections: TutorialInterface['sections']) {
-
-    // Iterate through the sections we've been provided by the request
-    const sectionsToDelete = providedSections.filter((providedSection) => providedSection.isDeleted);
-
-    if (sectionsToDelete.length > 0) {
-        const idsToDelete = sectionsToDelete.map((sd) => sd.id).join();
-
-        const query = `
-        DELETE FROM tutorial_sections
-        WHERE "id" IN (${idsToDelete})
-        AND "tutorialId" = ${tutorialId}
-        `;
-
-        await Client.executeQuery(query);
-    }
-};
+/*
  */

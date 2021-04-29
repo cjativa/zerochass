@@ -74,24 +74,22 @@ export class TutorialDAO {
         // If there's tags to associate
         await TagDB.relateWithTutorial(props.tags, props.id);
 
-        // If there's sections to write
-        if (props.sections.length > 0) {
-            await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, props.id);
-        }
+        // If there's sections to add, update, or delete
+        await TutorialSectionDB.addOrUpdateTutorialSection(props.sections, props.id);
 
         return updatedTutorial.shift();
     };
 
     /** Deletes tutorial with the given tutorial id belonging to the specified user id */
-    public static async deleteTutorial(tutorialId: string | number, userId: string | number): Promise<any> {
+    public static async deleteTutorial(tutorialId: string | number, userId: string | number): Promise < any > {
 
-        // Delete this tutorial from any user planner
-        await Knex('planner_detail')
-            .delete()
-            .where({ tutorialId });
+    // Delete this tutorial from any user planner
+    await Knex('planner_detail')
+        .delete()
+        .where({ tutorialId });
 
-        // Delete section progress for any section belonging to this tutorial
-        await Knex.raw(`
+    // Delete section progress for any section belonging to this tutorial
+    await Knex.raw(`
         DELETE
         FROM
             tutorial_sections_progress
@@ -105,91 +103,91 @@ export class TutorialDAO {
             )
         `);
 
-        // Delete sections belonging to this tutorial
-        await Knex('tutorial_sections')
-            .delete()
-            .where({ tutorialId });
+    // Delete sections belonging to this tutorial
+    await Knex('tutorial_sections')
+        .delete()
+        .where({ tutorialId });
 
-        // Delete tags associated to this tutorial
-        await Knex('tutorial_tag_relations')
-            .delete()
-            .where({ tutorialId });
+    // Delete tags associated to this tutorial
+    await Knex('tutorial_tag_relations')
+        .delete()
+        .where({ tutorialId });
 
-        // Delete this tutorial
-        const response = await Knex('tutorials')
-            .where('id', tutorialId)
-            .del();
+    // Delete this tutorial
+    const response = await Knex('tutorials')
+        .where('id', tutorialId)
+        .del();
 
-        if (response == 1) {
-            return {
-                id: tutorialId,
-            };
-        }
+    if(response == 1) {
+        return {
+            id: tutorialId,
+        };
+    }
 
         // Otherwise, unable to delete tutorial so raise error
         throw Error(`Unable to delete tutorial with ID ${tutorialId}`);
-    };
+};
 
-    /** Returns the tags associated with a specific tutorial */
-    public static async getTags(tutorialId: string | number) {
-        const tags = await Knex.raw(`
+/** Returns the tags associated with a specific tutorial */
+public static async getTags(tutorialId: string | number) {
+    const tags = await Knex.raw(`
             SELECT id, tag
             FROM tags
             INNER JOIN tutorial_tag_relations
             ON tags.id = tutorial_tag_relations."tagId"
             WHERE tutorial_tag_relations."tutorialId" = ${tutorialId}
             `
-        );
+    );
 
-        return tags.rows;
-    };
+    return tags.rows;
+};
 
-    public static async getTutorialForEditing(userId: number, tutorialId?: number) {
+public static async getTutorialForEditing(userId: number, tutorialId ?: number) {
 
-        // This means only retrieve the requested tutorial
-        // as the user is trying to edit it
-        if (tutorialId) {
-            const editableTutorial = await Knex('tutorials')
-                .select(
-                    'title',
-                    'description1',
-                    'description2',
-                    'enabled',
-                    'color',
-                    'featuredImage',
-                    'liveUrl',
-                    'codeUrl',
-                    'id')
-                .where({
-                    id: tutorialId,
-                    userId: userId
-                });
-
-            return editableTutorial;
-        }
-
-        // Otherwise, all editable tutorials need to be shown, for the list page
-        const editableTutorials = await Knex('tutorials')
-            .select('title', 'description1', 'description2', 'enabled', 'color', 'featuredImage', 'id', 'slug')
+    // This means only retrieve the requested tutorial
+    // as the user is trying to edit it
+    if (tutorialId) {
+        const editableTutorial = await Knex('tutorials')
+            .select(
+                'title',
+                'description1',
+                'description2',
+                'enabled',
+                'color',
+                'featuredImage',
+                'liveUrl',
+                'codeUrl',
+                'id')
             .where({
+                id: tutorialId,
                 userId: userId
             });
 
-        // Set up promises for fetching the tags
-        const tagPromises = editableTutorials.map((tutorial) => TutorialDAO.getTags(tutorial.id));
-        const tagResults = await Promise.all(tagPromises);
+        return editableTutorial;
+    }
 
-        // Set the tags into each
-        editableTutorials.forEach((editableTutorial, index) => {
-            editableTutorial['tags'] = tagResults[index];
+    // Otherwise, all editable tutorials need to be shown, for the list page
+    const editableTutorials = await Knex('tutorials')
+        .select('title', 'description1', 'description2', 'enabled', 'color', 'featuredImage', 'id', 'slug')
+        .where({
+            userId: userId
         });
 
-        return editableTutorials;
-    };
+    // Set up promises for fetching the tags
+    const tagPromises = editableTutorials.map((tutorial) => TutorialDAO.getTags(tutorial.id));
+    const tagResults = await Promise.all(tagPromises);
+
+    // Set the tags into each
+    editableTutorials.forEach((editableTutorial, index) => {
+        editableTutorial['tags'] = tagResults[index];
+    });
+
+    return editableTutorials;
+};
 
     public static async getSiteTutorials() {
-        const siteTutorials = await Knex.raw(
-            `
+    const siteTutorials = await Knex.raw(
+        `
             SELECT 
         t."title", 
         t."description1",   
@@ -208,8 +206,8 @@ export class TutorialDAO {
         on uai."userId" = t."userId"
         WHERE t."enabled" = true
         `
-        );
+    );
 
-        return siteTutorials.rows;
-    };
+    return siteTutorials.rows;
+};
 };
