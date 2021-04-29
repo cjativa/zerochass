@@ -39,6 +39,8 @@ export class PlannerDAO {
                     ts."tutorialId" = t."id"
                     AND 
                     tsp."isComplete" = true
+                    AND
+                    "userId" = ${userId}
             )
         ) AS "completedSectionCount"
 
