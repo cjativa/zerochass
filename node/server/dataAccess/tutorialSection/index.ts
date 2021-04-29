@@ -49,6 +49,7 @@ export class TutorialSectionDAO {
             .select('*')
             .from('tutorial_sections')
             .where('tutorialId', tutorialId)
+            .orderBy('id', 'asc');
     };
 
     public static async addOrUpdateTutorialSection(tutorialSections: ITutorialSection[], tutorialId: string | number): Promise<ITutorialSection[]> {
