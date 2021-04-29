@@ -49,5 +49,6 @@ export const getStaticProps: GetStaticProps = async ({ ...ctx }) => {
       tutorials,
       keywords: config.default.keywords,
     },
+    revalidate: 1,
   };
 };

@@ -92,23 +92,20 @@ export const Main = (props) => {
                 <label className="form-field__label">Content</label>
                 {sections
                     .map((sectionElement, index) => {
+                        const { tempKey, title, content, id, collapsed } = sectionElement;
 
-                        if (!sectionElement.isDeleted) {
-                            const { tempKey, title, content, id, collapsed } = sectionElement;
-
-                            return (
-                                <Section
-                                    key={(id) ? id : tempKey}
-                                    tempKey={tempKey}
-                                    id={id}
-                                    index={index}
-                                    title={title}
-                                    content={content}
-                                    removeSection={removeSection}
-                                    collapsed={collapsed}
-                                />
-                            );
-                        }
+                        return (
+                            <Section
+                                key={(id) ? id : tempKey}
+                                tempKey={tempKey}
+                                id={id}
+                                index={index}
+                                title={title}
+                                content={content}
+                                removeSection={removeSection}
+                                collapsed={collapsed}
+                            />
+                        );
                     }
                     )}
             </div>
