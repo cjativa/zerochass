@@ -4,7 +4,7 @@
     ". image tags"
     "title title title";
 
-  grid-template-columns: 1fr 230px 1fr;
+  grid-template-columns: 1fr min-content 1fr;
   grid-template-rows: repeat(2, min-content);
   row-gap: 0.5em;
 
@@ -39,6 +39,7 @@
     display: grid;
     grid-auto-rows: min-content;
     row-gap: 3px;
+    grid-column: 2/4;
     justify-content: end;
     justify-items: end;
 
