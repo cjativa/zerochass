@@ -35,6 +35,8 @@ export interface TutorialInterface {
 
     codeUrl?: string,
     liveUrl?: string,
+
+    slug?: string,
 };
 
 /** A tutorial request can have 

@@ -28,7 +28,8 @@ export const Sidebar = (props) => {
         featuredImage, setFeaturedImage,
         onSave,
         codeUrl, setCodeUrl,
-        liveUrl, setLiveUrl
+        liveUrl, setLiveUrl,
+        slug, edit
     } = props;
 
     const [matchingTags, setMatchingTags] = useState([]);
@@ -171,17 +172,18 @@ export const Sidebar = (props) => {
                     <div className="write__buttons">
                         <Button
                             style={'secondary'}
-                            onClick={() => console.log('Preview')}
+                            onClick={() => window.open(`/tutorial/${slug}`,'_newtab')}
+                            disabled={!edit}
                         >
                             Preview
-                    </Button>
+                        </Button>
                         <Button
                             style={'primary'}
                             onClick={onSave}
                             disabled={saveInProgress}
                         >
                             Save
-                    </Button>
+                        </Button>
                     </div>
                     <Fader
                         showIn={saveSuccessful === true || saveSuccessful === false}

@@ -36,7 +36,7 @@ interface Props {
 }
 
 export const Write = (props: Props) => {
-    const { edit, tutorial } = props;
+    const { edit, tutorial, } = props;
     const { performRequest, requestSuccess, requestInProgress } = useAxios();
 
     // State variables and controls for Main component
@@ -234,6 +234,7 @@ export const Write = (props: Props) => {
                         onSave={onSave}
                         liveUrl={liveUrl} setLiveUrl={setLiveUrl}
                         codeUrl={codeUrl} setCodeUrl={setCodeUrl}
+                        slug={tutorial.slug} edit={edit}
                     />
                 </WriteSaveContext.Provider>
 
