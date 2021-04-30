@@ -1,4 +1,6 @@
 import { useEffect, useState, createRef, useContext } from 'react';
+import { useRouter } from 'next/router'
+
 import axios from 'axios';
 import slugify from '../../constants/slugify';
 import { TutorialHeader } from './tutorialHeader/tutorialHeader';
@@ -27,6 +29,8 @@ export const Tutorial = ({ tutorial, author }) => {
     const [sectionProgress, setSectionProgress] = useState([]);
 
     const { isAuthenticated, toggleAuthenticationModal } = useContext(AuthenticationContext);
+
+    const router = useRouter();
 
     /** Effects to occur on mount */
     useEffect(() => {
@@ -120,22 +124,27 @@ export const Tutorial = ({ tutorial, author }) => {
             window.scrollTo({ top: y, behavior: 'smooth' });
         }
 
-        // If the user is authenticated, let's also mark this section complete/incomplete for them
-        if (isAuthenticated) {
+        // If the tutorial page isn't a preview, we'll trigger actions on progress click
+        if (!router.query.hasOwnProperty('preview')) {
 
-            // If the section is complete, it should be marked to false
-            // Otherwise, if it's not complete, it should be marked to true
-            const complete = (sectionToUpdate.sectionComplete) ? false : true;
+            // If the user is authenticated
+            // let's also mark this section complete/incomplete for them
+            if (isAuthenticated) {
 
-            const { isComplete } = (await axios({
-                url: `/api/sections/${sectionId}`,
-                method: 'POST',
-                data: { complete }
-            })).data as SectionProgress;
+                // If the section is complete, it should be marked to false
+                // Otherwise, if it's not complete, it should be marked to true
+                const complete = (sectionToUpdate.sectionComplete) ? false : true;
+
+                const { isComplete } = (await axios({
+                    url: `/api/sections/${sectionId}`,
+                    method: 'POST',
+                    data: { complete }
+                })).data as SectionProgress;
+            }
+
+            // Otherwise, toggle the auth modal
+            else { toggleAuthenticationModal() }
         }
-
-        // Otherwise, toggle the auth modal
-        else { toggleAuthenticationModal() }
 
         sectionToUpdate.sectionComplete = !sectionToUpdate.sectionComplete;
         setSectionInformation([...sectionInformation]);

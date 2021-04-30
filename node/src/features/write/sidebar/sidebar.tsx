@@ -172,7 +172,7 @@ export const Sidebar = (props) => {
                     <div className="write__buttons">
                         <Button
                             style={'secondary'}
-                            onClick={() => window.open(`/tutorial/${slug}`,'_newtab')}
+                            onClick={() => window.open(`/tutorial/${slug}?preview=true`,'_newtab')}
                             disabled={!edit}
                         >
                             Preview
