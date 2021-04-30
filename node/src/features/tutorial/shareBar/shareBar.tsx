@@ -40,7 +40,7 @@ export const ShareBar = (props: Props) => {
 
     return (
         <ColorBox 
-        title="Share"
+        title="Share 🚀"
         >
             <div className="tutorial-share-bar">
                 <span className="box-subtitle">Motivate your friends!</span>

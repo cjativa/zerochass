@@ -4,7 +4,7 @@ export const SectionBar = ({ sectionInformation }) => {
 
     return (
         <ColorBox
-            title="Tutorial Content"
+            title="Tutorial Content 📚"
         >
             <div className="section-bar">
                 <ul>

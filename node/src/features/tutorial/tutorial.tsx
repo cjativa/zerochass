@@ -214,7 +214,7 @@ export const Tutorial = ({ tutorial, author }) => {
                 <div className="side-bar-column">
 
                     {/** Display the author snippet */}
-                    <ColorBox title={'Posted By'}>
+                    <ColorBox title={'Posted By ✏️'}>
                         <UserSnip
                             username={author.username}
                             name={author.name}
