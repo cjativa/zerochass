@@ -233,10 +233,10 @@ export const Tutorial = ({ tutorial, author }) => {
 
                     {/** Display links available for the post */}
                     {(liveUrl || codeUrl) &&
-                        <ColorBox title={'Links'}>
+                        <ColorBox title={'Links 🔗'}>
                             <div className="tutorial-links">
-                                {liveUrl && <a href={liveUrl} target="_blank">💻 Live Site</a>}
-                                {codeUrl && <a href={codeUrl} target="_blank">📝 Code Repository</a>}
+                                {liveUrl && <a href={liveUrl} target="_blank">Live Site 💻</a>}
+                                {codeUrl && <a href={codeUrl} target="_blank">Code Repository 📝</a>}
                             </div>
                         </ColorBox>
                     }
