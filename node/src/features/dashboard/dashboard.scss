@@ -24,7 +24,7 @@
     }
 
     &__row {
-        height: max-content
+        height: max-content;
     }
 
     .circle {
@@ -74,5 +74,9 @@
     &__row-tags-inner {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .enabled {
+        color: #2bc4d8;
     }
 }

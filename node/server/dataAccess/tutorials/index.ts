@@ -157,7 +157,8 @@ public static async getTutorialForEditing(userId: number, tutorialId ?: number) 
                 'featuredImage',
                 'liveUrl',
                 'codeUrl',
-                'id')
+                'id',
+                'slug')
             .where({
                 id: tutorialId,
                 userId: userId

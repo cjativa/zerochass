@@ -95,7 +95,20 @@ export const Dashboard = ({ tutorials }) => {
 
                                         {/** Slug Url */}
                                         <td>
-                                            <p className="dashboard__row-slug">{tutorial.slug}</p>
+                                            {(tutorial.enabled)
+                                                ? <a
+                                                    className={`dashboard__row-slug enabled`}
+                                                    href={`/tutorial/${tutorial.slug}`}
+                                                >
+                                                    {tutorial.slug}
+                                                </a>
+                                                : <p
+                                                    className="dashboard__row-slug"
+                                                >
+                                                    {tutorial.slug}
+                                                </p>
+                                            }
+
                                         </td>
 
                                         {/** Deletion action */}
