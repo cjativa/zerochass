@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 
 import { FormField } from '../../../components/formField/formField';
 import { Input } from '../../../components/input/input';
+import { useAxios } from '../../../hooks/useAxios';
 
 import { WriteSaveContext } from '../write';
 const MdEditor = dynamic(() => import('react-markdown-editor-lite').then((mod) => mod.default), { ssr: false }) as any;
@@ -18,6 +19,8 @@ export const Section = (props) => {
 
     const { sectionUpdate } = useContext(WriteSaveContext);
 
+    const { performRequest } = useAxios();
+
     /** When the title or content changes locally, we'll need to update
      * it in the central parent */
     useEffect(() => {
@@ -25,15 +28,25 @@ export const Section = (props) => {
 
     }, [sectionTitle, sectionContent]);
 
-    const handleImageUpload = (file: File): Promise<string> => {
-        return new Promise(resolve => {
+    const handleImageUpload = async (file: File): Promise<string> => {
+
+        // Get the image as a blob
+        const blob = await new Promise<string | ArrayBuffer>(resolve => {
             const reader = new FileReader();
-            reader.onload = data => {
-                // @ts-ignore
-                resolve(data.target.result);
+            reader.onload = (data) => {
+                resolve(data.target.result.toString());
             };
             reader.readAsDataURL(file);
         });
+
+        // Send it off to be uploaded
+        const uploadUrl = await performRequest({
+            endpoint: 'assetUpload',
+            method: 'POST',
+            payload: { dataUrl: blob },
+        }) as string;
+
+        return uploadUrl;
     };
 
     return (

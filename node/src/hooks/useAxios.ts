@@ -13,7 +13,7 @@ interface IPerformRequestProps {
     method: Method,
 
     params?: object,
-    payload?: object,
+    payload?: object | string,
 
     onSuccess?: (data: any) => void,
     onError?: (error: any) => void,
