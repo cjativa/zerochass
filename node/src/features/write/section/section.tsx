@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown';
 
 import { FormField } from '../../../components/formField/formField';
 import { Input } from '../../../components/input/input';
@@ -49,6 +50,14 @@ export const Section = (props) => {
         return uploadUrl;
     };
 
+    const renderHTML = (text: string) => {
+        return (
+            <ReactMarkdown
+                source={text}
+            />
+        );
+    };
+
     return (
         <div className="section outline">
             <span
@@ -84,9 +93,10 @@ export const Section = (props) => {
                         <MdEditor
                             defaultValue={sectionContent}
                             style={{ height: "500px" }}
-                            view={{ menu: true, md: true, html: false }}
+                            view={{ menu: true, md: true, html: true }}
                             onChange={({ text }) => setSectionContent(text)}
                             onImageUpload={handleImageUpload}
+                            renderHTML={renderHTML}
                         />
                     </FormField>
                 </div>
