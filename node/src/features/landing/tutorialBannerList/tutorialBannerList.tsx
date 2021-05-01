@@ -17,7 +17,7 @@ export const TutorialBannerList = (props: any) => {
     useEffect(() => {
         setSorted(generateFourColor(tutorials));
     }, []);
-    
+
     const byColor = (a: any, b: any): number => {
 
         const colorA = a.color;
@@ -58,7 +58,7 @@ export const TutorialBannerList = (props: any) => {
 
     return (
         <div className="content-list">
-            {sorted && sorted.map((tutorial, index) => {
+            {sorted && sorted.slice(0, 8).map((tutorial, index) => {
                 return (<TutorialBanner tutorial={tutorial} key={index} />)
             })}
         </div>
